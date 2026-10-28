@@ -1,5 +1,5 @@
-import { Icon } from "@opencode/ui/icon"
-import { Loader } from "@opencode/ui/loader"
+import { Icon } from "@nytrix/ui/icon"
+import { Loader } from "@nytrix/ui/loader"
 import { useLanguage } from "@/runtime/i18n/language"
 import { Show } from "solid-js"
 import type { ServerHealth } from "@/runtime/server/health"

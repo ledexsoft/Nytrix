@@ -7,13 +7,13 @@ import {
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@opencode/ui/project-avatar"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Button } from "@opencode/ui/button"
-import { Loader } from "@opencode/ui/loader"
-import { Menu } from "@opencode/ui/menu"
-import { Tooltip } from "@opencode/ui/tooltip"
+} from "@nytrix/ui/project-avatar"
+import { Icon } from "@nytrix/ui/icon"
+import { IconButton } from "@nytrix/ui/icon-button"
+import { Button } from "@nytrix/ui/button"
+import { Loader } from "@nytrix/ui/loader"
+import { Menu } from "@nytrix/ui/menu"
+import { Tooltip } from "@nytrix/ui/tooltip"
 import type { HomeProjectSelection, LocalProject } from "@/shell/state/layout"
 import { ServerConnection } from "@/runtime/server/registry"
 import { useLanguage } from "@/runtime/i18n/language"

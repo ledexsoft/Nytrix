@@ -1,7 +1,7 @@
 export * as WorkerdProfile from "./workerd"
 
-import type { Config } from "@opencode/schema/config"
-import { ServerWorkerd } from "@opencode/server/workerd"
+import type { Config } from "@nytrix/schema/config"
+import { ServerWorkerd } from "@nytrix/server/workerd"
 
 export type Configuration = Omit<typeof Config.Info.Encoded, "plugins">
 

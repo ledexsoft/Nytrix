@@ -1,5 +1,5 @@
-import { createSimpleContext } from "@opencode/ui/context"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { createSimpleContext } from "@nytrix/ui/context"
+import { useDialog } from "@nytrix/ui/context/dialog"
 import { type Accessor, batch, createEffect, createMemo, onCleanup, onMount, untrack } from "solid-js"
 import { createStore, produce, reconcile } from "solid-js/store"
 import { Predicate, Schema } from "effect"

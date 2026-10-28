@@ -26,9 +26,9 @@ describe("CLI frontend import boundaries", () => {
   })
 
   test("exposes only the intentional package entrypoints", async () => {
-    const run = await import("@opencode/cli/run")
-    const mini = await import("@opencode/tui/mini")
-    const tool = await import("@opencode/tui/mini/tool")
+    const run = await import("@nytrix/cli/run")
+    const mini = await import("@nytrix/tui/mini")
+    const tool = await import("@nytrix/tui/mini/tool")
     const cli = await Bun.file(path.join(root, "packages/cli/package.json")).json()
 
     expect(Object.keys(run).sort()).toEqual(["runNonInteractive", "runV1Bridge"])

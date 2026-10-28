@@ -1,6 +1,6 @@
 import { EOL } from "node:os"
-import { isConflictError, type CredentialCreateInput } from "@opencode/client"
-import { CredentialLegacy } from "@opencode/schema/credential-legacy"
+import { isConflictError, type CredentialCreateInput } from "@nytrix/client"
+import { CredentialLegacy } from "@nytrix/schema/credential-legacy"
 import { Effect, Option, Schema } from "effect"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"

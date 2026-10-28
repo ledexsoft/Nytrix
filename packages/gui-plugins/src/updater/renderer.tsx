@@ -1,8 +1,8 @@
-import { showToast } from "@opencode/ui/toast"
+import { showToast } from "@nytrix/ui/toast"
 import { lazy, onCleanup, Suspense } from "solid-js"
-import { Command, SettingsPage, TitlebarItem, type SetupContext, type Plugin } from "@opencode/plugin/gui"
-import { onIdle } from "@opencode/plugin/gui/builtin"
-import { Updater } from "@opencode/plugin/gui/updater"
+import { Command, SettingsPage, TitlebarItem, type SetupContext, type Plugin } from "@nytrix/plugin/gui"
+import { onIdle } from "@nytrix/plugin/gui/builtin"
+import { Updater } from "@nytrix/plugin/gui/updater"
 import { updaterAction } from "./action"
 import type definition from "./index"
 

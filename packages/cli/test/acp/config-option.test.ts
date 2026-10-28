@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
-import { Agent } from "@opencode/schema/agent"
-import { Model } from "@opencode/schema/model"
-import { Provider } from "@opencode/schema/provider"
+import { Agent } from "@nytrix/schema/agent"
+import { Model } from "@nytrix/schema/model"
+import { Provider } from "@nytrix/schema/provider"
 import type { Catalog } from "../../src/acp/catalog"
 import { configOptions, parseModelSelection } from "../../src/acp/config-option"
 

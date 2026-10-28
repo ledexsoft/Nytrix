@@ -1,9 +1,9 @@
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogFooter, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { Icon } from "@opencode/ui/icon"
-import { showToast, toaster } from "@opencode/ui/toast"
-import type { DialogHandle, IpcClient, SetupContext } from "@opencode/plugin/gui"
-import type { Updater } from "@opencode/plugin/gui/updater"
+import { Button } from "@nytrix/ui/button"
+import { Dialog, DialogFooter, DialogHeader, DialogTitleGroup } from "@nytrix/ui/dialog"
+import { Icon } from "@nytrix/ui/icon"
+import { showToast, toaster } from "@nytrix/ui/toast"
+import type { DialogHandle, IpcClient, SetupContext } from "@nytrix/plugin/gui"
+import type { Updater } from "@nytrix/plugin/gui/updater"
 import type definition from "./index"
 
 type Client = IpcClient<typeof Updater.spec>

@@ -1,15 +1,15 @@
-import { Instance } from "@opencode/core/instance/service"
-import { Session } from "@opencode/core/session"
-import { SessionStats } from "@opencode/core/session/stats"
-import { SessionTitle } from "@opencode/core/session/title"
-import { SessionTransfer } from "@opencode/core/session/transfer"
-import { InstructionEntry } from "@opencode/core/session/instruction-entry"
-import { Form } from "@opencode/core/form"
+import { Instance } from "@nytrix/core/instance/service"
+import { Session } from "@nytrix/core/session"
+import { SessionStats } from "@nytrix/core/session/stats"
+import { SessionTitle } from "@nytrix/core/session/title"
+import { SessionTransfer } from "@nytrix/core/session/transfer"
+import { InstructionEntry } from "@nytrix/core/session/instruction-entry"
+import { Form } from "@nytrix/core/form"
 import { DateTime, Effect, Stream } from "effect"
 import { HttpServerResponse } from "effect/http"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
-import { SessionMediaMessageResponse } from "@opencode/protocol/groups/message"
-import { SessionMediaInboxResponse } from "@opencode/protocol/groups/session"
+import { SessionMediaMessageResponse } from "@nytrix/protocol/groups/message"
+import { SessionMediaInboxResponse } from "@nytrix/protocol/groups/session"
 import { Api } from "../api"
 import { wantsMediaRefs } from "../media-uri"
 import {
@@ -25,8 +25,8 @@ import {
   ServiceUnavailableError,
   SessionBusyError,
   SkillNotFoundError,
-} from "@opencode/protocol/errors"
-import { AbsolutePath } from "@opencode/core/schema"
+} from "@nytrix/protocol/errors"
+import { AbsolutePath } from "@nytrix/core/schema"
 import { locationErrors } from "../location"
 import { failedMessageDecode, failedSnapshot, missingMessage, missingSession } from "./session-error"
 

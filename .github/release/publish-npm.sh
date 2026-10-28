@@ -7,12 +7,12 @@
 npm_dir=$1
 shift
 targets="linux-arm64 linux-x64 linux-x64-baseline linux-arm64-musl linux-x64-musl linux-x64-baseline-musl darwin-arm64 darwin-x64 darwin-x64-baseline windows-arm64 windows-x64 windows-x64-baseline"
-expected="@opencode/cli"
-for target in $targets; do expected="$expected @opencode/cli-$target"; done
-for lib in schema codemode theme ai util protocol client plugin plugin-browser core simulation server sdk ui; do expected="$expected @opencode/$lib"; done
+expected="@nytrix/cli"
+for target in $targets; do expected="$expected @nytrix/cli-$target"; done
+for lib in schema codemode theme ai util protocol client plugin plugin-browser core simulation server sdk ui; do expected="$expected @nytrix/$lib"; done
 if [ "$OPENCODE_CHANNEL" != latest ]; then
-  expected="$expected @opencode/cli-node"
-  for target in linux-arm64 linux-x64 darwin-arm64 windows-arm64 windows-x64; do expected="$expected @opencode/cli-node-$target"; done
+  expected="$expected @nytrix/cli-node"
+  for target in linux-arm64 linux-x64 darwin-arm64 windows-arm64 windows-x64; do expected="$expected @nytrix/cli-node-$target"; done
 fi
 
 if ! dry_run; then
@@ -35,18 +35,18 @@ for file in "${files[@]}"; do
   # The signed copy of a macOS or Windows CLI package replaces the unsigned one from the build.
   if cut -f1 "$list" | grep -qxF -- "$name"; then continue; fi
   case "$name:$file" in
-    @opencode/cli-darwin-*:"$npm_dir"/* | @opencode/cli-windows-*:"$npm_dir"/*) die "$name is not signed" ;;
+    @nytrix/cli-darwin-*:"$npm_dir"/* | @nytrix/cli-windows-*:"$npm_dir"/*) die "$name is not signed" ;;
   esac
   [ "$version" = "$OPENCODE_VERSION" ] || die "$name has version $version, expected $OPENCODE_VERSION"
   [ "$config" = false ] || die "$name sets publishConfig beyond access"
-  [ "$install" = false ] || [ "$name" = @opencode/cli ] || [ "$name" = @opencode/cli-node ] || die "$name has an install script"
+  [ "$install" = false ] || [ "$name" = @nytrix/cli ] || [ "$name" = @nytrix/cli-node ] || die "$name has an install script"
   printf '%s\t%s\n' "$name" "$file" >> "$list"
 done
 for name in $expected; do cut -f1 "$list" | grep -qxF -- "$name" || die "Missing package $name"; done
 
 # The CLI wrappers resolve their platform packages, so they publish last.
 order=$(mktemp)
-{ grep -vP '^@opencode/cli(-node)?\t' "$list" || true; grep -P '^@opencode/cli(-node)?\t' "$list"; } > "$order"
+{ grep -vP '^@nytrix/cli(-node)?\t' "$list" || true; grep -P '^@nytrix/cli(-node)?\t' "$list"; } > "$order"
 cat "$order"
 
 # A clean directory and config, so nothing from an artifact can redirect the registry.

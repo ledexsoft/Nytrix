@@ -1,8 +1,8 @@
 export * as WarmingPlugin from "./warming.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
-import type { SessionHooks } from "@opencode/plugin/effect/session"
-import type { Session } from "@opencode/schema/session"
+import { define } from "@nytrix/plugin/effect/plugin"
+import type { SessionHooks } from "@nytrix/plugin/effect/session"
+import type { Session } from "@nytrix/schema/session"
 import { Clock, Duration, Effect, Scope, Stream } from "effect"
 import { Config } from "../config.js"
 

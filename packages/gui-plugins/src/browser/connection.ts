@@ -1,5 +1,5 @@
-import type { Browser } from "@opencode/plugin-browser/rpc"
-import type { IpcClient } from "@opencode/plugin/gui"
+import type { Browser } from "@nytrix/plugin-browser/rpc"
+import type { IpcClient } from "@nytrix/plugin/gui"
 import type { BrowserPane, PaneEvent } from "./ipc"
 
 type Client = IpcClient<(typeof BrowserPane)["spec"]>

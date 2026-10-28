@@ -5,10 +5,10 @@ import path from "path"
 import { Cause, Context, Deferred, Effect, Exit, Layer, Option, Schedule, Schema } from "effect"
 import { ChildProcess } from "effect/process"
 import { AbsolutePath, RelativePath } from "./schema.js"
-import { FSUtil } from "@opencode/util/fs-util"
-import { AppProcess } from "@opencode/util/process"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { FileDiff } from "@opencode/schema/file-diff"
+import { FSUtil } from "@nytrix/util/fs-util"
+import { AppProcess } from "@nytrix/util/process"
+import { makeGlobalNode } from "@nytrix/util/effect/app-node"
+import { FileDiff } from "@nytrix/schema/file-diff"
 import { KeyedMutex } from "./effect/keyed-mutex.js"
 import { VcsPatch } from "./vcs/patch.js"
 import { gitExecutable } from "./util/git-executable.js"
@@ -200,7 +200,7 @@ export interface Interface {
   }
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Git") {}
+export class Service extends Context.Service<Service, Interface>()("@nytrix/Git") {}
 
 const layer = Layer.effect(
   Service,

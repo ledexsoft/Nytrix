@@ -1,4 +1,4 @@
-import type { OpenCodeClient } from "@opencode/client/promise"
+import type { OpenCodeClient } from "@nytrix/client/promise"
 import type { Schema } from "effect"
 
 /**

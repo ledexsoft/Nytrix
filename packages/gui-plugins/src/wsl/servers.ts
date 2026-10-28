@@ -1,4 +1,4 @@
-import type { MainContext } from "@opencode/plugin/gui/main"
+import type { MainContext } from "@nytrix/plugin/gui/main"
 import type {
   WslDistroProbe,
   WslJob,

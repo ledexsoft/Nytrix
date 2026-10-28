@@ -1,14 +1,14 @@
 import { describe, expect, test } from "bun:test"
 import { Effect, Schedule } from "effect"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http"
-import { Credential } from "@opencode/core/credential"
-import { Integration } from "@opencode/core/integration"
-import { Model } from "@opencode/core/model"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { Provider } from "@opencode/core/provider"
-import { ProviderPlugins } from "@opencode/core/plugin/provider"
-import { DigitalOceanPlugin } from "@opencode/core/plugin/provider/digitalocean"
+import { Credential } from "@nytrix/core/credential"
+import { Integration } from "@nytrix/core/integration"
+import { Model } from "@nytrix/core/model"
+import { Plugin } from "@nytrix/core/plugin"
+import { PluginHost } from "@nytrix/core/plugin/host"
+import { Provider } from "@nytrix/core/provider"
+import { ProviderPlugins } from "@nytrix/core/plugin/provider"
+import { DigitalOceanPlugin } from "@nytrix/core/plugin/provider/digitalocean"
 import { drain } from "../lib/clock"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "./fixture"
@@ -37,7 +37,7 @@ const discovery = Effect.gen(function* () {
   const models = yield* Model.Service
   yield* providers.transform((draft) => {
     draft.update(providerID, (provider) => {
-      provider.package = "@opencode/ai/providers/openai-compatible"
+      provider.package = "@nytrix/ai/providers/openai-compatible"
       provider.settings = { baseURL: "https://inference.do-ai.run/v1" }
     })
     draft.models.update(providerID, Model.ID.make("snapshot-model"), () => {})
@@ -108,7 +108,7 @@ describe("DigitalOceanPlugin", () => {
       expect(yield* fixture.models.get(providerID, Model.ID.make("router:alpha"))).toMatchObject({
         name: "alpha",
         family: "digitalocean-inference-routers",
-        package: "@opencode/ai/providers/openai-compatible",
+        package: "@nytrix/ai/providers/openai-compatible",
         settings: { baseURL: "https://inference.do-ai.run/v1" },
         capabilities: { tools: true, input: ["text"], output: ["text"] },
         limit: { context: 128_000, output: 8_192 },

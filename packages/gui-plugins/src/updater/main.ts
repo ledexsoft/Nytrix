@@ -1,8 +1,8 @@
 import { dialog } from "electron"
 import { Effect, Exit, Schema, Scope } from "effect"
-import { builtinMainContext } from "@opencode/plugin/gui/builtin"
-import { MenubarItem, type Plugin } from "@opencode/plugin/gui/main"
-import { Updater } from "@opencode/plugin/gui/updater"
+import { builtinMainContext } from "@nytrix/plugin/gui/builtin"
+import { MenubarItem, type Plugin } from "@nytrix/plugin/gui/main"
+import { Updater } from "@nytrix/plugin/gui/updater"
 import { logContext } from "./log"
 import { make } from "./machine"
 

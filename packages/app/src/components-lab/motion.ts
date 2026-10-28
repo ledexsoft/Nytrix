@@ -1,5 +1,5 @@
-import { motionGlobals, motionPresets, motionTuning, type MotionKnob } from "@opencode/ui/motion-tuning"
-import { applyMotion, motionField } from "@opencode/ui/motion-tuning-fields"
+import { motionGlobals, motionPresets, motionTuning, type MotionKnob } from "@nytrix/ui/motion-tuning"
+import { applyMotion, motionField } from "@nytrix/ui/motion-tuning-fields"
 import { action, type Field, type Values } from "knobs"
 
 /**

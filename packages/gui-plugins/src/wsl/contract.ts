@@ -1,5 +1,5 @@
 import { Schema } from "effect"
-import { Ipc } from "@opencode/plugin/gui"
+import { Ipc } from "@nytrix/plugin/gui"
 
 export const WslServerConfig = Schema.Struct({ id: Schema.String, distro: Schema.String })
 

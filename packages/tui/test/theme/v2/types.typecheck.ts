@@ -1,5 +1,5 @@
-import { selectTheme } from "@opencode/theme/tui"
-import type { BackgroundDefinition, TextDefinition, ThemeDefinition, ThemeDocument } from "@opencode/theme/tui"
+import { selectTheme } from "@nytrix/theme/tui"
+import type { BackgroundDefinition, TextDefinition, ThemeDefinition, ThemeDocument } from "@nytrix/theme/tui"
 import { getOpenCodeTheme } from "../../../src/theme"
 
 const text = {

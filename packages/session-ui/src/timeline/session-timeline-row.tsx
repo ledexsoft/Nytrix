@@ -3,8 +3,8 @@ import type {
   SessionMessageInfo,
   SessionMessageUser,
   SessionStatus,
-} from "@opencode/client/promise"
-import { useI18n } from "@opencode/ui/context/i18n"
+} from "@nytrix/client/promise"
+import { useI18n } from "@nytrix/ui/context/i18n"
 import { Option, Predicate, Schema } from "effect"
 import {
   For,
@@ -18,10 +18,10 @@ import {
   type Accessor,
   type JSX,
 } from "solid-js"
-import { DiffChanges } from "@opencode/ui/diff-changes"
-import { Icon } from "@opencode/ui/icon"
-import { Spring, frameLoop, prefersReducedMotion } from "@opencode/ui/motion"
-import { springStyle } from "@opencode/ui/motion/solid"
+import { DiffChanges } from "@nytrix/ui/diff-changes"
+import { Icon } from "@nytrix/ui/icon"
+import { Spring, frameLoop, prefersReducedMotion } from "@nytrix/ui/motion"
+import { springStyle } from "@nytrix/ui/motion/solid"
 import { Dynamic } from "solid-js/web"
 import type { SessionUserActions, SessionUserAttachmentReference, SessionUserComment } from "../actions"
 import { useData } from "../context"

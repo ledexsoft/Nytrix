@@ -174,7 +174,7 @@ else
         exit 1
     fi
 
-    package_scope="@opencode"
+    package_scope="@nytrix"
     if [ -z "$requested_version" ]; then
         metadata=$(curl -fsSL https://opencode.ai/update/api/latest/cli/npm || true)
         specific_version=$(echo "$metadata" | sed -n 's/.*"version":"\([^"]*\)".*/\1/p')

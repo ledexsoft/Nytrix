@@ -1,5 +1,5 @@
-import { Switch } from "@opencode/ui/switch"
-import { usePlugin } from "@opencode/plugin/gui"
+import { Switch } from "@nytrix/ui/switch"
+import { usePlugin } from "@nytrix/plugin/gui"
 import type Review from "./index"
 
 /** The narrow-screen diff wrap row of the host's General settings section, in the host's settings row markup. */

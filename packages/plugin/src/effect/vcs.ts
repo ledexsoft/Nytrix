@@ -1,6 +1,6 @@
-import type { VcsApi } from "@opencode/client/effect/api"
-import type { FileDiff } from "@opencode/schema/file-diff"
-import type { Vcs } from "@opencode/schema/vcs"
+import type { VcsApi } from "@nytrix/client/effect/api"
+import type { FileDiff } from "@nytrix/schema/file-diff"
+import type { Vcs } from "@nytrix/schema/vcs"
 import type { Effect } from "effect"
 import type { Transform } from "./registration.js"
 

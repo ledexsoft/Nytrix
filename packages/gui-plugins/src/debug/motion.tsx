@@ -2,10 +2,10 @@ import { createMemo, createSignal, Index, onCleanup, onMount, Show } from "solid
 import { Portal } from "solid-js/web"
 import { createRemoteControls, type ControlDescriptor, type State, type Value } from "knobs"
 import { KnobsPanel } from "knobs/solid"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { springStyle } from "@opencode/ui/motion/solid"
-import { motionPresets, motionTuning, type MotionKnob } from "@opencode/ui/motion-tuning"
+import { Icon } from "@nytrix/ui/icon"
+import { IconButton } from "@nytrix/ui/icon-button"
+import { springStyle } from "@nytrix/ui/motion/solid"
+import { motionPresets, motionTuning, type MotionKnob } from "@nytrix/ui/motion-tuning"
 import {
   activeFeaturePreset,
   applyFeaturePreset,
@@ -16,9 +16,9 @@ import {
   reset,
   resetFeature,
   type MotionFeature,
-} from "@opencode/ui/motion-tuning-features"
-import { applyMotion } from "@opencode/ui/motion-tuning-fields"
-import { usePlugin } from "@opencode/plugin/gui"
+} from "@nytrix/ui/motion-tuning-features"
+import { applyMotion } from "@nytrix/ui/motion-tuning-fields"
+import { usePlugin } from "@nytrix/plugin/gui"
 
 // Where the panel was dragged to, as an offset from its bottom-right home, its width, and the feature it last showed;
 // kept per device.

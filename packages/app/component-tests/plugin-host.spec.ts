@@ -1,8 +1,8 @@
 import type { Component, Owner } from "solid-js"
-import type { PluginInfo } from "@opencode/client/promise"
-import type { Context, Contract, DialogHandle, Dialogs, Live, SessionRef, SessionScreen } from "@opencode/plugin/gui"
-import type { BuiltinPanelTab } from "@opencode/plugin/gui/builtin"
-import type { Bridge, BridgeMessage, EnableState, Installed } from "@opencode/plugin/gui/host"
+import type { PluginInfo } from "@nytrix/client/promise"
+import type { Context, Contract, DialogHandle, Dialogs, Live, SessionRef, SessionScreen } from "@nytrix/plugin/gui"
+import type { BuiltinPanelTab } from "@nytrix/plugin/gui/builtin"
+import type { Bridge, BridgeMessage, EnableState, Installed } from "@nytrix/plugin/gui/host"
 import { expect, sourceURL, story } from "../../stories/playwright/story"
 
 const fixture = sourceURL(new URL("./plugin-host.fixture.tsx", import.meta.url))

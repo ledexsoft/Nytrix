@@ -1,10 +1,10 @@
 import { createSignal, Show } from "solid-js"
 import { render } from "solid-js/web"
-import { DialogProvider } from "@opencode/ui/context/dialog"
+import { DialogProvider } from "@nytrix/ui/context/dialog"
 import { Markdown } from "../src/components/markdown"
 import { preloadMarkdown } from "../src/components/markdown-cache"
 import { MarkdownProvider, type MarkdownLocalFileExists } from "../src/context/markdown"
-import { OpenCode } from "@opencode/client/promise"
+import { OpenCode } from "@nytrix/client/promise"
 import { readLocalImage } from "../../app/src/runtime/server/image"
 
 export {

@@ -1,5 +1,5 @@
-import type { Data } from "@opencode/client/solid"
-import type { OpenCodeEvent, SessionInfo } from "@opencode/client/promise"
+import type { Data } from "@nytrix/client/solid"
+import type { OpenCodeEvent, SessionInfo } from "@nytrix/client/promise"
 import { onCleanup } from "solid-js"
 import { createStore } from "solid-js/store"
 import { uuid } from "@/runtime/persistence/uuid"

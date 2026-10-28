@@ -1,17 +1,17 @@
-import { Generate } from "@opencode/core/generate"
-import { Location } from "@opencode/core/location"
-import { LocationServiceMap } from "@opencode/core/location-services"
-import { AbsolutePath } from "@opencode/core/schema"
+import { Generate } from "@nytrix/core/generate"
+import { Location } from "@nytrix/core/location"
+import { LocationServiceMap } from "@nytrix/core/location-services"
+import { AbsolutePath } from "@nytrix/core/schema"
 import {
   InvalidRequestError,
   ModelNotFoundError,
   ProviderRequestError,
   ServiceUnavailableError,
   UnsupportedModelError,
-} from "@opencode/protocol/errors"
-import type { DecisionRequest, ImageRequest } from "@opencode/schema/generate"
-import { Global } from "@opencode/util/global"
-import { Model } from "@opencode/schema/model"
+} from "@nytrix/protocol/errors"
+import type { DecisionRequest, ImageRequest } from "@nytrix/schema/generate"
+import { Global } from "@nytrix/util/global"
+import { Model } from "@nytrix/schema/model"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/http-api"
 import { Api } from "../api"

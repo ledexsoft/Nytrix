@@ -4,8 +4,8 @@ import type {
   ElicitationSchema,
   EnumOption,
 } from "@agentclientprotocol/sdk"
-import type { OpenCodeClient } from "@opencode/client/effect"
-import { Form } from "@opencode/schema/form"
+import type { OpenCodeClient } from "@nytrix/client/effect"
+import { Form } from "@nytrix/schema/form"
 import { Effect, Option, Schema } from "effect"
 import type { Capabilities } from "./capabilities"
 import { ACPChild } from "./child"

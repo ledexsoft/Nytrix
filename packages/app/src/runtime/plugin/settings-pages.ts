@@ -1,5 +1,5 @@
 import { createMemo } from "solid-js"
-import { SettingsPage } from "@opencode/plugin/gui"
+import { SettingsPage } from "@nytrix/plugin/gui"
 import { usePluginHost } from "./host"
 
 /** The settings pages plugins contribute. */

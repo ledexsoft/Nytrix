@@ -1,20 +1,20 @@
 import { describe, expect } from "bun:test"
-import { Money } from "@opencode/schema/money"
-import { Document, Info, type Entry } from "@opencode/schema/config"
+import { Money } from "@nytrix/schema/money"
+import { Document, Info, type Entry } from "@nytrix/schema/config"
 import { Effect, Schema } from "effect"
-import { Config } from "@opencode/core/config"
-import { ConfigProviderPlugin } from "@opencode/core/config/plugin/provider"
-import { ConfigNormalize } from "@opencode/core/config/normalize"
-import { Integration } from "@opencode/core/integration"
-import { Model } from "@opencode/core/model"
-import { ModelResolver } from "@opencode/core/model-resolver"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { AzurePlugin } from "@opencode/core/plugin/provider/azure"
-import { OpenAIPlugin } from "@opencode/core/plugin/provider/openai"
-import { PromptCacheKeyPlugin } from "@opencode/core/plugin/provider/prompt-cache-key"
-import { XAIPlugin } from "@opencode/core/plugin/provider/xai"
-import { Provider } from "@opencode/core/provider"
+import { Config } from "@nytrix/core/config"
+import { ConfigProviderPlugin } from "@nytrix/core/config/plugin/provider"
+import { ConfigNormalize } from "@nytrix/core/config/normalize"
+import { Integration } from "@nytrix/core/integration"
+import { Model } from "@nytrix/core/model"
+import { ModelResolver } from "@nytrix/core/model-resolver"
+import { Plugin } from "@nytrix/core/plugin"
+import { PluginHost } from "@nytrix/core/plugin/host"
+import { AzurePlugin } from "@nytrix/core/plugin/provider/azure"
+import { OpenAIPlugin } from "@nytrix/core/plugin/provider/openai"
+import { PromptCacheKeyPlugin } from "@nytrix/core/plugin/provider/prompt-cache-key"
+import { XAIPlugin } from "@nytrix/core/plugin/provider/xai"
+import { Provider } from "@nytrix/core/provider"
 import { withEnv } from "../fixture/env"
 import { testEffect } from "../lib/effect"
 import { PluginTestLayer } from "../plugin/fixture"
@@ -45,18 +45,18 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               custom: {
-                package: "@opencode/ai/providers/openai/responses",
+                package: "@nytrix/ai/providers/openai/responses",
                 settings: { compaction: { type: "native" } },
                 models: {
                   native: {},
                   local: {
                     settings: { compaction: { type: "summary" } },
-                    package: "@opencode/ai/providers/openai/chat",
+                    package: "@nytrix/ai/providers/openai/chat",
                   },
-                  unsupported: { package: "@opencode/ai/providers/openai/chat" },
+                  unsupported: { package: "@nytrix/ai/providers/openai/chat" },
                 },
               },
-              default: { package: "@opencode/ai/providers/openai/chat", models: { chat: {} } },
+              default: { package: "@nytrix/ai/providers/openai/chat", models: { chat: {} } },
             },
           }),
         }),
@@ -86,7 +86,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("proxy")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/openai/chat"
+          provider.package = "@nytrix/ai/providers/openai/chat"
         })
         editor.models.update(providerID, Model.ID.make("catalog"), () => {})
       })
@@ -141,7 +141,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("venice")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/openai-compatible"
+          provider.package = "@nytrix/ai/providers/openai-compatible"
         })
         editor.models.update(providerID, Model.ID.make("chat"), () => {})
         editor.models.update(providerID, Model.ID.make("keyed"), () => {})
@@ -182,7 +182,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               litellm: {
-                package: "@opencode/ai/providers/openai-compatible",
+                package: "@nytrix/ai/providers/openai-compatible",
                 settings: { baseURL: "https://litellm.test/v1" },
                 compatibility: { cacheFormat: "anthropic" },
                 models: { "claude-sonnet-5": {} },
@@ -205,7 +205,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("proxy")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/openai/chat"
+          provider.package = "@nytrix/ai/providers/openai/chat"
         })
         editor.models.update(providerID, Model.ID.make("catalog"), (model) => {
           model.compatibility = { maxTokensField: "max_tokens" }
@@ -248,7 +248,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const providerID = Provider.ID.make("strict")
       yield* providers.transform((editor) => {
         editor.update(providerID, (provider) => {
-          provider.package = "@opencode/ai/providers/openai-compatible"
+          provider.package = "@nytrix/ai/providers/openai-compatible"
           provider.settings = { baseURL: "https://strict.test/v1" }
         })
         editor.models.update(providerID, Model.ID.make("catalog"), () => {})
@@ -276,7 +276,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           info: decode({
             providers: {
               custom: {
-                package: "@opencode/ai/providers/openai/responses",
+                package: "@nytrix/ai/providers/openai/responses",
                 settings: { transport: "http", timeout: 100, chunkTimeout: 200, shared: "provider" },
                 models: {
                   inherited: {
@@ -284,7 +284,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
                   },
                 },
               },
-              default: { package: "@opencode/ai/providers/openai/responses", models: { untouched: {} } },
+              default: { package: "@nytrix/ai/providers/openai/responses", models: { untouched: {} } },
             },
           }),
         }),
@@ -298,10 +298,10 @@ describe("ConfigProviderPlugin.Plugin", () => {
   )
 
   for (const builtin of [
-    { id: "openai", model: "gpt-5.6-sol", package: "@opencode/ai/providers/openai/responses", plugin: OpenAIPlugin },
-    { id: "xai", model: "grok-4.6", package: "@opencode/ai/providers/xai", plugin: XAIPlugin },
-    { id: "azure", model: "gpt-5.6-sol", package: "@opencode/ai/providers/azure/responses", plugin: AzurePlugin },
-    { id: "custom-azure", model: "deployment", package: "@opencode/ai/providers/azure/responses", plugin: AzurePlugin },
+    { id: "openai", model: "gpt-5.6-sol", package: "@nytrix/ai/providers/openai/responses", plugin: OpenAIPlugin },
+    { id: "xai", model: "grok-4.6", package: "@nytrix/ai/providers/xai", plugin: XAIPlugin },
+    { id: "azure", model: "gpt-5.6-sol", package: "@nytrix/ai/providers/azure/responses", plugin: AzurePlugin },
+    { id: "custom-azure", model: "deployment", package: "@nytrix/ai/providers/azure/responses", plugin: AzurePlugin },
   ]) {
     it.live(`configured provider transport overrides ${builtin.id} defaults`, () =>
       Effect.gen(function* () {
@@ -679,16 +679,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
     {
       name: "built-in provider routes",
       legacy: {
-        npm: "@opencode/ai/providers/google-vertex",
+        npm: "@nytrix/ai/providers/google-vertex",
         options: { project: "my-project", location: "europe-west4" },
         models: {
           chat: { provider: { npm: "@opencode-ai/ai/providers/google-vertex/mistral" } },
         },
       },
       native: {
-        package: "@opencode/ai/providers/google-vertex",
+        package: "@nytrix/ai/providers/google-vertex",
         settings: { project: "my-project", location: "europe-west4" },
-        models: { chat: { package: "@opencode/ai/providers/google-vertex/mistral" } },
+        models: { chat: { package: "@nytrix/ai/providers/google-vertex/mistral" } },
       },
     },
     {
@@ -807,7 +807,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       ])
 
       const model = required(yield* models.get(Provider.ID.make("custom"), Model.ID.make("claude")))
-      expect(model.package).toBe("@opencode/ai/providers/anthropic")
+      expect(model.package).toBe("@nytrix/ai/providers/anthropic")
       expect(model.variants.map((variant) => variant.id)).toEqual([
         Model.VariantID.make("low"),
         Model.VariantID.make("medium"),
@@ -826,7 +826,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const modelID = Model.ID.make("anthropic.claude-opus-5-5")
       yield* providers.transform((editor) => {
         editor.models.update(providerID, modelID, (model) => {
-          model.package = "@opencode/ai/providers/amazon-bedrock"
+          model.package = "@nytrix/ai/providers/amazon-bedrock"
           model.variants = [
             {
               id: Model.VariantID.make("high"),
@@ -840,14 +840,14 @@ describe("ConfigProviderPlugin.Plugin", () => {
           type: "document",
           info: decode({
             providers: {
-              bedrock: { models: { [modelID]: { package: "@opencode/ai/providers/amazon-bedrock/mantle" } } },
+              bedrock: { models: { [modelID]: { package: "@nytrix/ai/providers/amazon-bedrock/mantle" } } },
             },
           }),
         }),
       ])
 
       const model = required(yield* models.get(providerID, modelID))
-      expect(model.package).toBe("@opencode/ai/providers/amazon-bedrock/mantle/messages")
+      expect(model.package).toBe("@nytrix/ai/providers/amazon-bedrock/mantle/messages")
       expect(model.variants.find((variant) => variant.id === "high")).toEqual({
         id: Model.VariantID.make("high"),
         settings: { effort: "high", thinking: { type: "adaptive", display: "summarized" } },
@@ -863,7 +863,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
       const modelID = Model.ID.make("anthropic.claude-plain")
       yield* providers.transform((editor) => {
         editor.models.update(providerID, modelID, (model) => {
-          model.package = "@opencode/ai/providers/amazon-bedrock"
+          model.package = "@nytrix/ai/providers/amazon-bedrock"
         })
       })
       yield* addPlugin([
@@ -871,7 +871,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
           type: "document",
           info: decode({
             providers: {
-              bedrock: { models: { [modelID]: { package: "@opencode/ai/providers/amazon-bedrock/mantle" } } },
+              bedrock: { models: { [modelID]: { package: "@nytrix/ai/providers/amazon-bedrock/mantle" } } },
             },
           }),
         }),
@@ -937,16 +937,16 @@ describe("ConfigProviderPlugin.Plugin", () => {
         },
       ])
       const gpt = required(yield* models.get(providerID, Model.ID.make("gpt")))
-      expect(gpt.package).toBe("@opencode/ai/providers/openai")
+      expect(gpt.package).toBe("@nytrix/ai/providers/openai")
       expect(gpt.variants).toEqual(effort.variants)
       const claude = required(yield* models.get(providerID, Model.ID.make("claude-sonnet-4-5")))
-      expect(claude.package).toBe("@opencode/ai/providers/anthropic")
+      expect(claude.package).toBe("@nytrix/ai/providers/anthropic")
       expect(claude.variants).toEqual([
         { id: Model.VariantID.make("high"), settings: { thinking: { type: "enabled", budgetTokens: 16_000 } } },
         { id: Model.VariantID.make("max"), settings: { thinking: { type: "enabled", budgetTokens: 31_999 } } },
       ])
       const gemini = required(yield* models.get(providerID, Model.ID.make("gemini-3.1-pro")))
-      expect(gemini.package).toBe("@opencode/ai/providers/google")
+      expect(gemini.package).toBe("@nytrix/ai/providers/google")
       expect(gemini.variants).toEqual([
         {
           id: Model.VariantID.make("low"),
@@ -958,7 +958,7 @@ describe("ConfigProviderPlugin.Plugin", () => {
         },
       ])
       const magistral = required(yield* models.get(providerID, Model.ID.make("magistral-medium")))
-      expect(magistral.package).toBe("@opencode/ai/providers/mistral")
+      expect(magistral.package).toBe("@nytrix/ai/providers/mistral")
       expect(magistral.variants).toEqual([
         { id: Model.VariantID.make("low"), settings: { reasoningEffort: "low" } },
         { id: Model.VariantID.make("high"), settings: { reasoningEffort: "high" } },

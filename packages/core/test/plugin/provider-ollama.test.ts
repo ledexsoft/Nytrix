@@ -1,15 +1,15 @@
-import { Bus } from "@opencode/core/bus"
-import { Config } from "@opencode/core/config"
-import { Environment, makeFiles } from "@opencode/core/environment/index"
-import { EnvironmentUnavailable } from "@opencode/core/environment/unavailable"
-import { Integration } from "@opencode/core/integration"
-import { Model } from "@opencode/core/model"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { OllamaPlugin, make } from "@opencode/core/plugin/provider/ollama"
-import { ProviderPlugins } from "@opencode/core/plugin/provider"
-import { Provider } from "@opencode/core/provider"
-import { Document, Event, Info } from "@opencode/schema/config"
+import { Bus } from "@nytrix/core/bus"
+import { Config } from "@nytrix/core/config"
+import { Environment, makeFiles } from "@nytrix/core/environment/index"
+import { EnvironmentUnavailable } from "@nytrix/core/environment/unavailable"
+import { Integration } from "@nytrix/core/integration"
+import { Model } from "@nytrix/core/model"
+import { Plugin } from "@nytrix/core/plugin"
+import { PluginHost } from "@nytrix/core/plugin/host"
+import { OllamaPlugin, make } from "@nytrix/core/plugin/provider/ollama"
+import { ProviderPlugins } from "@nytrix/core/plugin/provider"
+import { Provider } from "@nytrix/core/provider"
+import { Document, Event, Info } from "@nytrix/schema/config"
 import { describe, expect } from "bun:test"
 import { Duration, Effect, Layer, Schema } from "effect"
 import { testEffect } from "../lib/effect"
@@ -114,7 +114,7 @@ describe("OllamaPlugin", () => {
             id: providerID,
             name: "Ollama",
             activation: "enabled",
-            package: "@opencode/ai/providers/openai-compatible",
+            package: "@nytrix/ai/providers/openai-compatible",
             settings: { baseURL: `${server.url.origin}/v1`, provider: "ollama", apiKey: "" },
           })
           expect(model).toMatchObject({
@@ -222,7 +222,7 @@ describe("OllamaPlugin", () => {
           yield* providers.transform((editor) => {
             editor.update(providerID, (provider) => {
               provider.name = "Ollama"
-              provider.package = "@opencode/ai/providers/openai-compatible"
+              provider.package = "@nytrix/ai/providers/openai-compatible"
               provider.integrationID = Integration.ID.make("ollama")
             })
             editor.models.update(providerID, Model.ID.make("static-model"), () => {})

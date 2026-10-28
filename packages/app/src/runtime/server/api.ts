@@ -4,7 +4,7 @@ import {
   type OpenCodeClient,
   type SessionInboxListInput,
   type SessionMessageGetInput,
-} from "@opencode/client/promise"
+} from "@nytrix/client/promise"
 import type { ServerConnection } from "@/runtime/server/registry"
 import { decode64 } from "@/runtime/persistence/base64"
 

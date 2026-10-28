@@ -1,9 +1,9 @@
 import path from "path"
 import { describe, expect, test } from "bun:test"
-import type { ConfigDiscovery } from "@opencode/core/config/discovery"
-import { ConfigWatch } from "@opencode/core/config/watch"
-import { AbsolutePath } from "@opencode/core/schema"
-import { FSUtil } from "@opencode/util/fs-util"
+import type { ConfigDiscovery } from "@nytrix/core/config/discovery"
+import { ConfigWatch } from "@nytrix/core/config/watch"
+import { AbsolutePath } from "@nytrix/core/schema"
+import { FSUtil } from "@nytrix/util/fs-util"
 
 const project = path.resolve("watch-plan-project")
 const root = AbsolutePath.make(path.join(project, ".opencode"))

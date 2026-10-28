@@ -1,5 +1,5 @@
-import { Browser } from "@opencode/plugin-browser/rpc"
-import { DialogProvider } from "@opencode/ui/context/dialog"
+import { Browser } from "@nytrix/plugin-browser/rpc"
+import { DialogProvider } from "@nytrix/ui/context/dialog"
 import {
   batch,
   createSignal,
@@ -20,7 +20,7 @@ import {
   type Bridge,
   type BridgeLayout,
   type Entry,
-} from "@opencode/plugin/gui/host"
+} from "@nytrix/plugin/gui/host"
 import {
   type Appearance,
   type App,
@@ -43,7 +43,7 @@ import {
   type SetupContext,
   type Storage,
   type Workspaces,
-} from "@opencode/plugin/gui"
+} from "@nytrix/plugin/gui"
 import barStyles from "./bar.css?inline"
 import type { History } from "./history"
 import browserEn from "./i18n/en"
@@ -53,7 +53,7 @@ import SessionBrowserPane from "./panel"
 import { BrowserPane, type PaneEvent } from "./ipc"
 import { pageShortcut } from "./keys"
 import { refusal } from "./policy"
-import { type BuiltinLayout } from "@opencode/plugin/gui/builtin"
+import { type BuiltinLayout } from "@nytrix/plugin/gui/builtin"
 
 /** The renderer host pieces the pane runs on, passed in by `packages/app/component-tests/browser-pane.spec.ts`. */
 type PaneHost = {

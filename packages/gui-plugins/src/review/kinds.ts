@@ -1,5 +1,5 @@
-import type { FileDiffInfo } from "@opencode/client/promise"
-import type { ChangeKind } from "@opencode/plugin/gui/review"
+import type { FileDiffInfo } from "@nytrix/client/promise"
+import type { ChangeKind } from "@nytrix/plugin/gui/review"
 import { Match, Predicate } from "effect"
 
 export type RenderDiff = FileDiffInfo

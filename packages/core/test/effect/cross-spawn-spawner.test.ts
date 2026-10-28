@@ -4,9 +4,9 @@ import os from "node:os"
 import path from "node:path"
 import { Deferred, Effect, Exit, PlatformError, Stream } from "effect"
 import { ChildProcess, ChildProcessSpawner } from "effect/process"
-import { CrossSpawnSpawner } from "@opencode/util/cross-spawn-spawner"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Teardown } from "@opencode/util/teardown"
+import { CrossSpawnSpawner } from "@nytrix/util/cross-spawn-spawner"
+import { LayerNode } from "@nytrix/util/effect/layer-node"
+import { Teardown } from "@nytrix/util/teardown"
 import { testEffect } from "../lib/effect"
 
 const live = LayerNode.compile(CrossSpawnSpawner.node)

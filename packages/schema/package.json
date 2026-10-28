@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/schema",
+  "name": "@nytrix/schema",
   "version": "2.2.0",
   "type": "module",
   "license": "MIT",

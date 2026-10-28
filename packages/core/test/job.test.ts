@@ -1,11 +1,11 @@
 import { describe, expect } from "bun:test"
-import { Job } from "@opencode/core/job"
-import { KV } from "@opencode/core/kv"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { Integration } from "@opencode/core/integration"
-import { LayerNode } from "@opencode/util/effect/layer-node"
+import { Job } from "@nytrix/core/job"
+import { KV } from "@nytrix/core/kv"
+import { AppNodeBuilder } from "@nytrix/core/effect/app-node-builder"
+import { Integration } from "@nytrix/core/integration"
+import { LayerNode } from "@nytrix/util/effect/layer-node"
 import { Cause, Deferred, Effect, Exit, Fiber, Scope } from "effect"
-import { SessionSchema } from "@opencode/core/session/schema"
+import { SessionSchema } from "@nytrix/core/session/schema"
 import { testEffect } from "./lib/effect"
 
 const it = testEffect(AppNodeBuilder.build(LayerNode.group([Job.node, KV.node])))

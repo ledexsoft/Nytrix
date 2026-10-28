@@ -1,19 +1,19 @@
-import { Badge } from "@opencode/ui/badge"
-import { Dialog, DialogBody } from "@opencode/ui/dialog"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { Icon } from "@opencode/ui/icon"
-import { Keybind } from "@opencode/ui/keybind"
+import { Badge } from "@nytrix/ui/badge"
+import { Dialog, DialogBody } from "@nytrix/ui/dialog"
+import { useDialog } from "@nytrix/ui/context/dialog"
+import { Icon } from "@nytrix/ui/icon"
+import { Keybind } from "@nytrix/ui/keybind"
 import {
   displayName,
   getProjectAvatarGenerated,
   getProjectAvatarSource,
   getProjectAvatarVariant,
   ProjectAvatar,
-} from "@opencode/ui/project-avatar"
-import { TextInput } from "@opencode/ui/text-input"
-import { createTypeahead } from "@opencode/ui/typeahead"
+} from "@nytrix/ui/project-avatar"
+import { TextInput } from "@nytrix/ui/text-input"
+import { createTypeahead } from "@nytrix/ui/typeahead"
 import { createEventListener } from "@solid-primitives/event-listener"
-import { getFilename } from "@opencode/util/path"
+import { getFilename } from "@nytrix/util/path"
 import { createEffect, createMemo, createResource, For, Match, onCleanup, Show, Switch } from "solid-js"
 import { createStore } from "solid-js/store"
 import type { PromptProject, PromptProjectController, PromptServer } from "@/new-session/project/selector"

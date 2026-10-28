@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "@opencode/protocol",
+  "name": "@nytrix/protocol",
   "version": "2.2.0",
   "type": "module",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "typecheck:tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@opencode/schema": "workspace:*",
+    "@nytrix/schema": "workspace:*",
     "effect": "catalog:"
   },
   "devDependencies": {

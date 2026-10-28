@@ -1,12 +1,12 @@
 export * as SdkInstances from "./instances"
 
-import { Instance } from "@opencode/core/instance"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
-import { Plugin } from "@opencode/core/plugin"
-import type { InstancePlugins } from "@opencode/core/plugin/instance"
-import type { Session } from "@opencode/schema/session"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import type { LayerNode } from "@opencode/util/effect/layer-node"
+import { Instance } from "@nytrix/core/instance"
+import { LocationServiceMap } from "@nytrix/core/location-service-map"
+import { Plugin } from "@nytrix/core/plugin"
+import type { InstancePlugins } from "@nytrix/core/plugin/instance"
+import type { Session } from "@nytrix/schema/session"
+import { makeGlobalNode } from "@nytrix/util/effect/app-node"
+import type { LayerNode } from "@nytrix/util/effect/layer-node"
 import { Context, Duration, Effect, Layer, LayerMap, RcMap, Scope } from "effect"
 
 export interface Configuration {

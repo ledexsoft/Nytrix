@@ -6,10 +6,10 @@
  */
 export * as EditTool from "./edit.js"
 
-import type { Context } from "@opencode/plugin/effect/plugin"
-import { ToolFailure } from "@opencode/ai/effect"
-import { FileDiff } from "@opencode/schema/file-diff"
-import { Bom } from "@opencode/util/bom"
+import type { Context } from "@nytrix/plugin/effect/plugin"
+import { ToolFailure } from "@nytrix/ai/effect"
+import { FileDiff } from "@nytrix/schema/file-diff"
+import { Bom } from "@nytrix/util/bom"
 import { Effect, Schema } from "effect"
 import { Environment } from "../../environment/index.js"
 import { FileMutation } from "../../file-mutation.js"

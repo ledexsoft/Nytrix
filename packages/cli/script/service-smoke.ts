@@ -1,8 +1,8 @@
 #!/usr/bin/env bun
 
 import { NodeFileSystem } from "@effect/platform-node"
-import { Service } from "@opencode/client/effect/service"
-import { ServerInfo } from "@opencode/protocol/groups/server"
+import { Service } from "@nytrix/client/effect/service"
+import { ServerInfo } from "@nytrix/protocol/groups/server"
 import { Effect, Schema } from "effect"
 import fs from "node:fs/promises"
 import os from "node:os"

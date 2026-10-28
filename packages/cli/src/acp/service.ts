@@ -1,9 +1,9 @@
-import type { OpenCodeClient } from "@opencode/client/effect"
-import { AbsolutePath } from "@opencode/schema/schema"
-import { Session } from "@opencode/schema/session"
-import { FSUtil } from "@opencode/util/fs-util"
+import type { OpenCodeClient } from "@nytrix/client/effect"
+import { AbsolutePath } from "@nytrix/schema/schema"
+import { Session } from "@nytrix/schema/session"
+import { FSUtil } from "@nytrix/util/fs-util"
 import { DateTime, Effect, Ref, Schema } from "effect"
-import { withTimestampedFallback } from "@opencode/util/session-title-fallback"
+import { withTimestampedFallback } from "@nytrix/util/session-title-fallback"
 import type {
   AuthenticateRequest,
   AuthenticateResponse,

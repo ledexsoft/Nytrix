@@ -53,7 +53,7 @@ export function gui(options: GuiOptions = {}): Plugin[] {
       resolveId(source) {
         if (provided.has(source) || source === "electron" || isBuiltin(source)) return { id: source, external: true }
 
-        if (/^(effect|solid-js|@opencode)\//.test(source))
+        if (/^(effect|solid-js|@nytrix)\//.test(source))
           this.error(`${source} is not a module the OpenCode app provides to plugin GUIs: ${[...provided].join(", ")}`)
       },
     },

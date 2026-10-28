@@ -1,6 +1,6 @@
-@import "@opencode/ui/styles/tailwind";
-@import "@opencode/session-ui/styles";
-@import "@opencode/ui/styles/tokens";
+@import "@nytrix/ui/styles/tailwind";
+@import "@nytrix/session-ui/styles";
+@import "@nytrix/ui/styles/tokens";
 @import "tw-animate-css";
 
 @font-face {

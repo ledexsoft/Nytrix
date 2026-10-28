@@ -1,6 +1,6 @@
 export * as McpCodeModeDefaultsPlugin from "./mcp-codemode-defaults.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@nytrix/plugin/effect/plugin"
 import { Effect } from "effect"
 
 // Defaults that make known MCP servers work well with OpenCode Code Mode, so a server's own Code Mode never ends up

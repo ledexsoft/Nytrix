@@ -1,5 +1,5 @@
-import { Agent } from "@opencode/schema/agent"
-import { Permission } from "@opencode/schema/permission"
+import { Agent } from "@nytrix/schema/agent"
+import { Permission } from "@nytrix/schema/permission"
 import { Schema } from "effect"
 
 export const AssertInput = Schema.Struct({

@@ -1,5 +1,5 @@
-import type { ShellOutputInput, ShellOutputOutput } from "@opencode/client/promise"
-import { followShellOutput } from "@opencode/session-ui/tools/shell-output"
+import type { ShellOutputInput, ShellOutputOutput } from "@nytrix/client/promise"
+import { followShellOutput } from "@nytrix/session-ui/tools/shell-output"
 import { createEffect, createSignal, on, onCleanup } from "solid-js"
 import { createStore } from "solid-js/store"
 import type { SessionActivityItem } from "./activity-chips"

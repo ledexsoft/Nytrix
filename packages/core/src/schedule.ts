@@ -2,8 +2,8 @@ export * as Schedule from "./schedule.js"
 
 import { and, asc, eq, gt, isNull, lte, min, or } from "drizzle-orm"
 import { Cause, Clock, Context, Cron, DateTime, Effect, Latch, Layer, Option, Result, Schema } from "effect"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { Schedule as ScheduleSchema } from "@opencode/schema/schedule"
+import { makeGlobalNode } from "@nytrix/util/effect/app-node"
+import { Schedule as ScheduleSchema } from "@nytrix/schema/schedule"
 import { Config } from "./config.js"
 import { Database } from "./database/database.js"
 import { Instance } from "./instance/service.js"
@@ -55,7 +55,7 @@ export interface Interface {
   readonly run: Effect.Effect<never>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Schedule") {}
+export class Service extends Context.Service<Service, Interface>()("@nytrix/Schedule") {}
 
 type Row = typeof ScheduleTable.$inferSelect
 

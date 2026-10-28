@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { Button } from "@opencode/ui/button"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Button } from "@nytrix/ui/button"
+import { useDialog } from "@nytrix/ui/context/dialog"
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query"
 import { onMount } from "solid-js"
 import { DialogConnectProvider, useProviderConnectController } from "./dialog"

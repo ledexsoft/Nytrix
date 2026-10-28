@@ -1,11 +1,11 @@
 import { createMemo, ErrorBoundary, For, onMount, Show, untrack, type JSX, type ParentProps } from "solid-js"
 import { Portal } from "solid-js/web"
-import { MarkdownProvider, useMarkdown } from "@opencode/session-ui/context/markdown"
-import { SourcesProvider } from "@opencode/session-ui/context/sources"
-import { sourcesExperiment } from "@opencode/session-ui/sources/experiment"
-import { Style, type MountedSession } from "@opencode/plugin/gui"
-import { BuiltinSlot, type BuiltinSlotMap } from "@opencode/plugin/gui/builtin"
-import { PluginContext } from "@opencode/plugin/gui/host"
+import { MarkdownProvider, useMarkdown } from "@nytrix/session-ui/context/markdown"
+import { SourcesProvider } from "@nytrix/session-ui/context/sources"
+import { sourcesExperiment } from "@nytrix/session-ui/sources/experiment"
+import { Style, type MountedSession } from "@nytrix/plugin/gui"
+import { BuiltinSlot, type BuiltinSlotMap } from "@nytrix/plugin/gui/builtin"
+import { PluginContext } from "@nytrix/plugin/gui/host"
 import { usePluginHost } from "./host"
 
 /**

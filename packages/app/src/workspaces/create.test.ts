@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
-import { OpenCode } from "@opencode/client/promise"
-import { createData } from "@opencode/client/solid"
+import { OpenCode } from "@nytrix/client/promise"
+import { createData } from "@nytrix/client/solid"
 import { createRoot } from "solid-js"
 import { createWorktree } from "./create"
 

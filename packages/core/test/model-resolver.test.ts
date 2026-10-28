@@ -1,18 +1,18 @@
 import { describe, expect } from "bun:test"
-import { LLM, LanguageModel, Message } from "@opencode/ai/effect"
-import { OpenAIChat } from "@opencode/ai/protocols"
-import { compileRequest } from "@opencode/ai/testing"
+import { LLM, LanguageModel, Message } from "@nytrix/ai/effect"
+import { OpenAIChat } from "@nytrix/ai/protocols"
+import { compileRequest } from "@nytrix/ai/testing"
 import { ConfigProvider, Effect, Layer } from "effect"
 import { Headers } from "effect/http"
-import { AISDKNative } from "@opencode/core/aisdk-native"
-import { Credential } from "@opencode/core/credential"
-import { Integration } from "@opencode/core/integration"
-import { Compatibility, ID, Info, Model, VariantID } from "@opencode/core/model"
-import { Provider } from "@opencode/core/provider"
-import { Variant } from "@opencode/core/variant"
-import { ModelResolver } from "@opencode/core/model-resolver"
-import { AISDK } from "@opencode/core/aisdk"
-import { Npm } from "@opencode/util/npm"
+import { AISDKNative } from "@nytrix/core/aisdk-native"
+import { Credential } from "@nytrix/core/credential"
+import { Integration } from "@nytrix/core/integration"
+import { Compatibility, ID, Info, Model, VariantID } from "@nytrix/core/model"
+import { Provider } from "@nytrix/core/provider"
+import { Variant } from "@nytrix/core/variant"
+import { ModelResolver } from "@nytrix/core/model-resolver"
+import { AISDK } from "@nytrix/core/aisdk"
+import { Npm } from "@nytrix/util/npm"
 import { it } from "./lib/effect"
 
 interface ModelOptions {
@@ -355,13 +355,13 @@ describe("ModelResolver", () => {
         settings: { baseURL: "https://mistral.example.com/v1" },
         headers: { "cf-access-token": "access-token" },
       }),
-      model("@opencode/ai/providers/mistral", {
+      model("@nytrix/ai/providers/mistral", {
         providerID: Provider.ID.make("gateway"),
         settings: { baseURL: "https://native-mistral.example.com/v1" },
         headers: { "cf-access-token": "access-token" },
       }),
       ...["baseten", "cloudflare-ai-gateway", "cloudflare-workers-ai", "deepseek", "fireworks"].map((name) =>
-        model(`@opencode/ai/providers/${name}`, {
+        model(`@nytrix/ai/providers/${name}`, {
           providerID: Provider.ID.make("gateway"),
           settings: { baseURL: `https://${name}.example.com/v1` },
           headers: { "cf-access-token": "access-token" },
@@ -603,7 +603,7 @@ describe("ModelResolver", () => {
 
   it.effect("sends xAI Responses effort variants with reasoning summaries", () =>
     Effect.gen(function* () {
-      const base = model("@opencode/ai/providers/xai", { providerID: Provider.ID.make("xai"), modelID: "grok-4.6" })
+      const base = model("@nytrix/ai/providers/xai", { providerID: Provider.ID.make("xai"), modelID: "grok-4.6" })
       const catalog = Info.make({
         ...base,
         variants: Variant.resolve(base, [{ type: "effort", values: ["low", "high"] }]),
@@ -831,7 +831,7 @@ describe("ModelResolver", () => {
   it.effect("applies plugin-projected OpenAI endpoint and headers", () =>
     Effect.gen(function* () {
       const resolved = yield* ModelResolver.fromCatalogModel(
-        model("@opencode/ai/providers/openai", {
+        model("@nytrix/ai/providers/openai", {
           settings: { baseURL: "https://chatgpt.com/backend-api/codex" },
           headers: { "chatgpt-account-id": "acct_123" },
           body: {},
@@ -881,7 +881,7 @@ describe("ModelResolver", () => {
   it.effect("does not route native OpenAI-compatible packages to the codex backend", () =>
     Effect.gen(function* () {
       const resolved = yield* ModelResolver.fromCatalogModel(
-        model("@opencode/ai/providers/openai-compatible", {
+        model("@nytrix/ai/providers/openai-compatible", {
           settings: { baseURL: "https://compatible.example/v1" },
         }),
         Credential.OAuth.make({
@@ -954,7 +954,7 @@ describe("ModelResolver", () => {
         }),
       )
       const resolved = yield* ModelResolver.fromCatalogModel(
-        model("@opencode/ai/providers/custom", {
+        model("@nytrix/ai/providers/custom", {
           settings: { region: "test" },
           headers: { "x-package": "header" },
           body: { custom: true },
@@ -962,7 +962,7 @@ describe("ModelResolver", () => {
         undefined,
         {
           loadPackage: (specifier) => {
-            expect(specifier).toBe("@opencode/ai/providers/custom")
+            expect(specifier).toBe("@nytrix/ai/providers/custom")
             return Effect.succeed({
               model: (modelID, settings) => {
                 expect(modelID).toBe("api-test-model")
@@ -997,14 +997,14 @@ describe("ModelResolver", () => {
         expires: Date.now() + 60_000,
       })
       const packages = [
-        ["@opencode/ai/providers/google-vertex", "accessToken"],
-        ["@opencode/ai/providers/google-vertex/gemini", "accessToken"],
-        ["@opencode/ai/providers/google-vertex/interactions", "accessToken"],
-        ["@opencode/ai/providers/google-vertex/chat", "accessToken"],
-        ["@opencode/ai/providers/google-vertex/responses", "accessToken"],
-        ["@opencode/ai/providers/google-vertex/messages", "accessToken"],
-        ["@opencode/ai/providers/anthropic", "authToken"],
-        ["@opencode/ai/providers/anthropic-compatible", "authToken"],
+        ["@nytrix/ai/providers/google-vertex", "accessToken"],
+        ["@nytrix/ai/providers/google-vertex/gemini", "accessToken"],
+        ["@nytrix/ai/providers/google-vertex/interactions", "accessToken"],
+        ["@nytrix/ai/providers/google-vertex/chat", "accessToken"],
+        ["@nytrix/ai/providers/google-vertex/responses", "accessToken"],
+        ["@nytrix/ai/providers/google-vertex/messages", "accessToken"],
+        ["@nytrix/ai/providers/anthropic", "authToken"],
+        ["@nytrix/ai/providers/anthropic-compatible", "authToken"],
       ] as const
 
       yield* Effect.forEach(packages, ([specifier, key]) =>
@@ -1028,7 +1028,7 @@ describe("ModelResolver", () => {
       const packages = [
         [
           "@ai-sdk/openai",
-          "@opencode/ai/providers/openai",
+          "@nytrix/ai/providers/openai",
           {
             reasoningEffort: "xhigh",
             reasoningSummary: "auto",
@@ -1042,55 +1042,55 @@ describe("ModelResolver", () => {
         ],
         [
           "@ai-sdk/anthropic",
-          "@opencode/ai/providers/anthropic",
+          "@nytrix/ai/providers/anthropic",
           { thinking: { type: "adaptive", display: "summarized" }, effort: "high" },
           { thinking: { type: "adaptive", display: "summarized" }, effort: "high" },
         ],
         [
           "@ai-sdk/cerebras",
-          "@opencode/ai/providers/cerebras",
+          "@nytrix/ai/providers/cerebras",
           { reasoningEffort: "high" },
           { reasoningEffort: "high" },
         ],
         [
           "@ai-sdk/deepinfra",
-          "@opencode/ai/providers/deepinfra",
+          "@nytrix/ai/providers/deepinfra",
           { reasoningEffort: "none" },
           { reasoningEffort: "none" },
         ],
         [
           "@ai-sdk/openai-compatible",
-          "@opencode/ai/providers/openai-compatible",
+          "@nytrix/ai/providers/openai-compatible",
           { reasoningEffort: "high" },
           { reasoningEffort: "high" },
         ],
         [
           "@ai-sdk/google",
-          "@opencode/ai/providers/google",
+          "@nytrix/ai/providers/google",
           { thinkingConfig: { thinkingLevel: "high" } },
           { thinkingConfig: { thinkingLevel: "high" } },
         ],
         [
           "@ai-sdk/google-vertex",
-          "@opencode/ai/providers/google-vertex",
+          "@nytrix/ai/providers/google-vertex",
           { thinkingConfig: { thinkingLevel: "high" } },
           { thinkingConfig: { thinkingLevel: "high" } },
         ],
         [
           "@openrouter/ai-sdk-provider",
-          "@opencode/ai/providers/openrouter",
+          "@nytrix/ai/providers/openrouter",
           { reasoning: { effort: "high" } },
           { reasoning: { effort: "high" } },
         ],
         [
           "@ai-sdk/groq",
-          "@opencode/ai/providers/groq",
+          "@nytrix/ai/providers/groq",
           { reasoningEffort: "high", parallelToolCalls: false },
           { reasoningEffort: "high", parallelToolCalls: false },
         ],
         [
           "@ai-sdk/mistral",
-          "@opencode/ai/providers/mistral",
+          "@nytrix/ai/providers/mistral",
           {
             safePrompt: true,
             documentImageLimit: 4,
@@ -1108,11 +1108,11 @@ describe("ModelResolver", () => {
         ],
         [
           "@ai-sdk/togetherai",
-          "@opencode/ai/providers/togetherai",
+          "@nytrix/ai/providers/togetherai",
           { reasoningEffort: "high" },
           { reasoningEffort: "high" },
         ],
-        ["@ai-sdk/xai", "@opencode/ai/providers/xai", { reasoningEffort: "high" }, { reasoningEffort: "high" }],
+        ["@ai-sdk/xai", "@nytrix/ai/providers/xai", { reasoningEffort: "high" }, { reasoningEffort: "high" }],
       ] as const
 
       yield* Effect.forEach(packages, ([catalogPackage, nativePackage, sourceOptions, providerOptions]) =>
@@ -1151,25 +1151,25 @@ describe("ModelResolver", () => {
   it.effect("never loads the AI SDK for packages with native implementations", () =>
     Effect.gen(function* () {
       const packages = [
-        ["@ai-sdk/alibaba", "@opencode/ai/providers/alibaba/chat", "api-model"],
-        ["@ai-sdk/anthropic", "@opencode/ai/providers/anthropic", "api-model"],
-        ["@ai-sdk/amazon-bedrock", "@opencode/ai/providers/amazon-bedrock", "api-model"],
-        ["@ai-sdk/amazon-bedrock/mantle", "@opencode/ai/providers/amazon-bedrock/mantle/chat", "openai.gpt-oss-120b"],
-        ["@ai-sdk/azure", "@opencode/ai/providers/azure/responses", "api-model"],
-        ["@ai-sdk/cerebras", "@opencode/ai/providers/cerebras", "api-model"],
-        ["@ai-sdk/deepinfra", "@opencode/ai/providers/deepinfra", "api-model"],
-        ["@ai-sdk/google", "@opencode/ai/providers/google", "api-model"],
-        ["@ai-sdk/google-vertex", "@opencode/ai/providers/google-vertex", "api-model"],
-        ["@ai-sdk/google-vertex/anthropic", "@opencode/ai/providers/google-vertex/messages", "claude-sonnet-4-6"],
-        ["@ai-sdk/groq", "@opencode/ai/providers/groq", "api-model"],
-        ["@ai-sdk/mistral", "@opencode/ai/providers/mistral", "api-model"],
-        ["@ai-sdk/openai", "@opencode/ai/providers/openai", "api-model"],
-        ["@ai-sdk/openai-compatible", "@opencode/ai/providers/openai-compatible", "api-model"],
-        ["@openrouter/ai-sdk-provider", "@opencode/ai/providers/openrouter", "api-model"],
-        ["@ai-sdk/togetherai", "@opencode/ai/providers/togetherai", "api-model"],
-        ["@ai-sdk/gateway", "@opencode/ai/providers/vercel-ai-gateway", "openai/gpt-5.4"],
-        ["@ai-sdk/xai", "@opencode/ai/providers/xai", "api-model"],
-        ["ai-gateway-provider", "@opencode/ai/providers/cloudflare-ai-gateway", "xai/grok-4.6"],
+        ["@ai-sdk/alibaba", "@nytrix/ai/providers/alibaba/chat", "api-model"],
+        ["@ai-sdk/anthropic", "@nytrix/ai/providers/anthropic", "api-model"],
+        ["@ai-sdk/amazon-bedrock", "@nytrix/ai/providers/amazon-bedrock", "api-model"],
+        ["@ai-sdk/amazon-bedrock/mantle", "@nytrix/ai/providers/amazon-bedrock/mantle/chat", "openai.gpt-oss-120b"],
+        ["@ai-sdk/azure", "@nytrix/ai/providers/azure/responses", "api-model"],
+        ["@ai-sdk/cerebras", "@nytrix/ai/providers/cerebras", "api-model"],
+        ["@ai-sdk/deepinfra", "@nytrix/ai/providers/deepinfra", "api-model"],
+        ["@ai-sdk/google", "@nytrix/ai/providers/google", "api-model"],
+        ["@ai-sdk/google-vertex", "@nytrix/ai/providers/google-vertex", "api-model"],
+        ["@ai-sdk/google-vertex/anthropic", "@nytrix/ai/providers/google-vertex/messages", "claude-sonnet-4-6"],
+        ["@ai-sdk/groq", "@nytrix/ai/providers/groq", "api-model"],
+        ["@ai-sdk/mistral", "@nytrix/ai/providers/mistral", "api-model"],
+        ["@ai-sdk/openai", "@nytrix/ai/providers/openai", "api-model"],
+        ["@ai-sdk/openai-compatible", "@nytrix/ai/providers/openai-compatible", "api-model"],
+        ["@openrouter/ai-sdk-provider", "@nytrix/ai/providers/openrouter", "api-model"],
+        ["@ai-sdk/togetherai", "@nytrix/ai/providers/togetherai", "api-model"],
+        ["@ai-sdk/gateway", "@nytrix/ai/providers/vercel-ai-gateway", "openai/gpt-5.4"],
+        ["@ai-sdk/xai", "@nytrix/ai/providers/xai", "api-model"],
+        ["ai-gateway-provider", "@nytrix/ai/providers/cloudflare-ai-gateway", "xai/grok-4.6"],
       ] as const
 
       yield* Effect.forEach(packages, ([catalogPackage, nativePackage, modelID]) =>
@@ -1217,7 +1217,7 @@ describe("ModelResolver", () => {
         credential,
         {
           loadPackage: (specifier) => {
-            expect(specifier).toBe("@opencode/ai/providers/google-vertex/messages")
+            expect(specifier).toBe("@nytrix/ai/providers/google-vertex/messages")
             return Effect.succeed({
               model: (modelID, settings) => {
                 expect(modelID).toBe("claude-sonnet-4-6")
@@ -1348,7 +1348,7 @@ describe("ModelResolver", () => {
         }),
       )
       const workers = yield* ModelResolver.fromCatalogModel(
-        model("@opencode/ai/providers/cloudflare-workers-ai", {
+        model("@nytrix/ai/providers/cloudflare-workers-ai", {
           modelID: "@cf/meta/llama-3.1-8b-instruct",
         }),
         Credential.Key.make({
@@ -1537,7 +1537,7 @@ describe("ModelResolver", () => {
         _tag: "SessionRunnerModel.ModelConfigurationError",
         providerID: "azure",
         modelID: "test-model",
-        package: "@opencode/ai/providers/azure/responses",
+        package: "@nytrix/ai/providers/azure/responses",
         detail: "Azure requires resourceName or baseURL",
       })
       expect(failure.message).toBe("Cannot initialize azure/test-model: Azure requires resourceName or baseURL")
@@ -1546,7 +1546,7 @@ describe("ModelResolver", () => {
 
   it.effect("distinguishes unexpected constructor failures from configuration errors", () =>
     Effect.gen(function* () {
-      const failure = yield* ModelResolver.fromCatalogModel(model("@opencode/ai/providers/custom"), undefined, {
+      const failure = yield* ModelResolver.fromCatalogModel(model("@nytrix/ai/providers/custom"), undefined, {
         loadPackage: () =>
           Effect.succeed({
             model: () => {
@@ -1565,7 +1565,7 @@ describe("ModelResolver", () => {
 
   it.effect("reports package load and AISDK initialization failures with their causes", () =>
     Effect.gen(function* () {
-      const load = yield* ModelResolver.fromCatalogModel(model("@opencode/ai/providers/custom"), undefined, {
+      const load = yield* ModelResolver.fromCatalogModel(model("@nytrix/ai/providers/custom"), undefined, {
         loadPackage: (specifier) =>
           Effect.fail(
             new Provider.LoadError({ package: specifier, cause: new Error(`Provider package ${specifier} is broken`) }),
@@ -1574,7 +1574,7 @@ describe("ModelResolver", () => {
       expect(load).toMatchObject({
         _tag: "SessionRunnerModel.ModelInitializationError",
         phase: "load",
-        detail: "Provider package @opencode/ai/providers/custom is broken",
+        detail: "Provider package @nytrix/ai/providers/custom is broken",
       })
 
       const init = yield* ModelResolver.fromCatalogModel(model(Provider.aisdk("@ai-sdk/perplexity")), undefined, {
@@ -1618,7 +1618,7 @@ describe("ModelResolver", () => {
   it.effect("reports whether a catalog model declares a provider package", () =>
     Effect.sync(() => {
       expect(ModelResolver.hasPackage(model(Provider.aisdk("@ai-sdk/openai")))).toBe(true)
-      expect(ModelResolver.hasPackage(model("@opencode/ai/providers/custom"))).toBe(true)
+      expect(ModelResolver.hasPackage(model("@nytrix/ai/providers/custom"))).toBe(true)
       expect(ModelResolver.hasPackage(model(undefined))).toBe(false)
     }),
   )

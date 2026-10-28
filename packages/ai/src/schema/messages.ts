@@ -1,6 +1,6 @@
 import { Option, Schema } from "effect"
-import { withStatics } from "@opencode/schema/schema"
-import { Tool } from "@opencode/schema/tool"
+import { withStatics } from "@nytrix/schema/schema"
+import { Tool } from "@nytrix/schema/tool"
 import {
   CacheHint,
   CachePolicy,

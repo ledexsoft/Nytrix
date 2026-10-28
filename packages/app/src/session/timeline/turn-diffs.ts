@@ -1,5 +1,5 @@
-import type { FileDiffInfo } from "@opencode/client/promise"
-import type { TurnDiffInput } from "@opencode/session-ui/context"
+import type { FileDiffInfo } from "@nytrix/client/promise"
+import type { TurnDiffInput } from "@nytrix/session-ui/context"
 import { createStore } from "solid-js/store"
 
 /**

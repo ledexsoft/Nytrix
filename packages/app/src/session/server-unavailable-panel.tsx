@@ -1,5 +1,5 @@
-import { Button } from "@opencode/ui/button"
-import { Icon } from "@opencode/ui/icon"
+import { Button } from "@nytrix/ui/button"
+import { Icon } from "@nytrix/ui/icon"
 import { Show } from "solid-js"
 import { useLanguage } from "@/runtime/i18n/language"
 import { useServer } from "@/runtime/server/current"

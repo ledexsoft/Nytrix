@@ -1,10 +1,10 @@
-import { DiffChanges } from "@opencode/ui/diff-changes"
-import { Icon } from "@opencode/ui/icon"
-import { Menu } from "@opencode/ui/menu"
+import { DiffChanges } from "@nytrix/ui/diff-changes"
+import { Icon } from "@nytrix/ui/icon"
+import { Menu } from "@nytrix/ui/menu"
 import { createMemo, onCleanup, Show } from "solid-js"
-import { createKeyed, usePlugin, type MountedSession, type SessionScreen } from "@opencode/plugin/gui"
+import { createKeyed, usePlugin, type MountedSession, type SessionScreen } from "@nytrix/plugin/gui"
 import type Details from "./index"
-import { Changes } from "@opencode/plugin/gui/review"
+import { Changes } from "@nytrix/plugin/gui/review"
 
 export default function SessionLocationMenu(props: { session: MountedSession; screen: SessionScreen; shown: boolean }) {
   const ctx = usePlugin<typeof Details>()

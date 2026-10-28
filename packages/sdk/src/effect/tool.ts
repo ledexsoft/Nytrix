@@ -1,3 +1,3 @@
-export { RegistrationError } from "@opencode/core/tool"
-export { Error } from "@opencode/schema/tool"
-export type { Context, Info } from "@opencode/schema/tool"
+export { RegistrationError } from "@nytrix/core/tool"
+export { Error } from "@nytrix/schema/tool"
+export type { Context, Info } from "@nytrix/schema/tool"

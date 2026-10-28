@@ -1,34 +1,34 @@
 import { expect, test } from "bun:test"
-import { EnvironmentDriver } from "@opencode/core/environment/driver"
-import { EnvironmentFiles } from "@opencode/core/environment/files"
-import { Location as CoreLocation } from "@opencode/core/location"
-import { WorkspaceDriver } from "@opencode/core/workspace/driver"
-import { SessionInbox as CoreSessionInbox } from "@opencode/core/session/inbox"
-import { SessionMessage as CoreSessionMessage } from "@opencode/core/session/message"
-import { Agent } from "@opencode/schema/agent"
-import { Config } from "@opencode/schema/config"
-import { Event } from "@opencode/schema/event"
-import { Location } from "@opencode/schema/location"
-import { Model } from "@opencode/schema/model"
-import { Project } from "@opencode/schema/project"
-import { Provider } from "@opencode/schema/provider"
-import { WebSearch } from "@opencode/schema/websearch"
-import { Session } from "@opencode/schema/session"
-import { SessionInbox } from "@opencode/schema/session-inbox"
-import { SessionMessage } from "@opencode/schema/session-message"
-import { Workspace } from "@opencode/schema/workspace"
-import { Worktree } from "@opencode/schema/worktree"
-import { Api } from "@opencode/server/api"
-import { ClientApi, groupNames, promiseOmitEndpoints } from "@opencode/protocol/client"
-import { compile, emitPromise } from "@opencode/httpapi-codegen"
+import { EnvironmentDriver } from "@nytrix/core/environment/driver"
+import { EnvironmentFiles } from "@nytrix/core/environment/files"
+import { Location as CoreLocation } from "@nytrix/core/location"
+import { WorkspaceDriver } from "@nytrix/core/workspace/driver"
+import { SessionInbox as CoreSessionInbox } from "@nytrix/core/session/inbox"
+import { SessionMessage as CoreSessionMessage } from "@nytrix/core/session/message"
+import { Agent } from "@nytrix/schema/agent"
+import { Config } from "@nytrix/schema/config"
+import { Event } from "@nytrix/schema/event"
+import { Location } from "@nytrix/schema/location"
+import { Model } from "@nytrix/schema/model"
+import { Project } from "@nytrix/schema/project"
+import { Provider } from "@nytrix/schema/provider"
+import { WebSearch } from "@nytrix/schema/websearch"
+import { Session } from "@nytrix/schema/session"
+import { SessionInbox } from "@nytrix/schema/session-inbox"
+import { SessionMessage } from "@nytrix/schema/session-message"
+import { Workspace } from "@nytrix/schema/workspace"
+import { Worktree } from "@nytrix/schema/worktree"
+import { Api } from "@nytrix/server/api"
+import { ClientApi, groupNames, promiseOmitEndpoints } from "@nytrix/protocol/client"
+import { compile, emitPromise } from "@nytrix/httpapi-codegen"
 
 const SDK = await import("../src/index")
 const SDKEffect = await import("../src/effect")
-const CoreAgent = await import("@opencode/core/agent")
-const CoreModel = await import("@opencode/core/model")
-const CoreProject = await import("@opencode/core/project")
-const CoreSession = await import("@opencode/core/session")
-const CoreWorktree = await import("@opencode/core/worktree")
+const CoreAgent = await import("@nytrix/core/agent")
+const CoreModel = await import("@nytrix/core/model")
+const CoreProject = await import("@nytrix/core/project")
+const CoreSession = await import("@nytrix/core/session")
+const CoreWorktree = await import("@nytrix/core/worktree")
 
 test("re-exports canonical contracts directly from Schema", () => {
   expect(SDK.Agent).toBe(Agent)
@@ -103,7 +103,7 @@ test("client and Server contracts generate identically", () => {
   expect(emitPromise(client)).toEqual(emitPromise(server))
 })
 
-test("re-exports workspace and environment driver contracts from @opencode/sdk/effect", () => {
+test("re-exports workspace and environment driver contracts from @nytrix/sdk/effect", () => {
   expect(SDKEffect.WorkspaceDriver).toBe(WorkspaceDriver)
   expect(SDKEffect.EnvironmentDriver).toBe(EnvironmentDriver)
   expect(SDKEffect.EnvironmentFiles).toBe(EnvironmentFiles)

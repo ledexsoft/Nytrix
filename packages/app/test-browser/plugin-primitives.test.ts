@@ -8,8 +8,8 @@ import {
   type Context,
   type Persisted,
   type SessionRef,
-} from "@opencode/plugin/gui"
-import { liveAccessor, PluginContext } from "@opencode/plugin/gui/host"
+} from "@nytrix/plugin/gui"
+import { liveAccessor, PluginContext } from "@nytrix/plugin/gui/host"
 import type { Platform } from "@/runtime/platform/platform"
 import { flushPersisted } from "@/runtime/persistence/persist"
 import { Persist, persisted, removePersisted } from "@/runtime/persistence/storage"

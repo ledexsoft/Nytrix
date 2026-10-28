@@ -1,15 +1,15 @@
 import { Cause, Context, Duration, Effect, Layer, Option, Result, Schedule, Schema, Semaphore } from "effect"
 import { HttpClient, HttpClientError, HttpClientRequest } from "effect/http"
-import { ConfigProvider } from "@opencode/schema/config/provider"
-import { MaxTokensField, MediaInput } from "@opencode/schema/model-compatibility"
-import { ModelsDev } from "@opencode/schema/models-dev"
-import { Money } from "@opencode/schema/money"
+import { ConfigProvider } from "@nytrix/schema/config/provider"
+import { MaxTokensField, MediaInput } from "@nytrix/schema/model-compatibility"
+import { ModelsDev } from "@nytrix/schema/models-dev"
+import { Money } from "@nytrix/schema/money"
 import { App } from "./app.js"
-import { Hash } from "@opencode/util/hash"
-import { FSUtil } from "@opencode/util/fs-util"
+import { Hash } from "@nytrix/util/hash"
+import { FSUtil } from "@nytrix/util/fs-util"
 import { Bus } from "./bus.js"
-import { makeGlobalNode } from "@opencode/util/effect/app-node"
-import { httpClient } from "@opencode/util/effect/app-node-platform"
+import { makeGlobalNode } from "@nytrix/util/effect/app-node"
+import { httpClient } from "@nytrix/util/effect/app-node-platform"
 import { Model } from "./model.js"
 import { AISDKNative } from "./aisdk-native.js"
 import { Provider } from "./provider.js"
@@ -153,18 +153,18 @@ type Route = {
 // These packages build their URL from provider settings (region, resource, account, project…), which
 // only happens when no baseURL is set. The catalog's URL for them is a template or SDK default.
 const BUILDS_OWN_URL = new Set([
-  "@opencode/ai/providers/amazon-bedrock",
-  "@opencode/ai/providers/azure/chat",
-  "@opencode/ai/providers/azure/images",
-  "@opencode/ai/providers/azure/responses",
-  "@opencode/ai/providers/cloudflare-ai-gateway",
-  "@opencode/ai/providers/cloudflare-ai-gateway/decisions",
-  "@opencode/ai/providers/cloudflare-workers-ai",
-  "@opencode/ai/providers/cloudflare-workers-ai/decisions",
-  "@opencode/ai/providers/cloudflare-workers-ai/images",
-  "@opencode/ai/providers/google-vertex/gemini",
-  "@opencode/ai/providers/google-vertex/images",
-  "@opencode/ai/providers/google-vertex/messages",
+  "@nytrix/ai/providers/amazon-bedrock",
+  "@nytrix/ai/providers/azure/chat",
+  "@nytrix/ai/providers/azure/images",
+  "@nytrix/ai/providers/azure/responses",
+  "@nytrix/ai/providers/cloudflare-ai-gateway",
+  "@nytrix/ai/providers/cloudflare-ai-gateway/decisions",
+  "@nytrix/ai/providers/cloudflare-workers-ai",
+  "@nytrix/ai/providers/cloudflare-workers-ai/decisions",
+  "@nytrix/ai/providers/cloudflare-workers-ai/images",
+  "@nytrix/ai/providers/google-vertex/gemini",
+  "@nytrix/ai/providers/google-vertex/images",
+  "@nytrix/ai/providers/google-vertex/messages",
   "aisdk:@jerome-benoit/sap-ai-provider-v2",
   "aisdk:watsonx-ai-provider",
 ])
@@ -277,10 +277,10 @@ function route(providerID: Provider.ID, model: SourceModel, unknown: Set<string>
   }
 }
 
-// Newer catalogs may name @opencode/ai entrypoints that older builds don't ship, so those count as no package.
+// Newer catalogs may name @nytrix/ai entrypoints that older builds don't ship, so those count as no package.
 function loadable(opencodeai: string | undefined, unknown: Set<string>) {
   const name = Provider.packageName(opencodeai)
-  if (!name?.startsWith("@opencode/ai/") || Provider.builtinPackages.has(name)) return opencodeai
+  if (!name?.startsWith("@nytrix/ai/") || Provider.builtinPackages.has(name)) return opencodeai
   unknown.add(name)
   return undefined
 }
@@ -299,7 +299,7 @@ function released(date: string) {
   return Number.isFinite(time) ? time : 0
 }
 
-const COMPATIBLE = new Set(["@opencode/ai/providers/openai-compatible", "@opencode/ai/providers/anthropic-compatible"])
+const COMPATIBLE = new Set(["@nytrix/ai/providers/openai-compatible", "@nytrix/ai/providers/anthropic-compatible"])
 
 const zero = Money.USDPerMillionTokens.zero
 
@@ -459,7 +459,7 @@ function modelInfo(
   }
 }
 
-export { Event } from "@opencode/schema/models-dev"
+export { Event } from "@nytrix/schema/models-dev"
 
 export interface Interface {
   readonly get: () => Effect.Effect<readonly Snapshot[]>
@@ -474,7 +474,7 @@ export const Options = Schema.Struct({
 })
 export type Options = typeof Options.Type
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/ModelsDev") {}
+export class Service extends Context.Service<Service, Interface>()("@nytrix/ModelsDev") {}
 
 const CatalogJson = Schema.fromJsonString(Schema.Record(Schema.String, Schema.Unknown))
 const decodeCatalog = (text: string) => Schema.decodeUnknownEffect(CatalogJson)(text)

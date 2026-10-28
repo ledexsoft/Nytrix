@@ -1,6 +1,6 @@
-import { showToast, toaster } from "@opencode/ui/toast"
+import { showToast, toaster } from "@nytrix/ui/toast"
 import { lazy, Show, Suspense } from "solid-js"
-import { createKeyed, Command, Slot, type Plugin } from "@opencode/plugin/gui"
+import { createKeyed, Command, Slot, type Plugin } from "@nytrix/plugin/gui"
 import type Debug from "./index"
 import { HeapSnapshots, MemoryDiagnostics } from "./contract"
 

@@ -1,18 +1,18 @@
 import { describe, expect } from "bun:test"
-import { LanguageModel } from "@opencode/ai/effect"
-import { OpenAIChat } from "@opencode/ai/protocols"
+import { LanguageModel } from "@nytrix/ai/effect"
+import { OpenAIChat } from "@nytrix/ai/protocols"
 import { Effect, Fiber, Layer, Ref, Stream } from "effect"
-import { Integration } from "@opencode/core/integration"
-import { Credential } from "@opencode/core/credential"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Bus } from "@opencode/core/bus"
-import { Location } from "@opencode/core/location"
-import { Model } from "@opencode/core/model"
-import { ModelResolver } from "@opencode/core/model-resolver"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Money } from "@opencode/schema/money"
+import { Integration } from "@nytrix/core/integration"
+import { Credential } from "@nytrix/core/credential"
+import { AppNodeBuilder } from "@nytrix/core/effect/app-node-builder"
+import { LayerNode } from "@nytrix/util/effect/layer-node"
+import { Bus } from "@nytrix/core/bus"
+import { Location } from "@nytrix/core/location"
+import { Model } from "@nytrix/core/model"
+import { ModelResolver } from "@nytrix/core/model-resolver"
+import { Provider } from "@nytrix/core/provider"
+import { AbsolutePath } from "@nytrix/core/schema"
+import { Money } from "@nytrix/schema/money"
 import { location } from "./fixture/location"
 import { testEffect } from "./lib/effect"
 
@@ -42,7 +42,7 @@ describe("Provider and Model", () => {
         yield* providers.transform((editor) => editor.update(providerID, () => {}))
         yield* models.transform((editor) =>
           editor.update(providerID, modelID, (model) => {
-            model.package = path === "aisdk" ? Provider.aisdk("@ai-sdk/fixture") : "@opencode/ai/providers/openai"
+            model.package = path === "aisdk" ? Provider.aisdk("@ai-sdk/fixture") : "@nytrix/ai/providers/openai"
             model.settings = {
               apiKey: path === "empty-key" ? "" : "fixture-key",
               baseURL: "https://fixture.example/v1",
@@ -488,12 +488,12 @@ describe("Provider and Model", () => {
       })
 
       expect(required(yield* providers.get(providerID))).toMatchObject({
-        package: "@opencode/ai/providers/amazon-bedrock",
+        package: "@nytrix/ai/providers/amazon-bedrock",
         settings: { region: "us-east-1" },
         body: { tag: "provider" },
       })
       const model = required(yield* models.get(providerID, modelID))
-      expect(model.package).toBe("@opencode/ai/providers/amazon-bedrock")
+      expect(model.package).toBe("@nytrix/ai/providers/amazon-bedrock")
       expect(model.settings).not.toHaveProperty("reasoningConfig")
       expect(model.body).toMatchObject({
         additionalModelRequestFields: { thinking: { type: "adaptive" }, output_config: { effort: "high" } },

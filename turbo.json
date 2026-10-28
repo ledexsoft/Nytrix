@@ -23,20 +23,20 @@
     "typecheck:tsc": {
       "dependsOn": ["transit"]
     },
-    "@opencode/cli#typecheck:tsc": {
-      "dependsOn": ["transit", "@opencode/core#typecheck:tsc"]
+    "@nytrix/cli#typecheck:tsc": {
+      "dependsOn": ["transit", "@nytrix/core#typecheck:tsc"]
     },
-    "@opencode/sdk#typecheck:tsc": {
-      "dependsOn": ["transit", "@opencode/core#typecheck:tsc"]
+    "@nytrix/sdk#typecheck:tsc": {
+      "dependsOn": ["transit", "@nytrix/core#typecheck:tsc"]
     },
-    "@opencode/server#typecheck:tsc": {
-      "dependsOn": ["transit", "@opencode/core#typecheck:tsc"]
+    "@nytrix/server#typecheck:tsc": {
+      "dependsOn": ["transit", "@nytrix/core#typecheck:tsc"]
     },
-    "@opencode/simulation#typecheck:tsc": {
-      "dependsOn": ["transit", "@opencode/core#typecheck:tsc"]
+    "@nytrix/simulation#typecheck:tsc": {
+      "dependsOn": ["transit", "@nytrix/core#typecheck:tsc"]
     },
-    "@opencode/tui#typecheck:tsc": {
-      "dependsOn": ["transit", "@opencode/core#typecheck:tsc"]
+    "@nytrix/tui#typecheck:tsc": {
+      "dependsOn": ["transit", "@nytrix/core#typecheck:tsc"]
     },
     "test:components": {
       "outputs": [],
@@ -57,11 +57,11 @@
       "dependsOn": ["transit"],
       "outputs": []
     },
-    "@opencode/desktop#test": {
+    "@nytrix/desktop#test": {
       "outputs": [],
       "cache": false
     },
-    "@opencode/sdk#verify:package": {
+    "@nytrix/sdk#verify:package": {
       "outputs": []
     }
   }

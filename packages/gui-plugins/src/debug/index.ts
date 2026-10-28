@@ -1,6 +1,6 @@
-import { builtinCatalog } from "@opencode/plugin/gui/builtin"
+import { builtinCatalog } from "@nytrix/plugin/gui/builtin"
 import { Schema } from "effect"
-import { Plugin, Store } from "@opencode/plugin/gui"
+import { Plugin, Store } from "@nytrix/plugin/gui"
 import en from "./i18n/en"
 
 export default Plugin.define({

@@ -3,7 +3,7 @@ import { tabKey } from "../utils/app"
 import { fileDiff, openSession } from "../utils/workspace"
 import { openReviewLauncher } from "../utils/side-panel"
 import { expectSessionTitle } from "../utils/waits"
-import { base64Encode } from "@opencode/util/encode"
+import { base64Encode } from "@nytrix/util/encode"
 
 test("review and terminal tabs follow the session tab and the terminal stays mounted", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })

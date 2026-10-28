@@ -1,13 +1,13 @@
-import { Bus } from "@opencode/core/bus"
-import { Config } from "@opencode/core/config"
-import { Integration } from "@opencode/core/integration"
-import { Model } from "@opencode/core/model"
-import { Plugin } from "@opencode/core/plugin"
-import { PluginHost } from "@opencode/core/plugin/host"
-import { ProviderPlugins } from "@opencode/core/plugin/provider"
-import { make, VLLMPlugin } from "@opencode/core/plugin/provider/vllm"
-import { Provider } from "@opencode/core/provider"
-import { Document, Event, Info } from "@opencode/schema/config"
+import { Bus } from "@nytrix/core/bus"
+import { Config } from "@nytrix/core/config"
+import { Integration } from "@nytrix/core/integration"
+import { Model } from "@nytrix/core/model"
+import { Plugin } from "@nytrix/core/plugin"
+import { PluginHost } from "@nytrix/core/plugin/host"
+import { ProviderPlugins } from "@nytrix/core/plugin/provider"
+import { make, VLLMPlugin } from "@nytrix/core/plugin/provider/vllm"
+import { Provider } from "@nytrix/core/provider"
+import { Document, Event, Info } from "@nytrix/schema/config"
 import { describe, expect } from "bun:test"
 import { Duration, Effect, Layer, Schema } from "effect"
 import { testEffect } from "../lib/effect"
@@ -92,7 +92,7 @@ describe("VLLMPlugin", () => {
           expect(yield* providers.get(providerID)).toEqual({
             id: providerID,
             name: "vLLM",
-            package: "@opencode/ai/providers/openai-compatible",
+            package: "@nytrix/ai/providers/openai-compatible",
             settings: { baseURL: `${server.url.origin}/v1`, provider: "vllm", apiKey: "" },
             activation: "enabled",
           })
@@ -185,7 +185,7 @@ describe("VLLMPlugin", () => {
           yield* providers.transform((editor) => {
             editor.update(providerID, (provider) => {
               provider.name = "vLLM"
-              provider.package = "@opencode/ai/providers/openai-compatible"
+              provider.package = "@nytrix/ai/providers/openai-compatible"
               provider.integrationID = Integration.ID.make("vllm")
               provider.activation = "auto"
             })

@@ -4,9 +4,9 @@
 import { createCliRenderer, RGBA, TextAttributes, type CliRenderer } from "@opentui/core"
 import { render, useTerminalDimensions } from "@opentui/solid"
 import { OPENCODE_VERSION } from "../version"
-import "@opencode/tui/component/spinner-renderable"
-import { SPINNER_FRAMES } from "@opencode/tui/component/spinner"
-import { go } from "@opencode/tui/logo"
+import "@nytrix/tui/component/spinner-renderable"
+import { SPINNER_FRAMES } from "@nytrix/tui/component/spinner"
+import { go } from "@nytrix/tui/logo"
 import { setTimeout } from "node:timers/promises"
 import {
   batch,

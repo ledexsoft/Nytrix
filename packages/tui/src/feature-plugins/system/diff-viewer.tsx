@@ -1,8 +1,8 @@
 /** @jsxImportSource @opentui/solid */
-import type { FileDiffInfo, LocationRef } from "@opencode/client"
-import type { Vcs } from "@opencode/schema/vcs"
-import { Plugin } from "@opencode/plugin/tui"
-import type { KeymapCommand, PanelInput, Route } from "@opencode/plugin/tui/context"
+import type { FileDiffInfo, LocationRef } from "@nytrix/client"
+import type { Vcs } from "@nytrix/schema/vcs"
+import { Plugin } from "@nytrix/plugin/tui"
+import type { KeymapCommand, PanelInput, Route } from "@nytrix/plugin/tui/context"
 import {
   MouseButton,
   TextAttributes,

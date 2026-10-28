@@ -3,14 +3,14 @@ import { Schema } from "effect"
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { getHeapSpaceStatistics, getHeapStatistics, writeHeapSnapshot } from "node:v8"
-import type { Plugin } from "@opencode/plugin/gui/main"
+import type { Plugin } from "@nytrix/plugin/gui/main"
 import { HeapSnapshots, MemoryDiagnostics } from "./contract"
 import { summarize, traceConfig } from "./memory-infra"
 import { startMemoryLog } from "./memory-log"
 import { debugBuild, memoryLogInterval } from "./options"
 import { captureServer } from "./server-heap"
 import { signalIncludesServer, snapshotDirectory } from "./signal"
-import { ProcessSignal } from "@opencode/util/process-signal"
+import { ProcessSignal } from "@nytrix/util/process-signal"
 
 /** A desktop process the manifest lists: the file written, or why there is none. */
 type Snapshot = { readonly process: "main" | "window"; readonly pid: number; readonly window?: number } & (

@@ -1,19 +1,19 @@
 export * as Provider from "./provider.js"
 
 import { Context, Effect, Layer, Option, Schema, Stream, Struct } from "effect"
-import { Provider } from "@opencode/schema/provider"
-import { Model } from "@opencode/schema/model"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
-import { HttpTimeout, type ProviderPackageDefinition } from "@opencode/ai/effect"
-import { isRecord } from "@opencode/util/record"
-import { Npm } from "@opencode/util/npm"
+import { Provider } from "@nytrix/schema/provider"
+import { Model } from "@nytrix/schema/model"
+import { makeLocationNode } from "@nytrix/util/effect/app-node"
+import { HttpTimeout, type ProviderPackageDefinition } from "@nytrix/ai/effect"
+import { isRecord } from "@nytrix/util/record"
+import { Npm } from "@nytrix/util/npm"
 import type { DeepMutable } from "./schema.js"
-import { importModule, resolveModule } from "@opencode/util/runtime-import"
+import { importModule, resolveModule } from "@nytrix/util/runtime-import"
 import { Bus } from "./bus.js"
 import { Integration } from "./integration.js"
 import { State } from "./state.js"
 import { IntegrationConnection } from "./integration/connection.js"
-import { Credential } from "@opencode/schema/credential"
+import { Credential } from "@nytrix/schema/credential"
 import { Location } from "./location.js"
 import { freeze } from "immer"
 import { AISDKNative } from "./aisdk-native.js"
@@ -29,7 +29,7 @@ export function packageName(value: undefined): undefined
 export function packageName(value: string | undefined): string | undefined
 export function packageName(value: string | undefined) {
   // Native provider entrypoints can persist in user configuration across the npm scope migration.
-  if (value?.startsWith("@opencode-ai/ai/")) return value.replace("@opencode-ai/", "@opencode/")
+  if (value?.startsWith("@opencode-ai/ai/")) return value.replace("@opencode-ai/", "@nytrix/")
   if (value === undefined || !isAISDK(value)) return value
   return value.slice(AISDK_PREFIX.length)
 }
@@ -46,140 +46,140 @@ export type ProviderPackage = ProviderPackageDefinition
 
 const packages = new Map<string, Promise<unknown>>()
 const builtins = new Map<string, () => Promise<unknown>>([
-  ["@opencode/ai/providers/alibaba", () => import("@opencode/ai/providers/alibaba")],
-  ["@opencode/ai/providers/alibaba/chat", () => import("@opencode/ai/providers/alibaba/chat")],
-  ["@opencode/ai/providers/alibaba/messages", () => import("@opencode/ai/providers/alibaba/messages")],
-  ["@opencode/ai/providers/alibaba/responses", () => import("@opencode/ai/providers/alibaba/responses")],
-  ["@opencode/ai/providers/alibaba/images", () => import("@opencode/ai/providers/alibaba/images")],
-  ["@opencode/ai/providers/amazon-bedrock", () => import("@opencode/ai/providers/amazon-bedrock")],
-  ["@opencode/ai/providers/amazon-bedrock/mantle", () => import("@opencode/ai/providers/amazon-bedrock/mantle")],
+  ["@nytrix/ai/providers/alibaba", () => import("@nytrix/ai/providers/alibaba")],
+  ["@nytrix/ai/providers/alibaba/chat", () => import("@nytrix/ai/providers/alibaba/chat")],
+  ["@nytrix/ai/providers/alibaba/messages", () => import("@nytrix/ai/providers/alibaba/messages")],
+  ["@nytrix/ai/providers/alibaba/responses", () => import("@nytrix/ai/providers/alibaba/responses")],
+  ["@nytrix/ai/providers/alibaba/images", () => import("@nytrix/ai/providers/alibaba/images")],
+  ["@nytrix/ai/providers/amazon-bedrock", () => import("@nytrix/ai/providers/amazon-bedrock")],
+  ["@nytrix/ai/providers/amazon-bedrock/mantle", () => import("@nytrix/ai/providers/amazon-bedrock/mantle")],
   [
-    "@opencode/ai/providers/amazon-bedrock/mantle/chat",
-    () => import("@opencode/ai/providers/amazon-bedrock/mantle/chat"),
+    "@nytrix/ai/providers/amazon-bedrock/mantle/chat",
+    () => import("@nytrix/ai/providers/amazon-bedrock/mantle/chat"),
   ],
   [
-    "@opencode/ai/providers/amazon-bedrock/mantle/messages",
-    () => import("@opencode/ai/providers/amazon-bedrock/mantle/messages"),
+    "@nytrix/ai/providers/amazon-bedrock/mantle/messages",
+    () => import("@nytrix/ai/providers/amazon-bedrock/mantle/messages"),
   ],
   [
-    "@opencode/ai/providers/amazon-bedrock/mantle/responses",
-    () => import("@opencode/ai/providers/amazon-bedrock/mantle/responses"),
+    "@nytrix/ai/providers/amazon-bedrock/mantle/responses",
+    () => import("@nytrix/ai/providers/amazon-bedrock/mantle/responses"),
   ],
-  ["@opencode/ai/providers/anthropic", () => import("@opencode/ai/providers/anthropic")],
-  ["@opencode/ai/providers/anthropic-compatible", () => import("@opencode/ai/providers/anthropic-compatible")],
-  ["@opencode/ai/providers/azure", () => import("@opencode/ai/providers/azure")],
-  ["@opencode/ai/providers/azure/chat", () => import("@opencode/ai/providers/azure/chat")],
-  ["@opencode/ai/providers/azure/responses", () => import("@opencode/ai/providers/azure/responses")],
-  ["@opencode/ai/providers/azure/images", () => import("@opencode/ai/providers/azure/images")],
-  ["@opencode/ai/providers/baseten", () => import("@opencode/ai/providers/baseten")],
-  ["@opencode/ai/providers/baseten/decisions", () => import("@opencode/ai/providers/baseten/decisions")],
-  ["@opencode/ai/providers/cerebras", () => import("@opencode/ai/providers/cerebras")],
-  ["@opencode/ai/providers/cloudflare-ai-gateway", () => import("@opencode/ai/providers/cloudflare-ai-gateway")],
+  ["@nytrix/ai/providers/anthropic", () => import("@nytrix/ai/providers/anthropic")],
+  ["@nytrix/ai/providers/anthropic-compatible", () => import("@nytrix/ai/providers/anthropic-compatible")],
+  ["@nytrix/ai/providers/azure", () => import("@nytrix/ai/providers/azure")],
+  ["@nytrix/ai/providers/azure/chat", () => import("@nytrix/ai/providers/azure/chat")],
+  ["@nytrix/ai/providers/azure/responses", () => import("@nytrix/ai/providers/azure/responses")],
+  ["@nytrix/ai/providers/azure/images", () => import("@nytrix/ai/providers/azure/images")],
+  ["@nytrix/ai/providers/baseten", () => import("@nytrix/ai/providers/baseten")],
+  ["@nytrix/ai/providers/baseten/decisions", () => import("@nytrix/ai/providers/baseten/decisions")],
+  ["@nytrix/ai/providers/cerebras", () => import("@nytrix/ai/providers/cerebras")],
+  ["@nytrix/ai/providers/cloudflare-ai-gateway", () => import("@nytrix/ai/providers/cloudflare-ai-gateway")],
   [
-    "@opencode/ai/providers/cloudflare-ai-gateway/decisions",
-    () => import("@opencode/ai/providers/cloudflare-ai-gateway/decisions"),
+    "@nytrix/ai/providers/cloudflare-ai-gateway/decisions",
+    () => import("@nytrix/ai/providers/cloudflare-ai-gateway/decisions"),
   ],
-  ["@opencode/ai/providers/cloudflare-workers-ai", () => import("@opencode/ai/providers/cloudflare-workers-ai")],
+  ["@nytrix/ai/providers/cloudflare-workers-ai", () => import("@nytrix/ai/providers/cloudflare-workers-ai")],
   [
-    "@opencode/ai/providers/cloudflare-workers-ai/decisions",
-    () => import("@opencode/ai/providers/cloudflare-workers-ai/decisions"),
-  ],
-  [
-    "@opencode/ai/providers/cloudflare-workers-ai/images",
-    () => import("@opencode/ai/providers/cloudflare-workers-ai/images"),
-  ],
-  ["@opencode/ai/providers/cohere", () => import("@opencode/ai/providers/cohere")],
-  ["@opencode/ai/providers/cohere/chat", () => import("@opencode/ai/providers/cohere/chat")],
-  ["@opencode/ai/providers/deepinfra", () => import("@opencode/ai/providers/deepinfra")],
-  ["@opencode/ai/providers/deepseek", () => import("@opencode/ai/providers/deepseek")],
-  ["@opencode/ai/providers/digitalocean", () => import("@opencode/ai/providers/digitalocean")],
-  ["@opencode/ai/providers/digitalocean/decisions", () => import("@opencode/ai/providers/digitalocean/decisions")],
-  ["@opencode/ai/providers/digitalocean/images", () => import("@opencode/ai/providers/digitalocean/images")],
-  ["@opencode/ai/providers/digitalocean/responses", () => import("@opencode/ai/providers/digitalocean/responses")],
-  ["@opencode/ai/providers/fireworks", () => import("@opencode/ai/providers/fireworks")],
-  ["@opencode/ai/providers/google", () => import("@opencode/ai/providers/google")],
-  ["@opencode/ai/providers/google/interactions", () => import("@opencode/ai/providers/google/interactions")],
-  ["@opencode/ai/providers/google/images", () => import("@opencode/ai/providers/google/images")],
-  ["@opencode/ai/providers/google-vertex", () => import("@opencode/ai/providers/google-vertex")],
-  ["@opencode/ai/providers/google-vertex/chat", () => import("@opencode/ai/providers/google-vertex/chat")],
-  ["@opencode/ai/providers/google-vertex/gemini", () => import("@opencode/ai/providers/google-vertex/gemini")],
-  [
-    "@opencode/ai/providers/google-vertex/interactions",
-    () => import("@opencode/ai/providers/google-vertex/interactions"),
-  ],
-  ["@opencode/ai/providers/google-vertex/messages", () => import("@opencode/ai/providers/google-vertex/messages")],
-  ["@opencode/ai/providers/google-vertex/mistral", () => import("@opencode/ai/providers/google-vertex/mistral")],
-  ["@opencode/ai/providers/google-vertex/responses", () => import("@opencode/ai/providers/google-vertex/responses")],
-  ["@opencode/ai/providers/google-vertex/images", () => import("@opencode/ai/providers/google-vertex/images")],
-  ["@opencode/ai/providers/google-vertex-messages", () => import("@opencode/ai/providers/google-vertex-messages")],
-  ["@opencode/ai/providers/groq", () => import("@opencode/ai/providers/groq")],
-  ["@opencode/ai/providers/meta", () => import("@opencode/ai/providers/meta")],
-  ["@opencode/ai/providers/meta/chat", () => import("@opencode/ai/providers/meta/chat")],
-  ["@opencode/ai/providers/meta/messages", () => import("@opencode/ai/providers/meta/messages")],
-  ["@opencode/ai/providers/meta/responses", () => import("@opencode/ai/providers/meta/responses")],
-  ["@opencode/ai/providers/minimax", () => import("@opencode/ai/providers/minimax")],
-  ["@opencode/ai/providers/minimax/chat", () => import("@opencode/ai/providers/minimax/chat")],
-  ["@opencode/ai/providers/minimax/images", () => import("@opencode/ai/providers/minimax/images")],
-  ["@opencode/ai/providers/minimax/messages", () => import("@opencode/ai/providers/minimax/messages")],
-  ["@opencode/ai/providers/minimax/responses", () => import("@opencode/ai/providers/minimax/responses")],
-  ["@opencode/ai/providers/mistral", () => import("@opencode/ai/providers/mistral")],
-  ["@opencode/ai/providers/moonshot", () => import("@opencode/ai/providers/moonshot")],
-  ["@opencode/ai/providers/moonshot/chat", () => import("@opencode/ai/providers/moonshot/chat")],
-  ["@opencode/ai/providers/moonshot/messages", () => import("@opencode/ai/providers/moonshot/messages")],
-  ["@opencode/ai/providers/moonshot/responses", () => import("@opencode/ai/providers/moonshot/responses")],
-  ["@opencode/ai/providers/openai", () => import("@opencode/ai/providers/openai")],
-  ["@opencode/ai/providers/openai/chat", () => import("@opencode/ai/providers/openai/chat")],
-  ["@opencode/ai/providers/openai/responses", () => import("@opencode/ai/providers/openai/responses")],
-  ["@opencode/ai/providers/openai/images", () => import("@opencode/ai/providers/openai/images")],
-  ["@opencode/ai/providers/openai-compatible", () => import("@opencode/ai/providers/openai-compatible")],
-  [
-    "@opencode/ai/providers/openai-compatible/responses",
-    () => import("@opencode/ai/providers/openai-compatible/responses"),
-  ],
-  ["@opencode/ai/providers/openai-compatible/images", () => import("@opencode/ai/providers/openai-compatible/images")],
-  [
-    "@opencode/ai/providers/openai-compatible-responses",
-    () => import("@opencode/ai/providers/openai-compatible-responses"),
-  ],
-  ["@opencode/ai/providers/opencode/decisions", () => import("@opencode/ai/providers/opencode/decisions")],
-  ["@opencode/ai/providers/openrouter", () => import("@opencode/ai/providers/openrouter")],
-  ["@opencode/ai/providers/openrouter/decisions", () => import("@opencode/ai/providers/openrouter/decisions")],
-  ["@opencode/ai/providers/openrouter/images", () => import("@opencode/ai/providers/openrouter/images")],
-  ["@opencode/ai/providers/openrouter/responses", () => import("@opencode/ai/providers/openrouter/responses")],
-  ["@opencode/ai/providers/togetherai", () => import("@opencode/ai/providers/togetherai")],
-  ["@opencode/ai/providers/typesafe-ai/decisions", () => import("@opencode/ai/providers/typesafe-ai/decisions")],
-  ["@opencode/ai/providers/venice", () => import("@opencode/ai/providers/venice")],
-  ["@opencode/ai/providers/venice/responses", () => import("@opencode/ai/providers/venice/responses")],
-  ["@opencode/ai/providers/vercel-ai-gateway", () => import("@opencode/ai/providers/vercel-ai-gateway")],
-  ["@opencode/ai/providers/vercel-ai-gateway/chat", () => import("@opencode/ai/providers/vercel-ai-gateway/chat")],
-  [
-    "@opencode/ai/providers/vercel-ai-gateway/messages",
-    () => import("@opencode/ai/providers/vercel-ai-gateway/messages"),
+    "@nytrix/ai/providers/cloudflare-workers-ai/decisions",
+    () => import("@nytrix/ai/providers/cloudflare-workers-ai/decisions"),
   ],
   [
-    "@opencode/ai/providers/vercel-ai-gateway/responses",
-    () => import("@opencode/ai/providers/vercel-ai-gateway/responses"),
+    "@nytrix/ai/providers/cloudflare-workers-ai/images",
+    () => import("@nytrix/ai/providers/cloudflare-workers-ai/images"),
+  ],
+  ["@nytrix/ai/providers/cohere", () => import("@nytrix/ai/providers/cohere")],
+  ["@nytrix/ai/providers/cohere/chat", () => import("@nytrix/ai/providers/cohere/chat")],
+  ["@nytrix/ai/providers/deepinfra", () => import("@nytrix/ai/providers/deepinfra")],
+  ["@nytrix/ai/providers/deepseek", () => import("@nytrix/ai/providers/deepseek")],
+  ["@nytrix/ai/providers/digitalocean", () => import("@nytrix/ai/providers/digitalocean")],
+  ["@nytrix/ai/providers/digitalocean/decisions", () => import("@nytrix/ai/providers/digitalocean/decisions")],
+  ["@nytrix/ai/providers/digitalocean/images", () => import("@nytrix/ai/providers/digitalocean/images")],
+  ["@nytrix/ai/providers/digitalocean/responses", () => import("@nytrix/ai/providers/digitalocean/responses")],
+  ["@nytrix/ai/providers/fireworks", () => import("@nytrix/ai/providers/fireworks")],
+  ["@nytrix/ai/providers/google", () => import("@nytrix/ai/providers/google")],
+  ["@nytrix/ai/providers/google/interactions", () => import("@nytrix/ai/providers/google/interactions")],
+  ["@nytrix/ai/providers/google/images", () => import("@nytrix/ai/providers/google/images")],
+  ["@nytrix/ai/providers/google-vertex", () => import("@nytrix/ai/providers/google-vertex")],
+  ["@nytrix/ai/providers/google-vertex/chat", () => import("@nytrix/ai/providers/google-vertex/chat")],
+  ["@nytrix/ai/providers/google-vertex/gemini", () => import("@nytrix/ai/providers/google-vertex/gemini")],
+  [
+    "@nytrix/ai/providers/google-vertex/interactions",
+    () => import("@nytrix/ai/providers/google-vertex/interactions"),
+  ],
+  ["@nytrix/ai/providers/google-vertex/messages", () => import("@nytrix/ai/providers/google-vertex/messages")],
+  ["@nytrix/ai/providers/google-vertex/mistral", () => import("@nytrix/ai/providers/google-vertex/mistral")],
+  ["@nytrix/ai/providers/google-vertex/responses", () => import("@nytrix/ai/providers/google-vertex/responses")],
+  ["@nytrix/ai/providers/google-vertex/images", () => import("@nytrix/ai/providers/google-vertex/images")],
+  ["@nytrix/ai/providers/google-vertex-messages", () => import("@nytrix/ai/providers/google-vertex-messages")],
+  ["@nytrix/ai/providers/groq", () => import("@nytrix/ai/providers/groq")],
+  ["@nytrix/ai/providers/meta", () => import("@nytrix/ai/providers/meta")],
+  ["@nytrix/ai/providers/meta/chat", () => import("@nytrix/ai/providers/meta/chat")],
+  ["@nytrix/ai/providers/meta/messages", () => import("@nytrix/ai/providers/meta/messages")],
+  ["@nytrix/ai/providers/meta/responses", () => import("@nytrix/ai/providers/meta/responses")],
+  ["@nytrix/ai/providers/minimax", () => import("@nytrix/ai/providers/minimax")],
+  ["@nytrix/ai/providers/minimax/chat", () => import("@nytrix/ai/providers/minimax/chat")],
+  ["@nytrix/ai/providers/minimax/images", () => import("@nytrix/ai/providers/minimax/images")],
+  ["@nytrix/ai/providers/minimax/messages", () => import("@nytrix/ai/providers/minimax/messages")],
+  ["@nytrix/ai/providers/minimax/responses", () => import("@nytrix/ai/providers/minimax/responses")],
+  ["@nytrix/ai/providers/mistral", () => import("@nytrix/ai/providers/mistral")],
+  ["@nytrix/ai/providers/moonshot", () => import("@nytrix/ai/providers/moonshot")],
+  ["@nytrix/ai/providers/moonshot/chat", () => import("@nytrix/ai/providers/moonshot/chat")],
+  ["@nytrix/ai/providers/moonshot/messages", () => import("@nytrix/ai/providers/moonshot/messages")],
+  ["@nytrix/ai/providers/moonshot/responses", () => import("@nytrix/ai/providers/moonshot/responses")],
+  ["@nytrix/ai/providers/openai", () => import("@nytrix/ai/providers/openai")],
+  ["@nytrix/ai/providers/openai/chat", () => import("@nytrix/ai/providers/openai/chat")],
+  ["@nytrix/ai/providers/openai/responses", () => import("@nytrix/ai/providers/openai/responses")],
+  ["@nytrix/ai/providers/openai/images", () => import("@nytrix/ai/providers/openai/images")],
+  ["@nytrix/ai/providers/openai-compatible", () => import("@nytrix/ai/providers/openai-compatible")],
+  [
+    "@nytrix/ai/providers/openai-compatible/responses",
+    () => import("@nytrix/ai/providers/openai-compatible/responses"),
+  ],
+  ["@nytrix/ai/providers/openai-compatible/images", () => import("@nytrix/ai/providers/openai-compatible/images")],
+  [
+    "@nytrix/ai/providers/openai-compatible-responses",
+    () => import("@nytrix/ai/providers/openai-compatible-responses"),
+  ],
+  ["@nytrix/ai/providers/opencode/decisions", () => import("@nytrix/ai/providers/opencode/decisions")],
+  ["@nytrix/ai/providers/openrouter", () => import("@nytrix/ai/providers/openrouter")],
+  ["@nytrix/ai/providers/openrouter/decisions", () => import("@nytrix/ai/providers/openrouter/decisions")],
+  ["@nytrix/ai/providers/openrouter/images", () => import("@nytrix/ai/providers/openrouter/images")],
+  ["@nytrix/ai/providers/openrouter/responses", () => import("@nytrix/ai/providers/openrouter/responses")],
+  ["@nytrix/ai/providers/togetherai", () => import("@nytrix/ai/providers/togetherai")],
+  ["@nytrix/ai/providers/typesafe-ai/decisions", () => import("@nytrix/ai/providers/typesafe-ai/decisions")],
+  ["@nytrix/ai/providers/venice", () => import("@nytrix/ai/providers/venice")],
+  ["@nytrix/ai/providers/venice/responses", () => import("@nytrix/ai/providers/venice/responses")],
+  ["@nytrix/ai/providers/vercel-ai-gateway", () => import("@nytrix/ai/providers/vercel-ai-gateway")],
+  ["@nytrix/ai/providers/vercel-ai-gateway/chat", () => import("@nytrix/ai/providers/vercel-ai-gateway/chat")],
+  [
+    "@nytrix/ai/providers/vercel-ai-gateway/messages",
+    () => import("@nytrix/ai/providers/vercel-ai-gateway/messages"),
   ],
   [
-    "@opencode/ai/providers/vercel-ai-gateway/decisions",
-    () => import("@opencode/ai/providers/vercel-ai-gateway/decisions"),
+    "@nytrix/ai/providers/vercel-ai-gateway/responses",
+    () => import("@nytrix/ai/providers/vercel-ai-gateway/responses"),
   ],
-  ["@opencode/ai/providers/vercel-ai-gateway/images", () => import("@opencode/ai/providers/vercel-ai-gateway/images")],
-  ["@opencode/ai/providers/xai", () => import("@opencode/ai/providers/xai")],
-  ["@opencode/ai/providers/xai/images", () => import("@opencode/ai/providers/xai/images")],
-  ["@opencode/ai/providers/zai", () => import("@opencode/ai/providers/zai")],
-  ["@opencode/ai/providers/zai/chat", () => import("@opencode/ai/providers/zai/chat")],
-  ["@opencode/ai/providers/zai/images", () => import("@opencode/ai/providers/zai/images")],
-  ["@opencode/ai/providers/zai-coding-plan", () => import("@opencode/ai/providers/zai-coding-plan")],
-  ["@opencode/ai/providers/zai-coding-plan/chat", () => import("@opencode/ai/providers/zai-coding-plan/chat")],
-  ["@opencode/ai/providers/zai-coding-plan/messages", () => import("@opencode/ai/providers/zai-coding-plan/messages")],
   [
-    "@opencode/ai/providers/zai-coding-plan/responses",
-    () => import("@opencode/ai/providers/zai-coding-plan/responses"),
+    "@nytrix/ai/providers/vercel-ai-gateway/decisions",
+    () => import("@nytrix/ai/providers/vercel-ai-gateway/decisions"),
+  ],
+  ["@nytrix/ai/providers/vercel-ai-gateway/images", () => import("@nytrix/ai/providers/vercel-ai-gateway/images")],
+  ["@nytrix/ai/providers/xai", () => import("@nytrix/ai/providers/xai")],
+  ["@nytrix/ai/providers/xai/images", () => import("@nytrix/ai/providers/xai/images")],
+  ["@nytrix/ai/providers/zai", () => import("@nytrix/ai/providers/zai")],
+  ["@nytrix/ai/providers/zai/chat", () => import("@nytrix/ai/providers/zai/chat")],
+  ["@nytrix/ai/providers/zai/images", () => import("@nytrix/ai/providers/zai/images")],
+  ["@nytrix/ai/providers/zai-coding-plan", () => import("@nytrix/ai/providers/zai-coding-plan")],
+  ["@nytrix/ai/providers/zai-coding-plan/chat", () => import("@nytrix/ai/providers/zai-coding-plan/chat")],
+  ["@nytrix/ai/providers/zai-coding-plan/messages", () => import("@nytrix/ai/providers/zai-coding-plan/messages")],
+  [
+    "@nytrix/ai/providers/zai-coding-plan/responses",
+    () => import("@nytrix/ai/providers/zai-coding-plan/responses"),
   ],
 ])
 
-/** Native `@opencode/ai/providers/*` entrypoints bundled with Core and loadable by name from config. */
+/** Native `@nytrix/ai/providers/*` entrypoints bundled with Core and loadable by name from config. */
 export const builtinPackages: ReadonlySet<string> = new Set(builtins.keys())
 
 export const loadPackage = Effect.fn("Provider.loadPackage")(function* (input: string, npm?: Npm.Interface) {
@@ -187,7 +187,7 @@ export const loadPackage = Effect.fn("Provider.loadPackage")(function* (input: s
   const builtin = builtins.get(specifier)
   if (builtin) return yield* importPackage(specifier, specifier, builtin)
   const resolved = yield* Effect.sync(() => {
-    if (specifier.startsWith("file://") || specifier.startsWith("@opencode/ai/")) return specifier
+    if (specifier.startsWith("file://") || specifier.startsWith("@nytrix/ai/")) return specifier
     try {
       return import.meta.resolve(specifier)
     } catch {
@@ -317,7 +317,7 @@ export type Info = Provider.Info
 
 export type MutableInfo = DeepMutable<Info>
 
-export { Event } from "@opencode/schema/provider"
+export { Event } from "@nytrix/schema/provider"
 
 /** Provider metadata owns its drafts; model definitions remain immutable inputs. */
 export type Definition = {
@@ -357,7 +357,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly snapshot: () => Effect.Effect<Snapshot>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Provider") {}
+export class Service extends Context.Service<Service, Interface>()("@nytrix/Provider") {}
 
 // Every location references the same index for a shared immutable definition array.
 const definitions = new WeakMap<readonly Model.Info[], Map<ID, ReadonlyMap<Model.ID, Model.Info>>>()

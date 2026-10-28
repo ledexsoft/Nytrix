@@ -1,5 +1,5 @@
 import { Schema } from "effect"
-import { Ipc } from "@opencode/plugin/gui"
+import { Ipc } from "@nytrix/plugin/gui"
 
 /**
  * Captures memory for debugging leaks. Heap snapshots of the main process and every app window can only be taken

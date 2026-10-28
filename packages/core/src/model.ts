@@ -1,8 +1,8 @@
-import { Model } from "@opencode/schema/model"
+import { Model } from "@nytrix/schema/model"
 import { Provider } from "./provider.js"
 import type { DeepMutable } from "./schema.js"
 import { Context, Effect, Layer, Stream } from "effect"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { makeLocationNode } from "@nytrix/util/effect/app-node"
 import { Bus } from "./bus.js"
 import { State } from "./state.js"
 import { Location } from "./location.js"
@@ -55,7 +55,7 @@ export type RuntimeInfo = Omit<Info, "settings"> & { readonly settings?: Provide
 
 export type MutableInfo = DeepMutable<Info>
 
-export { Event } from "@opencode/schema/model"
+export { Event } from "@nytrix/schema/model"
 
 export interface Editor {
   /** Includes disabled candidates so later transforms can re-enable them. */
@@ -83,7 +83,7 @@ export interface Interface extends State.Transformable<Editor> {
   readonly small: (providerID: Provider.ID) => Effect.Effect<Info | undefined>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Model") {}
+export class Service extends Context.Service<Service, Interface>()("@nytrix/Model") {}
 
 type Data = {
   models: Map<Provider.ID, ReadonlyMap<ID, Info>>

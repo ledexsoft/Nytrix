@@ -1,12 +1,12 @@
 export * as Generate from "./generate.js"
 
-import { AIError, Decision, DecisionClient, Image, ImageClient, LLM, LLMClient, Media } from "@opencode/ai/effect"
-import type { DecisionRequest, DecisionResult, ImageRequest, ImageResult } from "@opencode/schema/generate"
-import { Money } from "@opencode/schema/money"
-import { SessionID } from "@opencode/schema/session-id"
+import { AIError, Decision, DecisionClient, Image, ImageClient, LLM, LLMClient, Media } from "@nytrix/ai/effect"
+import type { DecisionRequest, DecisionResult, ImageRequest, ImageResult } from "@nytrix/schema/generate"
+import { Money } from "@nytrix/schema/money"
+import { SessionID } from "@nytrix/schema/session-id"
 import { Context, Effect, Layer, Schema } from "effect"
-import { RequestExecutor } from "@opencode/ai/route"
-import { makeLocationNode } from "@opencode/util/effect/app-node"
+import { RequestExecutor } from "@nytrix/ai/route"
+import { makeLocationNode } from "@nytrix/util/effect/app-node"
 import { llmClient, requestExecutor } from "./effect/app-node-platform.js"
 import { Integration } from "./integration.js"
 import { ModelResolver } from "./model-resolver.js"
@@ -76,7 +76,7 @@ export interface Interface {
   readonly decisions: (input: DecisionRequest) => Effect.Effect<DecisionResult, Error>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Generate") {}
+export class Service extends Context.Service<Service, Interface>()("@nytrix/Generate") {}
 
 // Image and decision clients are built here, on the shared request executor, so only Generate depends on them.
 export const layer = Layer.effect(

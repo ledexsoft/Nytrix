@@ -1,13 +1,13 @@
-import { Button } from "@opencode/ui/button"
-import { Badge } from "@opencode/ui/badge"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { Icon } from "@opencode/ui/icon"
-import { RadioGroup, RadioItem } from "@opencode/ui/radio"
-import { Checkbox } from "@opencode/ui/checkbox"
-import { Loader } from "@opencode/ui/loader"
-import { TextField } from "@opencode/ui/text-field"
-import { DialogBody, DialogHeader, DialogTitle, Dialog } from "@opencode/ui/dialog"
-import { TextInput } from "@opencode/ui/text-input"
+import { Button } from "@nytrix/ui/button"
+import { Badge } from "@nytrix/ui/badge"
+import { useDialog } from "@nytrix/ui/context/dialog"
+import { Icon } from "@nytrix/ui/icon"
+import { RadioGroup, RadioItem } from "@nytrix/ui/radio"
+import { Checkbox } from "@nytrix/ui/checkbox"
+import { Loader } from "@nytrix/ui/loader"
+import { TextField } from "@nytrix/ui/text-field"
+import { DialogBody, DialogHeader, DialogTitle, Dialog } from "@nytrix/ui/dialog"
+import { TextInput } from "@nytrix/ui/text-input"
 import { showToast } from "@/shell/notifications/toast"
 import {
   type Component,
@@ -40,7 +40,7 @@ import { useTabs } from "@/shell/tabs/tabs"
 import { Persist, persisted } from "@/runtime/persistence/storage"
 import { Persistence } from "@/runtime/persistence/schema"
 import { Schema } from "effect"
-import type { FormAnswer, FormField, FormValue, IntegrationInfo } from "@opencode/client/promise"
+import type { FormAnswer, FormField, FormValue, IntegrationInfo } from "@nytrix/client/promise"
 import {
   CONSOLE_INTEGRATION,
   connectMethods,
@@ -54,8 +54,8 @@ import { authServerName, RemoteAuthNotice } from "./remote"
 import { providerAccounts, type ProviderAccount } from "@/settings/providers/accounts"
 import { AccountNameInput } from "@/settings/providers/account-name"
 import { useProviderAccountActions } from "@/settings/providers/account-actions"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Menu } from "@opencode/ui/menu"
+import { IconButton } from "@nytrix/ui/icon-button"
+import { Menu } from "@nytrix/ui/menu"
 import "./models.css"
 
 export function useProviderConnectController() {

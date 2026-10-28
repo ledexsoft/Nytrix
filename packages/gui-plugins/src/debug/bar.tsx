@@ -1,14 +1,14 @@
 import { batch, createMemo, createSignal, onCleanup, onMount, Show } from "solid-js"
 import { createStore } from "solid-js/store"
 import { makeEventListener } from "@solid-primitives/event-listener"
-import { Icon } from "@opencode/ui/icon"
-import { IconButton } from "@opencode/ui/icon-button"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { createKeyed, usePlugin } from "@opencode/plugin/gui"
-import { motionGlobals, motionTuning } from "@opencode/ui/motion-tuning"
-import { duration } from "@opencode/util/duration"
-import { SessionTurn } from "@opencode/util/session-turn"
-import { builtinContext } from "@opencode/plugin/gui/builtin"
+import { Icon } from "@nytrix/ui/icon"
+import { IconButton } from "@nytrix/ui/icon-button"
+import { Tooltip } from "@nytrix/ui/tooltip"
+import { createKeyed, usePlugin } from "@nytrix/plugin/gui"
+import { motionGlobals, motionTuning } from "@nytrix/ui/motion-tuning"
+import { duration } from "@nytrix/util/duration"
+import { SessionTurn } from "@nytrix/util/session-turn"
+import { builtinContext } from "@nytrix/plugin/gui/builtin"
 
 type Mem = Performance & {
   memory?: {

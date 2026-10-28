@@ -1,8 +1,8 @@
 export * as EventFeed from "./event-feed"
 
-import { Bus } from "@opencode/core/bus"
-import { Event } from "@opencode/schema/event"
-import { isOpenCodeEvent, type OpenCodeEvent } from "@opencode/protocol/groups/event"
+import { Bus } from "@nytrix/core/bus"
+import { Event } from "@nytrix/schema/event"
+import { isOpenCodeEvent, type OpenCodeEvent } from "@nytrix/protocol/groups/event"
 import { Cause, Context, Effect, Layer, Queue, Schema, Scope, Stream } from "effect"
 
 export const SubscriberCapacity = 4_096
@@ -24,7 +24,7 @@ export interface Interface {
   readonly subscribe: (types?: ReadonlyArray<string>) => Effect.Effect<Stream.Stream<string, Error>, never, Scope.Scope>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/server/EventFeed") {}
+export class Service extends Context.Service<Service, Interface>()("@nytrix/server/EventFeed") {}
 
 export function frame(event: OpenCodeEvent) {
   return `data: ${JSON.stringify(event)}\n\n`

@@ -1,6 +1,6 @@
-import { Session } from "@opencode/core/session"
-import type { Snapshot } from "@opencode/core/snapshot"
-import { MessageNotFoundError, SessionNotFoundError, UnknownError } from "@opencode/protocol/errors"
+import { Session } from "@nytrix/core/session"
+import type { Snapshot } from "@nytrix/core/snapshot"
+import { MessageNotFoundError, SessionNotFoundError, UnknownError } from "@nytrix/protocol/errors"
 import { Effect } from "effect"
 
 export function missingSession(error: Session.NotFoundError) {

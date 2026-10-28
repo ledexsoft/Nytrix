@@ -1,5 +1,5 @@
-import { getDirectory, getFilename } from "@opencode/util/path"
-import type { OpenCodeClient } from "@opencode/client/promise"
+import { getDirectory, getFilename } from "@nytrix/util/path"
+import type { OpenCodeClient } from "@nytrix/client/promise"
 
 const types = new Map([
   ["png", "image/png"],

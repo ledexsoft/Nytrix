@@ -1,20 +1,20 @@
-import { Pty } from "@opencode/core/pty"
-import { PtyProtocol } from "@opencode/core/pty/protocol"
-import { PtyTicket } from "@opencode/core/pty/ticket"
-import { Location } from "@opencode/core/location"
-import { LocationServiceMap } from "@opencode/core/location-service-map"
+import { Pty } from "@nytrix/core/pty"
+import { PtyProtocol } from "@nytrix/core/pty/protocol"
+import { PtyTicket } from "@nytrix/core/pty/ticket"
+import { Location } from "@nytrix/core/location"
+import { LocationServiceMap } from "@nytrix/core/location-service-map"
 import { Effect, Queue } from "effect"
 import { HttpServerRequest, HttpServerResponse } from "effect/http"
 import { HttpApiBuilder, HttpApiSchema } from "effect/http-api"
 import { Socket } from "effect/socket"
 import { Api } from "../api"
 import { CorsConfig, isAllowedRequestOrigin } from "../cors"
-import { ForbiddenError, PtyNotFoundError } from "@opencode/protocol/errors"
+import { ForbiddenError, PtyNotFoundError } from "@nytrix/protocol/errors"
 import {
   PTY_CONNECT_TICKET_QUERY,
   PTY_CONNECT_TOKEN_HEADER,
   PTY_CONNECT_TOKEN_HEADER_VALUE,
-} from "@opencode/protocol/groups/pty"
+} from "@nytrix/protocol/groups/pty"
 import { locationErrors, requestRef, response } from "../location"
 import { type Outbound, runPtySocket } from "./pty-socket"
 

@@ -1,5 +1,5 @@
-import { Scope } from "@opencode/plugin/gui/host"
-import type { Cleanup } from "@opencode/plugin/gui/main"
+import { Scope } from "@nytrix/plugin/gui/host"
+import type { Cleanup } from "@nytrix/plugin/gui/main"
 
 /** How long disposal waits for an instance's finalizers and a setup still running. */
 const CLEANUP_TIMEOUT_MS = 3_000

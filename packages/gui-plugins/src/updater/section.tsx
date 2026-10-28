@@ -1,9 +1,9 @@
 import { createMemo, type JSX } from "solid-js"
-import { Button } from "@opencode/ui/button"
-import { Switch } from "@opencode/ui/switch"
-import { usePlugin } from "@opencode/plugin/gui"
+import { Button } from "@nytrix/ui/button"
+import { Switch } from "@nytrix/ui/switch"
+import { usePlugin } from "@nytrix/plugin/gui"
 import { updaterAction } from "./action"
-import type { UpdaterState } from "@opencode/plugin/gui/updater"
+import type { UpdaterState } from "@nytrix/plugin/gui/updater"
 import type definition from "./index"
 
 export default function UpdatesSection(props: { state: () => UpdaterState | undefined; run: () => void }) {

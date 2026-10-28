@@ -1,5 +1,5 @@
-import { DataProvider } from "@opencode/session-ui/context"
-import { MarkdownProvider, type ReadMarkdownImage } from "@opencode/session-ui/context/markdown"
+import { DataProvider } from "@nytrix/session-ui/context"
+import { MarkdownProvider, type ReadMarkdownImage } from "@nytrix/session-ui/context/markdown"
 import { useNavigate, useParams } from "@solidjs/router"
 import { useQuery } from "@tanstack/solid-query"
 import { createMemo, onCleanup, type ParentProps } from "solid-js"

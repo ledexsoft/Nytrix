@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "opencode",
+  "name": "nytrix",
   "description": "AI-powered development tool",
   "version": "2.2.0",
   "private": true,
@@ -113,7 +113,7 @@
   },
   "devDependencies": {
     "@ast-grep/cli": "0.44.0",
-    "@opencode/client": "workspace:*",
+    "@nytrix/client": "workspace:*",
     "@oxlint/plugins": "1.60.0",
     "@tsconfig/bun": "catalog:",
     "@types/bun": "catalog:",
@@ -129,8 +129,8 @@
     "turbo": "2.10.2"
   },
   "dependencies": {
-    "@opencode/plugin": "workspace:*",
-    "@opencode/script": "workspace:*",
+    "@nytrix/plugin": "workspace:*",
+    "@nytrix/script": "workspace:*",
     "typescript": "catalog:"
   },
   "repository": {

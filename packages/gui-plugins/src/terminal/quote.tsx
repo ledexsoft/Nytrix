@@ -3,11 +3,11 @@ import { createStore } from "solid-js/store"
 import { Portal } from "solid-js/web"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
-import { Button } from "@opencode/ui/button"
-import { Keybind } from "@opencode/ui/keybind"
-import { Tooltip } from "@opencode/ui/tooltip"
+import { Button } from "@nytrix/ui/button"
+import { Keybind } from "@nytrix/ui/keybind"
+import { Tooltip } from "@nytrix/ui/tooltip"
 import type { Terminal as Term } from "ghostty-web"
-import { usePlugin } from "@opencode/plugin/gui"
+import { usePlugin } from "@nytrix/plugin/gui"
 
 const SETTLE_MS = 150
 

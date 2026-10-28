@@ -1,10 +1,10 @@
 import { createSignal, For, onCleanup, onMount, Show } from "solid-js"
 import { createResizeObserver } from "@solid-primitives/resize-observer"
 import { Option } from "effect"
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { prefersReducedMotion } from "@opencode/ui/motion"
-import { usePlugin, type DialogHandle, type SetupContext } from "@opencode/plugin/gui"
+import { Button } from "@nytrix/ui/button"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitleGroup } from "@nytrix/ui/dialog"
+import { prefersReducedMotion } from "@nytrix/ui/motion"
+import { usePlugin, type DialogHandle, type SetupContext } from "@nytrix/plugin/gui"
 import {
   betaBuild,
   decodeEmbeddedNotes,

@@ -1,9 +1,9 @@
 export * as BrowserConnection from "./connection.js"
 
-import type { Context } from "@opencode/plugin/effect/plugin"
-import type { RpcRegistration } from "@opencode/plugin/effect/rpc"
-import type { Session } from "@opencode/schema/session"
-import { Tool } from "@opencode/schema/tool"
+import type { Context } from "@nytrix/plugin/effect/plugin"
+import type { RpcRegistration } from "@nytrix/plugin/effect/rpc"
+import type { Session } from "@nytrix/schema/session"
+import { Tool } from "@nytrix/schema/tool"
 import { Deferred, Effect, Schema, Stream } from "effect"
 import { Browser } from "./rpc.js"
 import { BrowserSkill } from "./skill.js"

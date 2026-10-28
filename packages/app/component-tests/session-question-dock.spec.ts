@@ -1,5 +1,5 @@
 import type { Locator } from "@playwright/test"
-import type { MotionKnob } from "@opencode/ui/motion-tuning"
+import type { MotionKnob } from "@nytrix/ui/motion-tuning"
 import { expect, sourceURL, story } from "../../stories/playwright/story"
 
 story("resizes the dock to fit different answer counts", async ({ mount }) => {

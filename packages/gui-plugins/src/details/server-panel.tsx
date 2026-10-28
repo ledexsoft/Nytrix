@@ -1,12 +1,12 @@
-import type { PluginInfo } from "@opencode/client"
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@opencode/ui/dialog"
-import { ErrorDetails } from "@opencode/ui/error-details"
-import { Icon } from "@opencode/ui/icon"
-import { Switch } from "@opencode/ui/switch"
-import { showToast } from "@opencode/ui/toast"
-import { Tooltip } from "@opencode/ui/tooltip"
-import { TruncatedText } from "@opencode/ui/truncated-text"
+import type { PluginInfo } from "@nytrix/client"
+import { Button } from "@nytrix/ui/button"
+import { Dialog, DialogBody, DialogHeader, DialogTitleGroup } from "@nytrix/ui/dialog"
+import { ErrorDetails } from "@nytrix/ui/error-details"
+import { Icon } from "@nytrix/ui/icon"
+import { Switch } from "@nytrix/ui/switch"
+import { showToast } from "@nytrix/ui/toast"
+import { Tooltip } from "@nytrix/ui/tooltip"
+import { TruncatedText } from "@nytrix/ui/truncated-text"
 import { useMutation } from "@tanstack/solid-query"
 import {
   children,
@@ -23,10 +23,10 @@ import {
   type JSX,
 } from "solid-js"
 import { createStore } from "solid-js/store"
-import { createKeyed, useDrawer, usePlugin, type MountedSession } from "@opencode/plugin/gui"
+import { createKeyed, useDrawer, usePlugin, type MountedSession } from "@nytrix/plugin/gui"
 import { globalConfigDirectory, serviceConfigFile } from "./config-file"
 import { configuredLsps } from "./configured-lsp"
-import { builtinContext } from "@opencode/plugin/gui/builtin"
+import { builtinContext } from "@nytrix/plugin/gui/builtin"
 
 const services = [
   { type: "mcp", icon: "mcp", label: "mcp" },

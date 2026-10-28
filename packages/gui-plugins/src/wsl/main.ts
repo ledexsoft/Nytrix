@@ -1,6 +1,6 @@
 import { Option, Schema } from "effect"
-import { builtinMainContext } from "@opencode/plugin/gui/builtin"
-import type { Plugin } from "@opencode/plugin/gui/main"
+import { builtinMainContext } from "@nytrix/plugin/gui/builtin"
+import type { Plugin } from "@nytrix/plugin/gui/main"
 import { Wsl } from "./contract"
 import { createWslRuntime } from "./runtime"
 import { createWslServersController, wslServerIdForDistro } from "./servers"

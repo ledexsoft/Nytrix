@@ -1,9 +1,9 @@
 export * as ConfigCommandPlugin from "./command.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
-import { Info, type Entry } from "@opencode/schema/config"
-import { ConfigCommand } from "@opencode/schema/config/command"
-import { AppProcess } from "@opencode/util/process"
+import { define } from "@nytrix/plugin/effect/plugin"
+import { Info, type Entry } from "@nytrix/schema/config"
+import { ConfigCommand } from "@nytrix/schema/config/command"
+import { AppProcess } from "@nytrix/util/process"
 import path from "path"
 import { Effect, Option, PubSub, Schema, Stream } from "effect"
 import { ChildProcess } from "effect/process"
@@ -13,7 +13,7 @@ import { Location } from "../../location.js"
 import { Session } from "../../session.js"
 import { SubagentJob } from "../../session/subagent-job.js"
 import { ShellSelect } from "../../shell/select.js"
-import { FSUtil } from "@opencode/util/fs-util"
+import { FSUtil } from "@nytrix/util/fs-util"
 import { ConfigMarkdown } from "../markdown.js"
 
 const decodeCommand = Schema.decodeUnknownOption(ConfigCommand.Info)

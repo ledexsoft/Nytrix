@@ -1,4 +1,4 @@
-import { abort } from "@opencode/util/abort"
+import { abort } from "@nytrix/util/abort"
 import {
   batch,
   catchError,
@@ -21,11 +21,11 @@ import {
   type ParentProps,
 } from "solid-js"
 import { createStore } from "solid-js/store"
-import { LifetimeContext, liveAccessor, PluginContext, type Entry } from "@opencode/plugin/gui/host"
-import type { BuiltinCatalog, BuiltinContext } from "@opencode/plugin/gui/builtin"
+import { LifetimeContext, liveAccessor, PluginContext, type Entry } from "@nytrix/plugin/gui/host"
+import type { BuiltinCatalog, BuiltinContext } from "@nytrix/plugin/gui/builtin"
 import { Predicate } from "effect"
-import { useDialog } from "@opencode/ui/context/dialog"
-import { pluralCategory, resolveTemplate } from "@opencode/ui/context/i18n"
+import { useDialog } from "@nytrix/ui/context/dialog"
+import { pluralCategory, resolveTemplate } from "@nytrix/ui/context/i18n"
 import {
   LinkHandler,
   type BaseContext,
@@ -48,8 +48,8 @@ import {
   type SessionRef,
   type SetupContext,
   type Token,
-} from "@opencode/plugin/gui"
-import { OpenCode, type OpenCodeClient } from "@opencode/client/promise"
+} from "@nytrix/plugin/gui"
+import { OpenCode, type OpenCodeClient } from "@nytrix/client/promise"
 import { useLanguage } from "@/runtime/i18n/language"
 import { PluginAlertDialog, PluginConfirmDialog, PluginPromptDialog, PluginSelectDialog } from "./dialogs"
 import { createSessionStore, whenLoaded } from "./stores"

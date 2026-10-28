@@ -1,4 +1,4 @@
-import type { ConfigEntry } from "@opencode/client"
+import type { ConfigEntry } from "@nytrix/client"
 import { Predicate } from "effect"
 
 type ConfigInfo = Extract<ConfigEntry, { type: "document" }>["info"]

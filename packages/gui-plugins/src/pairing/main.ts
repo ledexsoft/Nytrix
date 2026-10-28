@@ -1,8 +1,8 @@
 import { execFile } from "node:child_process"
 import { powerSaveBlocker } from "electron"
 import { Schema } from "effect"
-import { builtinMainContext } from "@opencode/plugin/gui/builtin"
-import type { Plugin } from "@opencode/plugin/gui/main"
+import { builtinMainContext } from "@nytrix/plugin/gui/builtin"
+import type { Plugin } from "@nytrix/plugin/gui/main"
 import { Pairing } from "./contract"
 
 /** The display sleep blocker this instance holds, if any. */

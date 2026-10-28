@@ -1,4 +1,4 @@
-import { base64Encode, checksum } from "@opencode/util/encode"
+import { base64Encode, checksum } from "@nytrix/util/encode"
 import { expect, test, type Page } from "@playwright/test"
 import { sessionHref } from "../utils/app"
 import { mockWorkspace, openSession, type WorkspaceInput } from "../utils/workspace"

@@ -1,9 +1,9 @@
-import { Button } from "@opencode/ui/button"
-import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@opencode/ui/dialog"
-import { Divider } from "@opencode/ui/divider"
-import { Icon } from "@opencode/ui/icon"
-import { TextInput } from "@opencode/ui/text-input"
-import { useDialog } from "@opencode/ui/context/dialog"
+import { Button } from "@nytrix/ui/button"
+import { Dialog, DialogBody, DialogFooter, DialogHeader, DialogTitle } from "@nytrix/ui/dialog"
+import { Divider } from "@nytrix/ui/divider"
+import { Icon } from "@nytrix/ui/icon"
+import { TextInput } from "@nytrix/ui/text-input"
+import { useDialog } from "@nytrix/ui/context/dialog"
 import { useMutation } from "@tanstack/solid-query"
 import {
   type Component,

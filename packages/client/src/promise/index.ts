@@ -24,5 +24,5 @@ export type { EventSubscribeOutput as OpenCodeEvent } from "./generated/types.js
 export type {
   MediaFileAttachment as PromptMediaFileAttachment,
   Attachment as PromptAttachment,
-} from "@opencode/schema/prompt"
+} from "@nytrix/schema/prompt"
 export type OpenCodeClient = ReturnType<typeof OpenCode.make>

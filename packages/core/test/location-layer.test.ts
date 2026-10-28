@@ -1,9 +1,9 @@
-import type { FileSystem } from "@opencode/core/filesystem"
+import type { FileSystem } from "@nytrix/core/filesystem"
 import fs from "fs/promises"
 import path from "path"
 import { describe, expect } from "bun:test"
-import { Event } from "@opencode/schema/config"
-import { Money } from "@opencode/schema/money"
+import { Event } from "@nytrix/schema/config"
+import { Money } from "@nytrix/schema/money"
 import {
   DateTime,
   Deferred,
@@ -22,24 +22,24 @@ import {
   Stream,
 } from "effect"
 import { TestClock } from "effect/testing"
-import { Agent } from "@opencode/core/agent"
-import { AppNodeBuilder } from "@opencode/core/effect/app-node-builder"
-import { LayerNode } from "@opencode/util/effect/layer-node"
-import { Global } from "@opencode/util/global"
-import { LocationServiceMap, type LocationServices } from "@opencode/core/location-services"
-import { LocationActivity } from "@opencode/core/location-activity"
-import { Location } from "@opencode/core/location"
-import { Config } from "@opencode/core/config"
-import { LocationWatcher } from "@opencode/core/filesystem/location-watcher"
-import { Plugin } from "@opencode/core/plugin"
-import { Model } from "@opencode/core/model"
-import { Project } from "@opencode/core/project"
-import { Provider } from "@opencode/core/provider"
-import { AbsolutePath } from "@opencode/core/schema"
-import { Session } from "@opencode/core/session"
-import { Workspace } from "@opencode/core/workspace"
-import { SessionEvent } from "@opencode/core/session/event"
-import { SessionRunnerModel } from "@opencode/core/session/runner/model"
+import { Agent } from "@nytrix/core/agent"
+import { AppNodeBuilder } from "@nytrix/core/effect/app-node-builder"
+import { LayerNode } from "@nytrix/util/effect/layer-node"
+import { Global } from "@nytrix/util/global"
+import { LocationServiceMap, type LocationServices } from "@nytrix/core/location-services"
+import { LocationActivity } from "@nytrix/core/location-activity"
+import { Location } from "@nytrix/core/location"
+import { Config } from "@nytrix/core/config"
+import { LocationWatcher } from "@nytrix/core/filesystem/location-watcher"
+import { Plugin } from "@nytrix/core/plugin"
+import { Model } from "@nytrix/core/model"
+import { Project } from "@nytrix/core/project"
+import { Provider } from "@nytrix/core/provider"
+import { AbsolutePath } from "@nytrix/core/schema"
+import { Session } from "@nytrix/core/session"
+import { Workspace } from "@nytrix/core/workspace"
+import { SessionEvent } from "@nytrix/core/session/event"
+import { SessionRunnerModel } from "@nytrix/core/session/runner/model"
 import { tmpdir, tmpdirScoped } from "./fixture/tmpdir"
 import { tempGlobalLayer } from "./fixture/global"
 import { offlineModels } from "./fixture/models"
@@ -694,7 +694,7 @@ describe("LocationServiceMap", () => {
             const modelState = yield* Model.Service
             yield* providers.transform((editor) => {
               editor.update(Provider.ID.make("aliased"), (provider) => {
-                provider.package = "@opencode/ai/providers/openai"
+                provider.package = "@nytrix/ai/providers/openai"
               })
               editor.models.update(Provider.ID.make("aliased"), Model.ID.make("fast"), (model) => {
                 // Catalog id and package model id intentionally differ, like gpt-5.5-fast -> gpt-5.5.

@@ -1,4 +1,4 @@
-import { activeQuestionRequest, questionPendingDocument } from "@opencode/session-ui/storybook"
+import { activeQuestionRequest, questionPendingDocument } from "@nytrix/session-ui/storybook"
 import { SessionPreview } from "./story-model"
 
 export default {

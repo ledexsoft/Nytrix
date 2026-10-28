@@ -1,6 +1,6 @@
 export * as ConfigPolicyPlugin from "./policy.js"
 
-import { define } from "@opencode/plugin/effect/plugin"
+import { define } from "@nytrix/plugin/effect/plugin"
 import { Effect } from "effect"
 import { Config } from "../../config.js"
 import { ManagedPolicy } from "../../managed-policy.js"

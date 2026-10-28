@@ -1,12 +1,12 @@
 export * as ConfigIntegration from "./integration.js"
 
 import { Option, Schema, SchemaGetter } from "effect"
-import { Config } from "@opencode/schema/config"
-import { ConfigMCP } from "@opencode/schema/config/mcp"
-import { ConfigPolicy } from "@opencode/schema/config/policy"
-import { ConfigProvider } from "@opencode/schema/config/provider"
-import { Connection } from "@opencode/schema/connection"
-import { IntegrationID } from "@opencode/schema/integration-id"
+import { Config } from "@nytrix/schema/config"
+import { ConfigMCP } from "@nytrix/schema/config/mcp"
+import { ConfigPolicy } from "@nytrix/schema/config/policy"
+import { ConfigProvider } from "@nytrix/schema/config/provider"
+import { Connection } from "@nytrix/schema/connection"
+import { IntegrationID } from "@nytrix/schema/integration-id"
 
 // Drop statements whose action or effect is a value this version does not know, so a newer remote source can
 // extend either enum. Malformed statements still fail validation.

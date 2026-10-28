@@ -44,7 +44,7 @@ const connect = Effect.fn("BackgroundService.connect")(function* (mode: "initial
   const version = serviceVersion({ channel: CHANNEL, isolated, mode, version: cli.version })
 
   if (isolated) process.env.XDG_STATE_HOME = app.getPath("userData")
-  const client = yield* Effect.promise(() => import("@opencode/client/service"))
+  const client = yield* Effect.promise(() => import("@nytrix/client/service"))
 
   const file =
     process.env.OPENCODE_DESKTOP_SERVER_CHANNEL === "local"

@@ -1,4 +1,4 @@
-import type { OpenCodeClient } from "@opencode/client/promise"
+import type { OpenCodeClient } from "@nytrix/client/promise"
 
 const MEDIA_REF = /^media:([0-9a-f]{64})$/
 

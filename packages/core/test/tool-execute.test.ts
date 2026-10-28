@@ -1,11 +1,11 @@
 import { expect, test } from "bun:test"
-import { CodeModeTool } from "@opencode/core/codemode/tool"
-import { Tool } from "@opencode/core/tool"
-import { execute } from "@opencode/core/tool/runtime"
-import { Agent } from "@opencode/schema/agent"
-import { Session } from "@opencode/schema/session"
-import { SessionMessage } from "@opencode/schema/session-message"
-import type { Info } from "@opencode/schema/tool"
+import { CodeModeTool } from "@nytrix/core/codemode/tool"
+import { Tool } from "@nytrix/core/tool"
+import { execute } from "@nytrix/core/tool/runtime"
+import { Agent } from "@nytrix/schema/agent"
+import { Session } from "@nytrix/schema/session"
+import { SessionMessage } from "@nytrix/schema/session-message"
+import type { Info } from "@nytrix/schema/tool"
 import { Effect, Schema } from "effect"
 
 const context = {
