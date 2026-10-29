@@ -80,7 +80,7 @@ function explicitEndpoint(input: V1RunCommandInput): Endpoint {
   return {
     url,
     auth: input.password
-      ? { type: "basic", username: input.username ?? "opencode", password: input.password }
+      ? { type: "basic", username: input.username ?? "nytrix", password: input.password }
       : undefined,
   }
 }

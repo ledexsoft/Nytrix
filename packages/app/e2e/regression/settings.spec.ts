@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test"
-import type { ConfigEntry, OpenCodeEvent, SessionMessageInfo, WorktreeDirectory } from "@nytrix/client/promise"
+import type { ConfigEntry, NytrixEvent, SessionMessageInfo, WorktreeDirectory } from "@nytrix/client/promise"
 import { NO_PROVIDER, REMOTE_SERVER, SERVER, holdRoute, project, seed, session } from "../utils/app"
 import { mockMissingLocation, mockOpenCodeServer } from "../utils/mock-server"
 import { mockRemoteServer, mockWorkspace, openSession, openSettings, type WorkspaceInput } from "../utils/workspace"
@@ -826,7 +826,7 @@ test("worktrees follow inventory events, wait for session counts, and delete by 
   // SAFETY: a worktree.updated event carries only the project ID, which is all the app reads from it.
   await view.push([
     { id: "evt_settings_worktree_updated", created: Date.now(), type: "worktree.updated", data: { projectID } },
-  ] as OpenCodeEvent[])
+  ] as NytrixEvent[])
   expect((await listed).ok()).toBe(true)
   await expect(settings.getByText(discovered, { exact: true })).toBeVisible()
   expect((await read).ok()).toBe(true)

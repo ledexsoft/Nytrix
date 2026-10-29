@@ -1,7 +1,7 @@
 /** @jsxImportSource @opentui/solid */
 import { expect, test } from "bun:test"
 import { testRender } from "@opentui/solid"
-import type { OpenCodeEvent } from "@nytrix/client"
+import type { NytrixEvent } from "@nytrix/client"
 import { SessionMessage } from "@nytrix/core/session/message"
 import { Event } from "@nytrix/schema/event"
 import { Expected } from "../../../../core/test/lib/session-message"
@@ -42,7 +42,7 @@ async function wait(fn: () => boolean, timeout = 2000) {
   }
 }
 
-function emitEvent(events: ReturnType<typeof createEventStream>, event: OpenCodeEvent) {
+function emitEvent(events: ReturnType<typeof createEventStream>, event: NytrixEvent) {
   events.emit({ ...event, location: { directory } })
 }
 

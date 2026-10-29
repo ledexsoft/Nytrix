@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import path from "node:path"
-import { OPENCODE_VERSION } from "../src/version"
+import { NYTRIX_VERSION } from "../src/version"
 import type { FormFields } from "@nytrix/client"
 
 const consoleForm = [
@@ -27,15 +27,15 @@ describe("auth command", () => {
     expect(auth.stdout).toContain("switch the active account for an integration")
     expect(auth.stdout).not.toMatch(/^  connect\s/m)
     expect(list.exitCode).toBe(0)
-    expect(list.stdout).toContain("opencode auth list [flags]")
+    expect(list.stdout).toContain("nytrix auth list [flags]")
     expect(list.stdout).toContain("--format")
     expect(login.exitCode).toBe(0)
-    expect(login.stdout).toContain("opencode auth login [flags] [<target>]")
+    expect(login.stdout).toContain("nytrix auth login [flags] [<target>]")
     expect(login.stdout).toContain("Integration ID, name, or well-known provider URL")
     expect(login.stdout).toContain("--method")
     expect(login.stdout).toContain("--answer")
     expect(logout.exitCode).toBe(0)
-    expect(logout.stdout).toContain("opencode auth logout [flags] [<target>] [<credential>]")
+    expect(logout.stdout).toContain("nytrix auth logout [flags] [<target>] [<credential>]")
   })
 
   test("lists stored and environment connections", async () => {
@@ -81,7 +81,7 @@ describe("auth command", () => {
         return Response.json(
           located(
             [
-              { id: "opencode", name: "OpenCode Zen" },
+              { id: "nytrix", name: "Nytrix Zen" },
               { id: "anthropic", name: "Anthropic" },
               { id: "opencode-go", name: "OpenCode Go" },
             ].map((integration) => ({
@@ -102,7 +102,7 @@ describe("auth command", () => {
         .trim()
         .split("\n")
         .map((line) => line.split(/\s{2,}/)[0]),
-    ).toEqual(["OpenCode Go", "OpenCode Zen", "Anthropic"])
+    ).toEqual(["OpenCode Go", "Nytrix Zen", "Anthropic"])
   })
 
   test("runs command authentication without interactive input", async () => {
@@ -359,7 +359,7 @@ function authServer(fetch: (request: Request, url: URL) => Response | Promise<Re
 }
 
 function status() {
-  return Response.json({ version: OPENCODE_VERSION, pid: process.pid, urls: [], paths: { tmp: "/tmp/opencode" } })
+  return Response.json({ version: NYTRIX_VERSION, pid: process.pid, urls: [], paths: { tmp: "/tmp/nytrix" } })
 }
 
 function located<T>(data: T) {

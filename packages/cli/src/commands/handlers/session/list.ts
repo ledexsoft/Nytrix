@@ -1,4 +1,4 @@
-import { OpenCode, type SessionInfo } from "@nytrix/client"
+import { Nytrix, type SessionInfo } from "@nytrix/client"
 import { Service } from "@nytrix/client/effect/service"
 import { Effect, Option, Stream } from "effect"
 import { EOL } from "node:os"
@@ -11,7 +11,7 @@ const handler = Effect.fn("cli.session.list")(function* (
   input: Runtime.Input<typeof Commands.commands.session.commands.list>,
 ) {
   const server = yield* ServerConnection.resolve()
-  const client = OpenCode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
+  const client = Nytrix.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
   const location = yield* Effect.tryPromise({
     try: (signal) => client.location.get({ location: { directory: process.cwd() } }, { signal }),
     catch: (cause) => cause,

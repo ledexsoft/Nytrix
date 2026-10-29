@@ -1,7 +1,7 @@
 import type { FileNode } from "@/runtime/server/types"
-import type { OpenCodeEvent } from "@nytrix/client/promise"
+import type { NytrixEvent } from "@nytrix/client/promise"
 
-type WatcherEvent = Extract<OpenCodeEvent, { type: "filesystem.changed" }>
+type WatcherEvent = Extract<NytrixEvent, { type: "filesystem.changed" }>
 
 type WatcherOps = {
   normalize: (input: string) => string

@@ -4,7 +4,7 @@ import { DialogProvider } from "@nytrix/ui/context/dialog"
 import { Markdown } from "../src/components/markdown"
 import { preloadMarkdown } from "../src/components/markdown-cache"
 import { MarkdownProvider, type MarkdownLocalFileExists } from "../src/context/markdown"
-import { OpenCode } from "@nytrix/client/promise"
+import { Nytrix } from "@nytrix/client/promise"
 import { readLocalImage } from "../../app/src/runtime/server/image"
 
 export {
@@ -36,7 +36,7 @@ export async function mountMarkdown(options: {
   host.dataset.testid = "markdown-fixture"
   document.body.appendChild(host)
   render(() => {
-    const api = OpenCode.make({
+    const api = Nytrix.make({
       baseUrl: location.origin,
       headers: { Authorization: `Basic ${btoa("opencode:fixture")}` },
     })

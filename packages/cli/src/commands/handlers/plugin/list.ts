@@ -1,7 +1,7 @@
 import { EOL } from "node:os"
 import path from "node:path"
 import { Effect } from "effect"
-import { OpenCode, type PluginInfo } from "@nytrix/client"
+import { Nytrix, type PluginInfo } from "@nytrix/client"
 import { Service } from "@nytrix/client/effect/service"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
@@ -17,7 +17,7 @@ export default Runtime.handler(
   Commands.commands.plugin.commands.list,
   Effect.fn("cli.plugin.list")(function* (input) {
     const { endpoint } = yield* ServerConnection.resolve()
-    const client = OpenCode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+    const client = Nytrix.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
     const response = yield* Effect.promise(() => client.plugin.list({ location: { directory: process.cwd() } }))
     const config = yield* Config.Service
     const global = yield* Global.Service
@@ -29,7 +29,7 @@ export default Runtime.handler(
     const configured = yield* Effect.forEach([...(info.plugins ?? []), ...discovered], (entry) =>
       Effect.gen(function* () {
         const target = typeof entry === "string" ? entry : entry.package
-        if (target.startsWith("-") || target === "*" || target.endsWith(".*") || target.startsWith("opencode."))
+        if (target.startsWith("-") || target === "*" || target.endsWith(".*") || target.startsWith("nytrix."))
           return []
         const local = localSource(target, path.dirname(config.path))
         if (local) {

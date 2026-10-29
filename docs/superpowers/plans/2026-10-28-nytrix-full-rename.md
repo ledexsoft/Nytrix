@@ -130,21 +130,23 @@ Expected: remaining matches are limited to explicit migration source names, lega
 - Consumes: Tasks 1 and 2.
 - Produces: primary executable `nytrix` and Nytrix-named launch/install/update artifacts.
 
-- [ ] **Step 1: Inventory CLI-visible names and artifact paths**
+- [x] **Step 1: Inventory CLI-visible names and artifact paths**
 
 Run: `rg -n -i --hidden --glob '!.git/**' '(opencode|OPENCODE_)' packages/cli script install nix package.json`
 
 Expected: command names, diagnostics, completion, updater URLs, build names, and artifact names are classified.
 
-- [ ] **Step 2: Rename CLI binaries and user-facing output**
+- [x] **Step 2: Rename CLI binaries and user-facing output**
 
 Publish `nytrix` as the primary executable. Remove the old product command names and update help, errors, examples, and generated completion output.
 
-- [ ] **Step 3: Rename packaging, update, and installer identity**
+- [x] **Step 3: Rename packaging, update, and installer identity**
 
 Update package metadata, launcher names, archive names, Docker/Nix/install scripts, updater product text, first-party `NYTRIX_*` runtime variables, and first-party API namespace headers/identifiers to Nytrix. Regenerate generated client outputs after protocol/server identity changes. Keep the OpenCode provider ID/credential integration and external protocol names required for interoperability unchanged. Use the known GitHub fork URL where repository URLs are required.
 
 - [ ] **Step 4: Verify CLI build and command surface**
+
+The CLI build was started, but its build script remained in `bun add` dependency resolution without output for three minutes and was interrupted. Typechecks and generators passed; the CLI build still needs a retry.
 
 Run: `bun run --cwd packages/cli build`
 

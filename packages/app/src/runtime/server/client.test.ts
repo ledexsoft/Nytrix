@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import type { OpenCodeEvent } from "@nytrix/client/promise"
+import type { NytrixEvent } from "@nytrix/client/promise"
 import { createRoot } from "solid-js"
 import { createOpenCodeEventSource, createServerTransport } from "./client"
 
@@ -15,7 +15,7 @@ const permission = {
     resources: ["src/**"],
     source: { type: "tool", messageID: "msg_1", id: "call_1" },
   },
-} satisfies Extract<OpenCodeEvent, { type: "permission.asked" }>
+} satisfies Extract<NytrixEvent, { type: "permission.asked" }>
 
 function setup() {
   return createRoot((dispose) => ({ ...createOpenCodeEventSource(), dispose }))
@@ -24,7 +24,7 @@ function setup() {
 describe("server event stream", () => {
   test("publishes the original current event with exact data", () => {
     const server = setup()
-    const received: OpenCodeEvent[] = []
+    const received: NytrixEvent[] = []
     let requestID: string | undefined
 
     server.event.on("permission.asked", (event) => {
@@ -41,16 +41,16 @@ describe("server event stream", () => {
 
   test("filters locations without changing workspace identity", () => {
     const server = setup()
-    const repo: OpenCodeEvent[] = []
-    const other: OpenCodeEvent[] = []
-    const all: OpenCodeEvent[] = []
+    const repo: NytrixEvent[] = []
+    const other: NytrixEvent[] = []
+    const all: NytrixEvent[] = []
     let workspaceID: string | undefined
 
     const global = {
       id: "evt_connected",
       type: "server.connected",
       data: {},
-    } satisfies Extract<OpenCodeEvent, { type: "server.connected" }>
+    } satisfies Extract<NytrixEvent, { type: "server.connected" }>
 
     const repoEvents = server.event.location("/repo")
     repoEvents.on("permission.asked", (event) => {

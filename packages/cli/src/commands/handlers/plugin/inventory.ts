@@ -1,6 +1,6 @@
 import { EOL } from "node:os"
 import { Cause, Effect, Exit } from "effect"
-import { OpenCode } from "@nytrix/client"
+import { Nytrix } from "@nytrix/client"
 import { Service } from "@nytrix/client/effect/service"
 import { Npm } from "@nytrix/util/npm"
 import { Config } from "../../../config"
@@ -17,7 +17,7 @@ export interface Item {
 
 export const inspect = Effect.fn("cli.plugin.inspect")(function* (selected?: string) {
   const { endpoint } = yield* ServerConnection.resolve()
-  const client = OpenCode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+  const client = Nytrix.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
   const location = { directory: process.cwd() }
   const listed = yield* Effect.promise(() => client.plugin.list({ location }))
   const serverTargets = new Set(
@@ -48,7 +48,7 @@ export const inspect = Effect.fn("cli.plugin.inspect")(function* (selected?: str
     ...new Set(
       (info.plugins ?? []).flatMap((entry) => {
         const target = typeof entry === "string" ? entry : entry.package
-        if (target.startsWith("-") || target === "*" || target.endsWith(".*") || target.startsWith("opencode.")) return []
+        if (target.startsWith("-") || target === "*" || target.endsWith(".*") || target.startsWith("nytrix.")) return []
         return [target]
       }),
     ),

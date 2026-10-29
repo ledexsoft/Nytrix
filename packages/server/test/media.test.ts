@@ -3,7 +3,7 @@ import { createHash } from "node:crypto"
 import fs from "node:fs/promises"
 import path from "node:path"
 import { expect } from "bun:test"
-import { OpenCode, type SessionMessageInfo } from "@nytrix/client"
+import { Nytrix, type SessionMessageInfo } from "@nytrix/client"
 import { SessionBlob } from "@nytrix/core/session/blob"
 import { Session } from "@nytrix/schema/session"
 import { Effect } from "effect"
@@ -69,7 +69,7 @@ const serve = (database: string, mediaBlob: boolean) =>
   })
 
 const client = (handler: (request: Request) => Promise<Response>, capabilities?: string) =>
-  OpenCode.make({
+  Nytrix.make({
     baseUrl: "http://opencode.local",
     ...(capabilities === undefined ? {} : { headers: { "X-OpenCode-Capabilities": capabilities } }),
     fetch: Object.assign((input: string | URL | Request, init?: RequestInit) => handler(new Request(input, init)), {

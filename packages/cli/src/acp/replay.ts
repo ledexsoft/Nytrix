@@ -1,5 +1,5 @@
 import type { SessionUpdate } from "@agentclientprotocol/sdk"
-import type { OpenCodeClient } from "@nytrix/client/effect"
+import type { NytrixClient } from "@nytrix/client/effect"
 import type { SessionMessage } from "@nytrix/schema/session-message"
 import { Effect, Option, Stream } from "effect"
 import type { Capabilities } from "./capabilities"
@@ -13,7 +13,7 @@ import { ACPTranslate } from "./translate"
 import { completedToolUpdate, errorToolUpdate, pendingToolCall, runningToolUpdate } from "./tool"
 
 export function history(
-  client: OpenCodeClient,
+  client: NytrixClient,
   connection: ACPConnection.Interface,
   attached: Attached,
   capabilities: Capabilities,

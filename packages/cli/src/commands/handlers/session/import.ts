@@ -1,4 +1,4 @@
-import { OpenCode } from "@nytrix/client"
+import { Nytrix } from "@nytrix/client"
 import { Service } from "@nytrix/client/effect/service"
 import { Session } from "@nytrix/schema/session"
 import { Effect, Option, Schema } from "effect"
@@ -27,7 +27,7 @@ export default Runtime.handler(
       text,
     )
     const server = yield* ServerConnection.resolve()
-    const client = OpenCode.make({
+    const client = Nytrix.make({
       baseUrl: server.endpoint.url,
       headers: Service.headers(server.endpoint),
     })

@@ -13,7 +13,7 @@ import { testEffect } from "../../core/test/lib/effect"
 
 const it = testEffect(NodeServices.layer)
 
-declare const OPENCODE_CLI_NAME: string | undefined
+declare const NYTRIX_CLI_NAME: string | undefined
 
 function fixture(
   respond: (command: ChildProcess.StandardCommand) => Partial<AppProcess.RunResult> & {
@@ -21,27 +21,27 @@ function fixture(
   } = () => ({}),
   name = "@nytrix/cli",
   failCleanup = false,
-  releasePackage = name,
+  _releasePackage = name,
   formula?: string,
   executableOverride?: (root: string, home: string) => Effect.Effect<string, PlatformError.PlatformError, FileSystem.FileSystem>,
 ) {
   return Effect.gen(function* () {
     const fs = yield* FileSystem.FileSystem
     const spawner = yield* ChildProcessSpawner.ChildProcessSpawner
-    const root = yield* fs.makeTempDirectoryScoped({ prefix: "opencode-updater-" })
+    const root = yield* fs.makeTempDirectoryScoped({ prefix: "nytrix-updater-" })
     const execPath = process.execPath
     const modules = path.join(root, "node_modules")
     const executable = executableOverride
       ? yield* executableOverride(root, path.join(root, "home"))
       : formula
-        ? path.join(root, "Cellar", formula, "2.0.20", "bin", "opencode")
-        : path.join(modules, "@opencode", "cli", "bin", "opencode")
+        ? path.join(root, "Cellar", formula, "2.0.20", "bin", "nytrix")
+        : path.join(modules, "@nytrix", "cli", "bin", "nytrix")
     yield* fs.makeDirectory(path.dirname(executable), { recursive: true })
     yield* fs.writeFileString(executable, "binary")
     if (!formula && !executableOverride)
       yield* fs.writeFileString(
-        path.join(modules, "@opencode", "cli", "package.json"),
-        JSON.stringify({ name, bin: { opencode: "bin/opencode" } }),
+        path.join(modules, "@nytrix", "cli", "package.json"),
+        JSON.stringify({ name, bin: { nytrix: "bin/nytrix" } }),
       )
     const requests: string[] = []
     // The updater uses global fetch; scope this replacement to each install test.
@@ -52,8 +52,7 @@ function fixture(
             async (input: string | URL | Request) => {
               const url = input instanceof Request ? input.url : input.toString()
               requests.push(url)
-              if (new URL(url).hostname === "formulae.brew.sh") return Response.json({ versions: { stable: "2.0.21" } })
-              return Response.json({ version: "2.3.4", metadata: { package: releasePackage } })
+              return Response.json({ tag_name: "v2.3.4" })
             },
             { preconnect: fetch.preconnect },
           ),
@@ -204,7 +203,7 @@ it.live("bun ignores install cache cleanup failures", () =>
   }),
 )
 ;["success", "download", "install"].forEach((failure) => {
-  it.live(`curl uses the V2 installer and cleans its directory: ${failure}`, () =>
+it.live(`curl uses the Nytrix installer and cleans its directory: ${failure}`, () =>
     Effect.gen(function* () {
       const test = yield* fixture((command) => {
         const installer = command.command === "curl" ? command.args[2] : command.args[0]
@@ -222,7 +221,7 @@ it.live("bun ignores install cache cleanup failures", () =>
       const installer = test.commands[0]?.[3]
       expect(installer).toStartWith(path.join(test.global.cache, "update-"))
       expect(test.commands).toEqual([
-        ["curl", "-fsSL", "-o", installer, "https://opencode.ai/v2/install"],
+        ["curl", "-fsSL", "-o", installer, "https://raw.githubusercontent.com/ledexsoft/Nytrix/dev/install"],
         ...(failure === "download" ? [] : [[test.bash, installer, "--version", "2.3.4-beta.1", "--no-modify-path"]]),
       ])
       expect(yield* test.fs.readDirectory(test.global.cache)).toEqual([])
@@ -273,7 +272,7 @@ it.live("install failures expose stderr and process errors do not report success
               : "@nytrix/cli@2.3.4"
             : command.command === "vp"
               ? "[]"
-              : "opencode-ai@1.0.0",
+              : "nytrix-ai@1.0.0",
         ),
       }))
       expect(yield* test.updater.method()).toBe(method)
@@ -311,30 +310,30 @@ it.live("vp detection ignores no-match output that repeats the package name", ()
 
 it.live("Homebrew Core installs check and upgrade the Core formula", () =>
   Effect.gen(function* () {
-    const test = yield* fixture(() => ({}), "@nytrix/cli", false, "anomalyco/tap/opencode-v2", "opencode")
+    const test = yield* fixture(() => ({}), "@nytrix/cli", false, "nytrix-v2", "nytrix")
     expect(yield* test.updater.method()).toBe("brew")
-    expect(yield* test.updater.latest()).toBe("2.0.21")
-    yield* test.updater.upgrade("brew", "2.0.21")
-    expect(test.commands).toEqual([["brew", "upgrade", "opencode"]])
+    expect(yield* test.updater.latest()).toBe("2.3.4")
+    yield* test.updater.upgrade("brew", "2.3.4")
+    expect(test.commands).toEqual([["brew", "upgrade", "nytrix"]])
     // An explicitly selected method keeps its own release source.
     expect(yield* test.updater.latest("npm")).toBe("2.3.4")
     expect(test.requests).toEqual([
-      "https://formulae.brew.sh/api/formula/opencode.json",
-      "https://opencode.ai/update/api/local/cli/npm?current=local",
+      "https://api.github.com/repos/ledexsoft/Nytrix/releases/latest",
+      "https://api.github.com/repos/ledexsoft/Nytrix/releases/latest",
     ])
   }),
 )
-;["opencode-v2", "opencode-beta"].forEach((formula) => {
+;["nytrix-v2", "nytrix-beta"].forEach((formula) => {
   it.live(`Homebrew tap installs of ${formula} use the published tap formula`, () =>
     Effect.gen(function* () {
-      const test = yield* fixture(() => ({}), "@nytrix/cli", false, `anomalyco/tap/${formula}`, formula)
+      const test = yield* fixture(() => ({}), "@nytrix/cli", false, formula, formula)
       expect(yield* test.updater.method()).toBe("brew")
       expect(yield* test.updater.latest()).toBe("2.3.4")
       yield* test.updater.upgrade("brew", "2.3.4")
-      expect(test.commands).toEqual([["brew", "upgrade", `anomalyco/tap/${formula}`]])
+      expect(test.commands).toEqual([["brew", "upgrade", formula]])
       expect(test.requests).toEqual([
-        "https://opencode.ai/update/api/local/cli/homebrew?current=local",
-        "https://opencode.ai/update/api/local/cli/homebrew?current=local",
+        "https://api.github.com/repos/ledexsoft/Nytrix/releases/latest",
+        "https://api.github.com/repos/ledexsoft/Nytrix/releases/latest",
       ])
     }),
   )
@@ -356,14 +355,14 @@ const winget = (search: Partial<AppProcess.RunResult>) =>
           "Microsoft",
           "WinGet",
           "Packages",
-          "Anomaly.OpenCode_Microsoft.Winget.Source_8wekyb3d8bbwe",
-          "opencode.exe",
+          "Anomaly.Nytrix_Microsoft.Winget.Source_8wekyb3d8bbwe",
+          "nytrix.exe",
         ),
       ),
   )
 const wingetArgs = [
   "--id",
-  "Anomaly.OpenCode",
+  "Anomaly.Nytrix",
   "--exact",
   "--source",
   "winget",
@@ -375,7 +374,7 @@ it.live("WinGet installs check, upgrade, and remove the version in the WinGet in
   Effect.gen(function* () {
     const test = yield* winget({
       stdout: Buffer.from(
-        "Name     Id               Version\r\n------------------------------\r\nOpenCode Anomaly.OpenCode 2.0.28\r\n",
+        "Name     Id               Version\r\n------------------------------\r\nNytrix Anomaly.Nytrix 2.0.28\r\n",
       ),
     })
     expect(yield* test.updater.method()).toBe("winget")
@@ -389,7 +388,7 @@ it.live("WinGet installs check, upgrade, and remove the version in the WinGet in
       ["winget", "upgrade", ...wingetArgs, "--version", "2.0.28", "--silent", "--accept-package-agreements"],
       ["winget", "uninstall", ...wingetArgs],
     ])
-    // WinGet moderates submissions, so the OpenCode release service may list a version WinGet cannot install yet.
+    // WinGet moderates submissions, so the Nytrix release service may list a version WinGet cannot install yet.
     expect(test.requests).toEqual([])
   }),
 )
@@ -405,11 +404,11 @@ it.live("WinGet update checks report a missing package instead of a version", ()
   }),
 )
 
-// Links are named opencode-upgrade-<pid>-<random>.exe; read them from inside the installer run.
+// Links are named nytrix-upgrade-<pid>-<random>.exe; read them from inside the installer run.
 const links = (directory: string) =>
-  existsSync(directory) ? readdirSync(directory).filter((name) => name.startsWith("opencode-")) : []
+  existsSync(directory) ? readdirSync(directory).filter((name) => name.startsWith("nytrix-")) : []
 const upgradeLinks = (directory: string) =>
-  links(directory).filter((name) => name.startsWith(`opencode-upgrade-${process.pid}-`))
+  links(directory).filter((name) => name.startsWith(`nytrix-upgrade-${process.pid}-`))
 
 windows("windows keeps a second link to the running binary in the cache while the installer runs", () =>
   Effect.gen(function* () {
@@ -425,13 +424,13 @@ windows("windows keeps a second link to the running binary in the cache while th
     layout.cache = test.global.cache
     yield* test.fs.makeDirectory(test.global.cache, { recursive: true })
     // pid 999999999 does not exist; pid 4 is System, alive but not openable (EPERM).
-    yield* test.fs.writeFileString(path.join(test.global.cache, "opencode-upgrade-999999999-dead.exe"), "exited")
-    yield* test.fs.writeFileString(path.join(test.global.cache, "opencode-service-4-aa.exe"), "inaccessible")
+    yield* test.fs.writeFileString(path.join(test.global.cache, "nytrix-upgrade-999999999-dead.exe"), "exited")
+    yield* test.fs.writeFileString(path.join(test.global.cache, "nytrix-service-4-aa.exe"), "inaccessible")
     yield* test.updater.upgrade("bun", "2.3.4")
     expect(test.commands).toHaveLength(1)
     // The installed path never disappears; the extra link is released and only dead ones are swept.
     expect(yield* test.fs.readFileString(test.executable)).toBe("binary")
-    expect(links(test.global.cache)).toEqual(["opencode-service-4-aa.exe"])
+    expect(links(test.global.cache)).toEqual(["nytrix-service-4-aa.exe"])
   }),
 )
 
@@ -483,7 +482,7 @@ windows("windows links the curl binary before the installer replaces it", () =>
       false,
       "@nytrix/cli",
       undefined,
-      (_root, home) => Effect.succeed(path.join(home, ".opencode", "bin", "opencode.exe")),
+      (_root, home) => Effect.succeed(path.join(home, ".nytrix", "bin", "nytrix.exe")),
     )
     layout.executable = test.executable
     layout.cache = test.global.cache
@@ -510,7 +509,7 @@ unix("curl method detection resolves symlinked home directories", () =>
         Effect.gen(function* () {
           const fs = yield* FileSystem.FileSystem
           const realHome = path.join(root, "real-home")
-          const bin = path.join(realHome, ".opencode", "bin", "opencode")
+          const bin = path.join(realHome, ".nytrix", "bin", "nytrix")
           yield* fs.makeDirectory(path.dirname(bin), { recursive: true })
           yield* fs.symlink(realHome, home)
           return bin
@@ -527,7 +526,7 @@ windows("windows leaves a source checkout's runtime alone", () =>
     const test = yield* fixture(() => {
       expect(links(layout.cache)).toEqual([])
       return {}
-    }, "not-opencode")
+    }, "not-nytrix")
     layout.cache = test.global.cache
     yield* test.updater.upgrade("bun", "2.3.4")
     expect(test.commands).toHaveLength(1)
@@ -554,7 +553,7 @@ test("Node distribution honors the compile-time CLI name", async () => {
       "test",
       import.meta.path,
       "--define",
-      'OPENCODE_CLI_NAME="opencode2-node"',
+      'NYTRIX_CLI_NAME="nytrix2-node"',
       "--test-name-pattern",
       "^Node distribution resolves the published npm package$",
     ],
@@ -571,7 +570,7 @@ test("Node distribution honors the compile-time CLI name", async () => {
   expect(stderr).toContain("1 pass")
 })
 
-if (typeof OPENCODE_CLI_NAME === "string" && OPENCODE_CLI_NAME === "opencode2-node") {
+if (typeof NYTRIX_CLI_NAME === "string" && NYTRIX_CLI_NAME === "nytrix2-node") {
   it.live("Node distribution resolves the published npm package", () =>
     Effect.gen(function* () {
       const test = yield* fixture(

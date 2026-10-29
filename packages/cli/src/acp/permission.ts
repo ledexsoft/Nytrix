@@ -1,5 +1,5 @@
 import type { PermissionOption, SessionUpdate } from "@agentclientprotocol/sdk"
-import type { OpenCodeClient, OpenCodeEvent } from "@nytrix/client/effect"
+import type { NytrixClient, NytrixEvent } from "@nytrix/client/effect"
 import { FileDiff } from "@nytrix/schema/file-diff"
 import type { Permission } from "@nytrix/schema/permission"
 import type { Session } from "@nytrix/schema/session"
@@ -21,12 +21,12 @@ import {
   type ToolInput,
 } from "./tool"
 
-type PermissionEvent = Extract<OpenCodeEvent, { type: "permission.asked" }>
+type PermissionEvent = Extract<NytrixEvent, { type: "permission.asked" }>
 type Tool = { readonly id: string; readonly name: string; readonly input: ToolInput }
 type Preview = ReturnType<typeof diff>
 
 type Input = {
-  readonly client: OpenCodeClient
+  readonly client: NytrixClient
   readonly connection: ACPConnection.Interface
   readonly event: PermissionEvent
   readonly sessionID: Session.ID

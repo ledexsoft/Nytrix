@@ -1,4 +1,4 @@
-import type { OpenCodeClient } from "@nytrix/client/promise"
+import type { NytrixClient } from "@nytrix/client/promise"
 import type { Schema } from "effect"
 
 /**
@@ -347,7 +347,7 @@ export interface BaseContext {
    * const result = await ctx.client.rpc(Acme).search({ query })
    * ```
    */
-  readonly client: OpenCodeClient
+  readonly client: NytrixClient
   /**
    * The plugin's id, as its `Plugin.define` declares it.
    *

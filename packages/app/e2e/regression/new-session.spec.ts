@@ -1,5 +1,5 @@
 import { expect, test, type Locator, type Page } from "@playwright/test"
-import type { OpenCodeEvent, WorktreeDirectory } from "@nytrix/client/promise"
+import type { NytrixEvent, WorktreeDirectory } from "@nytrix/client/promise"
 import { draftHref, expectPath, NO_PROVIDER, project, provider, seed, sessionHref, T0 } from "../utils/app"
 import { mockOpenCodeServer } from "../utils/mock-server"
 import { newSessionLocation, openDraft, openSession, openWorktreeDraft, type WorkspaceInput } from "../utils/workspace"
@@ -672,7 +672,7 @@ test("executes a selected slash command after creating its worktree", async ({ p
       },
     ])
   // The server owns command expansion; the client receives the expanded inbox item.
-  // SAFETY: the fixture event matches the generated OpenCodeEvent shape for its type.
+  // SAFETY: the fixture event matches the generated NytrixEvent shape for its type.
   await mock.push([
     {
       id: "evt_workspace_review",
@@ -684,7 +684,7 @@ test("executes a selected slash command after creating its worktree", async ({ p
         inboxID: "msg_workspace_review",
         item: { type: "user", payload: { text: expanded }, delivery: "steer" },
       },
-    } as OpenCodeEvent,
+    } as NytrixEvent,
   ])
   await expect(pending.shimmer).toHaveCount(0)
   await expect(page.locator('[data-slot="user-message-text"]')).toHaveText(expanded)
@@ -948,7 +948,7 @@ for (const row of [
       (response) => new URL(response.url()).pathname === "/api/worktree" && response.request().method() === "GET",
     )
 
-    // SAFETY: the fixture event matches the generated OpenCodeEvent shape for its type.
+    // SAFETY: the fixture event matches the generated NytrixEvent shape for its type.
     await view.push([
       {
         id: "evt_accent_inventory",
@@ -956,12 +956,12 @@ for (const row of [
         type: "worktree.updated",
         data: { projectID: "proj_workspaceaccent" },
       },
-    ] as OpenCodeEvent[])
+    ] as NytrixEvent[])
     expect((await refreshed).ok()).toBe(true)
     await expect(page).toHaveURL(url)
     await expect(view.editor).toHaveText("Inspect this fixture workspace.")
     await expectBackground(send, "icon-button-contrast")
-    // SAFETY: the fixture event matches the generated OpenCodeEvent shape for its type.
+    // SAFETY: the fixture event matches the generated NytrixEvent shape for its type.
     await view.push([
       {
         id: "evt_accent_running",
@@ -970,7 +970,7 @@ for (const row of [
         durable: { aggregateID: "ses_workspace_accent", seq: 1, version: 1 },
         data: { sessionID: "ses_workspace_accent" },
       },
-    ] as OpenCodeEvent[])
+    ] as NytrixEvent[])
     await view.editor.fill("")
     const stop = composer.getByRole("button", { name: "Stop", exact: true })
     await expect(stop).toBeEnabled()
@@ -979,7 +979,7 @@ for (const row of [
 }
 
 function renamed(sessionID: string) {
-  // SAFETY: the fixture event matches the generated OpenCodeEvent shape for its type.
+  // SAFETY: the fixture event matches the generated NytrixEvent shape for its type.
   return {
     id: "evt_generated_title",
     type: "session.renamed",
@@ -987,7 +987,7 @@ function renamed(sessionID: string) {
     location: { directory: workspace },
     durable: { aggregateID: sessionID, seq: 1, version: 1 },
     data: { sessionID, title: "Generated session title" },
-  } as OpenCodeEvent
+  } as NytrixEvent
 }
 
 async function draftFollowUp(page: Page) {

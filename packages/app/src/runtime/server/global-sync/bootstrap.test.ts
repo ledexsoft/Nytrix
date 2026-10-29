@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import { QueryClient } from "@tanstack/solid-query"
-import { OpenCode } from "@nytrix/client/promise"
+import { Nytrix } from "@nytrix/client/promise"
 import { createStore } from "solid-js/store"
 import { bootstrapGlobal, inferHomeDirectory, loadPathQuery, loadProjectsQuery } from "./bootstrap"
 import { ServerScope } from "@/runtime/server/scope"
@@ -10,7 +10,7 @@ import type { ServerSync } from "@/runtime/server/sync"
 import { worktreeInventoryKey } from "@/workspaces/inventory"
 
 test("bootstraps projects through the native store setter and preserves subsequent updates", async () => {
-  const api = OpenCode.make({
+  const api = Nytrix.make({
     baseUrl: "http://opencode.local",
     fetch: Object.assign(
       async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -140,7 +140,7 @@ describe("query keys", () => {
   test("loads project metadata in server order without enumerating any project's worktrees", async () => {
     const requests: string[] = []
 
-    const api = OpenCode.make({
+    const api = Nytrix.make({
       baseUrl: "http://localhost:3000",
       fetch: Object.assign(
         async (input: RequestInfo | URL, init?: RequestInit) => {

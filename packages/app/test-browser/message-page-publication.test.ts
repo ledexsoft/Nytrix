@@ -1,12 +1,12 @@
 import { expect, test } from "bun:test"
 import { createComputed, createRoot } from "solid-js"
-import { OpenCode } from "@nytrix/client/promise"
+import { Nytrix } from "@nytrix/client/promise"
 import { createData } from "@nytrix/client/solid"
 
 test("publishes an initial message page, its index, and its cursor together", async () => {
   const observed: { ids: string[]; more: boolean; text: string | undefined }[] = []
 
-  const api = OpenCode.make({
+  const api = Nytrix.make({
     baseUrl: "http://opencode.local",
     fetch: async () =>
       Response.json({

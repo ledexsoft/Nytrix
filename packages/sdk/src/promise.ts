@@ -1,6 +1,6 @@
 export * as PromiseSdk from "./promise"
 
-import { OpenCode, type OpenCodeClient } from "@nytrix/client"
+import { Nytrix, type NytrixClient } from "@nytrix/client"
 import type { Plugin } from "@nytrix/plugin"
 import { Session } from "@nytrix/schema/session"
 import { Effect, Schema } from "effect"
@@ -23,10 +23,10 @@ export interface CreateOptions
   readonly instances?: InstanceOptions
 }
 
-export type Interface = Omit<OpenCodeClient, "plugin"> & {
-  readonly sessions: OpenCodeClient["session"]
-  readonly events: OpenCodeClient["event"]
-  readonly plugin: ((plugin: Plugin.Plugin) => Promise<void>) & OpenCodeClient["plugin"]
+export type Interface = Omit<NytrixClient, "plugin"> & {
+  readonly sessions: NytrixClient["session"]
+  readonly events: NytrixClient["event"]
+  readonly plugin: ((plugin: Plugin.Plugin) => Promise<void>) & NytrixClient["plugin"]
   readonly close: () => Promise<void>
   readonly [Symbol.asyncDispose]: () => Promise<void>
 }
@@ -53,7 +53,7 @@ export async function create(options: CreateOptions = {}, embed: EmbeddedHost.Em
       embed,
     ),
   )
-  const client = OpenCode.make({ baseUrl: "http://opencode.local", fetch: host.fetch })
+  const client = Nytrix.make({ baseUrl: "http://nytrix.local", fetch: host.fetch })
   const register = async (plugin: Plugin.Plugin) => {
     const { PluginPromise } = await import("@nytrix/core/plugin/promise")
     return host.runtime.runPromise(host.plugins.register(PluginPromise.fromPromise(plugin)))

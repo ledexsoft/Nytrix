@@ -83,6 +83,6 @@ it.live("reports usage limits Console can't provide as unavailable", () =>
     )
 
     expect(result.status).toBe(503)
-    expect(result.body).toMatchObject({ message: "OpenCode Console budgets are unavailable", service: "opencode" })
+    expect(result.body).toMatchObject({ message: "OpenCode Console budgets are unavailable", service: "nytrix" })
   }),
 )

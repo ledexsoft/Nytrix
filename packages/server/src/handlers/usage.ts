@@ -16,7 +16,7 @@ export const UsageHandler = HttpApiBuilder.group(Api, "server.usage", (handlers)
         return yield* response(
           limits.get().pipe(
             Effect.map((info) => info ?? null),
-            Effect.mapError((error) => new ServiceUnavailableError({ message: error.message, service: "opencode" })),
+            Effect.mapError((error) => new ServiceUnavailableError({ message: error.message, service: "nytrix" })),
           ),
         )
       }),

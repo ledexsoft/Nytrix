@@ -49,7 +49,7 @@ import {
   type SetupContext,
   type Token,
 } from "@nytrix/plugin/gui"
-import { OpenCode, type OpenCodeClient } from "@nytrix/client/promise"
+import { Nytrix, type NytrixClient } from "@nytrix/client/promise"
 import { useLanguage } from "@/runtime/i18n/language"
 import { PluginAlertDialog, PluginConfirmDialog, PluginPromptDialog, PluginSelectDialog } from "./dialogs"
 import { createSessionStore, whenLoaded } from "./stores"
@@ -77,7 +77,7 @@ type Instance = {
 }
 
 /** What a plugin's GUI reads of its plugin: its options, and the client of the server that runs it, read each time. */
-export type PluginInput = { readonly options: PluginOptions; readonly client: () => OpenCodeClient | undefined }
+export type PluginInput = { readonly options: PluginOptions; readonly client: () => NytrixClient | undefined }
 
 /** The APIs a window context exposes as properties. */
 type HostApis = Omit<BuiltinContext, keyof BaseContext | "provide" | "use" | "main">
@@ -993,13 +993,13 @@ function windowStores(definition: Entry) {
 }
 
 /** The client `unavailableClient` made, once a plugin first read it. */
-type Unavailable = { client?: OpenCodeClient }
+type Unavailable = { client?: NytrixClient }
 
 const unavailable: Unavailable = {}
 
 /** The client a plugin reads while the server that runs it is unreachable: every call rejects. */
 function unavailableClient() {
-  return (unavailable.client ??= OpenCode.make({
+  return (unavailable.client ??= Nytrix.make({
     baseUrl: "http://unavailable.invalid/",
     fetch: Object.assign(() => Promise.reject(new Error("The server that runs this plugin is unavailable")), {
       preconnect() {},

@@ -1,9 +1,9 @@
 import type { SessionUpdate } from "@agentclientprotocol/sdk"
-import type { OpenCodeEvent } from "@nytrix/client/effect"
+import type { NytrixEvent } from "@nytrix/client/effect"
 import type { SessionError } from "@nytrix/schema/session-error"
 import { SessionMessage } from "@nytrix/schema/session-message"
 
-const MarkerMeta = "opencode/compaction"
+const MarkerMeta = "nytrix/compaction"
 
 type Started = { readonly status: "started"; readonly messageId: string; readonly reason: "auto" | "manual" }
 
@@ -25,7 +25,7 @@ type Compaction =
 export type Tracked = ReadonlyMap<string, Started>
 
 type LifecycleEvent = Extract<
-  OpenCodeEvent,
+  NytrixEvent,
   { readonly type: "session.compaction.started" | "session.compaction.ended" | "session.compaction.failed" }
 >
 type OpeningEvent = Extract<

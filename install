@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
-APP=opencode
-SOURCE_APP=opencode
+APP=nytrix
+SOURCE_APP=nytrix
 
 MUTED='\033[0;2m'
 RED='\033[0;31m'
@@ -10,7 +10,7 @@ NC='\033[0m' # No Color
 
 usage() {
     cat <<EOF
-OpenCode Installer
+Nytrix Installer
 
 Usage: install.sh [options]
 
@@ -21,9 +21,9 @@ Options:
         --no-modify-path    Don't modify shell config files (.zshrc, .bashrc, etc.)
 
 Examples:
-    curl -fsSL https://opencode.ai/v2/install | bash
-    curl -fsSL https://opencode.ai/v2/install | bash -s -- --version 0.0.0-beta-17236
-    ./install --binary /path/to/opencode
+    curl -fsSL https://raw.githubusercontent.com/ledexsoft/Nytrix/dev/install | bash
+    curl -fsSL https://raw.githubusercontent.com/ledexsoft/Nytrix/dev/install | bash -s -- --version 2.2.0
+    ./install --binary /path/to/nytrix
 EOF
 }
 
@@ -66,7 +66,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-INSTALL_DIR=$HOME/.opencode/bin
+INSTALL_DIR=$HOME/.nytrix/bin
 mkdir -p "$INSTALL_DIR"
 
 # If --binary is provided, skip all download/detection logic
@@ -176,15 +176,14 @@ else
 
     package_scope="@nytrix"
     if [ -z "$requested_version" ]; then
-        metadata=$(curl -fsSL https://opencode.ai/update/api/latest/cli/npm || true)
-        specific_version=$(echo "$metadata" | sed -n 's/.*"version":"\([^"]*\)".*/\1/p')
-        package=$(echo "$metadata" | sed -n 's/.*"package":"\([^"]*\)".*/\1/p')
+        metadata=$(curl -fsSL https://api.github.com/repos/ledexsoft/Nytrix/releases/latest || true)
+        specific_version=$(echo "$metadata" | sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+        specific_version=${specific_version#v}
 
-        if [ -z "$specific_version" ] || [ -z "$package" ]; then
+        if [ -z "$specific_version" ]; then
             echo -e "${RED}Failed to fetch version information${NC}"
             exit 1
         fi
-        package_scope="${package%/cli}"
     else
         # Strip leading 'v' if present
         requested_version="${requested_version#v}"
@@ -193,13 +192,8 @@ else
 
     package_name="$package_scope/cli-$target"
     http_status=$(curl -s -o /dev/null -w "%{http_code}" "https://registry.npmjs.org/$package_scope%2fcli-$target/$specific_version" || true)
-    # Older clients install the minimum release before they can migrate package names.
-    if [ "$http_status" = "404" ] && [ -n "$requested_version" ]; then
-        package_name="@opencode-ai/cli-$target"
-        http_status=$(curl -s -o /dev/null -w "%{http_code}" "https://registry.npmjs.org/@opencode-ai%2fcli-$target/$specific_version" || true)
-    fi
     if [ "$http_status" = "404" ]; then
-        echo -e "${RED}Error: Version ${specific_version} is not available for $target${NC}"
+        echo -e "${RED}Error: Nytrix version ${specific_version} is not published for $target${NC}"
         echo -e "${MUTED}Available versions: https://www.npmjs.com/package/$package_name?activeTab=versions${NC}"
         exit 1
     fi
@@ -232,7 +226,7 @@ print_message() {
 
 check_version() {
     if command -v "$APP" >/dev/null 2>&1; then
-        opencode_path=$(which "$APP")
+        nytrix_path=$(which "$APP")
 
         ## Check the installed version
         installed_version=$("$APP" --version 2>/dev/null || echo "")
@@ -306,7 +300,7 @@ download_with_progress() {
 
 download_and_install() {
     print_message info "\n${MUTED}Installing ${NC}$APP ${MUTED}version: ${NC}$specific_version"
-    local tmp_dir="${TMPDIR:-/tmp}/opencode_install_$$"
+    local tmp_dir="${TMPDIR:-/tmp}/nytrix_install_$$"
     mkdir -p "$tmp_dir"
 
     if [[ "$os" == "windows" ]] || ! [ -t 2 ] || ! download_with_progress "$url" "$tmp_dir/$filename"; then
@@ -349,20 +343,20 @@ install_legacy_shim() {
             MINGW*|MSYS*|CYGWIN*) shim_os="windows" ;;
         esac
     fi
-    rm -f "$INSTALL_DIR/opencode2" "$INSTALL_DIR/opencode2.exe" "$INSTALL_DIR/opencode2.cmd"
+    rm -f "$INSTALL_DIR/nytrix2" "$INSTALL_DIR/nytrix2.exe" "$INSTALL_DIR/nytrix2.cmd"
     if [[ "$shim_os" == "windows" ]]; then
-        cat > "$INSTALL_DIR/opencode2.cmd" <<'EOF'
+        cat > "$INSTALL_DIR/nytrix2.cmd" <<'EOF'
 @echo off
-"%~dp0opencode.exe" %*
+"%~dp0nytrix.exe" %*
 exit /b %errorlevel%
 EOF
         return
     fi
-    cat > "$INSTALL_DIR/opencode2" <<'EOF'
+    cat > "$INSTALL_DIR/nytrix2" <<'EOF'
 #!/bin/sh
-exec "$(dirname "$0")/opencode" "$@"
+exec "$(dirname "$0")/nytrix" "$@"
 EOF
-    chmod 755 "$INSTALL_DIR/opencode2"
+    chmod 755 "$INSTALL_DIR/nytrix2"
 }
 
 if [ -n "$binary_path" ]; then
@@ -382,10 +376,10 @@ add_to_path() {
     if grep -Fxq "$command" "$config_file"; then
         print_message info "Command already exists in $config_file, skipping write."
     elif [[ -w $config_file ]]; then
-        echo -e "\n# opencode" >> "$config_file"
+        echo -e "\n# nytrix" >> "$config_file"
         echo "$command" >> "$config_file"
         path_added=true
-        print_message info "${MUTED}Successfully added ${NC}opencode ${MUTED}to \$PATH in ${NC}$config_file"
+        print_message info "${MUTED}Successfully added ${NC}nytrix ${MUTED}to \$PATH in ${NC}$config_file"
     else
         print_message warning "Manually add the directory to $config_file (or similar):"
         print_message info "  $command"
@@ -426,7 +420,7 @@ if [[ "$no_modify_path" != "true" ]]; then
         fi
     done
 
-    # A new Mac has no ~/.zshrc, so create the shell's main config file rather than leaving opencode off PATH.
+    # A new Mac has no ~/.zshrc, so create the shell's main config file rather than leaving nytrix off PATH.
     if [[ -z $config_file ]]; then
         case $current_shell in
             zsh) new_config_file="${ZDOTDIR:-$HOME}/.zshrc" ;;
@@ -479,14 +473,14 @@ echo -e "${MUTED}█░░█ █░░█ █▀▀▀ █░░█ ${NC}█░
 echo -e "${MUTED}▀▀▀▀ █▀▀▀ ▀▀▀▀ ▀  ▀ ${NC}▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀"
 echo -e ""
 echo -e ""
-echo -e "${MUTED}OpenCode includes free models, to start:${NC}"
+echo -e "${MUTED}Nytrix includes free models, to start:${NC}"
 echo -e ""
 if [[ $path_added == "true" ]]; then
     echo -e "exec \$SHELL   ${MUTED}# Reload PATH (or open a new terminal)${NC}"
 fi
 echo -e "cd <project>  ${MUTED}# Open directory${NC}"
-echo -e "opencode      ${MUTED}# Run command${NC}"
+echo -e "nytrix        ${MUTED}# Run command${NC}"
 echo -e ""
-echo -e "${MUTED}For more information visit ${NC}https://opencode.ai/v2/docs"
+echo -e "${MUTED}Source and documentation: ${NC}https://github.com/ledexsoft/Nytrix"
 echo -e ""
 echo -e ""

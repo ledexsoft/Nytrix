@@ -1,5 +1,5 @@
 import { base64Encode } from "@nytrix/util/encode"
-import type { JsonValue, OpenCodeEvent, SessionMessageAssistant, SessionMessageInfo } from "@nytrix/client/promise"
+import type { JsonValue, NytrixEvent, SessionMessageAssistant, SessionMessageInfo } from "@nytrix/client/promise"
 import type { Page } from "@playwright/test"
 import { mockOpenCodeServer } from "../../utils/mock-server"
 import { expectAppVisible, expectSessionTitle } from "../../utils/waits"
@@ -27,7 +27,7 @@ const title = "Timeline collapse state regression"
 
 const model = { providerID: "opencode", modelID: "claude-opus-4-6", variant: "max" }
 
-type EventPayload = OpenCodeEvent
+type EventPayload = NytrixEvent
 
 const userMessage = {
   id: userMessageID,
@@ -391,9 +391,9 @@ let eventSequence = 0
 
 function timelineEvent<Type extends "session.text.started" | "session.text.delta">(
   type: Type,
-  data: Extract<OpenCodeEvent, { type: Type }>["data"],
+  data: Extract<NytrixEvent, { type: Type }>["data"],
   durable = false,
-): Extract<OpenCodeEvent, { type: Type }> {
+): Extract<NytrixEvent, { type: Type }> {
   eventSequence++
 
   return {
@@ -403,7 +403,7 @@ function timelineEvent<Type extends "session.text.started" | "session.text.delta
     data,
     location: { directory },
     ...(durable ? { durable: { aggregateID: sessionID, seq: eventSequence, version: 1 } } : {}),
-  } as unknown as Extract<OpenCodeEvent, { type: Type }>
+  } as unknown as Extract<NytrixEvent, { type: Type }>
 }
 
 function historicalMarkdown(index: number) {

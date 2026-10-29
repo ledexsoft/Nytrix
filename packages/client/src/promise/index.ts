@@ -1,7 +1,7 @@
-import type { OpenCode } from "./client.js"
+import type { Nytrix } from "./client.js"
 
 export * from "./generated/index.js"
-export { OpenCode } from "./client.js"
+export { Nytrix } from "./client.js"
 export type {
   AgentApi,
   CommandApi,
@@ -20,9 +20,9 @@ export type {
   SessionApi,
   SkillApi,
 } from "./api.js"
-export type { EventSubscribeOutput as OpenCodeEvent } from "./generated/types.js"
+export type { EventSubscribeOutput as NytrixEvent } from "./generated/types.js"
 export type {
   MediaFileAttachment as PromptMediaFileAttachment,
   Attachment as PromptAttachment,
 } from "@nytrix/schema/prompt"
-export type OpenCodeClient = ReturnType<typeof OpenCode.make>
+export type NytrixClient = ReturnType<typeof Nytrix.make>

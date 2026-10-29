@@ -12,7 +12,7 @@ import {
 } from "@nytrix/plugin/effect"
 import { Tool } from "@nytrix/schema/tool"
 
-const key = Symbol.for("opencode.plugin.v2.effect")
+const key = Symbol.for("nytrix.plugin.v2.effect")
 ;(globalThis as typeof globalThis & { [key]?: unknown })[key] = {
   Agent,
   Command,

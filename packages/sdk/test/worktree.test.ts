@@ -4,10 +4,10 @@ import { join } from "node:path"
 import { Plugin } from "@nytrix/plugin"
 import { initRepo } from "../../core/test/fixture/git"
 import { tmpdir } from "../../core/test/fixture/tmpdir"
-import { OpenCode } from "../src"
+import { Nytrix } from "../src"
 
 test("embedded worktree APIs use project IDs and SDK-registered strategies", async () => {
-  await using directory = await tmpdir("opencode-sdk-worktree-")
+  await using directory = await tmpdir("nytrix-sdk-worktree-")
   await initRepo(directory.path)
   const state = { activated: 0, discovered: 0, removed: 0 }
   const plugin = Plugin.define({
@@ -36,30 +36,30 @@ test("embedded worktree APIs use project IDs and SDK-registered strategies", asy
       )
     },
   })
-  await using opencode = await OpenCode.create({
+  await using nytrix = await Nytrix.create({
     plugins: [plugin],
     config: { directory: directory.path, project: false },
     models: { fetch: false },
     fs: { filewatcher: false },
   })
-  const session = await opencode.sessions.create({ location: { directory: directory.path } })
+  const session = await nytrix.sessions.create({ location: { directory: directory.path } })
   const projectID = session.projectID
-  expect(await opencode.worktree.list({ projectID })).toHaveLength(1)
+  expect(await nytrix.worktree.list({ projectID })).toHaveLength(1)
   expect(state.activated).toBe(0)
-  const worktree = await opencode.worktree.create({
+  const worktree = await nytrix.worktree.create({
     projectID,
     directory: join(directory.path, "copies"),
     name: "task",
   })
   expect(state.activated).toBe(1)
-  expect(await opencode.worktree.list({ projectID })).toContainEqual({
+  expect(await nytrix.worktree.list({ projectID })).toContainEqual({
     directory: worktree.directory,
     strategy: "sdk-copy",
   })
   expect(state.discovered).toBe(0)
-  await opencode.worktree.refresh({ projectID })
+  await nytrix.worktree.refresh({ projectID })
   expect(state.discovered).toBe(1)
-  await opencode.worktree.remove({ projectID, directory: worktree.directory, force: false })
+  await nytrix.worktree.remove({ projectID, directory: worktree.directory, force: false })
   expect(state.removed).toBe(1)
-  expect(await opencode.worktree.list({ projectID })).toHaveLength(1)
+  expect(await nytrix.worktree.list({ projectID })).toHaveLength(1)
 })

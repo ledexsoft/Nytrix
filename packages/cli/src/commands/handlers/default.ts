@@ -9,10 +9,10 @@ import { ServerConnection } from "../../services/server-connection"
 import { Updater } from "../../services/updater"
 import { UpdatePreflight } from "../../services/update-preflight"
 import { Npm } from "@nytrix/util/npm"
-import { OPENCODE_ARTIFACT, OPENCODE_CHANNEL, OPENCODE_HIGHLIGHTS, OPENCODE_VERSION } from "../../version"
+import { NYTRIX_ARTIFACT, NYTRIX_CHANNEL, NYTRIX_HIGHLIGHTS, NYTRIX_VERSION } from "../../version"
 import { Env } from "../../env"
 import { Service } from "@nytrix/client/effect/service"
-import { OpenCode } from "@nytrix/client/promise"
+import { Nytrix } from "@nytrix/client/promise"
 import { findSession } from "../../session-target"
 import { errorMessage } from "../../util/error"
 
@@ -47,7 +47,7 @@ export default Runtime.handler(Commands, (input) =>
       },
     }).pipe(
       Effect.tapError(() =>
-        Effect.promise(() => preflight.fail("OpenCode update could not start the new background service")),
+        Effect.promise(() => preflight.fail("Nytrix update could not start the new background service")),
       ),
     )
     const session = Option.getOrUndefined(input.session)
@@ -56,7 +56,7 @@ export default Runtime.handler(Commands, (input) =>
       session !== undefined &&
       (yield* Effect.tryPromise({
         try: () =>
-          findSession(OpenCode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) }), session),
+          findSession(Nytrix.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) }), session),
         catch: (cause) => new Error(errorMessage(cause)),
       })) !== undefined
     const updater = yield* Updater.Service
@@ -95,10 +95,10 @@ export default Runtime.handler(Commands, (input) =>
     const service = server.service
     yield* run({
       app: {
-        name: process.env.OPENCODE_CLIENT ?? OPENCODE_ARTIFACT,
-        version: OPENCODE_VERSION,
-        channel: process.env.OPENCODE_TUI_CHANNEL ?? OPENCODE_CHANNEL,
-        highlights: OPENCODE_HIGHLIGHTS,
+        name: process.env.NYTRIX_CLIENT ?? NYTRIX_ARTIFACT,
+        version: NYTRIX_VERSION,
+        channel: process.env.NYTRIX_TUI_CHANNEL ?? NYTRIX_CHANNEL,
+        highlights: NYTRIX_HIGHLIGHTS,
       },
       server: {
         endpoint: server.endpoint,

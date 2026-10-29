@@ -21,7 +21,7 @@ const names = [
   "server",
   "sdk",
 ]
-const temporary = await mkdtemp(join(tmpdir(), "opencode-sdk-package-"))
+const temporary = await mkdtemp(join(tmpdir(), "nytrix-sdk-package-"))
 const archives = new Map<string, string>()
 
 try {
@@ -85,29 +85,29 @@ try {
   const consumer = join(temporary, "consumer")
   await Bun.write(
     join(consumer, "package.json"),
-    JSON.stringify({ name: "opencode-sdk-consumer", private: true, type: "module" }),
+    JSON.stringify({ name: "nytrix-sdk-consumer", private: true, type: "module" }),
   )
   await Promise.all([
     Bun.write(
       join(consumer, "wrangler.jsonc"),
       JSON.stringify({
-        name: "opencode-sdk-packed-consumer",
+        name: "nytrix-sdk-packed-consumer",
         main: "worker.js",
         compatibility_date: "2026-07-15",
         compatibility_flags: ["nodejs_compat"],
-        durable_objects: { bindings: [{ name: "OPENCODE", class_name: "OpenCodeDO" }] },
-        migrations: [{ tag: "v1", new_sqlite_classes: ["OpenCodeDO"] }],
+        durable_objects: { bindings: [{ name: "NYTRIX", class_name: "NytrixDO" }] },
+        migrations: [{ tag: "v1", new_sqlite_classes: ["NytrixDO"] }],
       }),
     ),
     Bun.write(
       join(consumer, "worker.js"),
       `import { bodyDigest } from "@nytrix/core/models-dev"
-import { OpenCodeWorkerd } from "@nytrix/sdk/workerd"
+import { NytrixWorkerd } from "@nytrix/sdk/workerd"
 
-export class OpenCodeDO {
+export class NytrixDO {
   constructor(state) {
     this.configurations = 0
-    this.opencode = state.blockConcurrencyWhile(() => OpenCodeWorkerd.create({
+    this.nytrix = state.blockConcurrencyWhile(() => NytrixWorkerd.create({
       storage: state.storage,
       app: { version: "packed-workerd" },
       models: { fetch: false },
@@ -137,12 +137,12 @@ export class OpenCodeDO {
     if (bodyDigest("packed-workerd") !== "5fc174bf63e8dd108ebb6c53d85e7bbc4525b2f4c1c43280364cdbfd9b37aaf5") {
       throw new Error("Packed workerd SHA-256 mismatch")
     }
-    const opencode = await this.opencode
-    const sessions = await Promise.all([1, 2].map(() => opencode.sessions.create({
+    const nytrix = await this.nytrix
+    const sessions = await Promise.all([1, 2].map(() => nytrix.sessions.create({
       location: { directory: "/workspace" },
       metadata: { thread: "packed-thread" },
     })))
-    const admitted = await Promise.all(sessions.map(session => opencode.sessions.prompt({
+    const admitted = await Promise.all(sessions.map(session => nytrix.sessions.prompt({
       sessionID: session.id,
       text: "Packed prompt",
       resume: false,
@@ -150,13 +150,13 @@ export class OpenCodeDO {
     if (this.configurations !== 1 || admitted.some(item => item.payload.text !== "Packed prompt:packed-thread")) {
       throw new Error("Packed instance configuration did not share or prepare prompts correctly")
     }
-    return Response.json(await opencode.server.info())
+    return Response.json(await nytrix.server.info())
   }
 }
 
 export default {
   fetch(request, env) {
-    return env.OPENCODE.get(env.OPENCODE.idFromName("packed-consumer")).fetch(request)
+    return env.NYTRIX.get(env.NYTRIX.idFromName("packed-consumer")).fetch(request)
   },
 }
 `,
@@ -171,11 +171,11 @@ const miniflare = new Miniflare({
   compatibilityFlags: ["nodejs_compat"],
   modules: true,
   scriptPath: fileURLToPath(new URL("./dist/worker.js", import.meta.url)),
-  durableObjects: { OPENCODE: { className: "OpenCodeDO", useSQLite: true } },
+  durableObjects: { NYTRIX: { className: "NytrixDO", useSQLite: true } },
 })
 
 try {
-  const response = await miniflare.dispatchFetch("http://opencode.local/health")
+  const response = await miniflare.dispatchFetch("http://nytrix.local/health")
   if (response.status !== 200) throw new Error(
     "Packed workerd health returned " + response.status + ": " + await response.text(),
   )
@@ -198,7 +198,7 @@ try {
 ])
 
 for (const module of modules) {
-  const api = module.OpenCode ?? module.OpenCodeWorkerd
+  const api = module.Nytrix ?? module.NytrixWorkerd
   if (typeof api?.create !== "function") throw new Error("Packed SDK entrypoint is missing create()")
 }
 `,

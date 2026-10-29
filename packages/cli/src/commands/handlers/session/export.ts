@@ -1,5 +1,5 @@
 import { autocomplete, cancel, intro, isCancel, log, outro } from "@clack/prompts"
-import { OpenCode } from "@nytrix/client"
+import { Nytrix } from "@nytrix/client"
 import { Service } from "@nytrix/client/effect/service"
 import { Effect, Option } from "effect"
 import { EOL } from "node:os"
@@ -17,7 +17,7 @@ export default Runtime.handler(
         yield* Effect.fail(new Error("Pass a session ID when running without an interactive terminal"))
       }
       const server = yield* ServerConnection.resolve()
-      const client = OpenCode.make({
+      const client = Nytrix.make({
         baseUrl: server.endpoint.url,
         headers: Service.headers(server.endpoint),
       })

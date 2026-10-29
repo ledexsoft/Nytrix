@@ -1,6 +1,6 @@
 import type {
   JsonValue,
-  OpenCodeEvent,
+  NytrixEvent,
   SessionInfo,
   SessionMessageAssistant,
   SessionMessageInfo,
@@ -135,9 +135,9 @@ type TimelineServerInput = Partial<
 
 export type TimelineMessage = SessionMessageUser | SessionMessageAssistant
 
-export type TimelineEvent = OpenCodeEvent | readonly OpenCodeEvent[]
+export type TimelineEvent = NytrixEvent | readonly NytrixEvent[]
 
-export type EventPayload = OpenCodeEvent
+export type EventPayload = NytrixEvent
 
 export type ToolStatus = ToolSeed["state"]["status"]
 
@@ -339,7 +339,7 @@ function timelineEvents(input: TimelineEvent) {
   return (Array.isArray(input) ? input : [input]).map(validateTimelineEvent)
 }
 
-function describeEvent(event: OpenCodeEvent) {
+function describeEvent(event: NytrixEvent) {
   if (event.type.startsWith("session.tool.")) {
     return [event.type, "id" in event.data ? event.data.id : undefined].filter(Boolean).join(":")
   }
@@ -349,55 +349,55 @@ function describeEvent(event: OpenCodeEvent) {
 
 export function event(
   type: "session.status",
-  data: Extract<OpenCodeEvent, { type: "session.status" }>["data"],
-): OpenCodeEvent {
+  data: Extract<NytrixEvent, { type: "session.status" }>["data"],
+): NytrixEvent {
   return makeEvent(type, data)
 }
 
-export function inboxEnqueued(data: Extract<OpenCodeEvent, { type: "session.inbox.enqueued" }>["data"]) {
+export function inboxEnqueued(data: Extract<NytrixEvent, { type: "session.inbox.enqueued" }>["data"]) {
   return makeEvent("session.inbox.enqueued", data)
 }
 
-export function inboxDelivered(data: Extract<OpenCodeEvent, { type: "session.inbox.delivered" }>["data"]) {
+export function inboxDelivered(data: Extract<NytrixEvent, { type: "session.inbox.delivered" }>["data"]) {
   return makeEvent("session.inbox.delivered", data)
 }
 
-export function compactionStarted(data: Extract<OpenCodeEvent, { type: "session.compaction.started" }>["data"]) {
+export function compactionStarted(data: Extract<NytrixEvent, { type: "session.compaction.started" }>["data"]) {
   return makeEvent("session.compaction.started", data)
 }
 
-export function compactionDelta(data: Extract<OpenCodeEvent, { type: "session.compaction.delta" }>["data"]) {
+export function compactionDelta(data: Extract<NytrixEvent, { type: "session.compaction.delta" }>["data"]) {
   return makeEvent("session.compaction.delta", data)
 }
 
-export function compactionEnded(data: Extract<OpenCodeEvent, { type: "session.compaction.ended" }>["data"]) {
+export function compactionEnded(data: Extract<NytrixEvent, { type: "session.compaction.ended" }>["data"]) {
   return makeEvent("session.compaction.ended", data)
 }
 
-export function compactionFailed(data: Extract<OpenCodeEvent, { type: "session.compaction.failed" }>["data"]) {
+export function compactionFailed(data: Extract<NytrixEvent, { type: "session.compaction.failed" }>["data"]) {
   return makeEvent("session.compaction.failed", data)
 }
 
-export function toolInputStarted(data: Extract<OpenCodeEvent, { type: "session.tool.input.started" }>["data"]) {
+export function toolInputStarted(data: Extract<NytrixEvent, { type: "session.tool.input.started" }>["data"]) {
   return makeEvent("session.tool.input.started", data)
 }
 
-export function toolInputEnded(data: Extract<OpenCodeEvent, { type: "session.tool.input.ended" }>["data"]) {
+export function toolInputEnded(data: Extract<NytrixEvent, { type: "session.tool.input.ended" }>["data"]) {
   return makeEvent("session.tool.input.ended", data)
 }
 
-export function toolCalled(data: Extract<OpenCodeEvent, { type: "session.tool.called" }>["data"]) {
+export function toolCalled(data: Extract<NytrixEvent, { type: "session.tool.called" }>["data"]) {
   return makeEvent("session.tool.called", data)
 }
 
-export function validateTimelineEvent(input: OpenCodeEvent | JsonValue): OpenCodeEvent {
+export function validateTimelineEvent(input: NytrixEvent | JsonValue): NytrixEvent {
   const header = Schema.decodeUnknownSync(Schema.Struct({ type: Schema.String }))(input)
   const definition = EventManifest.ServerDefinitions.find((definition) => definition.type === header.type)
 
   if (!definition) throw new Error(`Unknown timeline event: ${header.type}`)
 
-  // SAFETY: the matching canonical event schema validates the payload; OpenCodeEvent is generated from those schemas.
-  return Schema.decodeUnknownSync(definition)(input) as OpenCodeEvent
+  // SAFETY: the matching canonical event schema validates the payload; NytrixEvent is generated from those schemas.
+  return Schema.decodeUnknownSync(definition)(input) as NytrixEvent
 }
 
 export function validateTimelineMessages(input: readonly TimelineMessage[]): TimelineMessage[] {
@@ -502,7 +502,7 @@ export function historyMessages(count: number): TimelineMessage[] {
   }).flat()
 }
 
-export function partUpdated(part: PartSeed<"assistant">): readonly OpenCodeEvent[] {
+export function partUpdated(part: PartSeed<"assistant">): readonly NytrixEvent[] {
   const messageID = part.messageID ?? assistantID
   const startedParts = scenario().startedParts
   const started = startedParts.has(part.id)
@@ -938,13 +938,13 @@ function messageContent(
   }
 }
 
-function toolEvents(part: ToolSeed, messageID: string): readonly OpenCodeEvent[] {
+function toolEvents(part: ToolSeed, messageID: string): readonly NytrixEvent[] {
   const toolStates = scenario().toolStates
   const previous = toolStates.get(part.id)
 
   if (previous === "completed" || previous === "error") return []
 
-  const events: OpenCodeEvent[] = []
+  const events: NytrixEvent[] = []
 
   if (!previous) {
     events.push(
@@ -1055,10 +1055,10 @@ function partRef(id: string, messageID: string, type: PartRef["type"]): PartRef 
   return ref
 }
 
-function makeEvent<Type extends OpenCodeEvent["type"]>(
+function makeEvent<Type extends NytrixEvent["type"]>(
   type: Type,
-  data: Extract<OpenCodeEvent, { type: Type }>["data"],
-): OpenCodeEvent {
+  data: Extract<NytrixEvent, { type: Type }>["data"],
+): NytrixEvent {
   const state = scenario()
   const sequence = ++state.eventSequence
   const id = `evt_timeline_${String(sequence).padStart(4, "0")}`
@@ -1075,8 +1075,8 @@ function makeEvent<Type extends OpenCodeEvent["type"]>(
         }
       : base
 
-  // SAFETY: the matching canonical event schema validates the payload; OpenCodeEvent is generated from those schemas.
-  return Schema.decodeUnknownSync(definition)(input) as OpenCodeEvent
+  // SAFETY: the matching canonical event schema validates the payload; NytrixEvent is generated from those schemas.
+  return Schema.decodeUnknownSync(definition)(input) as NytrixEvent
 }
 
 const decodeJsonRecord = Schema.decodeUnknownSync(Schema.fromJsonString(Schema.Record(Schema.String, Schema.MutableJson)))

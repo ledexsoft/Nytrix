@@ -1,4 +1,4 @@
-import type { OpenCodeClient } from "@nytrix/client/promise"
+import type { NytrixClient } from "@nytrix/client/promise"
 import { decodeEvent, type VoiceEvent } from "./protocol"
 import { delegatorInstructions, liveInstructions, tools } from "./spec"
 
@@ -26,7 +26,7 @@ export class VoiceTransport {
 
   constructor(
     private readonly inputOptions: {
-      api: OpenCodeClient
+      api: NytrixClient
       event: (event: VoiceEvent) => void
       levels: (input: number, output: number) => void
       dropped: () => void

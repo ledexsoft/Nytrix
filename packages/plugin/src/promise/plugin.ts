@@ -1,4 +1,4 @@
-import type { OpenCodeClient } from "@nytrix/client"
+import type { NytrixClient } from "@nytrix/client"
 import type { CredentialApi, GenerateApi, PluginApi } from "@nytrix/client/promise/api"
 import type { Location } from "@nytrix/schema/location"
 import type { PluginOptions } from "../options.js"
@@ -33,7 +33,7 @@ export interface Context {
   readonly credential: Pick<CredentialApi, "activate">
   readonly event: EventDomain
   readonly experimental: {
-    readonly terminal: Pick<OpenCodeClient["experimental"]["persistentPty"], "read">
+    readonly terminal: Pick<NytrixClient["experimental"]["persistentPty"], "read">
     /** Stateless generation with a model and a prompt: no session, history or tools. */
     readonly generate: GenerateApi
   }

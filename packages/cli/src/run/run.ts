@@ -1,5 +1,5 @@
 import { Service, type Endpoint } from "@nytrix/client/effect/service"
-import { OpenCode, type SessionMessageAssistantTool } from "@nytrix/client/promise"
+import { Nytrix, type SessionMessageAssistantTool } from "@nytrix/client/promise"
 import { FSUtil } from "@nytrix/util/fs-util"
 import { noTimeoutFetch } from "@nytrix/util/no-timeout-fetch"
 import { open } from "node:fs/promises"
@@ -82,7 +82,7 @@ async function run(input: RunCommandInput, options: ExecutionOptions) {
 }
 
 async function execute(input: RunCommandInput, prepared: Prepared, endpoint: Endpoint, options: ExecutionOptions) {
-  const client = OpenCode.make({
+  const client = Nytrix.make({
     baseUrl: endpoint.url,
     headers: Service.headers(endpoint),
     // Bun's default five-minute deadline terminates the event stream used by long-running sessions.

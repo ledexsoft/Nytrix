@@ -17,8 +17,8 @@ import {
   type RequestPermissionResponse,
   type SessionNotification,
 } from "@agentclientprotocol/sdk"
-import { OpenCode } from "@nytrix/client/effect"
-import type { OpenCodeEventEncoded } from "@nytrix/protocol/groups/event"
+import { Nytrix } from "@nytrix/client/effect"
+import type { NytrixEventEncoded } from "@nytrix/protocol/groups/event"
 import type { Agent } from "@nytrix/schema/agent"
 import type { Command } from "@nytrix/schema/command"
 import { Form } from "@nytrix/schema/form"
@@ -36,7 +36,7 @@ import { ACP } from "../../src/acp/agent"
 import { ACPTurn } from "../../src/acp/turn"
 
 // The fake server sends and stores the wire form of each value.
-type OpenCodeEvent = OpenCodeEventEncoded
+type NytrixEvent = NytrixEventEncoded
 type AgentInfo = typeof Agent.Info.Encoded
 type CommandInfo = typeof Command.Info.Encoded
 type LocationRef = typeof Location.PublicRef.Encoded
@@ -46,12 +46,12 @@ type PluginInfo = typeof Plugin.Info.Encoded
 type SessionInfo = typeof Session.Info.Encoded
 type SessionMessageInfo = typeof SessionMessage.Info.Encoded
 type TokenUsageInfo = typeof TokenUsage.Info.Encoded
-type DurableEvent = Extract<OpenCodeEvent, { durable: unknown }>
-type EphemeralEvent = Exclude<OpenCodeEvent, DurableEvent>
-type EventData<Type extends OpenCodeEvent["type"]> = Extract<OpenCodeEvent, { type: Type }>["data"]
+type DurableEvent = Extract<NytrixEvent, { durable: unknown }>
+type EphemeralEvent = Exclude<NytrixEvent, DurableEvent>
+type EventData<Type extends NytrixEvent["type"]> = Extract<NytrixEvent, { type: Type }>["data"]
 type AssistantMessage = Extract<SessionMessageInfo, { type: "assistant" }>
 
-type Events = ReadonlyArray<OpenCodeEvent> | void
+type Events = ReadonlyArray<NytrixEvent> | void
 type Hook<Input> = (input: Input) => Events | Promise<Events>
 
 type ServerRequest = {
@@ -295,7 +295,7 @@ export const interrupted = (sessionID: string) =>
 export const failed = (sessionID: string, error: EventData<"session.execution.failed">["error"]) =>
   durableEvent("session.execution.failed", { sessionID, error })
 
-export function turn(sessionID: string, inboxID: string, ...events: OpenCodeEvent[]): OpenCodeEvent[] {
+export function turn(sessionID: string, inboxID: string, ...events: NytrixEvent[]): NytrixEvent[] {
   return [delivered(sessionID, inboxID), ...events, succeeded(sessionID)]
 }
 
@@ -428,7 +428,7 @@ export async function startWire(options: WireOptions = {}) {
   const logs: Array<Pick<Logger.Options<unknown>, "message" | "cause">> = []
   const agentScope = Scope.makeUnsafe()
   const agentConnection = await Effect.runPromise(
-    OpenCode.make({ baseUrl: server.url }).pipe(
+    Nytrix.make({ baseUrl: server.url }).pipe(
       Effect.provide(FetchHttpClient.layer),
       Effect.flatMap((client) => ACP.connect(client, ndJsonStream(agentToClient.writable, clientToAgent.readable))),
       Scope.provide(agentScope),
@@ -442,7 +442,7 @@ export async function startWire(options: WireOptions = {}) {
   const clientStream = ndJsonStream(clientToAgent.writable, agentToClient.readable)
   const connection = client({ name: "test" })
     .onNotification("session/update", (ctx) => handled(updates, ctx.params))
-    .onNotification("opencode/session/child_update", Schema.decodeUnknownSync(ChildUpdate), (ctx) =>
+    .onNotification("nytrix/session/child_update", Schema.decodeUnknownSync(ChildUpdate), (ctx) =>
       handled(childUpdates, ctx.params),
     )
     .onRequest("session/request_permission", (ctx) => {
@@ -506,7 +506,7 @@ export async function startWire(options: WireOptions = {}) {
         ...(capabilities.elicitation ? { elicitation: { form: {} } } : {}),
         ...(capabilities.compaction !== undefined ? { session: { compaction: capabilities.compaction } } : {}),
         _meta: {
-          ...(capabilities.childSessionUpdates ? { "opencode/child-session-updates": true } : {}),
+          ...(capabilities.childSessionUpdates ? { "nytrix/child-session-updates": true } : {}),
           ...(capabilities.terminalAuth ? { "terminal-auth": true } : {}),
         },
       },
@@ -574,7 +574,7 @@ function startServer(options: WireOptions, changed: () => void) {
     commands: [reviewCommand],
     plugins: [
       {
-        id: "opencode.models.dev",
+        id: "nytrix.models.dev",
         source: { type: "builtin" },
         features: { server: true },
         state: { status: "active" },
@@ -604,7 +604,7 @@ function startServer(options: WireOptions, changed: () => void) {
     cancelledForms,
     repliedForms,
     mcp,
-    send(...events: ReadonlyArray<OpenCodeEvent>) {
+    send(...events: ReadonlyArray<NytrixEvent>) {
       events.forEach((event) => {
         const seq = ++counter.events
         const stamped = {

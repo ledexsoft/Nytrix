@@ -1,5 +1,5 @@
 import type { Page } from "@playwright/test"
-import type { OpenCodeEvent, SessionMessageInfo } from "@nytrix/client/promise"
+import type { NytrixEvent, SessionMessageInfo } from "@nytrix/client/promise"
 import { Permission } from "@nytrix/schema/permission"
 import { Model } from "@nytrix/schema/model"
 import { Worktree } from "@nytrix/schema/worktree"
@@ -95,7 +95,7 @@ export interface MockServerConfig {
   onMessage?: (input: { sessionID: string; messageID: string }) => void
   onRevertStage?: (input: { sessionID: string; messageID: string }) => void
   onSession?: (sessionID: string) => void
-  events?: () => OpenCodeEvent[]
+  events?: () => NytrixEvent[]
   eventRetry?: number
   // Idle event streams send a comment every 15 s like the real server. Set false only to test the client's stall watchdog.
   keepalive?: boolean
@@ -305,7 +305,7 @@ export async function mockOpenCodeServer(page: Page, config: MockServerConfig) {
 
   // Delivers events on this server's mock stream; buffered until the app connects.
   // An origin served by an SSE transport receives the events as one burst on its active connection.
-  const push = (payloads: readonly OpenCodeEvent[]) =>
+  const push = (payloads: readonly NytrixEvent[]) =>
     page.evaluate<void, { server: string; payloads: readonly unknown[] }>(
       ({ server, payloads }) => {
         // SAFETY: only the init script, `installSseTransport`, and benchmarks write these globals, in the declared shapes.
@@ -322,7 +322,7 @@ export async function mockOpenCodeServer(page: Page, config: MockServerConfig) {
     )
 
   // Server-side events the mock publishes itself; delivery failures other than a missing document fail the test.
-  const emit = (events: OpenCodeEvent[]) =>
+  const emit = (events: NytrixEvent[]) =>
     void push(events).catch((cause: unknown) => {
       if (page.isClosed() || retryableDelivery(cause)) return
       throw cause
@@ -330,7 +330,7 @@ export async function mockOpenCodeServer(page: Page, config: MockServerConfig) {
 
   if (config.events) {
     // Batches stay queued until the page accepts them; failures other than a missing document fail the test.
-    const pending: OpenCodeEvent[] = []
+    const pending: NytrixEvent[] = []
     const pump = { busy: false, pending }
 
     const timer = setInterval(() => {
@@ -542,7 +542,7 @@ export async function mockServers(page: Page, servers: Record<string, Omit<MockS
 }
 
 // `emit` publishes the events a real server sends after a mutation (without a page, nothing is published).
-export function createMockServerHandler(config: MockServerConfig, emit: (events: OpenCodeEvent[]) => void = () => {}) {
+export function createMockServerHandler(config: MockServerConfig, emit: (events: NytrixEvent[]) => void = () => {}) {
   const pty = createPty(config)
 
   const web = HttpRouter.toWebHandler(
@@ -736,7 +736,7 @@ function mockHandlers(
     nextCursor: number
     sessionCreates: number
     pty: ReturnType<typeof createPty>
-    emit: (events: OpenCodeEvent[]) => void
+    emit: (events: NytrixEvent[]) => void
     // MCP status overrides by `<directory>\n<server>`, and OAuth attempt creation times by attempt ID.
     mcp: Map<string, MockMcpStatus>
     attempts: Map<string, number>

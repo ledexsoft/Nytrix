@@ -35,7 +35,7 @@ import type { Credential } from "@nytrix/schema/credential"
 import type { PermissionSaved } from "@nytrix/schema/permission-saved"
 import type { FileSystem } from "@nytrix/schema/filesystem"
 import type { Command } from "@nytrix/schema/command"
-import type { OpenCodeEvent } from "@nytrix/protocol/groups/event"
+import type { NytrixEvent } from "@nytrix/protocol/groups/event"
 import type { Pty } from "@nytrix/schema/pty"
 import type { Reference } from "@nytrix/schema/reference"
 import type { Worktree } from "@nytrix/schema/worktree"
@@ -1699,7 +1699,7 @@ export type McpResourceCatalogOperation<E = never> = (
 export type McpClientTokenInput = {
   readonly location?: { readonly directory?: string | undefined } | undefined
   readonly name: string
-  readonly "x-opencode-ticket"?: string | undefined
+  readonly "x-nytrix-ticket"?: string | undefined
 }
 export type McpClientTokenOutput = { readonly location: Location.PublicRef; readonly data: PtyTicket.ConnectToken }
 export type McpClientTokenOperation<E = never> = (input: McpClientTokenInput) => Effect.Effect<McpClientTokenOutput, E>
@@ -2027,7 +2027,7 @@ export type EventSubscribeInput = {
       >
     | undefined
 }
-export type EventSubscribeOutput = OpenCodeEvent
+export type EventSubscribeOutput = NytrixEvent
 export type EventSubscribeOperation<E = never> = (input?: EventSubscribeInput) => Stream.Stream<EventSubscribeOutput, E>
 
 export interface EventApi<E = never> {
@@ -2075,7 +2075,7 @@ export type PtyRemoveOperation<E = never> = (input: PtyRemoveInput) => Effect.Ef
 export type PtyConnectTokenInput = {
   readonly ptyID: Pty.ID
   readonly location?: { readonly directory?: string | undefined } | undefined
-  readonly "x-opencode-ticket"?: string | undefined
+  readonly "x-nytrix-ticket"?: string | undefined
 }
 export type PtyConnectTokenOutput = { readonly location: Location.PublicRef; readonly data: PtyTicket.ConnectToken }
 export type PtyConnectTokenOperation<E = never> = (
@@ -2247,7 +2247,7 @@ export type ExperimentalPersistentPtyRemoveOperation<E = never> = (
 
 export type ExperimentalPersistentPtyConnectTokenInput = {
   readonly ptyID: Pty.ID
-  readonly "x-opencode-ticket"?: string | undefined
+  readonly "x-nytrix-ticket"?: string | undefined
 }
 export type ExperimentalPersistentPtyConnectTokenOutput = PtyTicket.ConnectToken
 export type ExperimentalPersistentPtyConnectTokenOperation<E = never> = (

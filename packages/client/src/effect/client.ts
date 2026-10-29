@@ -1,9 +1,9 @@
-export * as OpenCode from "./client.js"
+export * as Nytrix from "./client.js"
 
 import { Cause, Context, Effect, Stream } from "effect"
 import { HttpClient, HttpClientRequest } from "effect/http"
 import { SharedEvents } from "../shared-events.js"
-import { ClientError, OpenCode } from "./generated/index.js"
+import { ClientError, Nytrix } from "./generated/index.js"
 import type { EventSubscribeInput } from "./api.js"
 import { RpcClientRuntime } from "./rpc.js"
 import type { RpcCallOptions } from "../promise/rpc.js"
@@ -14,9 +14,9 @@ const CurrentHeaders = Context.Reference<RpcCallOptions["headers"]>("@nytrix/cli
   defaultValue: () => undefined,
 })
 
-export const make = Effect.fn("OpenCode.make")(function* (options?: { readonly baseUrl?: URL | string }) {
+export const make = Effect.fn("Nytrix.make")(function* (options?: { readonly baseUrl?: URL | string }) {
   const httpClient = yield* HttpClient.HttpClient
-  const raw = yield* OpenCode.make(options).pipe(
+  const raw = yield* Nytrix.make(options).pipe(
     Effect.provideService(
       HttpClient.HttpClient,
       HttpClient.mapRequestEffect(httpClient, (request) =>

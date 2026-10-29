@@ -1,4 +1,4 @@
-import { ClientError, OpenCode, type SessionStatsInfo } from "@nytrix/client"
+import { ClientError, Nytrix, type SessionStatsInfo } from "@nytrix/client"
 import { Service } from "@nytrix/client/effect/service"
 import { TokenUsage } from "@nytrix/schema/token-usage"
 import { activityCalendar } from "@nytrix/util/activity-calendar"
@@ -17,7 +17,7 @@ const handler = Effect.fn("cli.stats")(function* (input: Runtime.Input<typeof Co
     yield* Effect.fail(new Error("--days, --year, and --all cannot be combined"))
 
   const server = yield* ServerConnection.resolve()
-  const client = OpenCode.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
+  const client = Nytrix.make({ baseUrl: server.endpoint.url, headers: Service.headers(server.endpoint) })
   const range = statsRange({ days, year, all: input.all })
   const projectID =
     project === "."
@@ -108,7 +108,7 @@ export function renderStats(stats: SessionStatsInfo, options: RenderOptions) {
       : `${style(formatPercent(toolRate), primary, options.color)} tool success`
   const details = options.models || options.tools || options.cost
   const empty = stats.sessions === 0 && stats.prompts === 0 && stats.steps === 0
-  const heading = `${style("opencode stats", primary, options.color)} ${style(`· ${options.label} · ${options.scope}`, "2", options.color)}`
+  const heading = `${style("nytrix stats", primary, options.color)} ${style(`· ${options.label} · ${options.scope}`, "2", options.color)}`
   const lines = details
     ? [style(`${options.label} · ${options.scope}`, "2", options.color)]
     : empty
@@ -117,7 +117,7 @@ export function renderStats(stats: SessionStatsInfo, options: RenderOptions) {
           "",
           style("no activity in this range", "2", options.color),
           "",
-          style("opencode.ai", "2", options.color),
+          style("github.com/ledexsoft/Nytrix", "2", options.color),
         ]
       : [
           heading,
@@ -128,7 +128,7 @@ export function renderStats(stats: SessionStatsInfo, options: RenderOptions) {
           `${metricCount(stats.prompts, "prompt", options.color)} · ${metricCount(stats.steps, "step", options.color)} · ${metricCount(totalTokens, "token", options.color)}`,
           `${toolSummary} · ${metricCount(stats.activeDays, "active day", options.color)} · best streak ${style(stats.streak.toString(), primary, options.color)} day${stats.streak === 1 ? "" : "s"}`,
           "",
-          style("opencode.ai", "2", options.color),
+          style("github.com/ledexsoft/Nytrix", "2", options.color),
         ]
 
   if (options.cost) lines.push(...(lines.length > 0 ? [""] : []), ...renderCost(stats))

@@ -1,5 +1,5 @@
 import { getDirectory, getFilename } from "@nytrix/util/path"
-import type { OpenCodeClient } from "@nytrix/client/promise"
+import type { NytrixClient } from "@nytrix/client/promise"
 
 const types = new Map([
   ["png", "image/png"],
@@ -14,7 +14,7 @@ const types = new Map([
 ])
 
 export async function readLocalImage(
-  api: Pick<OpenCodeClient, "file">,
+  api: Pick<NytrixClient, "file">,
   directory: string,
   path: string,
   signal: AbortSignal,

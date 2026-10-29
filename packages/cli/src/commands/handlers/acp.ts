@@ -1,5 +1,5 @@
 import { MessageTooLargeError, ndJsonStream } from "@agentclientprotocol/sdk"
-import { OpenCode } from "@nytrix/client/effect"
+import { Nytrix } from "@nytrix/client/effect"
 import { Service } from "@nytrix/client/effect/service"
 import { CrossSpawnSpawner } from "@nytrix/util/cross-spawn-spawner"
 import { Effect, Option } from "effect"
@@ -21,9 +21,9 @@ export default Runtime.handler(
         answer: [],
       })
     }
-    process.env.OPENCODE_CLIENT = "acp"
+    process.env.NYTRIX_CLIENT = "acp"
     const endpoint = yield* Standalone.start()
-    const client = yield* OpenCode.make({ baseUrl: endpoint.url }).pipe(
+    const client = yield* Nytrix.make({ baseUrl: endpoint.url }).pipe(
       Effect.provideServiceEffect(
         HttpClient.HttpClient,
         HttpClient.HttpClient.pipe(
@@ -52,7 +52,7 @@ export default Runtime.handler(
     )
     // Exit directly: closing the scope would wait on the server's graceful shutdown, and its lease pipe ends it anyway.
     yield* Effect.sync(() => {
-      if (failure) process.stderr.write(`opencode acp: ${failure}\n`)
+      if (failure) process.stderr.write(`nytrix acp: ${failure}\n`)
       process.exit(failure ? 1 : 0)
     })
   }),

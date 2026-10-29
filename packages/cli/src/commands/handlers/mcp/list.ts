@@ -1,6 +1,6 @@
 import { EOL } from "node:os"
 import { Effect } from "effect"
-import { OpenCode, type McpServer } from "@nytrix/client"
+import { Nytrix, type McpServer } from "@nytrix/client"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
 import { Service } from "@nytrix/client/effect/service"
@@ -10,7 +10,7 @@ export default Runtime.handler(
   Commands.commands.mcp.commands.list,
   Effect.fn("cli.mcp.list")(function* () {
     const { endpoint } = yield* ServerConnection.resolve()
-    const client = OpenCode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+    const client = Nytrix.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
     const response = yield* Effect.promise(() => client.mcp.list({ location: { directory: process.cwd() } }))
     const servers = response.data.toSorted((a, b) => a.name.localeCompare(b.name))
     if (servers.length === 0) {

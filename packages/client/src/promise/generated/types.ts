@@ -3977,7 +3977,7 @@ export type McpResourceCatalogOutput = { location: LocationPublicRef; data: McpR
 export type McpClientTokenInput = {
   readonly location?: { readonly directory?: string | undefined } | undefined
   readonly name: string
-  readonly "x-opencode-ticket"?: string | undefined
+  readonly "x-nytrix-ticket"?: string | undefined
 }
 
 export type McpClientTokenOutput = { location: LocationPublicRef; data: PtyTicketConnectToken }
@@ -4291,7 +4291,7 @@ export type PtyRemoveOutput = void
 export type PtyConnectTokenInput = {
   readonly ptyID: string
   readonly location?: { readonly directory?: string | undefined } | undefined
-  readonly "x-opencode-ticket"?: string | undefined
+  readonly "x-nytrix-ticket"?: string | undefined
 }
 
 export type PtyConnectTokenOutput = { location: LocationPublicRef; data: PtyTicketConnectToken }
@@ -4342,7 +4342,7 @@ export type ExperimentalPersistentPtyRemoveOutput = void
 
 export type ExperimentalPersistentPtyConnectTokenInput = {
   readonly ptyID: string
-  readonly "x-opencode-ticket"?: string | undefined
+  readonly "x-nytrix-ticket"?: string | undefined
 }
 
 export type ExperimentalPersistentPtyConnectTokenOutput = { data: PtyTicketConnectToken }["data"]

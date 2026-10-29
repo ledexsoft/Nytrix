@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test"
-import type { OpenCodeEvent, SessionMessageInfo } from "@nytrix/client/promise"
+import type { NytrixEvent, SessionMessageInfo } from "@nytrix/client/promise"
 import {
   NO_PROVIDER,
   REMOTE_SERVER,
@@ -858,7 +858,7 @@ test("inactive tabs stay busy while work waits in their inbox, and pulse on a ne
         inboxID: "inb_tab_c_prompt",
         item: { type: "user", payload: { text: "Another client's prompt" }, delivery: "queue" },
       },
-    } satisfies Extract<OpenCodeEvent, { type: "session.inbox.enqueued" }>,
+    } satisfies Extract<NytrixEvent, { type: "session.inbox.enqueued" }>,
   ])
 
   await expect(tab(c.id)).toHaveAttribute("data-test-pulsed", "")

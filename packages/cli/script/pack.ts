@@ -18,9 +18,9 @@ await mkdir(archiveDir, { recursive: true })
 await packDistribution({
   root,
   name: pkg.name,
-  command: "opencode",
-  legacyCommand: "opencode2",
-  binary: "opencode",
+  command: "nytrix",
+  legacyCommand: "nytrix2",
+  binary: "nytrix",
   packagePrefix: "@nytrix/cli-",
   archive: (target) => target.startsWith("linux-"),
 })
@@ -28,8 +28,8 @@ if (existsSync(path.join(root, "node"))) {
   await packDistribution({
     root: path.join(root, "node"),
     name: "@nytrix/cli-node",
-    command: "opencode2-node",
-    binary: "opencode2-node",
+    command: "nytrix2-node",
+    binary: "nytrix2-node",
     packagePrefix: "@nytrix/cli-node-",
     archive: () => true,
   })
@@ -77,11 +77,11 @@ async function packDistribution(input: {
           [input.command]: `./bin/${input.command}.exe`,
           ...(input.legacyCommand ? { [input.legacyCommand]: `./bin/${input.command}.exe` } : {}),
         },
-        ...(input.command !== input.binary ? { opencodeSourceBinary: input.binary } : {}),
+        ...(input.command !== input.binary ? { nytrixSourceBinary: input.binary } : {}),
         scripts: { postinstall: "node ./postinstall.mjs" },
         version,
         license: pkg.license,
-        repository: { type: "git", url: "git+https://github.com/anomalyco/opencode.git" },
+        repository: { type: "git", url: "git+https://github.com/ledexsoft/Nytrix.git" },
         os: ["darwin", "linux", "win32"],
         cpu: ["arm64", "x64"],
         optionalDependencies: binaries,

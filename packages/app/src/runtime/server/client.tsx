@@ -1,4 +1,4 @@
-import type { OpenCodeEvent } from "@nytrix/client/promise"
+import type { NytrixEvent } from "@nytrix/client/promise"
 import { createClientConnection, createPtyClient, type ClientConnectionStatus } from "@nytrix/client/solid"
 import { createGlobalEmitter } from "@solid-primitives/event-bus"
 import { type Accessor, createEffect, on, onCleanup } from "solid-js"
@@ -12,11 +12,11 @@ import { createRequestQueue } from "@/runtime/server/request-queue"
 import { ServerScope } from "@/runtime/server/scope"
 import { useServer } from "./current"
 
-type OpenCodeEventMap = { [Type in OpenCodeEvent["type"]]: Extract<OpenCodeEvent, { type: Type }> }
+type OpenCodeEventMap = { [Type in NytrixEvent["type"]]: Extract<NytrixEvent, { type: Type }> }
 
 export type OpenCodeEventStream = {
-  on<Type extends OpenCodeEvent["type"]>(type: Type, handler: (event: OpenCodeEventMap[Type]) => void): VoidFunction
-  listen(handler: (event: OpenCodeEvent) => void): VoidFunction
+  on<Type extends NytrixEvent["type"]>(type: Type, handler: (event: OpenCodeEventMap[Type]) => void): VoidFunction
+  listen(handler: (event: NytrixEvent) => void): VoidFunction
 }
 
 type OpenCodeEventSource = OpenCodeEventStream & {
@@ -52,7 +52,7 @@ export function createOpenCodeEventSource() {
 
   return {
     event,
-    publish(event: OpenCodeEvent) {
+    publish(event: NytrixEvent) {
       emitter.emit(event.type, event)
     },
   }

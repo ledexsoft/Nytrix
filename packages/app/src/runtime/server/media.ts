@@ -1,4 +1,4 @@
-import type { OpenCodeClient } from "@nytrix/client/promise"
+import type { NytrixClient } from "@nytrix/client/promise"
 
 const MEDIA_REF = /^media:([0-9a-f]{64})$/
 
@@ -17,7 +17,7 @@ export type MediaCache = {
 
 // Object URLs stay valid until dispose. Rendered attachments, image previews and composer drafts keep the URL they
 // were given without releasing it, so revoking one earlier would break an image that is still on screen.
-export function createMediaCache(getApi: () => Pick<OpenCodeClient, "experimental">): MediaCache {
+export function createMediaCache(getApi: () => Pick<NytrixClient, "experimental">): MediaCache {
   const urls = new Map<string, string>()
   const inflight = new Map<string, Promise<string | undefined>>()
   let disposed = false

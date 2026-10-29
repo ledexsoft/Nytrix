@@ -37,8 +37,8 @@ import type {
   ToolContent,
   UsageLimitsInfo,
   VcsInfo,
-  OpenCodeEvent,
-  OpenCodeClient,
+  NytrixEvent,
+  NytrixClient,
   WebSearchProvider,
 } from "../promise"
 import { Worktree } from "@nytrix/schema/worktree"
@@ -61,19 +61,19 @@ export type DataSessionStatus = "idle" | "running"
  * execution that ended without delivering it, and `queued` waits for every steer to drain.
  */
 export type DataPendingStatus = "starting" | "steering" | "stranded" | "queued"
-type OpenCodeEventMap = { [Type in OpenCodeEvent["type"]]: Extract<OpenCodeEvent, { type: Type }> }
+type NytrixEventMap = { [Type in NytrixEvent["type"]]: Extract<NytrixEvent, { type: Type }> }
 
 export type CreateDataInput = {
-  readonly api: () => OpenCodeClient
+  readonly api: () => NytrixClient
   readonly directory: string
   /** Raw-message window used for an initial transcript read. Older pages retain their normal size. */
   readonly initialMessageLimit?: () => number
   readonly event: {
-    readonly on: <Type extends OpenCodeEvent["type"]>(
+    readonly on: <Type extends NytrixEvent["type"]>(
       type: Type,
-      handler: (event: OpenCodeEventMap[Type]) => void,
+      handler: (event: NytrixEventMap[Type]) => void,
     ) => () => void
-    readonly listen: (handler: (event: { name: OpenCodeEvent["type"]; details: OpenCodeEvent }) => void) => () => void
+    readonly listen: (handler: (event: { name: NytrixEvent["type"]; details: NytrixEvent }) => void) => () => void
   }
   readonly connection?: {
     readonly status: () => "connected" | "connecting" | "reconnecting"
@@ -110,7 +110,7 @@ type LocationData = {
   provider?: ProviderInfo[]
   reference?: ReferenceInfo[]
   websearch?: WebSearchProvider[]
-  // The Go allowance and Console budgets of the OpenCode Console workspace the location is signed in to; null when it
+  // The OpenCode Go allowance and Console budgets of the OpenCode Console workspace the location is signed in to; null when it
   // isn't signed in.
   usageLimits?: UsageLimitsInfo | null
   // Currently running shell commands for this location, keyed by shell id. Entries are removed
@@ -195,7 +195,7 @@ function formRequestOptions(sessionID: string, ref?: LocationRef) {
   if (sessionID !== "global" || !ref) return undefined
   return {
     headers: {
-      "x-opencode-directory": encodeURIComponent(ref.directory),
+      "x-nytrix-directory": encodeURIComponent(ref.directory),
     },
   }
 }
@@ -661,7 +661,7 @@ export function createData(config: CreateDataInput) {
     )
   }
 
-  function handleEvent(event: OpenCodeEvent) {
+  function handleEvent(event: NytrixEvent) {
     switch (event.type) {
       case "server.connected": {
         const updates = new Map<string, DataSessionStatus | undefined>()

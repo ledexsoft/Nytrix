@@ -7,11 +7,13 @@ import { Config } from "effect"
 // The Nytrix server password: sent by clients connecting to an explicit
 // --server, and adopted by a manually run or standalone server.
 export const password = Config.Redacted("NYTRIX_PASSWORD").pipe(Config.withDefault(undefined))
+export const serverUsername = Config.String("NYTRIX_SERVER_USERNAME").pipe(Config.withDefault("nytrix"))
 
 export function session() {
   return Object.fromEntries(
     Object.entries(process.env).filter(
-      (entry): entry is [string, string] => entry[1] !== undefined && entry[0] !== "NYTRIX_PASSWORD",
+      (entry): entry is [string, string] =>
+        entry[1] !== undefined && entry[0] !== "NYTRIX_PASSWORD" && entry[0] !== "NYTRIX_SERVER_USERNAME",
     ),
   )
 }

@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util"
 import type { McpServer, SessionConfigOption } from "@agentclientprotocol/sdk"
-import type { OpenCodeClient, OpenCodeEvent } from "@nytrix/client/effect"
+import type { NytrixClient, NytrixEvent } from "@nytrix/client/effect"
 import { Mcp } from "@nytrix/schema/mcp"
 import type { Session } from "@nytrix/schema/session"
 import { Cause, Deferred, Effect, Exit, Queue, Ref, Scope, Stream } from "effect"
@@ -37,10 +37,10 @@ type Entry = {
   readonly selected: Queue.Queue<Change>
 }
 
-type SelectedEvent = Extract<OpenCodeEvent, { type: "session.model.selected" | "session.agent.selected" }>
+type SelectedEvent = Extract<NytrixEvent, { type: "session.model.selected" | "session.agent.selected" }>
 
 export const make = Effect.fnUntraced(function* (input: {
-  readonly client: OpenCodeClient
+  readonly client: NytrixClient
   readonly connection: ACPConnection.Interface
   readonly catalog: ACPCatalog.Interface
 }) {

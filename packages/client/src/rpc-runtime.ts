@@ -1,11 +1,11 @@
 export * as RpcRuntime from "./rpc-runtime.js"
 
 import type { Rpc } from "@nytrix/schema/rpc"
-import type { OpenCodeEvent } from "@nytrix/protocol/groups/event"
+import type { NytrixEvent } from "@nytrix/protocol/groups/event"
 import { RpcError, RpcInternalError } from "@nytrix/protocol/errors"
 import { Effect, Schema } from "effect"
 
-type RpcEvent = Extract<OpenCodeEvent, { type: `rpc.${string}` }>
+type RpcEvent = Extract<NytrixEvent, { type: `rpc.${string}` }>
 
 export function read(schema: Rpc.Method["output"], value: unknown) {
   // Standard Schema results have already been parsed by the server.

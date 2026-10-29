@@ -15,7 +15,7 @@
   node_modules ? callPackage ./node_modules.nix { },
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "opencode";
+  pname = "nytrix";
   inherit (node_modules) version src;
   inherit node_modules;
 
@@ -46,9 +46,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   env.MODELS_DEV_API_JSON = "${models-dev}/dist/_api.json";
-  env.OPENCODE_DISABLE_MODELS_FETCH = true;
-  env.OPENCODE_VERSION = finalAttrs.version;
-  env.OPENCODE_CHANNEL = "prod";
+  env.NYTRIX_DISABLE_MODELS_FETCH = true;
+  env.NYTRIX_VERSION = finalAttrs.version;
+  env.NYTRIX_CHANNEL = "prod";
   env.NODE_OPTIONS = "--max-old-space-size=4096";
 
   buildPhase = ''
@@ -63,10 +63,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 dist/cli-*/bin/opencode $out/bin/opencode
+    install -Dm755 dist/cli-*/bin/nytrix $out/bin/nytrix
 
     # OpenTUI dlopens Wayland for clipboard images.
-    wrapProgram $out/bin/opencode \
+    wrapProgram $out/bin/nytrix \
       --prefix PATH : ${
         lib.makeBinPath (
           [
@@ -79,7 +79,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ wayland ]}
       ''}
 
-    ln -s opencode $out/bin/opencode2
+    ln -s nytrix $out/bin/nytrix2
 
     runHook postInstall
   '';
@@ -88,27 +88,27 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # v2 dropped the `completion` subcommand; --completions is the global flag.
     # --completions also accepts sh, which emits the same script as bash.
     # staged to files, substitute below rejects anything that is not a regular file
-    $out/bin/opencode --completions bash > opencode.bash
-    $out/bin/opencode --completions zsh > _opencode
-    $out/bin/opencode --completions fish > opencode.fish
+    $out/bin/nytrix --completions bash > nytrix.bash
+    $out/bin/nytrix --completions zsh > _nytrix
+    $out/bin/nytrix --completions fish > nytrix.fish
 
-    installShellCompletion --cmd opencode \
-      --bash opencode.bash \
-      --fish opencode.fish \
-      --zsh _opencode
+    installShellCompletion --cmd nytrix \
+      --bash nytrix.bash \
+      --fish nytrix.fish \
+      --zsh _nytrix
 
-    # OPENCODE_CLI_NAME is a build-time define, so the opencode2 copies are
+    # NYTRIX_CLI_NAME is a build-time define, so the nytrix2 copies are
     # renamed rather than regenerated. --replace-fail is a global literal
-    # substitution, so any lowercase opencode that later appears in a
-    # description or help text ships as opencode2 in the opencode2 copy.
-    substitute opencode.bash opencode2.bash --replace-fail opencode opencode2
-    substitute _opencode _opencode2 --replace-fail opencode opencode2
-    substitute opencode.fish opencode2.fish --replace-fail opencode opencode2
+    # substitution, so any lowercase nytrix that later appears in a
+    # description or help text ships as nytrix2 in the nytrix2 copy.
+    substitute nytrix.bash nytrix2.bash --replace-fail nytrix nytrix2
+    substitute _nytrix _nytrix2 --replace-fail nytrix nytrix2
+    substitute nytrix.fish nytrix2.fish --replace-fail nytrix nytrix2
 
-    installShellCompletion --cmd opencode2 \
-      --bash opencode2.bash \
-      --fish opencode2.fish \
-      --zsh _opencode2
+    installShellCompletion --cmd nytrix2 \
+      --bash nytrix2.bash \
+      --fish nytrix2.fish \
+      --zsh _nytrix2
   '';
 
   nativeInstallCheckInputs = [
@@ -116,7 +116,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
   doInstallCheck = true;
-  versionCheckKeepEnvironment = [ "HOME" "OPENCODE_DISABLE_MODELS_FETCH" ];
+  versionCheckKeepEnvironment = [ "HOME" "NYTRIX_DISABLE_MODELS_FETCH" ];
   versionCheckProgramArg = "--version";
 
   passthru = {
@@ -125,9 +125,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "The open source coding agent";
-    homepage = "https://opencode.ai";
+    homepage = "https://https://github.com/ledexsoft/Nytrix";
     license = lib.licenses.mit;
-    mainProgram = "opencode";
+    mainProgram = "nytrix";
     inherit (node_modules.meta) platforms;
   };
 })

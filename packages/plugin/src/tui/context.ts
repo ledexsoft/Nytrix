@@ -9,8 +9,8 @@ import type {
   McpResource,
   McpServer,
   ModelInfo,
-  OpenCodeClient,
-  OpenCodeEvent,
+  NytrixClient,
+  NytrixEvent,
   PermissionSavedInfo,
   PermissionRequest,
   Project,
@@ -58,14 +58,14 @@ interface LocationCollection<Value> {
   invalidate(location?: LocationRef): void
 }
 
-type OpenCodeEventMap = { [Type in OpenCodeEvent["type"]]: Extract<OpenCodeEvent, { type: Type }> }
+type OpenCodeEventMap = { [Type in NytrixEvent["type"]]: Extract<NytrixEvent, { type: Type }> }
 
 export interface Data {
-  readonly on: <Type extends OpenCodeEvent["type"]>(
+  readonly on: <Type extends NytrixEvent["type"]>(
     type: Type,
     handler: (event: OpenCodeEventMap[Type]) => void,
   ) => () => void
-  readonly listen: (handler: (event: { details: OpenCodeEvent }) => void) => () => void
+  readonly listen: (handler: (event: { details: NytrixEvent }) => void) => () => void
   readonly session: {
     list(): SessionInfo[]
     get(sessionID: string): SessionInfo | undefined
@@ -546,7 +546,7 @@ export interface Context {
   readonly location: LocationRef | undefined
   readonly app: App
   readonly renderer: CliRenderer
-  readonly client: OpenCodeClient
+  readonly client: NytrixClient
   readonly data: Data
   readonly attention: Attention
   readonly theme: ResolvedTheme

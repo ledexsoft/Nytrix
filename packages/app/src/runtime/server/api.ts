@@ -1,7 +1,7 @@
 import {
-  OpenCode,
+  Nytrix,
   type MessageListInput,
-  type OpenCodeClient,
+  type NytrixClient,
   type SessionInboxListInput,
   type SessionMessageGetInput,
 } from "@nytrix/client/promise"
@@ -30,11 +30,11 @@ export const MEDIA_URI_CAPABILITY = "experimental-media-uri"
 export const CAPABILITIES_HEADER = "X-OpenCode-Capabilities"
 
 /** `mediaRefs: false` reads stored media as inline bytes, for callers such as export that need self-contained messages. */
-export type ServerRequestOptions = OpenCode.RequestOptions & { readonly mediaRefs?: false }
+export type ServerRequestOptions = Nytrix.RequestOptions & { readonly mediaRefs?: false }
 
 export function createApiForServer(input: { server: ServerConnection.HttpBase; fetch?: typeof globalThis.fetch }) {
   return withMediaRefs(
-    OpenCode.make({
+    Nytrix.make({
       baseUrl: input.server.url,
       fetch: input.fetch,
       headers: input.server.password
@@ -52,7 +52,7 @@ export function createApiForServer(input: { server: ServerConnection.HttpBase; f
  * Only the message and inbox reads can return stored media as `media:<hash>` refs, so only they carry the capability.
  * A custom header makes a cross-origin request preflighted, which every other request must keep avoiding.
  */
-function withMediaRefs(api: OpenCodeClient) {
+function withMediaRefs(api: NytrixClient) {
   return {
     ...api,
     message: {
@@ -76,7 +76,7 @@ function withMediaRefs(api: OpenCodeClient) {
   }
 }
 
-function mediaRefOptions(options: ServerRequestOptions | undefined): OpenCode.RequestOptions | undefined {
+function mediaRefOptions(options: ServerRequestOptions | undefined): Nytrix.RequestOptions | undefined {
   if (options?.mediaRefs === false) return options
   const headers = new Headers(options?.headers)
   headers.set(CAPABILITIES_HEADER, MEDIA_URI_CAPABILITY)

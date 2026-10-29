@@ -2,7 +2,7 @@ export * as EventFeed from "./event-feed"
 
 import { Bus } from "@nytrix/core/bus"
 import { Event } from "@nytrix/schema/event"
-import { isOpenCodeEvent, type OpenCodeEvent } from "@nytrix/protocol/groups/event"
+import { isNytrixEvent, type NytrixEvent } from "@nytrix/protocol/groups/event"
 import { Cause, Context, Effect, Layer, Queue, Schema, Scope, Stream } from "effect"
 
 export const SubscriberCapacity = 4_096
@@ -26,13 +26,13 @@ export interface Interface {
 
 export class Service extends Context.Service<Service, Interface>()("@nytrix/server/EventFeed") {}
 
-export function frame(event: OpenCodeEvent) {
+export function frame(event: NytrixEvent) {
   return `data: ${JSON.stringify(event)}\n\n`
 }
 
 export const make = Effect.fn("EventFeed.make")(function* (
   observe: (subscriber: Bus.Subscriber) => Effect.Effect<Bus.Unsubscribe>,
-  options?: { readonly capacity?: number; readonly encode?: (event: OpenCodeEvent) => string },
+  options?: { readonly capacity?: number; readonly encode?: (event: NytrixEvent) => string },
 ) {
   const capacity = options?.capacity ?? SubscriberCapacity
   const render = options?.encode ?? frame
@@ -46,7 +46,7 @@ export const make = Effect.fn("EventFeed.make")(function* (
     })
 
   const publish = Effect.fnUntraced(function* (event: Event.Payload) {
-    if (!isOpenCodeEvent(event)) return
+    if (!isNytrixEvent(event)) return
     let encoded: string | undefined
     for (const [subscriber, types] of subscribers) {
       if (types && !types.has(event.type)) continue

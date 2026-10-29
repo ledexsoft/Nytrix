@@ -1,11 +1,11 @@
 import type { KeymapCommand } from "@nytrix/plugin/tui/context"
-import type { OpenCodeClient } from "@nytrix/client"
+import type { NytrixClient } from "@nytrix/client"
 import { measureEditText, type WidthMethod } from "@opentui/core"
 import path from "path"
 import { parseSlashHead } from "./parse"
 
 export async function directoryAutocomplete(
-  file: Pick<OpenCodeClient["file"], "list">,
+  file: Pick<NytrixClient["file"], "list">,
   location: { directory: string },
   query: string,
   home: string,

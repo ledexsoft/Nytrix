@@ -51,7 +51,7 @@ test("re-exports canonical contracts directly from Schema", () => {
     "Integration",
     "Location",
     "Model",
-    "OpenCode",
+    "Nytrix",
     "Permission",
     "PermissionSaved",
     "Project",

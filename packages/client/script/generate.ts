@@ -116,8 +116,8 @@ await Effect.runPromise(
           typeReferences: effectTypeReferences,
           outputTypes: {
             "event.subscribe": {
-              name: "OpenCodeEvent",
-              import: 'import type { OpenCodeEvent } from "@nytrix/protocol/groups/event"',
+              name: "NytrixEvent",
+              import: 'import type { NytrixEvent } from "@nytrix/protocol/groups/event"',
             },
           },
         }),

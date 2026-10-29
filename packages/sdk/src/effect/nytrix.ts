@@ -1,6 +1,6 @@
-export * as OpenCode from "./opencode"
+export * as Nytrix from "./nytrix"
 
-import { OpenCode, type OpenCodeClient } from "@nytrix/client/effect"
+import { Nytrix, type NytrixClient } from "@nytrix/client/effect"
 import type { Session } from "@nytrix/core/session"
 import type { Workspace } from "@nytrix/core/workspace"
 import { Context, Effect, Layer } from "effect"
@@ -16,13 +16,13 @@ export type EmbedOptions = EmbeddedHost.EmbedOptions
 export type InstanceOptions<R = never> = SdkInstances.Options<R>
 export type InstanceConfiguration = SdkInstances.Configuration
 
-export type Interface = Omit<OpenCodeClient, "plugin" | "workspace"> & {
-  readonly sessions: Omit<OpenCodeClient["session"], "create" | "get" | "move"> & {
+export type Interface = Omit<NytrixClient, "plugin" | "workspace"> & {
+  readonly sessions: Omit<NytrixClient["session"], "create" | "get" | "move"> & {
     readonly create: Session.Interface["create"]
     readonly get: (input: { readonly sessionID: Session.ID }) => ReturnType<Session.Interface["get"]>
     readonly move: Session.Interface["move"]
   }
-  readonly events: OpenCodeClient["event"]
+  readonly events: NytrixClient["event"]
   readonly workspace: {
     readonly create: Workspace.Interface["create"]
     readonly provision: (options: {
@@ -30,18 +30,18 @@ export type Interface = Omit<OpenCodeClient, "plugin" | "workspace"> & {
     }) => ReturnType<Workspace.Interface["provision"]>
     readonly destroy: (options: { readonly workspaceID: Workspace.ID }) => ReturnType<Workspace.Interface["destroy"]>
   }
-  readonly plugin: EmbeddedHost.Interface["plugins"]["register"] & OpenCodeClient["plugin"]
+  readonly plugin: EmbeddedHost.Interface["plugins"]["register"] & NytrixClient["plugin"]
 }
 
 export const create: <R = never>(
   options?: CreateOptions<R>,
   embed?: EmbedOptions,
-) => Effect.Effect<Interface, Config.ConfigError | Error, Scope.Scope | R> = Effect.fn("OpenCode.create")(function* <
+) => Effect.Effect<Interface, Config.ConfigError | Error, Scope.Scope | R> = Effect.fn("Nytrix.create")(function* <
   R = never,
 >(options: CreateOptions<R> = {}, embed: EmbedOptions = {}) {
   const host = yield* Effect.acquireRelease(EmbeddedHost.create(options, embed), (host) => Effect.promise(host.close))
   const httpClient = yield* HttpClient.HttpClient.pipe(Effect.provide(FetchHttpClient.layer))
-  const client = yield* OpenCode.make({ baseUrl: "http://opencode.local" }).pipe(
+  const client = yield* Nytrix.make({ baseUrl: "http://nytrix.local" }).pipe(
     Effect.provideService(
       HttpClient.HttpClient,
       // FetchHttpClient reads Fetch at request time; callers must not replace this host's in-process transport.
@@ -67,7 +67,7 @@ export const create: <R = never>(
   }
 })
 
-export class Service extends Context.Service<Service, Interface>()("@nytrix/sdk/OpenCode") {}
+export class Service extends Context.Service<Service, Interface>()("@nytrix/sdk/Nytrix") {}
 
 export const layer = <R = never>(
   options: CreateOptions<R> = {},

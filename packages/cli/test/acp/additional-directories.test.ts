@@ -3,7 +3,7 @@ import path from "node:path"
 import type { Permission } from "@nytrix/schema/permission"
 import { makeSession, rpcError, startWire, type Wire } from "./wire-fixture"
 
-const key = "opencode.acp.additionalDirectories"
+const key = "nytrix.acp.additionalDirectories"
 
 const grant = (directory: string): Permission.Rule => ({
   action: "external_directory",

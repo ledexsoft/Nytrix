@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test"
-import type { OpenCodeEvent, SessionInboxInfo, SessionMessageInfo, ShellInfo } from "@nytrix/client/promise"
+import type { NytrixEvent, SessionInboxInfo, SessionMessageInfo, ShellInfo } from "@nytrix/client/promise"
 import { PromptInput } from "@nytrix/schema/prompt-input"
 import { SessionInbox } from "@nytrix/schema/session-inbox"
 import { SessionMessage } from "@nytrix/schema/session-message"
@@ -60,7 +60,7 @@ function createQueueMock(seed: string[], messages: SessionMessageInfo[] = []) {
     delivery: "queue",
   }))
 
-  const events: OpenCodeEvent[] = []
+  const events: NytrixEvent[] = []
   const prompts: (typeof PromptBody.Type)[] = []
   const compactions: SessionInboxInfo[] = []
   const changes: { inboxID: string; action: "cancel" | "steer" | "queue" }[] = []
@@ -69,19 +69,19 @@ function createQueueMock(seed: string[], messages: SessionMessageInfo[] = []) {
   const shells: ShellInfo[] = []
   let sequence = 0
 
-  const emit = <Type extends OpenCodeEvent["type"]>(
+  const emit = <Type extends NytrixEvent["type"]>(
     type: Type,
-    data: Extract<OpenCodeEvent, { type: Type }>["data"],
+    data: Extract<NytrixEvent, { type: Type }>["data"],
   ) => {
     sequence += 1
-    // SAFETY: `type` selects `data` from the same OpenCodeEvent member, so the pair is that member.
+    // SAFETY: `type` selects `data` from the same NytrixEvent member, so the pair is that member.
     events.push({
       id: `evt_queue_${sequence}`,
       type,
       created: Date.now(),
       durable: { aggregateID: sessionID, seq: sequence, version: type === "session.tool.success" ? 2 : 1 },
       data,
-    } as OpenCodeEvent)
+    } as NytrixEvent)
   }
 
   return {

@@ -1,6 +1,6 @@
 import { confirm, intro, log, outro } from "@clack/prompts"
 import { Effect, Option } from "effect"
-import { OpenCode, type IntegrationInfo, type IntegrationOAuthMethod, type McpServer } from "@nytrix/client"
+import { Nytrix, type IntegrationInfo, type IntegrationOAuthMethod, type McpServer } from "@nytrix/client"
 import { Commands } from "../../commands"
 import { Runtime } from "../../../framework/runtime"
 import { Service } from "@nytrix/client/effect/service"
@@ -22,14 +22,14 @@ const authenticate = Effect.fn("cli.mcp.auth.run")(function* (name?: string) {
   if (!name) yield* requireInteractive("Pass an MCP server name when running without an interactive terminal")
   intro("Authenticate an MCP server")
   const { endpoint } = yield* ServerConnection.resolve()
-  const client = OpenCode.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
+  const client = Nytrix.make({ baseUrl: endpoint.url, headers: Service.headers(endpoint) })
   const integrations = yield* loadIntegrations(client)
   const servers = yield* request((signal) => client.mcp.list({ location }, { signal }))
   const choices = mcpAuthChoices(servers.data, integrations)
   if (!name && choices.length === 0) {
     log.warn("No OAuth-capable MCP servers configured")
     log.info(
-      `Remote MCP servers support OAuth by default. Add one with \`opencode mcp add\` or in opencode.json:\n${exampleConfig}`,
+      `Remote MCP servers support OAuth by default. Add one with \`nytrix mcp add\` or in nytrix.json:\n${exampleConfig}`,
     )
     outro("Done")
     return

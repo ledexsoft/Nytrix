@@ -79,8 +79,8 @@ export const makeEventGroup = <const Definitions extends ReadonlyArray<Definitio
 
 const event = make(EventManifest.ServerDefinitions)
 export const EventGroup = event.group
-export const OpenCodeEvent = event.schema
-export type OpenCodeEvent = typeof OpenCodeEvent.Type
-export type OpenCodeEventEncoded = typeof OpenCodeEvent.Encoded
-export const isOpenCodeEvent = (event: { readonly type: string }): event is OpenCodeEvent =>
+export const NytrixEvent = event.schema
+export type NytrixEvent = typeof NytrixEvent.Type
+export type NytrixEventEncoded = typeof NytrixEvent.Encoded
+export const isNytrixEvent = (event: { readonly type: string }): event is NytrixEvent =>
   event.type === "server.connected" || EventManifest.isServer(event) || event.type.startsWith("rpc.")

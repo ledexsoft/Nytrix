@@ -1,5 +1,5 @@
 import { expect } from "bun:test"
-import { OpenCode, type SessionMessageInfo } from "@nytrix/client"
+import { Nytrix, type SessionMessageInfo } from "@nytrix/client"
 import { Session } from "@nytrix/schema/session"
 import { Effect } from "effect"
 import { it } from "../../core/test/lib/effect"
@@ -40,7 +40,7 @@ const setup = Effect.gen(function* () {
     models: { fetch: false },
     fs: { filewatcher: false },
   })
-  const api = OpenCode.make({
+  const api = Nytrix.make({
     baseUrl: "http://opencode.local",
     fetch: Object.assign((input: string | URL | Request, init?: RequestInit) => handler(new Request(input, init)), {
       preconnect: fetch.preconnect,

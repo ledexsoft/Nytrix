@@ -1,4 +1,4 @@
-import type { OpenCodeEvent } from "@nytrix/client/promise"
+import type { NytrixEvent } from "@nytrix/client/promise"
 import { expect, test, type Page } from "@playwright/test"
 import { expectPath, holdRoute, NO_PROVIDER, project, REMOTE_SERVER, seed, sessionHref, T0 } from "../utils/app"
 import { mockOpenCodeServer } from "../utils/mock-server"
@@ -164,7 +164,7 @@ test("Home lists the used server projects by recent activity, hides them, and li
   listed.splice(0, listed.length, fresh, active, listed[0]!, listed[1]!, listed[4]!)
   await view.server.push(
     [active, archived, fresh].map(
-      (data, index): OpenCodeEvent => ({
+      (data, index): NytrixEvent => ({
         id: `evt_home_project_${index}`,
         created: T0 + index,
         type: "project.updated",

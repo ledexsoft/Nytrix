@@ -1,7 +1,7 @@
 import { Global } from "@nytrix/util/global"
 import { AppProcess } from "@nytrix/util/process"
 import { EffectFlock } from "@nytrix/util/effect-flock"
-import { OPENCODE_ARTIFACT, OPENCODE_CHANNEL, OPENCODE_LOCAL, OPENCODE_VERSION } from "../version"
+import { NYTRIX_ARTIFACT, NYTRIX_CHANNEL, NYTRIX_LOCAL, NYTRIX_VERSION } from "../version"
 import { Context, Duration, Effect, FileSystem, Layer, Option, Ref, Schema } from "effect"
 import { ChildProcess } from "effect/process"
 import { parse, type ParseError } from "jsonc-parser"
@@ -46,7 +46,7 @@ const decodeVpPackages = Schema.decodeUnknownOption(
 )
 
 const installNames: Record<Method, string> = {
-  curl: "The OpenCode installer",
+  curl: "The Nytrix installer",
   npm: "npm",
   pnpm: "pnpm",
   bun: "Bun",
@@ -56,7 +56,7 @@ const installNames: Record<Method, string> = {
   winget: "WinGet",
 }
 
-const wingetPackage = "Anomaly.OpenCode"
+const wingetPackage = "Ledexsoft.Nytrix"
 const wingetArgs = [
   "--id",
   wingetPackage,
@@ -141,8 +141,7 @@ const make = Effect.gen(function* () {
   const global = yield* Global.Service
   const appProcess = yield* AppProcess.Service
   const flock = yield* EffectFlock.Service
-  const installedVersion = yield* Ref.make(OPENCODE_VERSION)
-  const channel = OPENCODE_CHANNEL.replace(/[^a-zA-Z0-9._-]/g, "-")
+  const installedVersion = yield* Ref.make(NYTRIX_VERSION)
   const executable = yield* fs.realPath(process.execPath).pipe(Effect.orElseSucceed(() => process.execPath))
   const installedPackage = yield* Effect.gen(function* () {
     const directory = path.dirname(path.dirname(executable))
@@ -150,19 +149,19 @@ const make = Effect.gen(function* () {
       .readFileString(path.join(directory, "package.json"))
       .pipe(Effect.flatMap((text) => Effect.try(() => JSON.parse(text))))
     // Source invocations run inside Bun or Node, which may themselves be npm packages.
-    if (!/^@opencode(?:-ai)?\/cli(?:-node)?$/.test(manifest.name)) return
+    if (!/^@nytrix\/cli(?:-node)?$/.test(manifest.name)) return
     if (Object.values(manifest.bin ?? {}).some((bin) => path.resolve(directory, bin) === executable))
       return manifest.name
   }).pipe(Effect.orElseSucceed(() => undefined))
-  // "opencode" is Homebrew Core's formula; the others are published to anomalyco/tap.
-  const installedFormula = ["opencode", "opencode-beta", "opencode-v2"].find((name) =>
+  // A Nytrix formula may be installed from Homebrew Core or a tap.
+  const installedFormula = ["nytrix", "nytrix-beta", "nytrix-v2"].find((name) =>
     executable.includes(`${path.sep}Cellar${path.sep}${name}${path.sep}`),
   )
   // WinGet extracts portable packages into a directory named after the package identifier.
-  const installedWinget = /[\\/]winget[\\/]packages[\\/]anomaly\.opencode_/i.test(executable)
+  const installedWinget = /[\\/]winget[\\/]packages[\\/]ledexsoft\.nytrix_/i.test(executable)
 
   const readPolicy = Effect.fnUntraced(function* () {
-    const values = yield* Effect.forEach(["config.json", "opencode.json", "opencode.jsonc"], (name) =>
+    const values = yield* Effect.forEach(["config.json", "nytrix.json", "nytrix.jsonc"], (name) =>
       fs.readFileString(path.join(global.config, name)).pipe(
         Effect.map(decodePolicy),
         Effect.orElseSucceed(() => undefined),
@@ -189,24 +188,24 @@ const make = Effect.gen(function* () {
 
   const curlPath = path.resolve(
     global.home,
-    ".opencode",
+    ".nytrix",
     "bin",
-    process.platform === "win32" ? "opencode.exe" : "opencode",
+    process.platform === "win32" ? "nytrix.exe" : "nytrix",
   )
   const curlBinary = yield* fs.realPath(curlPath).pipe(Effect.orElseSucceed(() => curlPath))
 
   // On Windows a bare `bash` may be the WSL launcher, which cannot run the installer against Windows paths.
   const installerBash = Effect.fnUntraced(function* () {
     if (process.platform !== "win32") return "bash"
-    if (process.env.OPENCODE_GIT_BASH_PATH) return process.env.OPENCODE_GIT_BASH_PATH
+    if (process.env.NYTRIX_GIT_BASH_PATH) return process.env.NYTRIX_GIT_BASH_PATH
     const git = yield* exec(["git", "--exec-path"]).pipe(Effect.orElseSucceed(() => undefined))
     const bash = git?.code === 0 ? path.resolve(git.stdout.trim(), "..", "..", "..", "bin", "bash.exe") : undefined
     if (bash && (yield* fs.exists(bash).pipe(Effect.orElseSucceed(() => false)))) return bash
     return yield* Effect.fail(
       new UpgradeError({
-        title: "Git Bash is required to update OpenCode",
-        detail: "The OpenCode installer runs with Git Bash on Windows, and it was not found.",
-        retry: "Install Git for Windows or set OPENCODE_GIT_BASH_PATH, then run opencode upgrade again.",
+        title: "Git Bash is required to update Nytrix",
+        detail: "The Nytrix installer runs with Git Bash on Windows, and it was not found.",
+        retry: "Install Git for Windows or set NYTRIX_GIT_BASH_PATH, then run nytrix upgrade again.",
       }),
     )
   })
@@ -273,25 +272,21 @@ const make = Effect.gen(function* () {
   }
 
   const release = Effect.fnUntraced(function* (method?: Method) {
-    const distribution = method === "brew" ? "homebrew" : "npm"
-    // Homebrew Core builds its formula on its own schedule, so the tap release does not describe it.
-    const core = method === "brew" && installedFormula === "opencode"
     const response = yield* Effect.tryPromise({
       try: (signal) =>
         fetch(
-          core
-            ? "https://formulae.brew.sh/api/formula/opencode.json"
-            : `https://opencode.ai/update/api/${encodeURIComponent(channel)}/${encodeURIComponent(OPENCODE_ARTIFACT)}/${distribution}?current=${encodeURIComponent(OPENCODE_VERSION)}`,
+          "https://api.github.com/repos/ledexsoft/Nytrix/releases/latest",
           {
             signal: AbortSignal.any([signal, AbortSignal.timeout(10_000)]),
+            headers: { "User-Agent": "Nytrix" },
           },
         ),
       catch: (cause) =>
         new UpgradeError(
           {
-            title: "Could not check for OpenCode updates",
+            title: "Could not check for Nytrix updates",
             detail: errorDetail(cause),
-            retry: "Check your network, then run opencode upgrade again.",
+            retry: "Check your network, then run nytrix upgrade again.",
           },
           { cause },
         ),
@@ -299,31 +294,31 @@ const make = Effect.gen(function* () {
     if (!response.ok)
       return yield* Effect.fail(
         new UpgradeError({
-          title: "Could not check for OpenCode updates",
+          title: "Could not check for Nytrix updates",
           detail: `The update service returned HTTP ${response.status}.`,
           retry: "Try again in a few minutes.",
         }),
       )
-    const data: { version?: string; metadata?: { package?: string }; versions?: { stable?: string } } =
+    const data: { tag_name?: string } =
       yield* Effect.tryPromise({
         try: () => response.json(),
         catch: (cause) =>
           new UpgradeError(
             {
-              title: "Could not read the OpenCode update information",
+              title: "Could not read the Nytrix release information",
               detail: errorDetail(cause),
               retry: "Try again in a few minutes.",
             },
             { cause },
           ),
       })
-    const version = core ? data.versions?.stable : data.version
-    const packageName = core ? "opencode" : data.metadata?.package
+    const version = data.tag_name?.replace(/^v/, "")
+    const packageName = method === "brew" ? installedFormula : installedPackage ?? "@nytrix/cli"
     if (!version || !packageName)
       return yield* Effect.fail(
         new UpgradeError({
-          title: "Could not read the OpenCode update information",
-          detail: "The update service returned incomplete release information.",
+          title: "Could not read the Nytrix release information",
+          detail: "The GitHub release did not include a version or install package.",
           retry: "Try again in a few minutes.",
         }),
       )
@@ -335,10 +330,10 @@ const make = Effect.gen(function* () {
     const failure = (detail: string, cause?: unknown) =>
       new UpgradeError(
         {
-          title: "Could not check for OpenCode updates",
+          title: "Could not check for Nytrix updates",
           detail,
           command: ["winget", "search", ...wingetArgs].join(" "),
-          retry: "Fix the issue above, then run opencode upgrade again.",
+          retry: "Fix the issue above, then run nytrix upgrade again.",
         },
         cause === undefined ? undefined : { cause },
       )
@@ -398,10 +393,10 @@ const make = Effect.gen(function* () {
     const failure = (detail: string, cause?: unknown) =>
       new UpgradeError(
         {
-          title: input.title ?? `${installNames[input.method]} could not install OpenCode`,
+          title: input.title ?? `${installNames[input.method]} could not install Nytrix`,
           detail,
           command: (input.displayCommand ?? input.command).join(" "),
-          retry: input.retry ?? "Fix the issue above, then run opencode upgrade again.",
+          retry: input.retry ?? "Fix the issue above, then run nytrix upgrade again.",
         },
         cause === undefined ? undefined : { cause },
       )
@@ -428,8 +423,8 @@ const make = Effect.gen(function* () {
     const packageName =
       method === "winget"
         ? wingetPackage
-        : method === "brew" && installedFormula === "opencode"
-          ? "opencode"
+        : method === "brew" && installedFormula === "nytrix"
+          ? "nytrix"
           : (yield* release(method)).package
     const target = `${packageName}@${version}`
     if (installedPackage && packageName !== installedPackage && (method === "pnpm" || method === "yarn")) {
@@ -441,7 +436,7 @@ const make = Effect.gen(function* () {
         "npm",
         "install",
         "--global",
-        ...((OPENCODE_ARTIFACT === "cli" && !installedPackage?.endsWith("/cli-node")) ||
+        ...((NYTRIX_ARTIFACT === "cli" && !installedPackage?.endsWith("/cli-node")) ||
         (installedPackage && packageName !== installedPackage)
           ? ["--force"]
           : []),
@@ -456,7 +451,7 @@ const make = Effect.gen(function* () {
     }
     yield* Effect.scoped(
       Effect.gen(function* () {
-        // Other OpenCode processes may be installing at the same time. Wait longer than the
+        // Other Nytrix processes may be installing at the same time. Wait longer than the
         // slowest install (curl runs two 5-minute commands).
         yield* flock.acquire("cli-upgrade", undefined, { timeoutMs: Duration.toMillis("15 minutes") })
         if (method === "bun") {
@@ -479,18 +474,18 @@ const make = Effect.gen(function* () {
           const installer = path.join(directory, "install")
           yield* runUpgrade({
             method,
-            command: ["curl", "-fsSL", "-o", installer, "https://opencode.ai/v2/install"],
-            displayCommand: ["curl", "-fsSL", "https://opencode.ai/v2/install"],
-            title: "Could not download the OpenCode installer",
-            retry: "Check your network, then run opencode upgrade again.",
+            command: ["curl", "-fsSL", "-o", installer, "https://raw.githubusercontent.com/ledexsoft/Nytrix/dev/install"],
+            displayCommand: ["curl", "-fsSL", "https://raw.githubusercontent.com/ledexsoft/Nytrix/dev/install"],
+            title: "Could not download the Nytrix installer",
+            retry: "Check your network, then run nytrix upgrade again.",
           })
           return yield* retaining(
             method,
             runUpgrade({
               method,
               command: [bash, installer, "--version", version, "--no-modify-path"],
-              displayCommand: ["opencode", "upgrade", version, "--method", "curl"],
-              title: "The OpenCode installer failed",
+              displayCommand: ["nytrix", "upgrade", version, "--method", "curl"],
+              title: "The Nytrix installer failed",
             }),
           )
         }
@@ -519,9 +514,9 @@ const make = Effect.gen(function* () {
           ? cause
           : new UpgradeError(
               {
-                title: "Could not prepare the OpenCode upgrade",
+                title: "Could not prepare the Nytrix upgrade",
                 detail: errorDetail(cause),
-                retry: "Fix the issue above, then run opencode upgrade again.",
+                retry: "Fix the issue above, then run nytrix upgrade again.",
               },
               { cause },
             ),
@@ -531,11 +526,11 @@ const make = Effect.gen(function* () {
   })
 
   const inspect = Effect.fnUntraced(function* () {
-    if (OPENCODE_LOCAL || ["1", "true"].includes(process.env.OPENCODE_DISABLE_AUTOUPDATE?.toLowerCase() ?? "")) {
+    if (NYTRIX_LOCAL || ["1", "true"].includes(process.env.NYTRIX_DISABLE_AUTOUPDATE?.toLowerCase() ?? "")) {
       yield* Effect.logInfo("update check skipped", {
-        reason: OPENCODE_LOCAL ? "local-install" : "disabled",
-        version: OPENCODE_VERSION,
-        channel: OPENCODE_CHANNEL,
+        reason: NYTRIX_LOCAL ? "local-install" : "disabled",
+        version: NYTRIX_VERSION,
+        channel: NYTRIX_CHANNEL,
       })
       return undefined
     }
@@ -556,7 +551,7 @@ const make = Effect.gen(function* () {
       yield* Effect.logInfo("update check done", { action: "up-to-date" })
       return undefined
     }
-    yield* Effect.logInfo("OpenCode update available", { current, latest: version, action: next })
+    yield* Effect.logInfo("Nytrix update available", { current, latest: version, action: next })
     return { policy, version }
   })
 
@@ -569,7 +564,7 @@ const make = Effect.gen(function* () {
     const current = yield* Ref.get(installedVersion)
     yield* upgrade(detected, version)
     yield* Ref.set(installedVersion, version)
-    yield* Effect.logInfo("updated OpenCode", { from: current, to: version, method: detected })
+    yield* Effect.logInfo("updated Nytrix", { from: current, to: version, method: detected })
     return true
   })
 
@@ -583,10 +578,10 @@ const make = Effect.gen(function* () {
   })
 
   const check = Effect.fn("cli.updater.check")(function* () {
-    if (OPENCODE_LOCAL)
+    if (NYTRIX_LOCAL)
       return {
         type: "unavailable" as const,
-        message: "This build runs from a source checkout. Use an installed OpenCode release to check for updates.",
+        message: "This build runs from a source checkout. Use an installed Nytrix release to check for updates.",
       }
     const detected = yield* method()
     if (!detected)
@@ -600,7 +595,7 @@ const make = Effect.gen(function* () {
     const current = yield* Ref.get(installedVersion)
     if (action(current, version, "auto") === "none") {
       // An earlier check may have installed the update while this client is still running.
-      return action(OPENCODE_VERSION, current, "auto") === "none"
+      return action(NYTRIX_VERSION, current, "auto") === "none"
         ? undefined
         : { type: "installed" as const, version: current }
     }

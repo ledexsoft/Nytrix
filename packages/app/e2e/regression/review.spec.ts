@@ -1,4 +1,4 @@
-import type { OpenCodeEvent, SessionMessageInfo } from "@nytrix/client/promise"
+import type { NytrixEvent, SessionMessageInfo } from "@nytrix/client/promise"
 import { expect, test, type Locator, type Page } from "@playwright/test"
 import { base64Encode } from "@nytrix/util/encode"
 import { SERVER, holdRoute, project, provider, session } from "../utils/app"
@@ -1779,7 +1779,7 @@ async function statusInset(status: Locator, side: "left" | "right") {
   }, side)
 }
 
-function filesystemEvent(directory: string, file: string, event: "add" | "change" | "unlink"): OpenCodeEvent {
+function filesystemEvent(directory: string, file: string, event: "add" | "change" | "unlink"): NytrixEvent {
   return {
     id: `evt_${file}_${event}`,
     created: 1,

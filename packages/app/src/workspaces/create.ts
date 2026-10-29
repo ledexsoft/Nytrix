@@ -1,8 +1,8 @@
-import type { LocationGetOutput, OpenCodeClient } from "@nytrix/client/promise"
+import type { LocationGetOutput, NytrixClient } from "@nytrix/client/promise"
 import type { Data } from "@nytrix/client/solid"
 
 export async function createWorktree(input: {
-  api: Pick<OpenCodeClient, "location" | "worktree">
+  api: Pick<NytrixClient, "location" | "worktree">
   data: Pick<Data, "location">
   directory: string
   project?: LocationGetOutput["project"]

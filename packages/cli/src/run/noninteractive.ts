@@ -2,7 +2,7 @@ import type {
   EventSubscribeOutput,
   JsonValue,
   LocationRef,
-  OpenCodeClient,
+  NytrixClient,
   SessionMessageAssistantTool,
   SessionMessageInfo,
   ToolContent,
@@ -25,7 +25,7 @@ type File = {
 }
 
 type Input = {
-  client: OpenCodeClient
+  client: NytrixClient
   sessionID: string
   location: LocationRef
   message: string
@@ -795,7 +795,7 @@ function formRequestOptions(location: LocationRef | undefined): [] | [{ headers:
   return [
     {
       headers: {
-        "x-opencode-directory": encodeURIComponent(location.directory),
+        "x-nytrix-directory": encodeURIComponent(location.directory),
       },
     },
   ]
