@@ -91,7 +91,7 @@ export const dict = {
   "home.loadingTitle": "Indlæser data",
   "home.loadingDescription": "Læser modelaggregater.",
   "home.usageTitle": "Brug",
-  "home.topModelsDescription": "Brug af modeller på tværs af OpenCode.",
+  "home.topModelsDescription": "Brug af modeller på tværs af Nytrix.",
   "home.noUsageTitle": "Ingen brugsdata",
   "home.noUsageDescription": "Ingen modelrækker matchede dette produkt og interval.",
   "home.noLeaderboardTitle": "Ingen ranglistedata",

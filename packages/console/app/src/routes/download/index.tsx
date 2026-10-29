@@ -54,10 +54,10 @@ export default function Download() {
             <div data-component="section-content">
               <button
                 data-component="cli-row"
-                onClick={handleCopyClick("curl -fsSL https://opencode.ai/v2/install | bash")}
+                onClick={handleCopyClick("curl -fsSL https://raw.githubusercontent.com/ledexsoft/Nytrix/dev/install | bash")}
               >
                 <code>
-                  curl -fsSL https://<strong>opencode.ai/v2/install</strong> | bash
+                  curl -fsSL https://<strong>raw.githubusercontent.com/ledexsoft/Nytrix/dev/install</strong> | bash
                 </code>
                 <CopyStatus />
               </button>
@@ -73,21 +73,21 @@ export default function Download() {
                 </code>
                 <CopyStatus />
               </button>
-              <button data-component="cli-row" onClick={handleCopyClick("brew install anomalyco/tap/opencode-v2")}>
+              <button data-component="cli-row" onClick={handleCopyClick("brew install nytrix")}>
                 <code>
-                  brew install <strong>anomalyco/tap/opencode-v2</strong>
+                  brew install <strong>nytrix</strong>
                 </code>
                 <CopyStatus />
               </button>
-              <button data-component="cli-row" onClick={handleCopyClick("paru -S opencode-beta")}>
+              <button data-component="cli-row" onClick={handleCopyClick("paru -S nytrix-bin")}>
                 <code>
-                  paru -S <strong>opencode-beta</strong>
+                  paru -S <strong>nytrix-bin</strong>
                 </code>
                 <CopyStatus />
               </button>
-              <button data-component="cli-row" onClick={handleCopyClick("yay -S opencode-beta")}>
+              <button data-component="cli-row" onClick={handleCopyClick("yay -S nytrix-bin")}>
                 <code>
-                  yay -S <strong>opencode-beta</strong>
+                  yay -S <strong>nytrix-bin</strong>
                 </code>
                 <CopyStatus />
               </button>

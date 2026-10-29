@@ -14,7 +14,7 @@ export const dict = {
   "nav.home": "Головна",
   "nav.openMenu": "Відкрити меню",
   "nav.getStartedFree": "Почати безкоштовно",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "Nytrix",
 
   "nav.context.copyLogo": "Копіювати логотип як SVG",
   "nav.context.copyWordmark": "Копіювати знак як SVG",
@@ -54,9 +54,9 @@ export const dict = {
   "common.faq": "FAQ",
   "common.learnMore": "Дізнатися більше",
 
-  "app.meta.description": "OpenCode — відкритий агент для програмування.",
+  "app.meta.description": "Nytrix — відкритий агент для програмування.",
 
-  "home.title": "OpenCode | Відкритий AI-агент для кодування",
+  "home.title": "Nytrix | Відкритий AI-агент для кодування",
 
   "home.banner.badge": "Нове",
 
@@ -66,8 +66,8 @@ export const dict = {
 
   "home.install.ariaLabel": "Параметри встановлення",
 
-  "home.what.title": "Що таке OpenCode?",
-  "home.what.body": "OpenCode — це відкритий агент, який допомагає писати код у терміналі, IDE або на десктопі.",
+  "home.what.title": "Що таке Nytrix?",
+  "home.what.body": "Nytrix — це відкритий агент, який допомагає писати код у терміналі, IDE або на десктопі.",
   "home.what.multiSession.title": "Багатосесійність",
   "home.what.multiSession.body": "Запускайте кількох агентів паралельно в одному проекті",
   "home.what.copilot.title": "GitHub Copilot",
@@ -82,49 +82,49 @@ export const dict = {
 
   "home.growth.title": "Відкритий AI-агент для кодування",
   "home.growth.body":
-    "З понад <strong>{{stars}}</strong> зірками на GitHub, <strong>{{contributors}}</strong> учасниками та понад <strong>{{commits}}</strong> комітами, OpenCode використовують понад <strong>{{monthlyUsers}}</strong> розробників щомісяця.",
+    "З понад <strong>{{stars}}</strong> зірками на GitHub, <strong>{{contributors}}</strong> учасниками та понад <strong>{{commits}}</strong> комітами, Nytrix використовують понад <strong>{{monthlyUsers}}</strong> розробників щомісяця.",
   "home.growth.githubStars": "Зірки GitHub",
   "home.growth.contributors": "Учасники",
   "home.growth.monthlyDevs": "Розробників на місяць",
 
   "home.privacy.title": "Створено для конфіденційності",
   "home.privacy.body":
-    "OpenCode не зберігає ваш код або контекстні дані, тому може працювати в середовищах з чутливими даними.",
+    "Nytrix не зберігає ваш код або контекстні дані, тому може працювати в середовищах з чутливими даними.",
   "home.privacy.learnMore": "Дізнатися більше про",
   "home.privacy.link": "конфіденційність",
 
-  "home.faq.q1": "Що таке OpenCode?",
+  "home.faq.q1": "Що таке Nytrix?",
   "home.faq.a1":
-    "OpenCode — це відкритий агент, який допомагає писати та запускати код з будь-якою AI-моделлю. Доступний як термінальний інтерфейс, десктопний застосунок або розширення IDE.",
-  "home.faq.q2": "Як почати користуватися OpenCode?",
+    "Nytrix — це відкритий агент, який допомагає писати та запускати код з будь-якою AI-моделлю. Доступний як термінальний інтерфейс, десктопний застосунок або розширення IDE.",
+  "home.faq.q2": "Як почати користуватися Nytrix?",
   "home.faq.a2.before": "Найпростіший спосіб почати — прочитати",
   "home.faq.a2.link": "вступ",
-  "home.faq.q3": "Чи потрібні додаткові AI-підписки для використання OpenCode?",
+  "home.faq.q3": "Чи потрібні додаткові AI-підписки для використання Nytrix?",
   "home.faq.a3.p1":
-    "Не обов'язково, OpenCode має набір безкоштовних моделей, які можна використовувати без реєстрації.",
+    "Не обов'язково, Nytrix має набір безкоштовних моделей, які можна використовувати без реєстрації.",
   "home.faq.a3.p2.beforeZen":
     "Крім цього, ви можете використовувати будь-які популярні моделі, створивши обліковий запис",
   "home.faq.a3.p2.afterZen": ".",
   "home.faq.a3.p3":
-    "Хоча ми рекомендуємо Zen, OpenCode також працює з усіма популярними провайдерами, такими як OpenAI, Anthropic, xAI тощо.",
+    "Хоча ми рекомендуємо Zen, Nytrix також працює з усіма популярними провайдерами, такими як OpenAI, Anthropic, xAI тощо.",
   "home.faq.a3.p4.beforeLocal": "Ви навіть можете підключити свої",
   "home.faq.a3.p4.localLink": "локальні моделі",
-  "home.faq.q4": "Чи можу я використовувати свої наявні AI-підписки з OpenCode?",
+  "home.faq.q4": "Чи можу я використовувати свої наявні AI-підписки з Nytrix?",
   "home.faq.a4.p1": "Так, ви можете використовувати підписки ChatGPT Plus/Pro або GitHub Copilot.",
-  "home.faq.q5": "Чи можна використовувати OpenCode лише в терміналі?",
-  "home.faq.a5.beforeDesktop": "Вже ні! OpenCode тепер доступний як застосунок для",
+  "home.faq.q5": "Чи можна використовувати Nytrix лише в терміналі?",
+  "home.faq.a5.beforeDesktop": "Вже ні! Nytrix тепер доступний як застосунок для",
   "home.faq.a5.desktop": "десктопа",
   "home.faq.a5.and": "та",
   "home.faq.a5.web": "вебу",
-  "home.faq.q6": "Скільки коштує OpenCode?",
+  "home.faq.q6": "Скільки коштує Nytrix?",
   "home.faq.a6":
-    "OpenCode є 100% безкоштовним. Він також має набір безкоштовних моделей. Додаткові витрати можливі, якщо ви підключите іншого провайдера.",
+    "Nytrix є 100% безкоштовним. Він також має набір безкоштовних моделей. Додаткові витрати можливі, якщо ви підключите іншого провайдера.",
   "home.faq.q7": "А як щодо даних та конфіденційності?",
   "home.faq.a7.p1": "Ваші дані зберігаються лише тоді, коли ви використовуєте безкоштовні моделі.",
   "home.faq.a7.p2.beforeModels": "Дізнайтеся більше про",
   "home.faq.a7.p2.modelsLink": "наші моделі",
-  "home.faq.q8": "Чи є OpenCode відкритим?",
-  "home.faq.a8.p1": "Так, OpenCode повністю відкритий. Вихідний код доступний публічно на",
+  "home.faq.q8": "Чи є Nytrix відкритим?",
+  "home.faq.a8.p1": "Так, Nytrix повністю відкритий. Вихідний код доступний публічно на",
   "home.faq.a8.p2": "під ліцензією",
   "home.faq.a8.mitLicense": "MIT License",
   "home.faq.a8.p3":
@@ -132,7 +132,7 @@ export const dict = {
 
   "home.zenCta.title": "Отримайте доступ до надійних оптимізованих моделей для агентів кодування",
   "home.zenCta.body":
-    "Zen дає доступ до добірки AI-моделей, які OpenCode протестував спеціально для агентів кодування. Не турбуйтеся про нестабільну якість — використовуйте перевірені моделі.",
+    "Zen дає доступ до добірки AI-моделей, які Nytrix протестував спеціально для агентів кодування. Не турбуйтеся про нестабільну якість — використовуйте перевірені моделі.",
   "home.zenCta.link": "Дізнатися про Zen",
 
   "zen.title": "OpenCode Zen | Добірка надійних оптимізованих моделей для агентів кодування",
@@ -374,10 +374,10 @@ export const dict = {
   "enterprise.faq.a4":
     "Так. OpenCode не зберігає ваш код або контекст. Вся обробка відбувається локально або через прямі API-виклики.",
 
-  "brand.title": "OpenCode | Бренд",
-  "brand.meta.description": "Рекомендації щодо бренду OpenCode",
+  "brand.title": "Nytrix | Бренд",
+  "brand.meta.description": "Рекомендації щодо бренду Nytrix",
   "brand.heading": "Рекомендації щодо бренду",
-  "brand.subtitle": "Ресурси та матеріали для роботи з брендом OpenCode.",
+  "brand.subtitle": "Ресурси та матеріали для роботи з брендом Nytrix.",
   "brand.downloadAll": "Завантажити всі матеріали",
 
   "changelog.title": "OpenCode | Журнал змін",

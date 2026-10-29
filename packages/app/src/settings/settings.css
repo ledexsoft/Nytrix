@@ -245,6 +245,9 @@
   opacity: 0.2;
   color: var(--v2-text-text-muted);
   fill: currentColor;
+  font-family: Inter, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
 }
 
 .settings-about-letter-shadow {

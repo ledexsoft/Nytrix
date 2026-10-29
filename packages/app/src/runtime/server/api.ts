@@ -27,7 +27,7 @@ export function authFromToken(token: string | null) {
 
 export const MEDIA_URI_CAPABILITY = "experimental-media-uri"
 
-export const CAPABILITIES_HEADER = "X-OpenCode-Capabilities"
+export const CAPABILITIES_HEADER = "X-Nytrix-Capabilities"
 
 /** `mediaRefs: false` reads stored media as inline bytes, for callers such as export that need self-contained messages. */
 export type ServerRequestOptions = Nytrix.RequestOptions & { readonly mediaRefs?: false }

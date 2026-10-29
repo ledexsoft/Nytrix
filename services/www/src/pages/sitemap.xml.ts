@@ -3,7 +3,7 @@ import { renderSitemap } from "../docs/lib/sitemap"
 
 export const prerender = true
 
-export const GET: APIRoute = ({ site }) =>
-  new Response(renderSitemap(site ?? new URL("https://opencode.ai")), {
+export const GET: APIRoute = ({ url }) =>
+  new Response(renderSitemap(new URL(url.origin)), {
     headers: { "Content-Type": "application/xml; charset=utf-8" },
   })

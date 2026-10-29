@@ -113,7 +113,10 @@ export const SettingsAppearance: Component = () => {
               description={
                 <>
                   {language.t("settings.general.row.theme.description")}{" "}
-                  <ExternalLink class="settings-link" href="https://opencode.ai/v2/docs/themes">
+                  <ExternalLink
+                    class="settings-link"
+                    href="https://github.com/ledexsoft/Nytrix/blob/dev/services/www/src/docs/content/themes.mdx"
+                  >
                     {language.t("common.learnMore")}
                   </ExternalLink>
                 </>

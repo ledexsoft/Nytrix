@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "ホーム",
   "nav.openMenu": "メニューを開く",
   "nav.getStartedFree": "無料ではじめる",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "Nytrix",
 
   "nav.context.copyLogo": "ロゴをSVGでコピー",
   "nav.context.copyWordmark": "ワードマークをSVGでコピー",
@@ -38,7 +38,7 @@ export const dict = {
   "email.success": "ほぼ完了です。受信トレイを確認してメールアドレスを認証してください",
   "email.error": "登録できませんでした。もう一度お試しください。",
 
-  "notFound.title": "見つかりません | OpenCode",
+  "notFound.title": "見つかりません | Nytrix",
   "notFound.heading": "404 - ページが見つかりません",
   "notFound.home": "ホーム",
   "notFound.docs": "ドキュメント",
@@ -55,9 +55,9 @@ export const dict = {
   "common.faq": "FAQ",
   "common.learnMore": "詳しく見る",
 
-  "app.meta.description": "OpenCode - オープンソースのコーディングエージェント。",
+  "app.meta.description": "Nytrix - オープンソースのコーディングエージェント。",
 
-  "home.title": "OpenCode | オープンソースのAIコーディングエージェント",
+  "home.title": "Nytrix | オープンソースのAIコーディングエージェント",
 
   "home.banner.badge": "新着",
 
@@ -67,9 +67,9 @@ export const dict = {
 
   "home.install.ariaLabel": "インストールオプション",
 
-  "home.what.title": "OpenCodeとは？",
+  "home.what.title": "Nytrixとは？",
   "home.what.body":
-    "OpenCodeは、ターミナル、IDE、またはデスクトップでのコード作成を支援するオープンソースのエージェントです。",
+    "Nytrixは、ターミナル、IDE、またはデスクトップでのコード作成を支援するオープンソースのエージェントです。",
   "home.what.multiSession.title": "マルチセッション",
   "home.what.multiSession.body": "同じプロジェクトで複数のエージェントを並行実行できます",
   "home.what.copilot.title": "GitHub Copilot",
@@ -91,40 +91,40 @@ export const dict = {
 
   "home.privacy.title": "プライバシーを最優先に設計",
   "home.privacy.body":
-    "OpenCodeはコードやコンテキストデータを一切保存しないため、プライバシーが重視される環境でも利用できます。",
+    "Nytrixはコードやコンテキストデータを一切保存しないため、プライバシーが重視される環境でも利用できます。",
   "home.privacy.learnMore": "詳しくは",
   "home.privacy.link": "プライバシー",
 
-  "home.faq.q1": "OpenCodeとは？",
+  "home.faq.q1": "Nytrixとは？",
   "home.faq.a1":
-    "OpenCodeは、任意のAIモデルでコードの作成・実行を支援するオープンソースのエージェントです。ターミナルベースのインターフェース、デスクトップアプリ、IDE拡張として利用できます。",
-  "home.faq.q2": "OpenCodeの使い方は？",
+    "Nytrixは、任意のAIモデルでコードの作成・実行を支援するオープンソースのエージェントです。ターミナルベースのインターフェース、デスクトップアプリ、IDE拡張として利用できます。",
+  "home.faq.q2": "Nytrixの使い方は？",
   "home.faq.a2.before": "最も簡単な始め方は",
   "home.faq.a2.link": "イントロを読む",
-  "home.faq.q3": "OpenCodeには追加のAIサブスクリプションが必要ですか？",
-  "home.faq.a3.p1": "必ずしも必要ではありません。OpenCodeには、アカウント不要で使える無料モデルが含まれています。",
+  "home.faq.q3": "Nytrixには追加のAIサブスクリプションが必要ですか？",
+  "home.faq.a3.p1": "必ずしも必要ではありません。Nytrixには、アカウント不要で使える無料モデルが含まれています。",
   "home.faq.a3.p2.beforeZen": "これらに加えて、",
   "home.faq.a3.p2.afterZen": " アカウントを作成することで、人気のコーディングモデルを利用できます。",
   "home.faq.a3.p3":
-    "Zenの利用を推奨していますが、OpenCodeはOpenAI、Anthropic、xAIなどの主要プロバイダーにも対応しています。",
+    "Zenの利用を推奨していますが、NytrixはOpenAI、Anthropic、xAIなどの主要プロバイダーにも対応しています。",
   "home.faq.a3.p4.beforeLocal": "さらに、",
   "home.faq.a3.p4.localLink": "ローカルモデル",
-  "home.faq.q4": "既存のAIサブスクリプションをOpenCodeで使えますか？",
+  "home.faq.q4": "既存のAIサブスクリプションをNytrixで使えますか？",
   "home.faq.a4.p1": "はい、ChatGPT Plus/ProまたはGitHub Copilotのサブスクリプションを利用できます。",
   "home.faq.q5": "ターミナルだけで使えますか？",
-  "home.faq.a5.beforeDesktop": "もう違います！OpenCodeは今は",
+  "home.faq.a5.beforeDesktop": "もう違います！Nytrixは今は",
   "home.faq.a5.desktop": "デスクトップ",
   "home.faq.a5.and": "と",
   "home.faq.a5.web": "ウェブ",
-  "home.faq.q6": "OpenCodeの価格は？",
+  "home.faq.q6": "Nytrixの価格は？",
   "home.faq.a6":
-    "OpenCodeは100%無料で使えます。無料モデルも含まれています。他のプロバイダーに接続する場合は追加費用が発生することがあります。",
+    "Nytrixは100%無料で使えます。無料モデルも含まれています。他のプロバイダーに接続する場合は追加費用が発生することがあります。",
   "home.faq.q7": "データとプライバシーは？",
   "home.faq.a7.p1": "無料モデルを使う場合にのみ、データが保存されます。",
   "home.faq.a7.p2.beforeModels": "詳しくは",
   "home.faq.a7.p2.modelsLink": "モデルのプライバシー",
-  "home.faq.q8": "OpenCodeはオープンソースですか？",
-  "home.faq.a8.p1": "はい、OpenCodeは完全にオープンソースです。ソースコードは",
+  "home.faq.q8": "Nytrixはオープンソースですか？",
+  "home.faq.a8.p1": "はい、Nytrixは完全にオープンソースです。ソースコードは",
   "home.faq.a8.p2": "の",
   "home.faq.a8.mitLicense": "MITライセンス",
   "home.faq.a8.p3":
@@ -132,7 +132,7 @@ export const dict = {
 
   "home.zenCta.title": "コーディングエージェント向けの信頼できる最適化モデル",
   "home.zenCta.body":
-    "Zenは、OpenCodeがコーディングエージェント向けにテスト・ベンチマーク済みのAIモデルを厳選して提供します。プロバイダー間の性能・品質のブレを気にせず、検証済みのモデルを利用できます。",
+    "Zenは、Nytrixがコーディングエージェント向けにテスト・ベンチマーク済みのAIモデルを厳選して提供します。プロバイダー間の性能・品質のブレを気にせず、検証済みのモデルを利用できます。",
   "home.zenCta.link": "Zenについて知る",
 
   "zen.title": "OpenCode Zen | コーディングエージェント向けの信頼できる最適化モデル",
@@ -373,10 +373,10 @@ export const dict = {
   "enterprise.faq.a4":
     "はい。OpenCodeはコードやコンテキストデータを保存しません。すべての処理はローカル、またはAIプロバイダーへの直接API呼び出しを通じて行われます。集中設定とSSO統合により、データは組織のインフラ内で安全に保たれます。",
 
-  "brand.title": "OpenCode | ブランド",
-  "brand.meta.description": "OpenCode ブランドガイドライン",
+  "brand.title": "Nytrix | ブランド",
+  "brand.meta.description": "Nytrix ブランドガイドライン",
   "brand.heading": "ブランドガイドライン",
-  "brand.subtitle": "OpenCodeブランドを扱うためのリソースと素材です。",
+  "brand.subtitle": "Nytrixブランドを扱うためのリソースと素材です。",
   "brand.downloadAll": "すべての素材をダウンロード",
 
   "changelog.title": "OpenCode | 変更履歴",

@@ -379,7 +379,10 @@ export const ProjectSettingsExtensions: Component<{
                 kind="skills"
                 empty={projectSkills().length === 0}
                 action={
-                  <ExternalLink class="settings-extension-link" href="https://opencode.ai/v2/docs/skills">
+                  <ExternalLink
+                    class="settings-extension-link"
+                    href="https://github.com/ledexsoft/Nytrix/blob/dev/services/www/src/docs/content/skills.mdx"
+                  >
                     {language.t("settings.extensions.addSkills")}
                   </ExternalLink>
                 }

@@ -23,7 +23,7 @@ export function showBetaNotes(
   ctx: SetupContext<typeof definition>,
   input: { readonly previous: string; readonly previousCommit: string | undefined; readonly markSeen: () => void },
 ) {
-  const notes = Option.flatMap(decodeEmbeddedNotes(import.meta.env.OPENCODE_BETA_NOTES), (embedded) =>
+  const notes = Option.flatMap(decodeEmbeddedNotes(import.meta.env.NYTRIX_BETA_NOTES), (embedded) =>
     sliceBetaNotes(embedded, input.previousCommit),
   )
 

@@ -76,18 +76,18 @@ const bundleNestedWorkerDeps = {
 // itself. The lab is a development tool, so its dependencies are found when it first opens rather than at startup.
 /** @type {import("rolldown").Plugin} */
 const skipComponentsLab = {
-  name: "opencode-desktop:skip-components-lab",
+  name: "nytrix-desktop:skip-components-lab",
   resolveId(id) {
     if (id === "@/components-lab/lab") return { id, external: true }
   },
 }
 
 export const channel = (() => {
-  const raw = process.env.OPENCODE_CHANNEL
+  const raw = process.env.NYTRIX_CHANNEL
 
   if (raw === "local" || raw === "dev" || raw === "beta" || raw === "prod") return raw
 
-  if (process.env.OPENCODE_CHANNEL === "latest") return "prod"
+  if (process.env.NYTRIX_CHANNEL === "latest") return "prod"
 
   return "dev"
 })()
@@ -97,7 +97,7 @@ export const channel = (() => {
  */
 export default [
   {
-    name: "opencode-desktop:config",
+    name: "nytrix-desktop:config",
     config() {
       return {
         resolve: {
@@ -110,7 +110,7 @@ export default [
           },
         },
         define: {
-          "import.meta.env.VITE_OPENCODE_CHANNEL": JSON.stringify(channel),
+          "import.meta.env.VITE_NYTRIX_CHANNEL": JSON.stringify(channel),
         },
         worker: {
           format: "es",

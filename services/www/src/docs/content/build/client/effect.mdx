@@ -2,8 +2,8 @@
 title: "Effect"
 ---
 
-`@nytrix/client/effect` is the Effect-native client for the OpenCode HTTP API. It returns typed Effects and Streams
-and decodes responses into OpenCode schema values.
+`@nytrix/client/effect` is the Effect-native client for the Nytrix HTTP API. It returns typed Effects and Streams
+and decodes responses into Nytrix schema values.
 
 ```sh
 bun add @nytrix/client effect@4.0.1
@@ -14,12 +14,12 @@ bun add @nytrix/client effect@4.0.1
 Create a client with the server URL, then call methods grouped by API resource.
 
 ```ts
-import { AbsolutePath, Location, OpenCode } from "@nytrix/client/effect"
+import { AbsolutePath, Location, Nytrix } from "@nytrix/client/effect"
 import { Effect } from "effect"
 import { FetchHttpClient } from "effect/http"
 
 const program = Effect.gen(function* () {
-  const client = yield* OpenCode.make({ baseUrl: "http://localhost:4096" })
+  const client = yield* Nytrix.make({ baseUrl: "http://localhost:4096" })
   const session = yield* client.session.create({
     location: Location.Ref.make({ directory: AbsolutePath.make("/workspace") }),
   })
@@ -44,11 +44,11 @@ per-call location, header, and signal options.
 import { HttpClient, HttpClientRequest } from "effect/http"
 
 const httpClient = yield* HttpClient.HttpClient
-const client = yield* OpenCode.make({ baseUrl: "https://opencode.example.com" }).pipe(
+const client = yield* Nytrix.make({ baseUrl: "https://opencode.example.com" }).pipe(
   Effect.provideService(
     HttpClient.HttpClient,
     HttpClient.mapRequest(httpClient, (request) =>
-      HttpClientRequest.setHeaders(request, { authorization: `Bearer ${process.env.OPENCODE_TOKEN}` }),
+      HttpClientRequest.setHeaders(request, { authorization: `Bearer ${process.env.NYTRIX_TOKEN}` }),
     ),
   ),
 )
@@ -66,7 +66,7 @@ import { Effect, Stream } from "effect"
 
 yield* client.event
   .subscribe()
-  .pipe(Stream.runForEach((event) => Effect.logInfo("OpenCode event", { type: event.type })))
+  .pipe(Stream.runForEach((event) => Effect.logInfo("Nytrix event", { type: event.type })))
 ```
 
 Native and RPC event Streams share one lazy connection per client. Constructing
@@ -121,7 +121,7 @@ Create an authenticated client for the ensured service.
 
 ```ts
 import { NodeFileSystem } from "@effect/platform-node"
-import { OpenCode } from "@nytrix/client/effect"
+import { Nytrix } from "@nytrix/client/effect"
 import { Service } from "@nytrix/client/effect/service"
 import { Effect } from "effect"
 import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/http"
@@ -129,7 +129,7 @@ import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/http"
 const program = Effect.gen(function* () {
   const endpoint = yield* Service.ensure()
   const httpClient = yield* HttpClient.HttpClient
-  const client = yield* OpenCode.make({ baseUrl: endpoint.url }).pipe(
+  const client = yield* Nytrix.make({ baseUrl: endpoint.url }).pipe(
     Effect.provideService(
       HttpClient.HttpClient,
       HttpClient.mapRequest(httpClient, (request) =>

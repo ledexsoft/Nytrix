@@ -31,7 +31,7 @@ const setup: Plugin.MainSetup = async (ctx) => {
     createSshController({
       version: cli.version,
       development: cli.development,
-      binary: cli.binary ?? cli.command[0] ?? "opencode",
+      binary: cli.binary ?? cli.command[0] ?? "nytrix",
       command: cli.command,
       configs: saved.value,
       save: (configs) => Effect.try({ try: () => saved.set(configs), catch: SshFailure.from }),

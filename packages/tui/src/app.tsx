@@ -273,7 +273,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
             }),
           )
         }
-        if (process.env.OPENCODE_DRIVE) {
+        if (process.env.NYTRIX_DRIVE) {
           const { Drive } = yield* Effect.promise(() => import("@nytrix/simulation/frontend"))
           return yield* Drive.create(options, input.app.version)
         }
@@ -367,21 +367,21 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                             >
                               <TuiStartupProvider
                                 value={{
-                                  initialRoute: process.env.OPENCODE_STORY
+                                  initialRoute: process.env.NYTRIX_STORY
                                     ? {
                                         type: "plugin",
                                         id: "opencode.storybook",
                                         name: "storybook",
-                                        // OPENCODE_STORY=1 opens the index; any other value opens that story.
+                                        // NYTRIX_STORY=1 opens the index; any other value opens that story.
                                         data:
-                                          process.env.OPENCODE_STORY === "1"
+                                          process.env.NYTRIX_STORY === "1"
                                             ? undefined
-                                            : { story: process.env.OPENCODE_STORY },
+                                            : { story: process.env.NYTRIX_STORY },
                                       }
-                                    : process.env.OPENCODE_ROUTE
-                                      ? JSON.parse(process.env.OPENCODE_ROUTE)
+                                    : process.env.NYTRIX_ROUTE
+                                      ? JSON.parse(process.env.NYTRIX_ROUTE)
                                       : undefined,
-                                  skipInitialLoading: Boolean(process.env.OPENCODE_FAST_BOOT),
+                                  skipInitialLoading: Boolean(process.env.NYTRIX_FAST_BOOT),
                                 }}
                               >
                                 <ClipboardProvider value={clipboard}>
@@ -641,14 +641,14 @@ function App() {
     if (!terminalTitleEnabled()) return
 
     if (route.data.type === "home") {
-      setTerminalTitle(renderer, "OpenCode")
+      setTerminalTitle(renderer, "Nytrix")
       return
     }
 
     if (route.data.type === "session") {
       const title = session?.title
       if (!title || isFallbackTitle(title)) {
-        setTerminalTitle(renderer, "OpenCode")
+        setTerminalTitle(renderer, "Nytrix")
         return
       }
 
@@ -735,7 +735,7 @@ function App() {
     if (config.data.highlights === false) return
     if (route.data.type !== "home" || dialog.stack.length > 0 || promptRef.current?.current.text) return
     if (args.prompt || args.continue || args.sessionID || args.newSessionID) return
-    if (process.env.OPENCODE_DRIVE || process.env.OPENCODE_STORY || process.env.OPENCODE_ROUTE) return
+    if (process.env.NYTRIX_DRIVE || process.env.NYTRIX_STORY || process.env.NYTRIX_ROUTE) return
     void claim(storage, {
       version: app.version,
       count: items.length,
@@ -1063,7 +1063,7 @@ function App() {
         ? [
             {
               name: "opencode.update",
-              title: "Update OpenCode",
+              title: "Update Nytrix",
               slash: { name: "update" },
               run: () => updater.open?.("manual"),
               category: "System",
@@ -1169,7 +1169,7 @@ function App() {
         name: "docs.open",
         title: "Open docs",
         run: () => {
-          openUrl("https://opencode.ai/v2/docs").catch(() => {})
+          openUrl("https://github.com/ledexsoft/Nytrix/tree/dev/packages/web/src/content/docs").catch(() => {})
           dialog.clear()
         },
         category: "System",

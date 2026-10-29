@@ -91,7 +91,7 @@ export const dict = {
   "home.loadingTitle": "Daten werden geladen",
   "home.loadingDescription": "Modellaggregate werden gelesen.",
   "home.usageTitle": "Nutzung",
-  "home.topModelsDescription": "Nutzung von Modellen in OpenCode.",
+  "home.topModelsDescription": "Nutzung von Modellen in Nytrix.",
   "home.noUsageTitle": "Keine Nutzungsdaten",
   "home.noUsageDescription": "Keine Modellzeilen passten zu diesem Produkt und Zeitraum.",
   "home.noLeaderboardTitle": "Keine Bestenlistendaten",
@@ -164,7 +164,7 @@ export const dict = {
     "Sieh dir OpenCode-Nutzungsdaten für {{model}} an, einschließlich Tokenvolumen, Wochenrang, Tokenmix, Kosten, Cache-Anteil, Sitzungen, geografischer Aufschlüsselung und Vergleichsmodellen.",
   "model.summary":
     "{{model}} belegte letzte Woche Rang #{{rank}} nach Tokens in OpenCode, mit {{share}} der Tokens der letzten zwei Monate.",
-  "model.summaryUnranked": "{{model}} kam in den letzten zwei Monaten auf {{share}} der Tokens in OpenCode.",
+  "model.summaryUnranked": "{{model}} kam in den letzten zwei Monaten auf {{share}} der Tokens in Nytrix.",
   "model.summaryPrice": "{{model}} kostet {{input}} pro 1M Eingabetokens und {{output}} pro 1M Ausgabetokens.",
   "model.loadingTitle": "Modelldaten",
   "model.loadingDescription": "Modellaggregate werden gelesen.",

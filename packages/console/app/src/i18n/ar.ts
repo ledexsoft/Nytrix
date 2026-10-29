@@ -14,7 +14,7 @@ export const dict = {
   "nav.home": "الرئيسية",
   "nav.openMenu": "فتح القائمة",
   "nav.getStartedFree": "ابدأ مجانا",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "Nytrix",
 
   "nav.context.copyLogo": "نسخ الشعار كـ SVG",
   "nav.context.copyWordmark": "نسخ اسم العلامة كـ SVG",
@@ -54,9 +54,9 @@ export const dict = {
   "common.faq": "الأسئلة الشائعة",
   "common.learnMore": "اعرف المزيد",
 
-  "app.meta.description": "OpenCode - وكيل البرمجة مفتوح المصدر.",
+  "app.meta.description": "Nytrix - وكيل البرمجة مفتوح المصدر.",
 
-  "home.title": "OpenCode | وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
+  "home.title": "Nytrix | وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
 
   "home.banner.badge": "جديد",
 
@@ -66,8 +66,8 @@ export const dict = {
 
   "home.install.ariaLabel": "خيارات التثبيت",
 
-  "home.what.title": "ما هو OpenCode؟",
-  "home.what.body": "OpenCode وكيل مفتوح المصدر يساعدك على كتابة الكود في الطرفية، IDE، أو سطح المكتب.",
+  "home.what.title": "ما هو Nytrix؟",
+  "home.what.body": "Nytrix وكيل مفتوح المصدر يساعدك على كتابة الكود في الطرفية، IDE، أو سطح المكتب.",
   "home.what.multiSession.title": "جلسات متعددة",
   "home.what.multiSession.body": "ابدأ عدة وكلاء بالتوازي على نفس المشروع",
   "home.what.copilot.title": "GitHub Copilot",
@@ -82,47 +82,47 @@ export const dict = {
 
   "home.growth.title": "وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر",
   "home.growth.body":
-    "مع أكثر من <strong>{{stars}}</strong> نجمة على GitHub، و<strong>{{contributors}}</strong> مساهمًا، وأكثر من <strong>{{commits}}</strong> Commit، يستخدم OpenCode ويثق به أكثر من <strong>{{monthlyUsers}}</strong> مطوّر كل شهر.",
+    "مع أكثر من <strong>{{stars}}</strong> نجمة على GitHub، و<strong>{{contributors}}</strong> مساهمًا، وأكثر من <strong>{{commits}}</strong> Commit، يستخدم Nytrix ويثق به أكثر من <strong>{{monthlyUsers}}</strong> مطوّر كل شهر.",
   "home.growth.githubStars": "نجوم GitHub",
   "home.growth.contributors": "المساهمون",
   "home.growth.monthlyDevs": "مطورون شهريًا",
 
   "home.privacy.title": "مصمم للخصوصية أولاً",
-  "home.privacy.body": "لا يخزّن OpenCode أي كود أو بيانات سياق، ليتمكن من العمل في بيئات حساسة للخصوصية.",
+  "home.privacy.body": "لا يخزّن Nytrix أي كود أو بيانات سياق، ليتمكن من العمل في بيئات حساسة للخصوصية.",
   "home.privacy.learnMore": "اعرف المزيد عن",
   "home.privacy.link": "الخصوصية",
 
-  "home.faq.q1": "ما هو OpenCode؟",
+  "home.faq.q1": "ما هو Nytrix؟",
   "home.faq.a1":
-    "OpenCode وكيل مفتوح المصدر يساعدك على كتابة وتشغيل الكود مع أي نموذج ذكاء اصطناعي. متاح كواجهة طرفية، وتطبيق سطح مكتب، أو امتداد IDE.",
-  "home.faq.q2": "كيف أستخدم OpenCode؟",
+    "Nytrix وكيل مفتوح المصدر يساعدك على كتابة وتشغيل الكود مع أي نموذج ذكاء اصطناعي. متاح كواجهة طرفية، وتطبيق سطح مكتب، أو امتداد IDE.",
+  "home.faq.q2": "كيف أستخدم Nytrix؟",
   "home.faq.a2.before": "أسهل طريقة للبدء هي قراءة",
   "home.faq.a2.link": "المقدمة",
-  "home.faq.q3": "هل أحتاج لاشتراكات ذكاء اصطناعي إضافية لاستخدام OpenCode؟",
+  "home.faq.q3": "هل أحتاج لاشتراكات ذكاء اصطناعي إضافية لاستخدام Nytrix؟",
   "home.faq.a3.p1":
-    "ليس بالضرورة، فـ OpenCode يأتي مع مجموعة من النماذج المجانية التي تستطيع استخدامها دون إنشاء حساب.",
+    "ليس بالضرورة، فـ Nytrix يأتي مع مجموعة من النماذج المجانية التي تستطيع استخدامها دون إنشاء حساب.",
   "home.faq.a3.p2.beforeZen": "وبخلاف ذلك، يمكنك استخدام أي من نماذج البرمجة الشائعة بإنشاء حساب",
   "home.faq.a3.p2.afterZen": ".",
   "home.faq.a3.p3":
-    "مع أننا نشجّع المستخدمين على استخدام Zen، فإن OpenCode يعمل أيضًا مع كل المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
+    "مع أننا نشجّع المستخدمين على استخدام Zen، فإن Nytrix يعمل أيضًا مع كل المزودين الشائعين مثل OpenAI، Anthropic، xAI إلخ.",
   "home.faq.a3.p4.beforeLocal": "ويمكنك أيضًا ربط",
   "home.faq.a3.p4.localLink": "النماذج المحلية",
-  "home.faq.q4": "هل يمكنني استخدام اشتراكاتي الحالية مع OpenCode؟",
+  "home.faq.q4": "هل يمكنني استخدام اشتراكاتي الحالية مع Nytrix؟",
   "home.faq.a4.p1": "نعم، يمكنك استخدام اشتراكات ChatGPT Plus/Pro أو GitHub Copilot.",
-  "home.faq.q5": "هل يمكنني استخدام OpenCode في الطرفية فقط؟",
-  "home.faq.a5.beforeDesktop": "ليس بعد الآن! OpenCode متاح الآن كتطبيق لـ",
+  "home.faq.q5": "هل يمكنني استخدام Nytrix في الطرفية فقط؟",
+  "home.faq.a5.beforeDesktop": "ليس بعد الآن! Nytrix متاح الآن كتطبيق لـ",
   "home.faq.a5.desktop": "سطح المكتب",
   "home.faq.a5.and": "و",
   "home.faq.a5.web": "الويب",
-  "home.faq.q6": "كم تكلفة OpenCode؟",
+  "home.faq.q6": "كم تكلفة Nytrix؟",
   "home.faq.a6":
-    "OpenCode مجاني 100% للاستخدام. كما يأتي مع مجموعة من النماذج المجانية. قد توجد تكاليف إضافية إذا ربطت مزوّدًا آخر.",
+    "Nytrix مجاني 100% للاستخدام. كما يأتي مع مجموعة من النماذج المجانية. قد توجد تكاليف إضافية إذا ربطت مزوّدًا آخر.",
   "home.faq.q7": "ماذا عن البيانات والخصوصية؟",
   "home.faq.a7.p1": "لا يتم تخزين بياناتك ومعلوماتك إلا عندما تستخدم نماذجنا المجانية.",
   "home.faq.a7.p2.beforeModels": "اعرف المزيد عن",
   "home.faq.a7.p2.modelsLink": "نماذجنا",
-  "home.faq.q8": "هل OpenCode مفتوح المصدر؟",
-  "home.faq.a8.p1": "نعم، OpenCode مفتوح المصدر بالكامل. الكود المصدري متاح علنًا على",
+  "home.faq.q8": "هل Nytrix مفتوح المصدر؟",
+  "home.faq.a8.p1": "نعم، Nytrix مفتوح المصدر بالكامل. الكود المصدري متاح علنًا على",
   "home.faq.a8.p2": "بموجب",
   "home.faq.a8.mitLicense": "رخصة MIT",
   "home.faq.a8.p3":
@@ -130,7 +130,7 @@ export const dict = {
 
   "home.zenCta.title": "وصول لنماذج محسنة وموثوقة لوكلاء البرمجة",
   "home.zenCta.body":
-    "يمنحك Zen الوصول إلى مجموعة مختارة بعناية من نماذج الذكاء الاصطناعي التي اختبرها OpenCode وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة بين المزودين، استخدم نماذج محققة تعمل بكفاءة.",
+    "يمنحك Zen الوصول إلى مجموعة مختارة بعناية من نماذج الذكاء الاصطناعي التي اختبرها Nytrix وقاس أداءها خصيصًا لوكلاء البرمجة. لا حاجة للقلق بشأن اختلاف الأداء والجودة بين المزودين، استخدم نماذج محققة تعمل بكفاءة.",
   "home.zenCta.link": "تعرف على Zen",
 
   "zen.title": "OpenCode Zen | مجموعة منسقة من النماذج المحسنة والموثوقة لوكلاء البرمجة",
@@ -140,7 +140,7 @@ export const dict = {
 
   "zen.faq.q1": "ما هو OpenCode Zen؟",
   "zen.faq.a1":
-    "Zen هو مجموعة منسقة من نماذج الذكاء الاصطناعي التي تم اختبارها وقياس أدائها لوكلاء البرمجة، أنشأها الفريق المطور لـ OpenCode.",
+    "Zen هو مجموعة منسقة من نماذج الذكاء الاصطناعي التي تم اختبارها وقياس أدائها لوكلاء البرمجة، أنشأها الفريق المطور لـ Nytrix.",
   "zen.faq.q2": "ما الذي يجعل Zen أكثر دقة؟",
   "zen.faq.a2":
     "يوفر Zen فقط النماذج التي تم اختبارها وقياس أدائها خصيصًا لوكلاء البرمجة. لن تستخدم سكين زبدة لقطع شريحة لحم، فلا تستخدم نماذج ضعيفة للبرمجة.",
@@ -369,10 +369,10 @@ export const dict = {
   "enterprise.faq.a4":
     "نعم. لا يقوم OpenCode بتخزين الكود أو بيانات السياق. تتم جميع المعالجة محليًا أو عبر استدعاءات API مباشرة إلى مزود الذكاء الاصطناعي لديك. مع التكوين المركزي وتكامل SSO، تظل بياناتك آمنة داخل البنية التحتية لمؤسستك.",
 
-  "brand.title": "OpenCode | العلامة التجارية",
-  "brand.meta.description": "إرشادات العلامة التجارية لـ OpenCode",
+  "brand.title": "Nytrix | العلامة التجارية",
+  "brand.meta.description": "إرشادات العلامة التجارية لـ Nytrix",
   "brand.heading": "إرشادات العلامة التجارية",
-  "brand.subtitle": "موارد وأصول لمساعدتك في العمل مع العلامة التجارية لـ OpenCode.",
+  "brand.subtitle": "موارد وأصول لمساعدتك في العمل مع العلامة التجارية لـ Nytrix.",
   "brand.downloadAll": "تنزيل جميع الأصول",
 
   "changelog.title": "OpenCode | سجل التغييرات",

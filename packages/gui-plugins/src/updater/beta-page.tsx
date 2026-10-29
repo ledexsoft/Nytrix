@@ -13,7 +13,7 @@ export default function BetaNotesPage() {
 
   return (
     <BetaNotesView
-      embedded={Option.getOrUndefined(decodeEmbeddedNotes(import.meta.env.OPENCODE_BETA_NOTES))}
+      embedded={Option.getOrUndefined(decodeEmbeddedNotes(import.meta.env.NYTRIX_BETA_NOTES))}
       open={(href) => ctx.system.openExternal(href)}
     />
   )

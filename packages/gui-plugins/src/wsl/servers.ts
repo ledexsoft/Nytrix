@@ -2,7 +2,7 @@ import type { MainContext } from "@nytrix/plugin/gui/main"
 import type {
   WslDistroProbe,
   WslJob,
-  WslOpencodeCheck,
+  WslNytrixCheck,
   WslServerConfig,
   WslServerItem,
   WslServerRuntime,
@@ -77,10 +77,10 @@ export function createWslServersController(options: WslServersControllerOptions)
     updateServer(id, (item) => ({ ...item, runtime }))
   }
 
-  const setCliCheck = (distro: string, check: WslOpencodeCheck) => {
+  const setCliCheck = (distro: string, check: WslNytrixCheck) => {
     setState({
-      opencodeChecks: {
-        ...state.opencodeChecks,
+      nytrixChecks: {
+        ...state.nytrixChecks,
         [distro]: check,
       },
     })
@@ -113,16 +113,16 @@ export function createWslServersController(options: WslServersControllerOptions)
       setState({ distroProbes: { ...state.distroProbes, ...Object.fromEntries(distroProbes) } })
     }
 
-    const opencodeChecks = await Promise.all(
+    const nytrixChecks = await Promise.all(
       unique.flatMap((distro) =>
-        distroProbeReady(state.distroProbes[distro]) && !state.opencodeChecks[distro]
+        distroProbeReady(state.distroProbes[distro]) && !state.nytrixChecks[distro]
           ? [inspectCli(distro).then((check) => [distro, check] as const)]
           : [],
       ),
     )
 
-    if (opencodeChecks.length) {
-      setState({ opencodeChecks: { ...state.opencodeChecks, ...Object.fromEntries(opencodeChecks) } })
+    if (nytrixChecks.length) {
+      setState({ nytrixChecks: { ...state.nytrixChecks, ...Object.fromEntries(nytrixChecks) } })
     }
   }
 
@@ -278,8 +278,8 @@ export function createWslServersController(options: WslServersControllerOptions)
       await runJob({ kind: "probe-addable", distros, startedAt: Date.now() }, () => probeAddableDistros(distros))
     },
 
-    async installOpencode(distro: string) {
-      await runJob({ kind: "install-opencode", distro, startedAt: Date.now() }, async () => {
+    async installNytrix(distro: string) {
+      await runJob({ kind: "install-nytrix", distro, startedAt: Date.now() }, async () => {
         const id = state.servers.find((item) => item.config.distro === distro)?.config.id
 
         if (id) await stopServer(id)
@@ -343,7 +343,7 @@ function initialState(): WslServersState {
     installed: [],
     online: [],
     distroProbes: {},
-    opencodeChecks: {},
+    nytrixChecks: {},
     pendingRestart: false,
     servers: [],
     job: null,
@@ -356,7 +356,7 @@ function cliCheck(
   resolvedPath: string | null,
   version: string | null,
   expectedVersion: string,
-): WslOpencodeCheck {
+): WslNytrixCheck {
   if (!resolvedPath) {
     return {
       distro,
@@ -364,7 +364,7 @@ function cliCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: t("error.opencodeMissing"),
+      error: t("error.nytrixMissing"),
     }
   }
 
@@ -375,7 +375,7 @@ function cliCheck(
       version: null,
       expectedVersion,
       matchesDesktop: null,
-      error: t("error.opencodeCannotRun"),
+      error: t("error.nytrixCannotRun"),
     }
   }
 
@@ -389,7 +389,7 @@ function cliCheck(
   }
 }
 
-function requireMatchingCli(t: MainContext["t"], check: WslOpencodeCheck, expected: string) {
+function requireMatchingCli(t: MainContext["t"], check: WslNytrixCheck, expected: string) {
   if (check.version === expected) return
   throw new Error(
     t("error.updateVersion", {
@@ -402,11 +402,11 @@ function requireMatchingCli(t: MainContext["t"], check: WslOpencodeCheck, expect
 
 function removeDistroState(state: WslServersState, distro: string) {
   const distroProbes = { ...state.distroProbes }
-  const opencodeChecks = { ...state.opencodeChecks }
+  const nytrixChecks = { ...state.nytrixChecks }
   delete distroProbes[distro]
-  delete opencodeChecks[distro]
+  delete nytrixChecks[distro]
 
-  return { distroProbes, opencodeChecks }
+  return { distroProbes, nytrixChecks }
 }
 
 function distroProbeReady(probe: WslDistroProbe | undefined) {

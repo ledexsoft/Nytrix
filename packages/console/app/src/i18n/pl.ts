@@ -14,7 +14,7 @@ export const dict = {
   "nav.home": "Strona główna",
   "nav.openMenu": "Otwórz menu",
   "nav.getStartedFree": "Zacznij za darmo",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "Nytrix",
 
   "nav.context.copyLogo": "Skopiuj logo jako SVG",
   "nav.context.copyWordmark": "Skopiuj logotyp jako SVG",
@@ -54,9 +54,9 @@ export const dict = {
   "common.faq": "FAQ",
   "common.learnMore": "Dowiedz się więcej",
 
-  "app.meta.description": "OpenCode - Otwartoźródłowy agent programistyczny.",
+  "app.meta.description": "Nytrix - Otwartoźródłowy agent programistyczny.",
 
-  "home.title": "OpenCode | Open source'owy agent AI do kodowania",
+  "home.title": "Nytrix | Open source'owy agent AI do kodowania",
 
   "home.banner.badge": "Nowość",
 
@@ -66,9 +66,9 @@ export const dict = {
 
   "home.install.ariaLabel": "Opcje instalacji",
 
-  "home.what.title": "Czym jest OpenCode?",
+  "home.what.title": "Czym jest Nytrix?",
   "home.what.body":
-    "OpenCode to open source'owy agent, który pomaga pisać kod w terminalu, IDE lub aplikacji desktopowej.",
+    "Nytrix to open source'owy agent, który pomaga pisać kod w terminalu, IDE lub aplikacji desktopowej.",
   "home.what.multiSession.title": "Wielosesyjność",
   "home.what.multiSession.body": "Uruchom wiele agentów równolegle w tym samym projekcie",
   "home.what.copilot.title": "GitHub Copilot",
@@ -83,48 +83,48 @@ export const dict = {
 
   "home.growth.title": "Open source'owy agent AI do kodowania",
   "home.growth.body":
-    "Z ponad <strong>{{stars}}</strong> gwiazdkami na GitHubie, <strong>{{contributors}}</strong> współtwórcami i ponad <strong>{{commits}}</strong> commitami, OpenCode jest używany i ceniony przez ponad <strong>{{monthlyUsers}}</strong> deweloperów każdego miesiąca.",
+    "Z ponad <strong>{{stars}}</strong> gwiazdkami na GitHubie, <strong>{{contributors}}</strong> współtwórcami i ponad <strong>{{commits}}</strong> commitami, Nytrix jest używany i ceniony przez ponad <strong>{{monthlyUsers}}</strong> deweloperów każdego miesiąca.",
   "home.growth.githubStars": "Gwiazdki GitHub",
   "home.growth.contributors": "Współtwórcy",
   "home.growth.monthlyDevs": "Miesięczni użytkownicy",
 
   "home.privacy.title": "Zbudowany z myślą o prywatności",
   "home.privacy.body":
-    "OpenCode nie przechowuje Twojego kodu ani danych kontekstowych, dzięki czemu może działać w środowiskach wrażliwych na prywatność.",
+    "Nytrix nie przechowuje Twojego kodu ani danych kontekstowych, dzięki czemu może działać w środowiskach wrażliwych na prywatność.",
   "home.privacy.learnMore": "Dowiedz się więcej o",
   "home.privacy.link": "prywatności",
 
-  "home.faq.q1": "Czym jest OpenCode?",
+  "home.faq.q1": "Czym jest Nytrix?",
   "home.faq.a1":
-    "OpenCode to open source'owy agent, który pomaga pisać i uruchamiać kod z dowolnym modelem AI. Jest dostępny jako interfejs terminalowy, aplikacja desktopowa lub rozszerzenie IDE.",
-  "home.faq.q2": "Jak korzystać z OpenCode?",
+    "Nytrix to open source'owy agent, który pomaga pisać i uruchamiać kod z dowolnym modelem AI. Jest dostępny jako interfejs terminalowy, aplikacja desktopowa lub rozszerzenie IDE.",
+  "home.faq.q2": "Jak korzystać z Nytrix?",
   "home.faq.a2.before": "Najłatwiej zacząć od przeczytania",
   "home.faq.a2.link": "wprowadzenia",
-  "home.faq.q3": "Czy potrzebuję dodatkowych subskrypcji AI, aby używać OpenCode?",
+  "home.faq.q3": "Czy potrzebuję dodatkowych subskrypcji AI, aby używać Nytrix?",
   "home.faq.a3.p1":
-    "Niekoniecznie. OpenCode posiada zestaw darmowych modeli, z których możesz korzystać bez zakładania konta.",
+    "Niekoniecznie. Nytrix posiada zestaw darmowych modeli, z których możesz korzystać bez zakładania konta.",
   "home.faq.a3.p2.beforeZen": "Poza tym możesz używać dowolnych popularnych modeli do kodowania, tworząc konto",
   "home.faq.a3.p2.afterZen": ".",
   "home.faq.a3.p3":
-    "Chociaż zachęcamy do korzystania z Zen, OpenCode działa również ze wszystkimi popularnymi dostawcami, takimi jak OpenAI, Anthropic, xAI itp.",
+    "Chociaż zachęcamy do korzystania z Zen, Nytrix działa również ze wszystkimi popularnymi dostawcami, takimi jak OpenAI, Anthropic, xAI itp.",
   "home.faq.a3.p4.beforeLocal": "Możesz nawet podłączyć swoje",
   "home.faq.a3.p4.localLink": "lokalne modele",
-  "home.faq.q4": "Czy mogę używać moich istniejących subskrypcji AI z OpenCode?",
+  "home.faq.q4": "Czy mogę używać moich istniejących subskrypcji AI z Nytrix?",
   "home.faq.a4.p1": "Tak, możesz używać swoich subskrypcji ChatGPT Plus/Pro lub GitHub Copilot.",
-  "home.faq.q5": "Czy mogę używać OpenCode tylko w terminalu?",
-  "home.faq.a5.beforeDesktop": "Już nie! OpenCode jest teraz dostępny jako aplikacja na",
+  "home.faq.q5": "Czy mogę używać Nytrix tylko w terminalu?",
+  "home.faq.a5.beforeDesktop": "Już nie! Nytrix jest teraz dostępny jako aplikacja na",
   "home.faq.a5.desktop": "pulpit (desktop)",
   "home.faq.a5.and": "i",
   "home.faq.a5.web": "web",
-  "home.faq.q6": "Ile kosztuje OpenCode?",
+  "home.faq.q6": "Ile kosztuje Nytrix?",
   "home.faq.a6":
-    "OpenCode jest w 100% darmowy. Zawiera również zestaw darmowych modeli. Mogą pojawić się dodatkowe koszty, jeśli podłączysz innego dostawcę.",
+    "Nytrix jest w 100% darmowy. Zawiera również zestaw darmowych modeli. Mogą pojawić się dodatkowe koszty, jeśli podłączysz innego dostawcę.",
   "home.faq.q7": "A co z danymi i prywatnością?",
   "home.faq.a7.p1": "Twoje dane i informacje są przechowywane tylko wtedy, gdy używasz naszych darmowych modeli.",
   "home.faq.a7.p2.beforeModels": "Dowiedz się więcej o",
   "home.faq.a7.p2.modelsLink": "naszych modelach",
-  "home.faq.q8": "Czy OpenCode jest open source?",
-  "home.faq.a8.p1": "Tak, OpenCode jest w pełni open source. Kod źródłowy jest publicznie dostępny na",
+  "home.faq.q8": "Czy Nytrix jest open source?",
+  "home.faq.a8.p1": "Tak, Nytrix jest w pełni open source. Kod źródłowy jest publicznie dostępny na",
   "home.faq.a8.p2": "na licencji",
   "home.faq.a8.mitLicense": "MIT License",
   "home.faq.a8.p3":
@@ -132,7 +132,7 @@ export const dict = {
 
   "home.zenCta.title": "Uzyskaj dostęp do niezawodnych, zoptymalizowanych modeli dla agentów kodujących",
   "home.zenCta.body":
-    "Zen daje dostęp do wyselekcjonowanego zestawu modeli AI, które OpenCode przetestował i sprawdził (benchmark) specjalnie dla agentów kodujących. Nie musisz martwić się o niespójną wydajność i jakość u różnych dostawców, używaj sprawdzonych modeli, które działają.",
+    "Zen daje dostęp do wyselekcjonowanego zestawu modeli AI, które Nytrix przetestował i sprawdził (benchmark) specjalnie dla agentów kodujących. Nie musisz martwić się o niespójną wydajność i jakość u różnych dostawców, używaj sprawdzonych modeli, które działają.",
   "home.zenCta.link": "Dowiedz się więcej o Zen",
 
   "zen.title": "OpenCode Zen | Wyselekcjonowany zestaw niezawodnych, zoptymalizowanych modeli dla agentów kodujących",
@@ -142,7 +142,7 @@ export const dict = {
 
   "zen.faq.q1": "Czym jest OpenCode Zen?",
   "zen.faq.a1":
-    "Zen to wyselekcjonowany zestaw modeli AI przetestowanych i sprawdzonych pod kątem agentów kodujących, stworzony przez zespół stojący za OpenCode.",
+    "Zen to wyselekcjonowany zestaw modeli AI przetestowanych i sprawdzonych pod kątem agentów kodujących, stworzony przez zespół stojący za Nytrix.",
   "zen.faq.q2": "Co sprawia, że Zen jest bardziej precyzyjny?",
   "zen.faq.a2":
     "Zen oferuje tylko modele, które zostały specjalnie przetestowane i sprawdzone dla agentów kodujących. Nie używasz noża do masła do krojenia steku, więc nie używaj słabych modeli do kodowania.",
@@ -377,10 +377,10 @@ export const dict = {
   "enterprise.faq.a4":
     "Tak. OpenCode nie przechowuje Twojego kodu ani danych kontekstowych. Całe przetwarzanie odbywa się lokalnie lub poprzez bezpośrednie wywołania API do Twojego dostawcy AI. Dzięki centralnej konfiguracji i integracji SSO, Twoje dane pozostają bezpieczne w infrastrukturze Twojej organizacji.",
 
-  "brand.title": "OpenCode | Marka",
-  "brand.meta.description": "Wytyczne marki OpenCode",
+  "brand.title": "Nytrix | Marka",
+  "brand.meta.description": "Wytyczne marki Nytrix",
   "brand.heading": "Wytyczne marki",
-  "brand.subtitle": "Zasoby i aktywa, które pomogą Ci pracować z marką OpenCode.",
+  "brand.subtitle": "Zasoby i aktywa, które pomogą Ci pracować z marką Nytrix.",
   "brand.downloadAll": "Pobierz wszystkie zasoby",
 
   "changelog.title": "OpenCode | Dziennik zmian",

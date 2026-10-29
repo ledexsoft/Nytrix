@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "Hjem",
   "nav.openMenu": "Åpne meny",
   "nav.getStartedFree": "Kom i gang gratis",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "Nytrix",
 
   "nav.context.copyLogo": "Kopier logo som SVG",
   "nav.context.copyWordmark": "Kopier wordmark som SVG",
@@ -55,9 +55,9 @@ export const dict = {
   "common.faq": "FAQ",
   "common.learnMore": "Les mer",
 
-  "app.meta.description": "OpenCode - Den åpne kildekode kodingsagenten.",
+  "app.meta.description": "Nytrix - Den åpne kildekode kodingsagenten.",
 
-  "home.title": "OpenCode | Den åpne kildekode AI-kodingsagenten",
+  "home.title": "Nytrix | Den åpne kildekode AI-kodingsagenten",
 
   "home.banner.badge": "Ny",
 
@@ -68,8 +68,8 @@ export const dict = {
 
   "home.install.ariaLabel": "Installeringsalternativer",
 
-  "home.what.title": "Hva er OpenCode?",
-  "home.what.body": "OpenCode er en åpen kildekode-agent som hjelper deg å skrive kode i terminal, IDE eller desktop.",
+  "home.what.title": "Hva er Nytrix?",
+  "home.what.body": "Nytrix er en åpen kildekode-agent som hjelper deg å skrive kode i terminal, IDE eller desktop.",
   "home.what.multiSession.title": "Multi-sesjon",
   "home.what.multiSession.body": "Start flere agenter parallelt på samme prosjekt",
   "home.what.copilot.title": "GitHub Copilot",
@@ -84,48 +84,48 @@ export const dict = {
 
   "home.growth.title": "Den åpne kildekode AI-kodingsagenten",
   "home.growth.body":
-    "Med over <strong>{{stars}}</strong> GitHub-stjerner, <strong>{{contributors}}</strong> bidragsytere og over <strong>{{commits}}</strong> commits, brukes OpenCode av over <strong>{{monthlyUsers}}</strong> utviklere hver måned.",
+    "Med over <strong>{{stars}}</strong> GitHub-stjerner, <strong>{{contributors}}</strong> bidragsytere og over <strong>{{commits}}</strong> commits, brukes Nytrix av over <strong>{{monthlyUsers}}</strong> utviklere hver måned.",
   "home.growth.githubStars": "GitHub-stjerner",
   "home.growth.contributors": "Bidragsytere",
   "home.growth.monthlyDevs": "Månedlige utviklere",
 
   "home.privacy.title": "Bygget med personvern først",
   "home.privacy.body":
-    "OpenCode lagrer ikke koden din eller kontekstdata, slik at den kan fungere i personvernsensitive miljøer.",
+    "Nytrix lagrer ikke koden din eller kontekstdata, slik at den kan fungere i personvernsensitive miljøer.",
   "home.privacy.learnMore": "Les mer om",
   "home.privacy.link": "personvern",
 
-  "home.faq.q1": "Hva er OpenCode?",
+  "home.faq.q1": "Hva er Nytrix?",
   "home.faq.a1":
-    "OpenCode er en åpen kildekode-agent som hjelper deg å skrive og kjøre kode med hvilken som helst AI-modell. Den er tilgjengelig som terminalgrensesnitt, desktop-app eller IDE-utvidelse.",
-  "home.faq.q2": "Hvordan bruker jeg OpenCode?",
+    "Nytrix er en åpen kildekode-agent som hjelper deg å skrive og kjøre kode med hvilken som helst AI-modell. Den er tilgjengelig som terminalgrensesnitt, desktop-app eller IDE-utvidelse.",
+  "home.faq.q2": "Hvordan bruker jeg Nytrix?",
   "home.faq.a2.before": "Den enkleste måten å komme i gang på er å lese",
   "home.faq.a2.link": "introen",
-  "home.faq.q3": "Trenger jeg ekstra AI-abonnementer for å bruke OpenCode?",
+  "home.faq.q3": "Trenger jeg ekstra AI-abonnementer for å bruke Nytrix?",
   "home.faq.a3.p1":
-    "Ikke nødvendigvis. OpenCode kommer med et sett gratis modeller du kan bruke uten å opprette en konto.",
+    "Ikke nødvendigvis. Nytrix kommer med et sett gratis modeller du kan bruke uten å opprette en konto.",
   "home.faq.a3.p2.beforeZen": "I tillegg kan du bruke populære kodemodeller ved å opprette en",
   "home.faq.a3.p2.afterZen": " konto.",
   "home.faq.a3.p3":
-    "Vi oppfordrer til å bruke Zen, men OpenCode fungerer også med populære leverandører som OpenAI, Anthropic, xAI osv.",
+    "Vi oppfordrer til å bruke Zen, men Nytrix fungerer også med populære leverandører som OpenAI, Anthropic, xAI osv.",
   "home.faq.a3.p4.beforeLocal": "Du kan til og med koble til dine",
   "home.faq.a3.p4.localLink": "lokale modeller",
-  "home.faq.q4": "Kan jeg bruke mine eksisterende AI-abonnementer med OpenCode?",
+  "home.faq.q4": "Kan jeg bruke mine eksisterende AI-abonnementer med Nytrix?",
   "home.faq.a4.p1": "Ja, du kan bruke ChatGPT Plus/Pro- eller GitHub Copilot-abonnementene dine.",
-  "home.faq.q5": "Kan jeg bare bruke OpenCode i terminalen?",
-  "home.faq.a5.beforeDesktop": "Ikke lenger! OpenCode er nå tilgjengelig som en app for",
+  "home.faq.q5": "Kan jeg bare bruke Nytrix i terminalen?",
+  "home.faq.a5.beforeDesktop": "Ikke lenger! Nytrix er nå tilgjengelig som en app for",
   "home.faq.a5.desktop": "desktop",
   "home.faq.a5.and": "og",
   "home.faq.a5.web": "web",
-  "home.faq.q6": "Hva koster OpenCode?",
+  "home.faq.q6": "Hva koster Nytrix?",
   "home.faq.a6":
-    "OpenCode er 100% gratis å bruke. Det kommer også med et sett gratis modeller. Det kan være ekstra kostnader hvis du kobler til en annen leverandør.",
+    "Nytrix er 100% gratis å bruke. Det kommer også med et sett gratis modeller. Det kan være ekstra kostnader hvis du kobler til en annen leverandør.",
   "home.faq.q7": "Hva med data og personvern?",
   "home.faq.a7.p1": "Dataene dine lagres kun når du bruker våre gratis modeller.",
   "home.faq.a7.p2.beforeModels": "Les mer om",
   "home.faq.a7.p2.modelsLink": "våre modeller",
-  "home.faq.q8": "Er OpenCode åpen kildekode?",
-  "home.faq.a8.p1": "Ja, OpenCode er fullt open source. Kildekoden er offentlig på",
+  "home.faq.q8": "Er Nytrix åpen kildekode?",
+  "home.faq.a8.p1": "Ja, Nytrix er fullt open source. Kildekoden er offentlig på",
   "home.faq.a8.p2": "under",
   "home.faq.a8.mitLicense": "MIT-lisensen",
   "home.faq.a8.p3":
@@ -133,7 +133,7 @@ export const dict = {
 
   "home.zenCta.title": "Få tilgang til pålitelige, optimaliserte modeller for kodeagenter",
   "home.zenCta.body":
-    "Zen gir deg tilgang til et håndplukket sett med AI-modeller som OpenCode har testet og benchmarked spesielt for kodeagenter. Du slipper å bekymre deg for ujevn ytelse og kvalitet på tvers av leverandører; bruk validerte modeller som fungerer.",
+    "Zen gir deg tilgang til et håndplukket sett med AI-modeller som Nytrix har testet og benchmarked spesielt for kodeagenter. Du slipper å bekymre deg for ujevn ytelse og kvalitet på tvers av leverandører; bruk validerte modeller som fungerer.",
   "home.zenCta.link": "Les om Zen",
 
   "zen.title": "OpenCode Zen | Et kuratert sett med pålitelige, optimaliserte modeller for kodeagenter",
@@ -143,7 +143,7 @@ export const dict = {
 
   "zen.faq.q1": "Hva er OpenCode Zen?",
   "zen.faq.a1":
-    "Zen er et kuratert sett med AI-modeller testet og benchmarked for kodeagenter, laget av teamet bak OpenCode.",
+    "Zen er et kuratert sett med AI-modeller testet og benchmarked for kodeagenter, laget av teamet bak Nytrix.",
   "zen.faq.q2": "Hva gjør Zen mer presis?",
   "zen.faq.a2":
     "Zen tilbyr bare modeller som er testet og benchmarked spesifikt for kodeagenter. Du ville ikke brukt en smørkniv til å skjære biff; ikke bruk dårlige modeller til koding.",
@@ -376,10 +376,10 @@ export const dict = {
   "enterprise.faq.a4":
     "Ja. OpenCode lagrer ikke koden din eller kontekstdata. All behandling skjer lokalt eller gjennom direkte API-kall til AI-leverandøren din. Med sentral konfigurasjon og SSO-integrasjon forblir dataene dine sikre innenfor organisasjonens infrastruktur.",
 
-  "brand.title": "OpenCode | Merkevare",
-  "brand.meta.description": "OpenCode retningslinjer for merkevare",
+  "brand.title": "Nytrix | Merkevare",
+  "brand.meta.description": "Nytrix retningslinjer for merkevare",
   "brand.heading": "Retningslinjer for merkevare",
-  "brand.subtitle": "Ressurser og assets som hjelper deg å jobbe med OpenCode-brandet.",
+  "brand.subtitle": "Ressurser og assets som hjelper deg å jobbe med Nytrix-brandet.",
   "brand.downloadAll": "Last ned alle assets",
 
   "changelog.title": "OpenCode | Endringslogg",

@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "Ana sayfa",
   "nav.openMenu": "Menüyü aç",
   "nav.getStartedFree": "Ücretsiz başla",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "Nytrix",
 
   "nav.context.copyLogo": "Logoyu SVG olarak kopyala",
   "nav.context.copyWordmark": "Wordmark'ı SVG olarak kopyala",
@@ -55,9 +55,9 @@ export const dict = {
   "common.faq": "SSS",
   "common.learnMore": "Daha fazla bilgi",
 
-  "app.meta.description": "OpenCode - Açık kaynaklı kodlama ajanı.",
+  "app.meta.description": "Nytrix - Açık kaynaklı kodlama ajanı.",
 
-  "home.title": "OpenCode | Açık kaynaklı yapay zeka kodlama ajanı",
+  "home.title": "Nytrix | Açık kaynaklı yapay zeka kodlama ajanı",
 
   "home.banner.badge": "Yeni",
 
@@ -67,9 +67,9 @@ export const dict = {
 
   "home.install.ariaLabel": "Kurulum seçenekleri",
 
-  "home.what.title": "OpenCode nedir?",
+  "home.what.title": "Nytrix nedir?",
   "home.what.body":
-    "OpenCode, terminalinizde, IDE'nizde veya masaüstünde kod yazmanıza yardım eden açık kaynaklı bir ajandır.",
+    "Nytrix, terminalinizde, IDE'nizde veya masaüstünde kod yazmanıza yardım eden açık kaynaklı bir ajandır.",
   "home.what.multiSession.title": "Çoklu oturum",
   "home.what.multiSession.body": "Aynı projede birden fazla ajanı paralel çalıştırın",
   "home.what.copilot.title": "GitHub Copilot",
@@ -84,46 +84,46 @@ export const dict = {
 
   "home.growth.title": "Açık kaynaklı yapay zeka kodlama ajanı",
   "home.growth.body":
-    "GitHub'da <strong>{{stars}}</strong>+ yıldız, <strong>{{contributors}}</strong> katılımcı ve <strong>{{commits}}</strong>+ commit ile OpenCode, her ay <strong>{{monthlyUsers}}</strong>+ geliştirici tarafından kullanılıyor ve güveniliyor.",
+    "GitHub'da <strong>{{stars}}</strong>+ yıldız, <strong>{{contributors}}</strong> katılımcı ve <strong>{{commits}}</strong>+ commit ile Nytrix, her ay <strong>{{monthlyUsers}}</strong>+ geliştirici tarafından kullanılıyor ve güveniliyor.",
   "home.growth.githubStars": "GitHub Yıldızları",
   "home.growth.contributors": "Katılımcılar",
   "home.growth.monthlyDevs": "Aylık Geliştiriciler",
 
   "home.privacy.title": "Gizlilik öncelikli tasarlandı",
   "home.privacy.body":
-    "OpenCode kodunuzu veya bağlam verilerinizi saklamaz; bu sayede gizliliğe duyarlı ortamlarda çalışabilir.",
+    "Nytrix kodunuzu veya bağlam verilerinizi saklamaz; bu sayede gizliliğe duyarlı ortamlarda çalışabilir.",
   "home.privacy.learnMore": "Hakkında daha fazla bilgi:",
   "home.privacy.link": "gizlilik",
 
-  "home.faq.q1": "OpenCode nedir?",
+  "home.faq.q1": "Nytrix nedir?",
   "home.faq.a1":
-    "OpenCode, herhangi bir AI modeliyle kod yazmanıza ve çalıştırmanıza yardım eden açık kaynaklı bir ajandır. Terminal arayüzü, masaüstü uygulaması veya IDE uzantısı olarak kullanılabilir.",
-  "home.faq.q2": "OpenCode'u nasıl kullanırım?",
+    "Nytrix, herhangi bir AI modeliyle kod yazmanıza ve çalıştırmanıza yardım eden açık kaynaklı bir ajandır. Terminal arayüzü, masaüstü uygulaması veya IDE uzantısı olarak kullanılabilir.",
+  "home.faq.q2": "Nytrix'u nasıl kullanırım?",
   "home.faq.a2.before": "Başlamanın en kolay yolu",
   "home.faq.a2.link": "girişi okumaktır",
-  "home.faq.q3": "OpenCode için ek AI aboneliklerine ihtiyacım var mı?",
-  "home.faq.a3.p1": "Şart değil. OpenCode, hesap açmadan kullanabileceğiniz ücretsiz modellerle gelir.",
+  "home.faq.q3": "Nytrix için ek AI aboneliklerine ihtiyacım var mı?",
+  "home.faq.a3.p1": "Şart değil. Nytrix, hesap açmadan kullanabileceğiniz ücretsiz modellerle gelir.",
   "home.faq.a3.p2.beforeZen": "Bunun dışında, popüler kodlama modellerini kullanmak için bir",
   "home.faq.a3.p2.afterZen": " hesabı oluşturabilirsiniz.",
-  "home.faq.a3.p3": "Zen'i öneriyoruz, ancak OpenCode OpenAI, Anthropic, xAI gibi popüler sağlayıcılarla da çalışır.",
+  "home.faq.a3.p3": "Zen'i öneriyoruz, ancak Nytrix OpenAI, Anthropic, xAI gibi popüler sağlayıcılarla da çalışır.",
   "home.faq.a3.p4.beforeLocal": "Hatta",
   "home.faq.a3.p4.localLink": "yerel modellerinizi bağlayabilirsiniz",
-  "home.faq.q4": "Mevcut AI aboneliklerimi OpenCode ile kullanabilir miyim?",
+  "home.faq.q4": "Mevcut AI aboneliklerimi Nytrix ile kullanabilir miyim?",
   "home.faq.a4.p1": "Evet, ChatGPT Plus/Pro veya GitHub Copilot aboneliklerinizi kullanabilirsiniz.",
-  "home.faq.q5": "OpenCode'u sadece terminalde mi kullanabilirim?",
-  "home.faq.a5.beforeDesktop": "Artık hayır! OpenCode artık sizin bu cihazlarınıza",
+  "home.faq.q5": "Nytrix'u sadece terminalde mi kullanabilirim?",
+  "home.faq.a5.beforeDesktop": "Artık hayır! Nytrix artık sizin bu cihazlarınıza",
   "home.faq.a5.desktop": "masaüstü",
   "home.faq.a5.and": "ve",
   "home.faq.a5.web": "web",
-  "home.faq.q6": "OpenCode ne kadar?",
+  "home.faq.q6": "Nytrix ne kadar?",
   "home.faq.a6":
-    "OpenCode %100 ücretsizdir. Ayrıca ücretsiz model setiyle gelir. Başka bir sağlayıcı bağlarsanız ek maliyetler olabilir.",
+    "Nytrix %100 ücretsizdir. Ayrıca ücretsiz model setiyle gelir. Başka bir sağlayıcı bağlarsanız ek maliyetler olabilir.",
   "home.faq.q7": "Veri ve gizlilik ne olacak?",
   "home.faq.a7.p1": "Verileriniz yalnızca ücretsiz modellerimizi kullandığınızda saklanır.",
   "home.faq.a7.p2.beforeModels": "Daha fazla bilgi:",
   "home.faq.a7.p2.modelsLink": "modellerimiz",
-  "home.faq.q8": "OpenCode açık kaynak mı?",
-  "home.faq.a8.p1": "Evet, OpenCode tamamen açık kaynaktır. Kaynak kodu",
+  "home.faq.q8": "Nytrix açık kaynak mı?",
+  "home.faq.a8.p1": "Evet, Nytrix tamamen açık kaynaktır. Kaynak kodu",
   "home.faq.a8.p2": "'da",
   "home.faq.a8.mitLicense": "MIT Lisansı",
   "home.faq.a8.p3":
@@ -131,7 +131,7 @@ export const dict = {
 
   "home.zenCta.title": "Kodlama ajanları için güvenilir, optimize modeller",
   "home.zenCta.body":
-    "Zen, OpenCode'un kodlama ajanları için özel olarak test edip benchmark ettiği seçilmiş AI modellerine erişim sağlar. Sağlayıcılar arasında tutarsız performans ve kalite konusunda endişelenmeyin; çalışan, doğrulanmış modelleri kullanın.",
+    "Zen, Nytrix'un kodlama ajanları için özel olarak test edip benchmark ettiği seçilmiş AI modellerine erişim sağlar. Sağlayıcılar arasında tutarsız performans ve kalite konusunda endişelenmeyin; çalışan, doğrulanmış modelleri kullanın.",
   "home.zenCta.link": "Zen hakkında",
 
   "zen.title": "OpenCode Zen | Kodlama ajanları için güvenilir, optimize edilmiş modellerin seçilmiş seti",
@@ -378,10 +378,10 @@ export const dict = {
   "enterprise.faq.a4":
     "Evet. OpenCode kodunuzu veya bağlam verilerinizi saklamaz. Tüm işleme yerel olarak ya da AI sağlayıcınıza doğrudan API çağrıları ile gerçekleştirilir. Merkezileştirilmiş konfigürasyon ve SSO entegrasyonu ile verileriniz kurumunuzun altyapısı içinde güvende kalır.",
 
-  "brand.title": "OpenCode | Marka",
-  "brand.meta.description": "OpenCode marka kılavuzu",
+  "brand.title": "Nytrix | Marka",
+  "brand.meta.description": "Nytrix marka kılavuzu",
   "brand.heading": "Marka kılavuzu",
-  "brand.subtitle": "OpenCode markası ile çalışmanıza yardımcı olacak kaynaklar ve varlıklar.",
+  "brand.subtitle": "Nytrix markası ile çalışmanıza yardımcı olacak kaynaklar ve varlıklar.",
   "brand.downloadAll": "Tüm varlıkları indir",
 
   "changelog.title": "OpenCode | Değişiklik günlüğü",

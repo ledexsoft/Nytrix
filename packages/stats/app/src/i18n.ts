@@ -109,7 +109,7 @@ const en = {
   "home.loadingTitle": "Loading data",
   "home.loadingDescription": "Reading model aggregates.",
   "home.usageTitle": "Usage",
-  "home.topModelsDescription": "Usage of models across OpenCode.",
+  "home.topModelsDescription": "Usage of models across Nytrix.",
   "home.noUsageTitle": "No usage data",
   "home.noUsageDescription": "No model rows matched this product and range.",
   "home.noLeaderboardTitle": "No leaderboard data",

@@ -195,21 +195,21 @@ Expected: remaining occurrences are classified as migration input, upstream lega
 - Consumes: Tasks 1–4.
 - Produces: user-visible Nytrix naming across desktop/web UI, docs site, console, email assets, and SEO metadata.
 
-- [ ] **Step 1: Inventory user-facing product copy and text-bearing assets**
+- [x] **Step 1: Inventory user-facing product copy and text-bearing assets**
 
 Run: `rg -n -i --hidden --glob '!.git/**' '(OpenCode|opencode\.ai|opencode)' packages/app packages/ui packages/web packages/console/app services/www`
 
 Expected: product labels are distinguished from provider names and source attribution; assets containing rendered text are identified for regeneration or replacement.
 
-- [ ] **Step 2: Rename current user-facing text and repository links**
+- [x] **Step 2: Rename current user-facing text and repository links**
 
 Update product names, settings labels, translated current product copy, help text, metadata, and links to the Nytrix GitHub repository. Do not invent a website domain.
 
-- [ ] **Step 3: Update first-party wordmarks and text-bearing images**
+- [x] **Step 3: Update first-party wordmarks and text-bearing images**
 
 Replace embedded OpenCode text with Nytrix text in owned wordmarks and current product artwork. Keep generic icon shapes and legally attributed upstream material unchanged.
 
-- [ ] **Step 4: Verify user-facing occurrences and asset inventory**
+- [x] **Step 4: Verify user-facing occurrences and asset inventory**
 
 Run: `rg -n -i --hidden --glob '!.git/**' '(OpenCode|opencode\.ai|opencode)' packages/app packages/ui packages/web packages/console/app services/www`
 

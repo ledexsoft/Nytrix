@@ -14,7 +14,7 @@ export const dict = {
   "nav.home": "首页",
   "nav.openMenu": "打开菜单",
   "nav.getStartedFree": "免费开始",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "Nytrix",
 
   "nav.context.copyLogo": "复制 Logo (SVG)",
   "nav.context.copyWordmark": "复制商标 (SVG)",
@@ -38,7 +38,7 @@ export const dict = {
   "email.success": "即将完成，请检查您的收件箱并确认您的邮箱地址",
   "email.error": "订阅失败，请重试。",
 
-  "notFound.title": "未找到页面 | OpenCode",
+  "notFound.title": "未找到页面 | Nytrix",
   "notFound.heading": "404 - 页面未找到",
   "notFound.home": "首页",
   "notFound.docs": "文档",
@@ -55,9 +55,9 @@ export const dict = {
   "common.faq": "常见问题",
   "common.learnMore": "了解更多",
 
-  "app.meta.description": "OpenCode - 开源编程代理。",
+  "app.meta.description": "Nytrix - 开源编程代理。",
 
-  "home.title": "OpenCode | 开源 AI 编程代理",
+  "home.title": "Nytrix | 开源 AI 编程代理",
 
   "home.banner.badge": "新",
 
@@ -67,8 +67,8 @@ export const dict = {
 
   "home.install.ariaLabel": "安装选项",
 
-  "home.what.title": "什么是 OpenCode？",
-  "home.what.body": "OpenCode 是一个开源代理，帮助您在终端、IDE 或桌面端编写代码。",
+  "home.what.title": "什么是 Nytrix？",
+  "home.what.body": "Nytrix 是一个开源代理，帮助您在终端、IDE 或桌面端编写代码。",
   "home.what.multiSession.title": "多会话",
   "home.what.multiSession.body": "在同一个项目中并行启动多个代理",
   "home.what.copilot.title": "GitHub Copilot",
@@ -83,43 +83,43 @@ export const dict = {
 
   "home.growth.title": "开源 AI 编程代理",
   "home.growth.body":
-    "拥有超过 <strong>{{stars}}</strong> 颗 GitHub Star，<strong>{{contributors}}</strong> 位贡献者，以及超过 <strong>{{commits}}</strong> 次提交，OpenCode 每月被超过 <strong>{{monthlyUsers}}</strong> 名开发者使用并信赖。",
+    "拥有超过 <strong>{{stars}}</strong> 颗 GitHub Star，<strong>{{contributors}}</strong> 位贡献者，以及超过 <strong>{{commits}}</strong> 次提交，Nytrix 每月被超过 <strong>{{monthlyUsers}}</strong> 名开发者使用并信赖。",
   "home.growth.githubStars": "GitHub Stars",
   "home.growth.contributors": "贡献者",
   "home.growth.monthlyDevs": "月活开发者",
 
   "home.privacy.title": "隐私优先的设计",
-  "home.privacy.body": "OpenCode 不存储您的任何代码或上下文数据，确保可以在对隐私敏感的环境中运行。",
+  "home.privacy.body": "Nytrix 不存储您的任何代码或上下文数据，确保可以在对隐私敏感的环境中运行。",
   "home.privacy.learnMore": "了解更多关于",
   "home.privacy.link": "隐私",
 
-  "home.faq.q1": "什么是 OpenCode？",
-  "home.faq.a1": "OpenCode 是一个开源代理，帮助您使用任意 AI 模型编写和运行代码。它提供终端界面、桌面应用及 IDE 扩展。",
-  "home.faq.q2": "如何使用 OpenCode？",
+  "home.faq.q1": "什么是 Nytrix？",
+  "home.faq.a1": "Nytrix 是一个开源代理，帮助您使用任意 AI 模型编写和运行代码。它提供终端界面、桌面应用及 IDE 扩展。",
+  "home.faq.q2": "如何使用 Nytrix？",
   "home.faq.a2.before": "最简单的入门方式是阅读",
   "home.faq.a2.link": "介绍",
-  "home.faq.q3": "使用 OpenCode 需要额外的 AI 订阅吗？",
-  "home.faq.a3.p1": "不一定。OpenCode 自带一组免费模型，无需创建账户即可使用。",
+  "home.faq.q3": "使用 Nytrix 需要额外的 AI 订阅吗？",
+  "home.faq.a3.p1": "不一定。Nytrix 自带一组免费模型，无需创建账户即可使用。",
   "home.faq.a3.p2.beforeZen": "此外，您可以通过创建",
   "home.faq.a3.p2.afterZen": "账户来使用流行的编程模型。",
-  "home.faq.a3.p3": "虽然我们鼓励使用 Zen，但 OpenCode 也支持所有主流提供商，如 OpenAI, Anthropic, xAI 等。",
+  "home.faq.a3.p3": "虽然我们鼓励使用 Zen，但 Nytrix 也支持所有主流提供商，如 OpenAI, Anthropic, xAI 等。",
   "home.faq.a3.p4.beforeLocal": "您甚至可以连接您的",
   "home.faq.a3.p4.localLink": "本地模型",
   "home.faq.q4": "我可以使用现有的 AI 订阅吗？",
   "home.faq.a4.p1": "可以，您可以使用您的 ChatGPT Plus/Pro 或 GitHub Copilot 订阅。",
-  "home.faq.q5": "OpenCode 只能在终端使用吗？",
-  "home.faq.a5.beforeDesktop": "不再是了！OpenCode 现在也提供",
+  "home.faq.q5": "Nytrix 只能在终端使用吗？",
+  "home.faq.a5.beforeDesktop": "不再是了！Nytrix 现在也提供",
   "home.faq.a5.desktop": "桌面端应用",
   "home.faq.a5.and": "和",
   "home.faq.a5.web": "网页端",
-  "home.faq.q6": "OpenCode 多少钱？",
-  "home.faq.a6": "OpenCode 是 100% 免费使用的。它还自带一组免费模型。如果您连接其他提供商，可能会产生额外费用。",
+  "home.faq.q6": "Nytrix 多少钱？",
+  "home.faq.a6": "Nytrix 是 100% 免费使用的。它还自带一组免费模型。如果您连接其他提供商，可能会产生额外费用。",
   "home.faq.q7": "数据和隐私如何？",
   "home.faq.a7.p1": "只有当您使用我们的免费模型时，您的数据和信息才会被存储。",
   "home.faq.a7.p2.beforeModels": "了解更多关于",
   "home.faq.a7.p2.modelsLink": "我们的模型",
-  "home.faq.q8": "OpenCode 是开源的吗？",
-  "home.faq.a8.p1": "是的，OpenCode 是完全开源的。源代码公开在",
+  "home.faq.q8": "Nytrix 是开源的吗？",
+  "home.faq.a8.p1": "是的，Nytrix 是完全开源的。源代码公开在",
   "home.faq.a8.p2": "遵循",
   "home.faq.a8.mitLicense": "MIT 许可证",
   "home.faq.a8.p3":
@@ -127,7 +127,7 @@ export const dict = {
 
   "home.zenCta.title": "访问可靠、优化的编程代理模型",
   "home.zenCta.body":
-    "Zen 为您提供一组精选的 AI 模型，这些模型经过 OpenCode 专门针对编程代理的测试和基准测试。无需担心不同提供商之间不稳定的性能和质量，直接使用行之有效的验证模型。",
+    "Zen 为您提供一组精选的 AI 模型，这些模型经过 Nytrix 专门针对编程代理的测试和基准测试。无需担心不同提供商之间不稳定的性能和质量，直接使用行之有效的验证模型。",
   "home.zenCta.link": "了解 Zen",
 
   "zen.title": "OpenCode Zen | 为编程代理精选的可靠、优化模型",
@@ -357,10 +357,10 @@ export const dict = {
   "enterprise.faq.a4":
     "是的。OpenCode 不存储您的代码或上下文数据。所有处理均在本地进行，或通过直接 API 调用您的 AI 提供商。通过集中配置和 SSO 集成，您的数据始终保留在您组织的基础设施内。",
 
-  "brand.title": "OpenCode | 品牌",
-  "brand.meta.description": "OpenCode 品牌指南",
+  "brand.title": "Nytrix | 品牌",
+  "brand.meta.description": "Nytrix 品牌指南",
   "brand.heading": "品牌指南",
-  "brand.subtitle": "帮助您使用 OpenCode 品牌的资源和资产。",
+  "brand.subtitle": "帮助您使用 Nytrix 品牌的资源和资产。",
   "brand.downloadAll": "下载所有资产",
 
   "changelog.title": "OpenCode | 更新日志",

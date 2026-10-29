@@ -60,7 +60,7 @@ const setup: Plugin.MainSetup = (ctx) => {
   const queue: Queue = { tail: Promise.resolve() }
 
   const capture = async (root: string, includeServer: boolean) => {
-    const directory = path.join(root, `opencode-heap-${new Date().toISOString().replace(/[:.]/g, "")}`)
+    const directory = path.join(root, `nytrix-heap-${new Date().toISOString().replace(/[:.]/g, "")}`)
 
     // Snapshots hold prompts, file contents and credentials. Recursive, because Downloads can be missing on Linux.
     await mkdir(directory, { recursive: true, mode: 0o700 })
@@ -176,7 +176,7 @@ const setup: Plugin.MainSetup = (ctx) => {
   if (!debugBuild(ctx.app)) return
 
   // The environment turns diagnostics on for this launch; otherwise the debug bar's stored toggle does.
-  const envInterval = memoryLogInterval(process.env.OPENCODE_DESKTOP_MEMORY_LOG)
+  const envInterval = memoryLogInterval(process.env.NYTRIX_DESKTOP_MEMORY_LOG)
   // Whether the debug bar turned memory diagnostics on.
   const stored = ctx.storage.store("memory", { schema: Schema.Boolean, initial: false })
   const running: Running = {}

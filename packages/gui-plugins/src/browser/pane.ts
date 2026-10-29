@@ -106,7 +106,7 @@ export function createBrowserPane(input: {
           ]),
         ),
         focusedTabID: previous.focusedTabID,
-        partition: `opencode-browser-${crypto.randomUUID()}`,
+        partition: `nytrix-browser-${crypto.randomUUID()}`,
         storageKey,
         fileRoots: [],
       }

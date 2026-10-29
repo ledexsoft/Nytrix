@@ -38,13 +38,13 @@ const setup: Plugin.MainSetup = (ctx) => {
   }
 
   // Remote access is a setting of the background service, so it changes through the CLI the app runs, as with
-  // `opencode pair --remote`. A change restarts the service, so commands run one at a time.
+  // `nytrix pair --remote`. A change restarts the service, so commands run one at a time.
   const service = (args: readonly string[], signal: AbortSignal) => {
     const run = queue.tail.then(
       () =>
         new Promise<string>((resolve, reject) => {
           execFile(
-            cli.command[0] ?? "opencode",
+            cli.command[0] ?? "nytrix",
             [...cli.command.slice(1), "service", ...args],
             { signal, windowsHide: true },
             (error, stdout, stderr) => {

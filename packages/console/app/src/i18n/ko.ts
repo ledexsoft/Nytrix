@@ -15,7 +15,7 @@ export const dict = {
   "nav.home": "홈",
   "nav.openMenu": "메뉴 열기",
   "nav.getStartedFree": "무료로 시작하기",
-  "nav.logoAlt": "OpenCode",
+  "nav.logoAlt": "Nytrix",
 
   "nav.context.copyLogo": "로고를 SVG로 복사",
   "nav.context.copyWordmark": "워드마크를 SVG로 복사",
@@ -38,7 +38,7 @@ export const dict = {
   "email.success": "거의 완료되었습니다. 이메일 수신함을 확인하고 주소를 인증해주세요.",
   "email.error": "구독하지 못했습니다. 다시 시도해주세요.",
 
-  "notFound.title": "페이지를 찾을 수 없음 | OpenCode",
+  "notFound.title": "페이지를 찾을 수 없음 | Nytrix",
   "notFound.heading": "404 - 페이지를 찾을 수 없음",
   "notFound.home": "홈",
   "notFound.docs": "문서",
@@ -55,9 +55,9 @@ export const dict = {
   "common.faq": "FAQ",
   "common.learnMore": "더 알아보기",
 
-  "app.meta.description": "OpenCode - 오픈 소스 코딩 에이전트.",
+  "app.meta.description": "Nytrix - 오픈 소스 코딩 에이전트.",
 
-  "home.title": "OpenCode | 오픈 소스 AI 코딩 에이전트",
+  "home.title": "Nytrix | 오픈 소스 AI 코딩 에이전트",
 
   "home.banner.badge": "신규",
 
@@ -67,9 +67,9 @@ export const dict = {
 
   "home.install.ariaLabel": "설치 옵션",
 
-  "home.what.title": "OpenCode란 무엇인가요?",
+  "home.what.title": "Nytrix란 무엇인가요?",
   "home.what.body":
-    "OpenCode는 터미널, IDE, 또는 데스크톱에서 코드를 작성할 수 있도록 도와주는 오픈 소스 에이전트입니다.",
+    "Nytrix는 터미널, IDE, 또는 데스크톱에서 코드를 작성할 수 있도록 도와주는 오픈 소스 에이전트입니다.",
   "home.what.multiSession.title": "멀티 세션",
   "home.what.multiSession.body": "동일한 프로젝트에서 여러 에이전트를 병렬로 실행하세요",
   "home.what.copilot.title": "GitHub Copilot",
@@ -84,46 +84,46 @@ export const dict = {
 
   "home.growth.title": "오픈 소스 AI 코딩 에이전트",
   "home.growth.body":
-    "<strong>{{stars}}</strong>개 이상의 GitHub 스타, <strong>{{contributors}}</strong>명의 기여자, <strong>{{commits}}</strong>개 이상의 커밋과 함께, OpenCode는 매달 <strong>{{monthlyUsers}}</strong>명 이상의 개발자가 사용하고 신뢰합니다.",
+    "<strong>{{stars}}</strong>개 이상의 GitHub 스타, <strong>{{contributors}}</strong>명의 기여자, <strong>{{commits}}</strong>개 이상의 커밋과 함께, Nytrix는 매달 <strong>{{monthlyUsers}}</strong>명 이상의 개발자가 사용하고 신뢰합니다.",
   "home.growth.githubStars": "GitHub 스타",
   "home.growth.contributors": "기여자",
   "home.growth.monthlyDevs": "월간 사용자",
 
   "home.privacy.title": "프라이버시를 최우선으로 설계",
   "home.privacy.body":
-    "OpenCode는 코드나 컨텍스트 데이터를 저장하지 않으므로, 프라이버시에 민감한 환경에서도 안전하게 작동합니다.",
+    "Nytrix는 코드나 컨텍스트 데이터를 저장하지 않으므로, 프라이버시에 민감한 환경에서도 안전하게 작동합니다.",
   "home.privacy.learnMore": "더 알아보기:",
   "home.privacy.link": "프라이버시",
 
-  "home.faq.q1": "OpenCode란 무엇인가요?",
+  "home.faq.q1": "Nytrix란 무엇인가요?",
   "home.faq.a1":
-    "OpenCode는 어떤 AI 모델로든 코드를 작성하고 실행할 수 있도록 도와주는 오픈 소스 에이전트입니다. 터미널 기반 인터페이스, 데스크톱 앱, 또는 IDE 확장 프로그램으로 사용할 수 있습니다.",
-  "home.faq.q2": "OpenCode는 어떻게 사용하나요?",
+    "Nytrix는 어떤 AI 모델로든 코드를 작성하고 실행할 수 있도록 도와주는 오픈 소스 에이전트입니다. 터미널 기반 인터페이스, 데스크톱 앱, 또는 IDE 확장 프로그램으로 사용할 수 있습니다.",
+  "home.faq.q2": "Nytrix는 어떻게 사용하나요?",
   "home.faq.a2.before": "가장 쉬운 시작 방법은",
   "home.faq.a2.link": "소개",
-  "home.faq.q3": "OpenCode를 사용하려면 별도의 AI 구독이 필요한가요?",
-  "home.faq.a3.p1": "꼭 그렇지는 않습니다. OpenCode에는 계정 없이도 사용할 수 있는 무료 모델 세트가 포함되어 있습니다.",
+  "home.faq.q3": "Nytrix를 사용하려면 별도의 AI 구독이 필요한가요?",
+  "home.faq.a3.p1": "꼭 그렇지는 않습니다. Nytrix에는 계정 없이도 사용할 수 있는 무료 모델 세트가 포함되어 있습니다.",
   "home.faq.a3.p2.beforeZen": "이 외에도,",
   "home.faq.a3.p2.afterZen": " 계정을 생성하여 인기 있는 코딩 모델들을 사용할 수 있습니다.",
-  "home.faq.a3.p3": "Zen 사용을 권장하지만, OpenCode는 OpenAI, Anthropic, xAI 등 모든 인기 제공자와도 작동합니다.",
+  "home.faq.a3.p3": "Zen 사용을 권장하지만, Nytrix는 OpenAI, Anthropic, xAI 등 모든 인기 제공자와도 작동합니다.",
   "home.faq.a3.p4.beforeLocal": "또한",
   "home.faq.a3.p4.localLink": "로컬 모델",
-  "home.faq.q4": "기존 AI 구독을 OpenCode에서 사용할 수 있나요?",
+  "home.faq.q4": "기존 AI 구독을 Nytrix에서 사용할 수 있나요?",
   "home.faq.a4.p1": "네, ChatGPT Plus/Pro 또는 GitHub Copilot 구독을 사용할 수 있습니다.",
-  "home.faq.q5": "OpenCode는 터미널에서만 사용할 수 있나요?",
-  "home.faq.a5.beforeDesktop": "이제 아닙니다! OpenCode는 이제",
+  "home.faq.q5": "Nytrix는 터미널에서만 사용할 수 있나요?",
+  "home.faq.a5.beforeDesktop": "이제 아닙니다! Nytrix는 이제",
   "home.faq.a5.desktop": "데스크톱",
   "home.faq.a5.and": "및",
   "home.faq.a5.web": "웹",
-  "home.faq.q6": "OpenCode 비용은 얼마인가요?",
+  "home.faq.q6": "Nytrix 비용은 얼마인가요?",
   "home.faq.a6":
-    "OpenCode는 100% 무료로 사용할 수 있습니다. 무료 모델 세트도 포함되어 있습니다. 다른 제공자를 연결할 경우 추가 비용이 발생할 수 있습니다.",
+    "Nytrix는 100% 무료로 사용할 수 있습니다. 무료 모델 세트도 포함되어 있습니다. 다른 제공자를 연결할 경우 추가 비용이 발생할 수 있습니다.",
   "home.faq.q7": "데이터와 프라이버시는 어떤가요?",
   "home.faq.a7.p1": "데이터와 정보는 무료 모델을 사용할 때만 저장됩니다.",
   "home.faq.a7.p2.beforeModels": "더 알아보기:",
   "home.faq.a7.p2.modelsLink": "모델",
-  "home.faq.q8": "OpenCode는 오픈 소스인가요?",
-  "home.faq.a8.p1": "네, OpenCode는 완전히 오픈 소스입니다. 소스 코드는",
+  "home.faq.q8": "Nytrix는 오픈 소스인가요?",
+  "home.faq.a8.p1": "네, Nytrix는 완전히 오픈 소스입니다. 소스 코드는",
   "home.faq.a8.p2": "에 공개되어 있으며,",
   "home.faq.a8.mitLicense": "MIT 라이선스",
   "home.faq.a8.p3":
@@ -131,7 +131,7 @@ export const dict = {
 
   "home.zenCta.title": "코딩 에이전트를 위한 신뢰할 수 있고 최적화된 모델",
   "home.zenCta.body":
-    "Zen은 OpenCode가 코딩 에이전트를 위해 특별히 테스트하고 벤치마킹한 엄선된 AI 모델 세트에 대한 액세스를 제공합니다. 제공자 간의 일관되지 않은 성능과 품질에 대해 걱정할 필요 없이, 검증된 모델을 사용하세요.",
+    "Zen은 Nytrix가 코딩 에이전트를 위해 특별히 테스트하고 벤치마킹한 엄선된 AI 모델 세트에 대한 액세스를 제공합니다. 제공자 간의 일관되지 않은 성능과 품질에 대해 걱정할 필요 없이, 검증된 모델을 사용하세요.",
   "home.zenCta.link": "Zen 알아보기",
 
   "zen.title": "OpenCode Zen | 코딩 에이전트를 위한 신뢰할 수 있고 최적화된 모델 세트",
@@ -366,10 +366,10 @@ export const dict = {
   "enterprise.faq.a4":
     "네. OpenCode는 코드나 컨텍스트 데이터를 저장하지 않습니다. 모든 처리는 로컬에서 이루어지거나 AI 제공자에 대한 직접 API 호출을 통해 이루어집니다. 중앙 설정 및 SSO 통합을 통해 데이터는 조직의 인프라 내에서 안전하게 유지됩니다.",
 
-  "brand.title": "OpenCode | 브랜드",
-  "brand.meta.description": "OpenCode 브랜드 가이드라인",
+  "brand.title": "Nytrix | 브랜드",
+  "brand.meta.description": "Nytrix 브랜드 가이드라인",
   "brand.heading": "브랜드 가이드라인",
-  "brand.subtitle": "OpenCode 브랜드를 활용하는 데 도움이 되는 리소스와 자산입니다.",
+  "brand.subtitle": "Nytrix 브랜드를 활용하는 데 도움이 되는 리소스와 자산입니다.",
   "brand.downloadAll": "모든 자산 다운로드",
 
   "changelog.title": "OpenCode | 변경 내역",
