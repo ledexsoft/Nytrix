@@ -47,9 +47,16 @@ export function globalStoreTarget(
   from: BuiltinStoreFrom | readonly BuiltinStoreFrom[] | undefined,
   builtin: boolean,
 ) {
+  const target = Persist.global(storeName(plugin, key))
+  const renamed = builtin ? Persist.global(renamedStoreName(plugin, key)) : undefined
+
   return {
-    ...Persist.global(storeName(plugin, key)),
-    copyFrom: [...(builtin ? [renamedFrom(Persist.global(renamedStoreName(plugin, key)))] : []), ...storeImports(from)],
+    ...target,
+    copyFrom: [
+      ...(target.copyFrom ?? []),
+      ...(renamed ? [renamedFrom(renamed), ...(renamed.copyFrom ?? []).map((copy) => ({ ...copy, pick: (value: unknown) => value }))] : []),
+      ...storeImports(from),
+    ],
   }
 }
 

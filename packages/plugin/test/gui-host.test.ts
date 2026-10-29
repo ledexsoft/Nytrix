@@ -105,9 +105,9 @@ test.each([
   ["file", false],
   ["file.extra", false],
   ["tools", false],
-  ["opencode", false],
-  ["opencode.acme", false],
-  ["opencode-acme", true],
+  ["nytrix", false],
+  ["nytrix.acme", false],
+  ["nytrix-acme", true],
 ])("a plugin GUI may take the id %s: %s", (id, available) => {
   const builtins = [{ id: "file" }, { id: "tools.git" }]
 

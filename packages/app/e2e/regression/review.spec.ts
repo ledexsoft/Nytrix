@@ -177,7 +177,7 @@ test("open file tab browses, searches, and tracks missing files", async ({ page 
       panes: { ses_reviewopenfile: { review: true } },
       storage: {
         ...reviewTabs("C:/OpenCode/ReviewOpenFile", "ses_reviewopenfile"),
-        "opencode.global.dat:review-panel-v2": { sidebarOpened: false },
+        "nytrix.global.dat:review-panel-v2": { sidebarOpened: false },
       },
     },
   })
@@ -349,7 +349,7 @@ test("context closes the side region only when its button opened it", async ({ p
     name: "ReviewContextOpener",
     seed: {
       storage: {
-        "opencode.global.dat:layout": {
+        "nytrix.global.dat:layout": {
           sessionTabs: {
             [`local\u0000${base64Encode("C:/OpenCode/ReviewContextOpener")}/ses_reviewcontextopener`]: {
               all: ["btw"],
@@ -526,7 +526,7 @@ test("file tree expands Windows paths and scrolls long names in both directions"
     fileContent: (path) => ({ type: "text", content: `contents:${path}` }),
     seed: {
       panes: { ses_openfileexpand: { review: true } },
-      storage: { "opencode.global.dat:review-panel-v2": { sidebarOpened: true } },
+      storage: { "nytrix.global.dat:review-panel-v2": { sidebarOpened: true } },
     },
   })
 
@@ -591,7 +591,7 @@ test("file tree expands Windows paths and scrolls long names in both directions"
     .toBeGreaterThan(0)
   await expect(status).toHaveText("A")
   await expect.poll(() => statusInset(status, "right")).toBeLessThanOrEqual(24)
-  const treeScroll = panel.locator(".opencode-pierre-file-tree")
+  const treeScroll = panel.locator(".nytrix-pierre-file-tree")
 
   const scrollTree = (position: { left?: number; top?: number }) =>
     treeScroll.evaluate((element, position) => {
@@ -897,7 +897,7 @@ test("Markdown and DOCX sheets stay aligned when switching at wide and narrow pr
         },
       ],
     }),
-    seed: { storage: { "opencode.global.dat:review-panel-v2": { sidebarOpened: false } } },
+    seed: { storage: { "nytrix.global.dat:review-panel-v2": { sidebarOpened: false } } },
   })
 
   const panel = page.locator("#review-panel")
@@ -1489,7 +1489,7 @@ test("keeps the review state a session stored before plugins", async ({ page }) 
       mode === "branch" ? [fileDiff("alpha.ts"), fileDiff("beta.ts")] : [fileDiff("alpha.ts"), fileDiff("gamma.ts")],
     seed: {
       storage: {
-        "opencode.global.dat:layout": {
+        "nytrix.global.dat:layout": {
           sessionView: {
             [`local\u0000${base64Encode(directory)}/ses_reviewlegacy`]: {
               scroll: {},
@@ -1674,7 +1674,7 @@ test("Review from a new tab keeps the file browser and preview open", async ({ p
     fileContent: (path) => ({ type: "text", content: `contents:${path}` }),
     seed: {
       panes: { ses_reviewnewtabfile: { review: true } },
-      storage: { "opencode.global.dat:review-panel-v2": { sidebarOpened: false } },
+      storage: { "nytrix.global.dat:review-panel-v2": { sidebarOpened: false } },
     },
   })
   const panel = page.locator("#review-panel")

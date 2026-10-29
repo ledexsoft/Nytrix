@@ -68,14 +68,14 @@ test("review and terminal tabs follow the session tab and the terminal stays mou
   expect(pty.created).toHaveLength(1)
   expect(pty.sockets[0]!.url.searchParams.get("location[directory]")).toBe(directory)
   expect(pty.sockets[0]!.url.searchParams.get("ticket")).toBe("e2e-ticket")
-  expect(pty.tokens[0]?.headers["x-opencode-ticket"]).toBe("1")
+  expect(pty.tokens[0]?.headers["x-nytrix-ticket"]).toBe("1")
 
   await terminalTab.click()
   await expect(terminal).toBeVisible()
   await expect
     .poll(() =>
       page.evaluate(
-        (key) => JSON.parse(localStorage.getItem("opencode.window.browser.dat:tabs.panes") ?? "{}")[key]?.review,
+        (key) => JSON.parse(localStorage.getItem("nytrix.window.browser.dat:tabs.panes") ?? "{}")[key]?.review,
         tabKey(a.id),
       ),
     )
@@ -139,7 +139,7 @@ test("new tab selection and closing stay in the focused pane", async ({ page }) 
     seed: {
       panes: { ses_panenewtabs: { review: true } },
       storage: {
-        "opencode.global.dat:layout": {
+        "nytrix.global.dat:layout": {
           sessionTabs: {
             [key]: {
               all: ["file://README.md", "file://notes.md"],
@@ -237,7 +237,7 @@ test("the new tab view lists recently closed tabs, expands to the rest, and keep
     seed: {
       panes: { ses_recentlyclosed: { review: true } },
       storage: {
-        "opencode.global.dat:layout": {
+        "nytrix.global.dat:layout": {
           sessionTabs: { [key]: { all: ["file://README.md"], active: "file://README.md" } },
           sessionView: { [key]: { scroll: {}, closed } },
         },

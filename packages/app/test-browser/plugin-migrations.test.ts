@@ -26,7 +26,7 @@ test.each([
   {
     name: "extension.review.diff, from before the plugin rename, ahead of the store's own older homes",
     home: () =>
-      imported("review", "diff", review.stores.diff, "opencode.global.dat:plugin.review.diff", [
+      imported("review", "diff", review.stores.diff, "nytrix.global.dat:plugin.review.diff", [
         ["opencode.global.dat:extension.review.diff", renamedDiff],
         ["layout", { review: { diffStyle: "split" } }],
       ]),
@@ -36,7 +36,7 @@ test.each([
     // An older home without the field holds no value, so the import reads on to the next one.
     name: "layout review.diffStyle, from the unprefixed layout when the newer one lacks it → plugin.review.diff",
     home: () =>
-      imported("review", "diff", review.stores.diff, "opencode.global.dat:plugin.review.diff", [
+      imported("review", "diff", review.stores.diff, "nytrix.global.dat:plugin.review.diff", [
         ["opencode.global.dat:layout", { fileTree: { opened: true } }],
         ["layout", { review: { diffStyle: "unified" } }],
       ]),
@@ -49,7 +49,7 @@ test.each([
         "updater",
         "releaseNotes",
         updater.stores.releaseNotes,
-        "opencode.global.dat:plugin.updater.releaseNotes",
+        "nytrix.global.dat:plugin.updater.releaseNotes",
         [["settings.v3", { general: { releaseNotes: false } }]],
       ),
     expected: { enabled: false },
@@ -57,7 +57,7 @@ test.each([
   {
     name: "Preferences mobileDiffWrap → plugin.review.mobileDiff",
     home: () =>
-      imported("review", "mobileDiff", review.stores.mobileDiff, "opencode.global.dat:plugin.review.mobileDiff", [
+      imported("review", "mobileDiff", review.stores.mobileDiff, "nytrix.global.dat:plugin.review.mobileDiff", [
         ["settings.v3", { general: { mobileDiffWrap: false } }],
       ]),
     expected: { wrap: false },
@@ -65,7 +65,7 @@ test.each([
   {
     name: "What's New highlights.v1 → plugin.updater.seen",
     home: () =>
-      imported("updater", "seen", updater.stores.seen, "opencode.global.dat:plugin.updater.seen", [
+      imported("updater", "seen", updater.stores.seen, "nytrix.global.dat:plugin.updater.seen", [
         ["highlights.v1", { version: "2.0.20" }],
       ]),
     expected: { version: "2.0.20" },
@@ -90,7 +90,7 @@ test.each([
 })
 
 test("the import from before the plugin rename leaves the old key for builds that still read it", () => {
-  imported("review", "diff", review.stores.diff, "opencode.global.dat:plugin.review.diff", [
+  imported("review", "diff", review.stores.diff, "nytrix.global.dat:plugin.review.diff", [
     ["opencode.global.dat:extension.review.diff", renamedDiff],
   ])
 

@@ -8,7 +8,7 @@ const MINIMUM_PROVIDERS = 100
 export const committedSnapshot = new URL("../src/models-dev/snapshot.txt", import.meta.url)
 
 export async function fetchModelsSnapshot() {
-  const source = process.env.NYTRIX_MODELS_URL || "https://models.opencode.ai"
+  const source = process.env.NYTRIX_MODELS_URL || "https://models.dev"
   const url = `${source}${ModelsDev.catalogPath}`
   const response = await fetch(url, { signal: AbortSignal.timeout(30_000) })
   if (!response.ok) throw new Error(`${url} returned ${response.status} ${response.statusText}`)

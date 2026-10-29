@@ -86,11 +86,11 @@ impl TerminalClient {
         unsafe {
             command.pre_exec(|| nix::unistd::setsid().map(|_| ()).map_err(io::Error::other));
         }
-        let mut child = command.spawn().context("failed to spawn opencode-pty")?;
+        let mut child = command.spawn().context("failed to spawn nytrix-pty")?;
         let deadline = Instant::now() + START_TIMEOUT;
         while Instant::now() < deadline {
             if let Some(status) = child.try_wait()? {
-                bail!("opencode-pty daemon exited before ownership acquisition: {status}");
+                bail!("nytrix-pty daemon exited before ownership acquisition: {status}");
             }
             if let Ok(registration) = read_registration(directory)
                 && registration.pid == child.id()
@@ -118,19 +118,19 @@ impl TerminalClient {
             }
             thread::sleep(Duration::from_millis(50));
         }
-        bail!("opencode-pty did not become ready")
+        bail!("nytrix-pty did not become ready")
     }
 
     #[cfg(not(unix))]
     pub fn start(_directory: &Path) -> Result<Self> {
-        bail!("opencode-pty client transport is not implemented on this platform")
+        bail!("nytrix-pty client transport is not implemented on this platform")
     }
 
     pub fn discover(directory: &Path) -> Result<Self> {
         let registration = read_registration(directory)?;
         if registration.protocol != PROTOCOL_VERSION {
             bail!(
-                "opencode-pty protocol mismatch: service={}, client={PROTOCOL_VERSION}",
+                "nytrix-pty protocol mismatch: service={}, client={PROTOCOL_VERSION}",
                 registration.protocol
             );
         }
@@ -150,7 +150,7 @@ impl TerminalClient {
             {
                 Ok(client)
             }
-            _ => bail!("opencode-pty registration did not match the running service"),
+            _ => bail!("nytrix-pty registration did not match the running service"),
         }
     }
 
@@ -395,12 +395,12 @@ impl TerminalClient {
 
     #[cfg(not(unix))]
     fn request(&self, _request: Request) -> Result<Response> {
-        bail!("opencode-pty client transport is not implemented on this platform")
+        bail!("nytrix-pty client transport is not implemented on this platform")
     }
 }
 
 fn unexpected<T>(response: Response) -> Result<T> {
-    bail!("unexpected opencode-pty response: {response:?}")
+    bail!("unexpected nytrix-pty response: {response:?}")
 }
 
 #[cfg(unix)]
@@ -434,14 +434,14 @@ pub fn run_cli() -> Result<()> {
     let directory = || -> Result<PathBuf> {
         let name = name
             .as_deref()
-            .ok_or_else(|| anyhow!("--name is required; use `opencode-pty help`"))?;
+            .ok_or_else(|| anyhow!("--name is required; use `nytrix-pty help`"))?;
         runtime_dir(root.as_deref(), name)
     };
     let no_arguments = |usage: &str| {
         if positional.is_empty() {
             Ok(())
         } else {
-            Err(anyhow!("usage: opencode-pty {usage}"))
+            Err(anyhow!("usage: nytrix-pty {usage}"))
         }
     };
     match command.as_deref() {
@@ -457,14 +457,14 @@ pub fn run_cli() -> Result<()> {
         Some("watch") => {
             let id = positional
                 .first()
-                .ok_or_else(|| anyhow!("usage: opencode-pty watch TERMINAL_ID --name NAME"))?
+                .ok_or_else(|| anyhow!("usage: nytrix-pty watch TERMINAL_ID --name NAME"))?
                 .parse()
                 .context("expected terminal ID")?;
             watch(&directory()?, id)
         }
         Some("version" | "--version" | "-V") => {
             println!(
-                "opencode-pty {} (protocol {})",
+                "nytrix-pty {} (protocol {})",
                 env!("CARGO_PKG_VERSION"),
                 crate::protocol::PROTOCOL_VERSION
             );
@@ -474,14 +474,14 @@ pub fn run_cli() -> Result<()> {
             print_usage();
             Ok(())
         }
-        Some(command) => bail!("unknown command {command:?}; use `opencode-pty help`"),
+        Some(command) => bail!("unknown command {command:?}; use `nytrix-pty help`"),
     }
 }
 
 fn status(directory: &Path) -> Result<()> {
     let client = TerminalClient::discover(directory)?;
     println!(
-        "opencode-pty running: pid={} instance={} terminals={}",
+        "nytrix-pty running: pid={} instance={} terminals={}",
         client.registration.pid,
         client.registration.instance_id,
         client.list()?.len()
@@ -496,12 +496,12 @@ fn stop(directory: &Path) -> Result<()> {
     let deadline = Instant::now() + START_TIMEOUT;
     while Instant::now() < deadline {
         if TerminalClient::discover(directory).is_err() {
-            println!("stopped opencode-pty pid={pid} (all terminals exited)");
+            println!("stopped nytrix-pty pid={pid} (all terminals exited)");
             return Ok(());
         }
         thread::sleep(Duration::from_millis(25));
     }
-    bail!("opencode-pty pid={pid} did not stop within {START_TIMEOUT:?}");
+    bail!("nytrix-pty pid={pid} did not stop within {START_TIMEOUT:?}");
 }
 
 #[cfg(unix)]
@@ -548,7 +548,7 @@ fn watch(_directory: &Path, _id: TerminalId) -> Result<()> {
 fn play(directory: &Path) -> Result<()> {
     let client = TerminalClient::start(directory)?;
     let mut active = client.list()?.first().map(|terminal| terminal.id);
-    println!("\n  opencode-pty playground");
+    println!("\n  nytrix-pty playground");
     println!(
         "  owning service pid={} · `quit` stops all terminals\n",
         client.registration.pid
@@ -721,11 +721,11 @@ fn set_stdin_raw() -> Result<()> {
 
 fn print_usage() {
     println!(
-        "usage: opencode-pty [play|status|list|watch ID|stop|daemon] --name NAME [--runtime-dir DIR]"
+        "usage: nytrix-pty [play|status|list|watch ID|stop|daemon] --name NAME [--runtime-dir DIR]"
     );
-    println!("       opencode-pty --version");
+    println!("       nytrix-pty --version");
     println!(
-        "  NAME selects DIR/NAME; DIR defaults to ${{XDG_STATE_HOME:-~/.local/state}}/opencode/pty"
+        "  NAME selects DIR/NAME; DIR defaults to ${{XDG_STATE_HOME:-~/.local/state}}/nytrix/pty"
     );
 }
 

@@ -44,7 +44,7 @@ subscriber-local cancellation and use the base client's headers.
 
 ```ts
 const client = Nytrix.make({
-  baseUrl: "https://opencode.example.com",
+  baseUrl: "https://nytrix.example.com",
   headers: {
     authorization: `Bearer ${process.env.NYTRIX_TOKEN}`,
   },
@@ -91,7 +91,7 @@ Import a plugin's shared contract and pass it to `client.rpc`:
 
 ```ts
 import { Nytrix } from "@nytrix/client"
-import { Acme } from "opencode-acme-plugin/rpc"
+import { Acme } from "nytrix-acme-plugin/rpc"
 
 const acme = client.rpc(Acme)
 const result = await acme.search(
@@ -175,9 +175,9 @@ compatibility predicate:
 
 ```ts
 const endpoint = await Service.ensure({
-  file: "/var/run/opencode/service.json",
+  file: "/var/run/nytrix/service.json",
   version: (version) => version.startsWith("2."),
-  command: ["opencode", "serve", "--service"],
+  command: ["nytrix", "serve", "--service"],
   onStart(reason, previousVersion) {
     console.log(reason, previousVersion)
   },

@@ -16,7 +16,7 @@ The SST app requires these environment variables and resources:
 - `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `WEB_SENTRY_PROJECT`, and `WEB_SENTRY_DSN`: Sentry project settings.
 - SST secrets used by the API and Console, including GitHub App, email, hCaptcha, Salesforce, and enterprise spam-scoring credentials.
 
-The `opencode-production` and `opencode-dev` AWS CLI profiles remain in local SST configuration for existing user-managed credentials. Replace them with profiles for your AWS account before deploying locally.
+Local SST deployments use the `nytrix-production` or `nytrix-dev` AWS CLI profile, selected by stage. Set `NYTRIX_AWS_PROFILE` to use another configured profile.
 
 ## Cloudflare service Workers
 

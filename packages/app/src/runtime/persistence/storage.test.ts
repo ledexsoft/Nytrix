@@ -7,13 +7,14 @@ describe("persist targets", () => {
     const raw = Persist.workspace("C:\\Users\\foo", "vcs")
     const normalized = Persist.workspace("C:/Users/foo", "vcs")
 
-    expect(raw.storage).toMatch(/^opencode\.workspace\.[a-zA-Z0-9._-]+\.dat$/)
+    expect(raw.storage).toMatch(/^nytrix\.workspace\.[a-zA-Z0-9._-]+\.dat$/)
     expect(raw.storage).toBe(normalized.storage)
-    expect(raw.workspaceStorageAliases).toHaveLength(1)
-    expect(raw.workspaceStorageAliases![0]).toMatch(/^opencode\.workspace\.[a-zA-Z0-9._-]+\.dat$/)
+    expect(raw.workspaceStorageAliases).toEqual(expect.arrayContaining([expect.stringMatching(/^opencode\.workspace\./), expect.stringMatching(/^nytrix\.workspace\./)]))
     expect(raw.workspaceStorageAliases![0]).not.toBe(raw.storage)
     expect(normalized.workspaceStorageAliases).toEqual(raw.workspaceStorageAliases)
-    expect(Persist.workspace("/home/luke/repo", "vcs").workspaceStorageAliases).toBeUndefined()
+    expect(Persist.workspace("/home/luke/repo", "vcs").workspaceStorageAliases).toEqual(
+      expect.arrayContaining([expect.stringMatching(/^opencode\.workspace\./)]),
+    )
   })
 
   test("removes workspace storage aliases and draft storage when removing persisted targets", () => {
@@ -52,14 +53,15 @@ describe("persist targets", () => {
     expect(windows.storage).not.toBe(local.storage)
     expect(debian.storage).not.toBe(local.storage)
     expect(debian.storage).not.toBe(windows.storage)
-    expect(windows.workspaceStorageAliases).toBeUndefined()
-    expect(debian.workspaceStorageAliases).toBeUndefined()
+    expect(windows.workspaceStorageAliases).toEqual(expect.arrayContaining([expect.stringMatching(/^opencode\.workspace\./)]))
+    expect(debian.workspaceStorageAliases).toEqual(expect.arrayContaining([expect.stringMatching(/^opencode\.workspace\./)]))
   })
 
   test("server global target preserves local key and isolates remote keys", () => {
     expect(Persist.serverGlobal(ServerScope.local, "notification")).toEqual(Persist.global("notification"))
     expect(Persist.serverGlobal("https://debian.example" as ServerScope, "notification")).toEqual({
-      storage: "opencode.global.dat",
+      storage: "nytrix.global.dat",
+      copyFrom: [{ storage: "opencode.global.dat", key: "https://debian.example\0notification" }],
       key: "https://debian.example\0notification",
     })
   })

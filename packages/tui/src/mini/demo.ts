@@ -649,7 +649,7 @@ function emitPermission(state: State, kind: PermissionKind = "edit"): void {
       patterns: [target],
       always: [target],
       done: {
-        output: ["1: {", '2:   "name": "opencode",', '3:   "private": true', "4: }"].join("\n"),
+        output: ["1: {", '2:   "name": "nytrix",', '3:   "private": true', "4: }"].join("\n"),
         metadata: {},
       },
     })
@@ -798,7 +798,7 @@ function demoForm(kind: FormKind): { title: string; fields: MiniFormRequest["fie
       {
         key: "authorization",
         type: "external",
-        url: "https://example.com/opencode-demo",
+        url: "https://example.com/nytrix-demo",
         title: "Authorize demo MCP server",
         description: "Complete authorization in your browser",
       },

@@ -278,7 +278,7 @@ export async function setupTimeline(
 
   if (input.locale) {
     await page.addInitScript((locale) => {
-      localStorage.setItem("opencode.global.dat:language", JSON.stringify({ locale }))
+      localStorage.setItem("nytrix.global.dat:language", JSON.stringify({ locale }))
     }, input.locale)
   }
 

@@ -66,7 +66,7 @@ test("config.get returns ordered config entries for a location", async () => {
   const entries = [
     {
       type: "document" as const,
-      path: "/tmp/project/opencode.json",
+      path: "/tmp/project/nytrix.json",
       info: {
         permissions: [
           { action: "shell", resource: "*", effect: "ask" as const },
@@ -300,7 +300,7 @@ test("server.info uses the public HTTP contract", async () => {
         version: "2.0.0",
         pid: 1,
         urls: ["http://192.168.1.10:4096"],
-        paths: { tmp: "/tmp/opencode" },
+        paths: { tmp: "/tmp/nytrix" },
       })
     },
   })
@@ -309,7 +309,7 @@ test("server.info uses the public HTTP contract", async () => {
     version: "2.0.0",
     pid: 1,
     urls: ["http://192.168.1.10:4096"],
-    paths: { tmp: "/tmp/opencode" },
+    paths: { tmp: "/tmp/nytrix" },
   })
   expect(request?.method).toBe("GET")
   expect(request?.url).toBe("http://localhost:3000/api/info")
@@ -489,7 +489,7 @@ test("worktree operations use the explicit project even with default location he
   const requests: Request[] = []
   const client = Nytrix.make({
     baseUrl: "http://localhost:3000",
-    headers: { "x-opencode-directory": "/unrelated" },
+    headers: { "x-nytrix-directory": "/unrelated" },
     fetch: async (input, init) => {
       const request = new Request(input, init)
       requests.push(request)
@@ -527,7 +527,7 @@ test("shell list and remove use the public HTTP contract", async () => {
     command: "pwd",
     cwd: "/tmp/project",
     shell: "/bin/zsh",
-    file: "/tmp/opencode-shell",
+    file: "/tmp/nytrix-shell",
     metadata: { sessionID: "ses_test" },
     time: { started: 1_717_171_717_000 },
   }
@@ -811,7 +811,7 @@ test("event transport passes through ordinary info requests", async () => {
         version: "2.0.0",
         pid: 1,
         urls: ["http://localhost:3000"],
-        paths: { tmp: "/tmp/opencode" },
+        paths: { tmp: "/tmp/nytrix" },
       })
     },
   })
@@ -820,7 +820,7 @@ test("event transport passes through ordinary info requests", async () => {
     version: "2.0.0",
     pid: 1,
     urls: ["http://localhost:3000"],
-    paths: { tmp: "/tmp/opencode" },
+    paths: { tmp: "/tmp/nytrix" },
   })
   expect(requests).toEqual(["/api/event", "/api/info"])
 })

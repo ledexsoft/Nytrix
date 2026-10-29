@@ -266,7 +266,7 @@ function restoredTerminal(pty: { id: string; title: string }) {
     panes: { ses_terminalinput: { review: true } },
     storage: {
       [legacyTerminalKey()]: { active: pty.id, all: [{ ...pty, titleNumber: 1 }] },
-      "opencode.global.dat:layout": {
+      "nytrix.global.dat:layout": {
         sessionTabs: { [`local\u0000${directory()}/ses_terminalinput`]: { all: [key], active: key } },
       },
     },
@@ -289,5 +289,5 @@ function legacyTerminalKey() {
   const dir = directory()
   const head = dir.slice(0, 12).replace(/[^a-zA-Z0-9._-]/g, "-")
 
-  return `opencode.workspace.${head}.${checksum(dir) ?? "0"}.dat:workspace:terminal`
+  return `nytrix.workspace.${head}.${checksum(dir) ?? "0"}.dat:workspace:terminal`
 }

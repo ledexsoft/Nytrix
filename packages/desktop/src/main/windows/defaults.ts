@@ -3,15 +3,15 @@ import type { DesktopTheme } from "@nytrix/ui/theme/types"
 import { desktopZoomLevels } from "@nytrix/app/desktop-menu"
 import { nativeTheme, type BrowserWindowConstructorOptions } from "electron"
 import { Predicate } from "effect"
-import oc2ThemeJson from "../../../../ui/src/theme/themes/oc-2.json"
+import nytrixThemeJson from "../../../../ui/src/theme/themes/nytrix.json"
 import { BACKGROUND_COLOR_KEY, ZOOM_LEVEL_KEY } from "../storage/keys"
 import { getStore } from "../storage/store"
 
 // Frame defaults shared by the early window (created on ready, before the renderer exists) and the
 // full window setup in appearance.ts, so both draw the same frame.
 
-// SAFETY: oc-2.json is the bundled default theme, which the UI package loads as a DesktopTheme too.
-const oc2Theme = oc2ThemeJson as DesktopTheme
+// SAFETY: nytrix.json is the bundled default theme, which the UI package loads as a DesktopTheme too.
+const nytrixTheme = nytrixThemeJson as DesktopTheme
 
 // Match the renderer's 36px titlebar plus its former 8px content inset.
 export const titlebarHeight = 44
@@ -29,7 +29,7 @@ export function storedBackgroundColor() {
   if (saved !== undefined) return saved
   const dark = tone() === "dark"
 
-  return resolveThemeVariant(dark ? oc2Theme.dark : oc2Theme.light, dark)["background-base"]
+  return resolveThemeVariant(dark ? nytrixTheme.dark : nytrixTheme.light, dark)["background-base"]
 }
 
 // The colour the renderer reported on its last run, if it ever did.

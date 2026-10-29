@@ -23,18 +23,18 @@ release its router, Location services, fibers, and scoped plugin registrations:
 ```ts
 import { Nytrix } from "@nytrix/sdk"
 
-await using opencode = await Nytrix.create()
-const session = await opencode.sessions.create({
+await using nytrix = await Nytrix.create()
+const session = await nytrix.sessions.create({
   location: { directory: "/workspace" },
 })
 
-await opencode.sessions.prompt({
+await nytrix.sessions.prompt({
   sessionID: session.id,
   text: "Review the current changes",
 })
 ```
 
-Call `await opencode.close()` explicitly when explicit resource management is
+Call `await nytrix.close()` explicitly when explicit resource management is
 not available.
 
 The embedded host uses the same Promise values, declared errors, request
@@ -50,9 +50,9 @@ failing if that strategy is unavailable.
 
 ```ts
 const projectID = session.projectID
-const worktree = await opencode.worktree.create({ projectID, name: "task" })
-await opencode.worktree.refresh({ projectID })
-await opencode.worktree.remove({ projectID, directory: worktree.directory, force: false })
+const worktree = await nytrix.worktree.create({ projectID, name: "task" })
+await nytrix.worktree.refresh({ projectID })
+await nytrix.worktree.remove({ projectID, directory: worktree.directory, force: false })
 ```
 
 Refresh discovers worktrees across known checkout roots using all available strategies. Register a custom strategy
@@ -61,7 +61,7 @@ through a [plugin's worktree transform](/build/plugins/server#worktrees).
 ## Stream events
 
 ```ts
-for await (const event of opencode.events.subscribe()) {
+for await (const event of nytrix.events.subscribe()) {
   console.log(event.type)
 }
 ```
@@ -90,10 +90,10 @@ const plugin = Plugin.define({
   },
 })
 
-await using opencode = await Nytrix.create({ plugins: [plugin] })
+await using nytrix = await Nytrix.create({ plugins: [plugin] })
 ```
 
-Call `await opencode.plugin(plugin)` to register another plugin after startup.
+Call `await nytrix.plugin(plugin)` to register another plugin after startup.
 
 See the [full plugins documentation](/build/plugins/server) for plugin hooks,
 transforms, tools, and the complete plugin context.

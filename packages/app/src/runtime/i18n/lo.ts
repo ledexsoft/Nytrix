@@ -725,7 +725,7 @@ export const dict = {
   "server.connect.address.invalid": "ໃສ່ທີ່ຢູ່ເຊີບເວີ HTTP ຫຼື HTTPS ທີ່ຖືກຕ້ອງ.",
   "server.connect.failed": "ບໍ່ສາມາດເຊື່ອມຕໍ່ໄດ້.ກວດເບິ່ງທີ່ຢູ່ເຊີບເວີແລະລະຫັດຜ່ານ, ແລ້ວລອງອີກຄັ້ງ.",
   "server.connect.scan": "ສະແກນ QR code",
-  "server.connect.scan.description": "ຊີ້ກ້ອງຂອງທ່ານໄປທີ່ QR code ທີ່ສະແດງໂດຍຄູ່ opencode.",
+  "server.connect.scan.description": "ຊີ້ກ້ອງຂອງທ່ານໄປທີ່ QR code ທີ່ສະແດງໂດຍຄູ່ Nytrix.",
   "server.connect.scan.invalid": "ນີ້ບໍ່ແມ່ນລະຫັດການຈັດຄູ່ Nytrix.ສະແກນລະຫັດທີ່ສະແດງໂດຍຄູ່ Nytrix.",
   "server.connect.camera": "ການຈັບຄູ່ກ້ອງ",
   "server.connect.camera.starting": "ກໍາລັງເປີດກ້ອງ...",

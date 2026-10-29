@@ -240,7 +240,7 @@ describe("run interactive runtime", () => {
       },
       {
         headers: {
-          "x-opencode-directory": "%2Fremote%20work",
+          "x-nytrix-directory": "%2Fremote%20work",
         },
       },
     )

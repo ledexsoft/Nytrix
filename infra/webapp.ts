@@ -7,7 +7,7 @@ export function createWebApp(domain: string) {
     environment:
       $app.stage === "beta"
         ? {
-            OPENCODE_CHANNEL: "beta",
+            NYTRIX_CHANNEL: "beta",
             VITE_NYTRIX_SERVER_MODE: "none",
             VITE_SENTRY_ENVIRONMENT: "beta",
           }

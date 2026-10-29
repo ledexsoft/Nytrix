@@ -29,7 +29,7 @@ live(
         fs: { filewatcher: false },
       })
       const base = HttpServer.formatAddress(server.address)
-      const client = Nytrix.make({ baseUrl: base, headers: { authorization: `Basic ${btoa("opencode:secret")}` } })
+      const client = Nytrix.make({ baseUrl: base, headers: { authorization: `Basic ${btoa("nytrix:secret")}` } })
       const location = { directory }
       const terminal = yield* Effect.acquireRelease(
         Effect.promise(() =>

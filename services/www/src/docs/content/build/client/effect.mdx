@@ -44,7 +44,7 @@ per-call location, header, and signal options.
 import { HttpClient, HttpClientRequest } from "effect/http"
 
 const httpClient = yield* HttpClient.HttpClient
-const client = yield* Nytrix.make({ baseUrl: "https://opencode.example.com" }).pipe(
+const client = yield* Nytrix.make({ baseUrl: "https://nytrix.example.com" }).pipe(
   Effect.provideService(
     HttpClient.HttpClient,
     HttpClient.mapRequest(httpClient, (request) =>
@@ -81,7 +81,7 @@ Use the same shared contract as Promise clients and server plugins:
 
 {/* prettier-ignore */}
 ```ts
-import { Acme } from "opencode-acme-plugin/rpc"
+import { Acme } from "nytrix-acme-plugin/rpc"
 
 const acme = client.rpc(Acme)
 const result = yield* acme.search({ query: "hello" }, { location: { directory: "/workspace" } })

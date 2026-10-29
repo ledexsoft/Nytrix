@@ -1,8 +1,8 @@
-# opencode-pty
+# nytrix-pty
 
 ## Objective
 
-Build a persistent Rust PTY service. The service owns multiple terminal child
+Build Nytrix’s persistent Rust PTY service. The service owns multiple terminal child
 processes, continuously drains output, parses it with libghostty-vt, retains a
 bounded raw replay tail, and exposes thread-safe terminal operations.
 
@@ -15,7 +15,7 @@ bounded raw replay tail, and exposes thread-safe terminal operations.
 - Bound raw output, input, and actor queues.
 - Make libghostty authoritative for terminal-generated PTY responses.
 - Provide an interactive local CLI for exercising multiple terminals.
-- Do not add OpenCode IPC integration yet.
+- Do not add Nytrix IPC integration yet.
 - Do not implement descriptor passing or live service replacement.
 
 ## Engineering Rules

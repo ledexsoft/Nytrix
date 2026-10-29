@@ -56,8 +56,8 @@ jobs:
       - name: Sync locale docs with Nytrix
         if: steps.changes.outputs.has_changes == 'true'
         env:
-          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          OPENCODE_CONFIG_CONTENT: |
+          NYTRIX_API_KEY: ${{ secrets.NYTRIX_API_KEY }}
+          NYTRIX_CONFIG_CONTENT: |
             {
               "permission": {
                 "*": "deny",

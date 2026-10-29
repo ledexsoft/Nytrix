@@ -38,7 +38,7 @@ export async function mountMarkdown(options: {
   render(() => {
     const api = Nytrix.make({
       baseUrl: location.origin,
-      headers: { Authorization: `Basic ${btoa("opencode:fixture")}` },
+      headers: { Authorization: `Basic ${btoa("nytrix:fixture")}` },
     })
 
     const [text, setText] = createSignal(options.text)

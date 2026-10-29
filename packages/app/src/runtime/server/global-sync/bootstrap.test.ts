@@ -158,7 +158,7 @@ describe("query keys", () => {
             })),
             { id: "b", canonical: "/b", time: { created: 1, updated: 1 }, sandboxes: [] },
             { id: "a", canonical: "/a", time: { created: 1, updated: 1 }, sandboxes: ["/a/legacy"] },
-            { id: "test", canonical: "/tmp/opencode-test-1", time: { created: 1, updated: 1 }, sandboxes: [] },
+            { id: "test", canonical: "/tmp/nytrix-test-1", time: { created: 1, updated: 1 }, sandboxes: [] },
           ])
         },
         { preconnect() {} },
@@ -172,7 +172,7 @@ describe("query keys", () => {
     expect(result.slice(300)).toMatchObject([
       { id: "b", worktree: "/b", sandboxes: [], worktrees: [{ directory: "/b" }] },
       { id: "a", worktree: "/a", sandboxes: ["/a/legacy"], worktrees: [{ directory: "/a" }] },
-      { id: "test", worktree: "/tmp/opencode-test-1" },
+      { id: "test", worktree: "/tmp/nytrix-test-1" },
     ])
   })
 })

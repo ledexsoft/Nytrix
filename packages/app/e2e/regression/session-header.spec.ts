@@ -438,7 +438,7 @@ test.describe("location", () => {
         seed: {
           storage: {
             ...reviewTabs(worktree, "ses_location"),
-            "opencode.global.dat:plugin.file.app": { app: app.id },
+            "nytrix.global.dat:plugin.file.app": { app: app.id },
           },
         },
       })

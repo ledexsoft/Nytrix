@@ -433,7 +433,7 @@ export interface KeymapCommand {
 }
 
 export interface KeymapLayer {
-  /** Limits the layer to one OpenCode input mode. Use global to opt out; defaults to base. */
+  /** Limits the layer to one Nytrix input mode. Use global to opt out; defaults to base. */
   readonly mode?: string
   /** Enables or disables the complete layer. */
   readonly enabled?: boolean | (() => boolean)
@@ -478,7 +478,7 @@ export interface Keymap {
   pending(): readonly KeymapPending[]
   /** Returns bindings reachable from the pending key sequence. Reactive when read in a Solid computation. */
   active(): readonly KeymapActive[]
-  /** Controls mutually exclusive OpenCode input modes. */
+  /** Controls mutually exclusive Nytrix input modes. */
   readonly mode: {
     /** Returns the active mode. */
     current(): string

@@ -787,7 +787,7 @@ export const dict = {
   "server.connect.address.invalid": "ใส่ที่อยู่เซิร์ฟเวอร์ HTTP หรือ HTTPS ที่ถูกต้อง",
   "server.connect.failed": "ไม่สามารถเชื่อมต่อได้ ตรวจสอบที่อยู่เซิร์ฟเวอร์และรหัสผ่าน จากนั้นลองใหม่อีกครั้ง",
   "server.connect.scan": "สแกนรหัส QR",
-  "server.connect.scan.description": "ชี้กล้องของคุณไปที่รหัส QR ที่แสดงโดยการจับคู่ opencode",
+  "server.connect.scan.description": "ชี้กล้องของคุณไปที่รหัส QR ที่แสดงโดยการจับคู่ Nytrix",
   "server.connect.scan.invalid": "นี่ไม่ใช่รหัสจับคู่ Nytrix สแกนรหัสที่แสดงโดย nytrix pair",
   "server.connect.camera": "กำลังจับคู่กล้อง",
   "server.connect.camera.starting": "กำลังเปิดกล้อง…",

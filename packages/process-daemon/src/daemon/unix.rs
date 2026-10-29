@@ -33,7 +33,7 @@ impl Runtime {
             .write(true)
             .open(directory.join(LOCK_FILE))?;
         lock.try_lock_exclusive()
-            .context("another opencode-pty process already owns the service lock")?;
+            .context("another nytrix-pty process already owns the service lock")?;
 
         let socket_path = socket_path(&directory)?;
         if socket_path.exists() {
@@ -139,7 +139,7 @@ pub(super) fn remove_stale_endpoint(
     canonical_directory: &Path,
     registration: Option<&Registration>,
 ) -> Result<()> {
-    // The abandoned daemon may have used a different OPENCODE_PTY_SOCKET_DIR, so
+    // The abandoned daemon may have used a different NYTRIX_PTY_SOCKET_DIR, so
     // prefer the socket it registered over this daemon's socket root.
     let socket = match registration {
         Some(registration) => registration.socket.clone(),
@@ -165,7 +165,7 @@ fn socket_path(directory: &Path) -> Result<PathBuf> {
 // The default path stays short enough for sun_path; temp cleaners skip sockets.
 fn socket_root() -> Result<PathBuf> {
     resolve_socket_root(
-        std::env::var_os("OPENCODE_PTY_SOCKET_DIR").map(PathBuf::from),
+        std::env::var_os("NYTRIX_PTY_SOCKET_DIR").map(PathBuf::from),
         nix::unistd::Uid::effective().as_raw(),
     )
 }
@@ -174,20 +174,20 @@ fn resolve_socket_root(directory: Option<PathBuf>, uid: u32) -> Result<PathBuf> 
     let base = match directory {
         None => PathBuf::from("/tmp"),
         Some(directory) if !directory.is_absolute() => {
-            bail!("OPENCODE_PTY_SOCKET_DIR must be an absolute path")
+            bail!("NYTRIX_PTY_SOCKET_DIR must be an absolute path")
         }
         Some(directory)
             if directory
                 .components()
                 .any(|part| part == Component::ParentDir) =>
         {
-            bail!("OPENCODE_PTY_SOCKET_DIR must not contain '..'")
+            bail!("NYTRIX_PTY_SOCKET_DIR must not contain '..'")
         }
         Some(directory) => directory,
     };
     // Sockets live in a dedicated child so the 0700 permission change never
     // applies to a caller-chosen directory.
-    Ok(base.join(format!("opencode-pty-{uid}")))
+    Ok(base.join(format!("nytrix-pty-{uid}")))
 }
 
 fn socket_file(root: &Path, canonical_directory: &Path) -> PathBuf {
@@ -257,7 +257,7 @@ mod tests {
     fn socket_root_preserves_default_uid_directory() {
         assert_eq!(
             resolve_socket_root(None, 12345).unwrap(),
-            PathBuf::from("/tmp/opencode-pty-12345")
+            PathBuf::from("/tmp/nytrix-pty-12345")
         );
     }
 
@@ -265,7 +265,7 @@ mod tests {
     fn socket_root_uses_dedicated_child_of_explicit_directory() {
         assert_eq!(
             resolve_socket_root(Some(PathBuf::from("/private/tmp/task-owned-pty")), 12345).unwrap(),
-            PathBuf::from("/private/tmp/task-owned-pty/opencode-pty-12345")
+            PathBuf::from("/private/tmp/task-owned-pty/nytrix-pty-12345")
         );
     }
 
@@ -286,7 +286,7 @@ mod tests {
 
     #[test]
     fn socket_root_leaves_explicit_directory_permissions_alone() {
-        let base = std::env::temp_dir().join(format!("opencode-pty-root-test-{}", random_id()));
+        let base = std::env::temp_dir().join(format!("nytrix-pty-root-test-{}", random_id()));
         fs::create_dir_all(&base).unwrap();
         fs::set_permissions(&base, fs::Permissions::from_mode(0o755)).unwrap();
 
@@ -301,7 +301,7 @@ mod tests {
 
     #[test]
     fn socket_root_rejects_symlinked_child() {
-        let base = std::env::temp_dir().join(format!("opencode-pty-root-test-{}", random_id()));
+        let base = std::env::temp_dir().join(format!("nytrix-pty-root-test-{}", random_id()));
         fs::create_dir_all(base.join("target")).unwrap();
         let root = resolve_socket_root(Some(base.clone()), 12345).unwrap();
         std::os::unix::fs::symlink(base.join("target"), &root).unwrap();
@@ -311,7 +311,7 @@ mod tests {
 
     #[test]
     fn socket_paths_are_short_and_runtime_specific() {
-        let base = std::env::temp_dir().join(format!("opencode-pty-socket-test-{}", random_id()));
+        let base = std::env::temp_dir().join(format!("nytrix-pty-socket-test-{}", random_id()));
         let first = base.join("a".repeat(120)).join("database-a");
         let second = base.join("b".repeat(120)).join("database-b");
         fs::create_dir_all(&first).unwrap();
@@ -329,7 +329,7 @@ mod tests {
 
     #[test]
     fn sweep_removes_abandoned_socket() {
-        let root = std::env::temp_dir().join(format!("opencode-pty-sweep-test-{}", random_id()));
+        let root = std::env::temp_dir().join(format!("nytrix-pty-sweep-test-{}", random_id()));
         let abandoned = root.join(random_id());
         fs::create_dir_all(&abandoned).unwrap();
         fs::write(abandoned.join(LOCK_FILE), b"").unwrap();
@@ -348,13 +348,13 @@ mod tests {
 
     #[test]
     fn sweep_removes_socket_recorded_in_registration() {
-        let root = std::env::temp_dir().join(format!("opencode-pty-sweep-test-{}", random_id()));
+        let root = std::env::temp_dir().join(format!("nytrix-pty-sweep-test-{}", random_id()));
         let abandoned = root.join(random_id());
         fs::create_dir_all(&abandoned).unwrap();
         fs::write(abandoned.join(LOCK_FILE), b"").unwrap();
         // macOS temp directories are too long for sun_path.
         let socket = PathBuf::from(format!(
-            "/tmp/opencode-pty-test-{}.sock",
+            "/tmp/nytrix-pty-test-{}.sock",
             &random_id()[..16]
         ));
         drop(UnixListener::bind(&socket).unwrap());

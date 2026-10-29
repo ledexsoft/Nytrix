@@ -729,8 +729,8 @@ export const dict = {
   "server.connect.address.invalid": "Masukkan alamat pelayan HTTP atau HTTPS yang sah.",
   "server.connect.failed": "Tidak dapat menyambung. Semak alamat pelayan dan kata laluan, kemudian cuba lagi.",
   "server.connect.scan": "Imbas kod QR",
-  "server.connect.scan.description": "Tujukan kamera anda ke kod QR yang dipaparkan oleh pasangan opencode.",
-  "server.connect.scan.invalid": "Ini bukan kod pasangan Nytrix. Imbas kod yang ditunjukkan oleh pasangan opencode.",
+  "server.connect.scan.description": "Tujukan kamera anda ke kod QR yang dipaparkan oleh pasangan Nytrix.",
+  "server.connect.scan.invalid": "Ini bukan kod pasangan Nytrix. Imbas kod yang ditunjukkan oleh pasangan Nytrix.",
   "server.connect.camera": "Memasangkan kamera",
   "server.connect.camera.starting": "Membuka kamera…",
   "server.connect.mixedContent":

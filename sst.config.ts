@@ -18,9 +18,8 @@ export default $config({
                 region: "us-east-1",
                 profile: process.env.GITHUB_ACTIONS
                   ? undefined
-                  : input.stage === "production"
-                    ? "opencode-production"
-                    : "opencode-dev",
+                  : (process.env.NYTRIX_AWS_PROFILE ??
+                    (input.stage === "production" ? "nytrix-production" : "nytrix-dev")),
               },
               stripe: {
                 version: "0.0.28",

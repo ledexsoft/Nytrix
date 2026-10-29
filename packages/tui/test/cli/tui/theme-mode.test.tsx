@@ -4,7 +4,7 @@ import { expect, test } from "bun:test"
 import { RGBA } from "@opentui/core"
 import { createTuiResolvedConfig } from "../../fixture/tui-runtime"
 import { getNytrixTheme } from "../../../src/theme"
-import nytrixSource from "../../../src/theme/assets/opencode.json" with { type: "json" }
+import nytrixSource from "../../../src/theme/assets/nytrix.json" with { type: "json" }
 import type { ThemeV1Json } from "@nytrix/theme/tui/v1"
 import { ConfigProvider } from "../../../src/config"
 import { ThemeContextProvider, ThemeProvider, type ThemeError, useTheme, useThemes } from "../../../src/context/theme"

@@ -338,7 +338,7 @@ test("backspacing keeps confirmed branch results until the broader search answer
 
 test("the dark new session panel exposes no lighter background at its rounded corners", async ({ page }) => {
   await page.setViewportSize({ width: 935, height: 522 })
-  await openDraft(page, { name: "PanelCorner", seed: { theme: { id: "oc-2", scheme: "dark" } } })
+  await openDraft(page, { name: "PanelCorner", seed: { theme: { id: "nytrix", scheme: "dark" } } })
   await expect(page.locator("html")).toHaveAttribute("data-color-scheme", "dark")
   const box = await page.locator('[data-component="new-session"]').boundingBox()
 
@@ -920,7 +920,7 @@ for (const row of [
         ],
       }),
       worktrees: () => inventory,
-      seed: { theme: { id: "oc-2", scheme: "light" } },
+      seed: { theme: { id: "nytrix", scheme: "light" } },
     })
 
     expect((await listed).ok()).toBe(true)

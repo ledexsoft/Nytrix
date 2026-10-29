@@ -40,7 +40,7 @@ test("recently closed shows ten sessions and searches older closures in close or
       servers: [SERVER],
       tabs: [sessions[0]!.id],
       storage: {
-        "opencode.window.browser.dat:tabs.closed": sessions.slice(1).map((session, index) => ({
+        "nytrix.window.browser.dat:tabs.closed": sessions.slice(1).map((session, index) => ({
           tab: { type: "session", server: SERVER, sessionId: session.id },
           index,
           info: { title: session.title, directory: "C:/OpenCode/ClosedTabs", prompted: true },
@@ -99,7 +99,7 @@ test("recently closed fills remaining slots in Home order without open or duplic
       servers: [SERVER],
       tabs: [sessions[0]!.id, sessions[2]!.id],
       storage: {
-        "opencode.window.browser.dat:tabs.closed": sessions.slice(10).map((session, index) => ({
+        "nytrix.window.browser.dat:tabs.closed": sessions.slice(10).map((session, index) => ({
           tab: { type: "session", server: SERVER, sessionId: session.id },
           index,
           info: { title: session.title, directory: "C:/OpenCode/OtherTabs", prompted: true },

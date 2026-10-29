@@ -225,4 +225,4 @@ const mapTerminalError = <A>(effect: Effect.Effect<A, PersistentPty.NotFoundErro
   )
 
 const unavailable = (error: PersistentPty.UnavailableError) =>
-  new ServiceUnavailableError({ message: error.message, service: "opencode-pty" })
+  new ServiceUnavailableError({ message: error.message, service: "nytrix-pty" })

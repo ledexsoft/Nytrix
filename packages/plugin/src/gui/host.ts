@@ -307,7 +307,7 @@ const matchesPlugin = Schema.is(BundleDefinition)
 
 /**
  * Whether a plugin's GUI may take an id. Built-ins win: a plugin cannot take a built-in's id, an id that nests under
- * one or that one nests under (tokens and stored keys resolve by dot-separated prefix), or the `opencode` namespace.
+ * one or that one nests under (tokens and stored keys resolve by dot-separated prefix), or the `nytrix` namespace.
  * Both hosts check it, each against its own built-ins.
  *
  * @param id - The server plugin's id.
@@ -315,7 +315,7 @@ const matchesPlugin = Schema.is(BundleDefinition)
  * @returns True when no built-in claims the id.
  */
 export function pluginIdAvailable(id: string, builtins: readonly Pick<Entry, "id">[]) {
-  return [{ id: "opencode" }, ...builtins].every(
+  return [{ id: "nytrix" }, ...builtins].every(
     (taken) => id !== taken.id && !id.startsWith(`${taken.id}.`) && !taken.id.startsWith(`${id}.`),
   )
 }
@@ -395,7 +395,7 @@ export interface BridgePluginGui {
   readonly revision: string
   /** The bundle's CommonJS code. */
   readonly code: string
-  /** The plugin's options from `opencode.json`, its GUI's `ctx.options`. */
+  /** The plugin's options from `nytrix.json`, its GUI's `ctx.options`. */
   readonly options: PluginOptions
 }
 
@@ -554,7 +554,7 @@ export interface Bridge {
       readonly id: string
       /** Its base URL. */
       readonly url: string
-      /** The HTTP basic password; the user name is always `opencode`. */
+      /** The HTTP basic password; the user name is always `nytrix`. */
       readonly password?: string
     }[],
   ): void

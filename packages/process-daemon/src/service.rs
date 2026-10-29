@@ -486,7 +486,7 @@ impl TerminalHandle {
         let actor_shutdown = shutdown.clone();
         let (actor_done_tx, actor_done) = bounded::<()>(0);
         let actor_thread = thread::Builder::new()
-            .name(format!("opencode-pty-actor-{id}"))
+            .name(format!("nytrix-pty-actor-{id}"))
             .spawn(move || {
                 let _actor_done = actor_done_tx;
                 let result = run_actor(ActorConfig {
@@ -525,13 +525,13 @@ impl TerminalHandle {
 
         let writer_actor_tx = actor_tx.clone();
         let writer_thread = thread::Builder::new()
-            .name(format!("opencode-pty-writer-{id}"))
+            .name(format!("nytrix-pty-writer-{id}"))
             .spawn(move || run_writer(writer, writer_rx, writer_actor_tx, shutdown))
             .context("failed to spawn terminal writer")?;
 
         let reader_actor_tx = actor_tx.clone();
         let reader_thread = thread::Builder::new()
-            .name(format!("opencode-pty-reader-{id}"))
+            .name(format!("nytrix-pty-reader-{id}"))
             .spawn(move || {
                 let mut buffer = [0_u8; 8192];
                 let mut forwarding = true;
@@ -573,7 +573,7 @@ impl TerminalHandle {
 
         let wait_actor_tx = actor_tx.clone();
         let wait_thread = thread::Builder::new()
-            .name(format!("opencode-pty-wait-{id}"))
+            .name(format!("nytrix-pty-wait-{id}"))
             .spawn(move || {
                 #[cfg(windows)]
                 windows::wait_and_close(child, wait_actor_tx, close_rx);

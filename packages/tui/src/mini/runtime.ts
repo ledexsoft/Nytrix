@@ -151,7 +151,7 @@ function formRequestOptions(location: LocationRef | undefined) {
   if (!location) return
   return {
     headers: {
-      "x-opencode-directory": encodeURIComponent(location.directory),
+      "x-nytrix-directory": encodeURIComponent(location.directory),
     },
   }
 }

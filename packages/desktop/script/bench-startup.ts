@@ -6,7 +6,7 @@
 //                            [--trace] [--out <dir>] [--home <dir>] [--window-at x,y]
 //
 // The app runs in an isolated home directory (its own %APPDATA%, XDG dirs, Nytrix DB, config and
-// service registration) with the developer's OPENCODE_* / OTEL_* environment stripped, so it never
+// service registration) with the developer's NYTRIX_* / OTEL_* environment stripped, so it never
 // attaches to, restarts or reads the developer's live service or state and does not inherit their
 // telemetry configuration. `warm` starts one service from the bundled CLI before the runs and lets
 // every launch reuse it; `cold` stops it before each run so the desktop has to spawn it. `--fresh`
@@ -110,10 +110,10 @@ const paths = {
 prepareHome()
 
 // The desktop deletes XDG_STATE_HOME on Windows, so isolation goes through the home directory.
-// OPENCODE_* and OTEL_* from the developer's shell would otherwise leak into the measured app and
+// NYTRIX_* and OTEL_* from the developer's shell would otherwise leak into the measured app and
 // its service (an OTLP endpoint alone adds a network round trip to every CLI exit).
 const env = {
-  ...Object.fromEntries(Object.entries(process.env).filter(([key]) => !/^(OPENCODE_|OTEL_|SENTRY_)/.test(key))),
+  ...Object.fromEntries(Object.entries(process.env).filter(([key]) => !/^(NYTRIX_|OPENCODE_|OTEL_|SENTRY_)/.test(key))),
   USERPROFILE: home,
   HOME: home,
   APPDATA: paths.appData,

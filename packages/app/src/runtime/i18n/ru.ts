@@ -809,8 +809,8 @@ export const dict = {
   "server.connect.address.invalid": "Введите действительный адрес сервера HTTP или HTTPS.",
   "server.connect.failed": "Не удалось подключиться. Проверьте адрес сервера и пароль, затем попробуйте снова.",
   "server.connect.scan": "Сканировать QR-код",
-  "server.connect.scan.description": "Наведите камеру на QR-код, показанный парой opencode.",
-  "server.connect.scan.invalid": "Это не код пары Nytrix. Сканируйте код, показанный парой opencode.",
+  "server.connect.scan.description": "Наведите камеру на QR-код, показанный парой Nytrix.",
+  "server.connect.scan.invalid": "Это не код пары Nytrix. Сканируйте код, показанный парой Nytrix.",
   "server.connect.camera": "Сопряжение камеры",
   "server.connect.camera.starting": "Открытие камеры…",
   "server.connect.mixedContent":

@@ -63,7 +63,7 @@ story("lists a failed execute's calls and keeps its error under the failed call"
   await call.click()
   await expect(call).toHaveAttribute("aria-expanded", "true")
   await expect(failed.locator('[data-slot="execute-tool-call-input"]')).toContainText(
-    "url:file:///C:/tmp/opencode/throne-of-glass-luke.html",
+    "url:file:///C:/tmp/nytrix/throne-of-glass-luke.html",
   )
   await expect(error).toContainText(
     "The connected server must be able to reach the address; localhost refers to that server.",

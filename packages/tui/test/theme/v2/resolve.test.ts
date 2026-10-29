@@ -12,18 +12,18 @@ import {
 } from "@nytrix/theme/tui"
 import { getNytrixTheme, parseTheme, type ThemeDocumentSource } from "../../../src/theme"
 
-const opencodeLight = selectTheme(getNytrixTheme(), "light")
-const opencodeDark = selectTheme(getNytrixTheme(), "dark")
+const nytrixLight = selectTheme(getNytrixTheme(), "light")
+const nytrixDark = selectTheme(getNytrixTheme(), "dark")
 const chromaticHues = ["gray", "red", "orange", "green", "cyan", "blue", "purple"] as const
 const light: ThemeDefinition = {
-  ...opencodeLight,
+  ...nytrixLight,
   categorical: ["blue", "purple"],
-  hue: { ...opencodeLight.hue, accent: "$hue.blue", interactive: "$hue.blue", neutral: "$hue.gray" },
+  hue: { ...nytrixLight.hue, accent: "$hue.blue", interactive: "$hue.blue", neutral: "$hue.gray" },
 }
 const dark: ThemeDefinition = {
-  ...opencodeDark,
+  ...nytrixDark,
   categorical: ["blue", "purple"],
-  hue: { ...opencodeDark.hue, accent: "$hue.blue", interactive: "$hue.blue", neutral: "$hue.gray" },
+  hue: { ...nytrixDark.hue, accent: "$hue.blue", interactive: "$hue.blue", neutral: "$hue.gray" },
 }
 
 test("orders light hues dark-to-light and dark hues light-to-dark", () => {

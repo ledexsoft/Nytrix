@@ -58,7 +58,7 @@ it.live(
           return handler(
             new Request(url, {
               method,
-              headers: { authorization: `Basic ${btoa("opencode:secret")}` },
+              headers: { authorization: `Basic ${btoa("nytrix:secret")}` },
               signal,
             }),
           )

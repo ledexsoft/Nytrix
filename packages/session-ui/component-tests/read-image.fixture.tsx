@@ -16,7 +16,7 @@ export function mountReadImage(options: { path: string; grouped: boolean; runnin
   render(() => {
     const api = Nytrix.make({
       baseUrl: location.origin,
-      headers: { Authorization: `Basic ${btoa("opencode:fixture")}` },
+      headers: { Authorization: `Basic ${btoa("nytrix:fixture")}` },
     })
 
     const [state, setState] = createStore({ open: true, visible: true, running: !!options.running, appended: false })

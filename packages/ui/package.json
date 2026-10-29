@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/ledexsoft/Nytrix.git",
     "directory": "packages/ui"
   },
   "publishConfig": {
@@ -108,7 +108,7 @@
     "dev": "vite",
     "bench:motion": "bun script/motion-bench.ts",
     "generate:tailwind": "bun run script/tailwind.ts",
-    "generate:v2-oc2": "bun run script/build-oc2-v2-overrides.ts"
+    "generate:v2-nytrix": "bun run script/build-nytrix-v2-overrides.ts"
   },
   "devDependencies": {
     "@solidjs/meta": "catalog:",

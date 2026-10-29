@@ -20,7 +20,7 @@ declare const WebSocket: {
   new (url: string | URL, options?: Bun.WebSocketOptions): globalThis.WebSocket
 }
 
-const authorization = `Basic ${btoa("opencode:secret")}`
+const authorization = `Basic ${btoa("nytrix:secret")}`
 
 const serve = Effect.fnUntraced(function* () {
   const directory = (yield* tmpdirScoped("opencode-client-mcp-")).path
@@ -181,7 +181,7 @@ it.live(
       }
       const token = (name: string) =>
         Effect.promise(async () => {
-          const response = await requestToken(name, { authorization, "x-opencode-ticket": "1" })
+          const response = await requestToken(name, { authorization, "x-nytrix-ticket": "1" })
           expect(response.status).toBe(200)
           return ((await response.json()) as { data: { ticket: string } }).data.ticket
         })

@@ -171,8 +171,8 @@ async function initializeColdProfile(root: string) {
     ),
   )
   await Promise.all([
-    writeFile(join(root, "desktop", "opencode.settings"), JSON.stringify({ firstLaunchOnboardingComplete: true })),
-    writeFile(join(root, "desktop", "opencode.global.dat"), JSON.stringify({ language: '{"locale":"en"}' })),
+    writeFile(join(root, "desktop", "nytrix.settings"), JSON.stringify({ firstLaunchOnboardingComplete: true })),
+    writeFile(join(root, "desktop", "nytrix.global.dat"), JSON.stringify({ language: '{"locale":"en"}' })),
   ])
   const registration = join(root, "desktop", "opencode", "service-local.json")
   await Service.stop({ file: registration })

@@ -8,7 +8,7 @@ import { Pairing } from "./contract"
 /** The display sleep blocker this instance holds, if any. */
 type Blocker = { id?: number }
 
-/** The last `opencode service` command; the next one starts after it settles. */
+/** The last `nytrix service` command; the next one starts after it settles. */
 type Queue = { tail: Promise<unknown> }
 
 const setup: Plugin.MainSetup = (ctx) => {
@@ -16,7 +16,7 @@ const setup: Plugin.MainSetup = (ctx) => {
   const stored = builtinMainContext(ctx).storage.store("keepScreenActive", {
     schema: Schema.Boolean,
     initial: false,
-    from: { state: ["opencode.settings", "keepScreenActive"] },
+    from: { state: ["nytrix.settings", "keepScreenActive"] },
   })
 
   const cli = ctx.cli

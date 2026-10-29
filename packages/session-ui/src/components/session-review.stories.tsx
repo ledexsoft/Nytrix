@@ -21,7 +21,7 @@ function ReviewStory(props: { split?: boolean }) {
 }
 
 export default {
-  title: "OpenCode/Review/Changed files",
+  title: "Nytrix/Review/Changed files",
   id: "components-session-review",
   component: SessionReview,
   parameters: {

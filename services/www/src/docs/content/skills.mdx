@@ -72,9 +72,9 @@ Add more local directories or HTTP catalogs with the `skills` array in any `nytr
 {
   "skills": [
     "./team-skills",
-    "~/shared/opencode-skills",
+    "~/shared/nytrix-skills",
     "/opt/company-skills",
-    "https://example.com/opencode/skills/",
+    "https://example.com/nytrix/skills/",
   ],
 }
 ```
@@ -123,7 +123,7 @@ Use frontmatter to name the skill and control where it appears:
 name: Git Release
 description: Prepare a repository release
 metadata:
-  opencode/autoinvoke: false
+  nytrix/autoinvoke: false
 ---
 
 Prepare the changelog, version bump, tag, and release notes.
@@ -134,11 +134,11 @@ Prepare the changelog, version bump, tag, and release notes.
 | `name`                         | Display name; defaults to the path-derived ID                     |
 | `description`                  | Summary used to show the skill to the model                       |
 | `metadata.nytrix/autoinvoke` | Set to `false` to omit the skill from the model's available list  |
-| `disable-model-invocation`     | Set to `true` for the same effect as `opencode/autoinvoke: false` |
+| `disable-model-invocation`     | Set to `true` for the same effect as `nytrix/autoinvoke: false` |
 
 All frontmatter is optional at runtime. Add a clear `description` when the model should discover the skill; skills without one are not advertised.
 
-`opencode/autoinvoke: false` only hides the skill from the model's available list. The skill remains registered and can still be loaded explicitly by ID. When both `disable-model-invocation` and `opencode/autoinvoke` are set, `opencode/autoinvoke` wins. V2 accepts portability fields such as `license` and `compatibility` but does not interpret them.
+`nytrix/autoinvoke: false` only hides the skill from the model's available list. The skill remains registered and can still be loaded explicitly by ID. When both `disable-model-invocation` and `nytrix/autoinvoke` are set, `nytrix/autoinvoke` wins. Nytrix also reads the legacy `opencode/autoinvoke` field from existing skills. V2 accepts portability fields such as `license` and `compatibility` but does not interpret them.
 
 ## IDs
 
@@ -180,7 +180,7 @@ Avoid duplicate IDs unless you intend to override an earlier skill.
 
 ## Loading
 
-At each model step, Nytrix lists permitted skills that have a description and do not set `opencode/autoinvoke` to `false`. The list includes only the ID, name, and description, not the full Markdown body.
+At each model step, Nytrix lists permitted skills that have a description and do not set `nytrix/autoinvoke` to `false`. The list includes only the ID, name, and description, not the full Markdown body.
 
 The model loads a skill by calling the `skill` tool with its exact ID:
 
@@ -237,6 +237,6 @@ If a skill is missing or loads the wrong content:
 1. Confirm the file is either a root-level `*.md` or a nested file named exactly `SKILL.md`.
 2. Check the path-derived, case-sensitive ID rather than the frontmatter `name`.
 3. Add a `description` if the model should discover the skill.
-4. Check `opencode/autoinvoke` and the selected agent's `skill` permissions.
+4. Check `nytrix/autoinvoke` and the selected agent's `skill` permissions.
 5. Look for a later source that defines the same ID.
 6. For HTTP catalogs, verify `index.json`, same-origin file paths, and a changed `version`.

@@ -202,7 +202,7 @@ export function DialogUsageModel(props: { model: ModelInfo }) {
   )
 }
 
-// Each warning shows once per model while OpenCode runs, however many sessions use the model.
+// Each warning shows once per model while Nytrix runs, however many sessions use the model.
 const warned = new Set<string>()
 
 /** Reloads limits as the session's turns end, and warns once as the selected model runs low and once at its limit. */

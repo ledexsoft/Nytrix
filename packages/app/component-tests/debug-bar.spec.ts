@@ -55,7 +55,7 @@ story("the debug bar stays open across a remount until its close button hides it
 story("a feature page's Enabled switch turns that feature on after another feature's page", async ({ page }) => {
   const result = await page.evaluate(
     async (modules) => {
-      localStorage.setItem("opencode.motion.panel", JSON.stringify({ x: 0, y: 0, width: 680 }))
+      localStorage.setItem("nytrix.motion.panel", JSON.stringify({ x: 0, y: 0, width: 680 }))
       const { motionTuning } = await import(modules.tuning)
 
       const experiment = (id: string, subsection: string) =>
@@ -101,7 +101,7 @@ story("a feature page's Enabled switch turns that feature on after another featu
 story("a feature page's preset chips go through the feature model, modes included", async ({ page }) => {
   const result = page.evaluate(
     async (modules) => {
-      localStorage.setItem("opencode.motion.panel", JSON.stringify({ x: 0, y: 0, width: 680 }))
+      localStorage.setItem("nytrix.motion.panel", JSON.stringify({ x: 0, y: 0, width: 680 }))
       const { motionTuning } = await import(modules.tuning)
       const meta = { group: "Chips", subsection: "Feature" }
 

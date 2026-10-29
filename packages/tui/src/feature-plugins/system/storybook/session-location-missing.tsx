@@ -7,7 +7,7 @@ import { SessionLocationUnavailable } from "../../../routes/session/location-mis
 import type { Story } from "./index"
 import { StoryFooter } from "./footer"
 
-const directory = "/Users/kit/code/open-source/opencode-workerd-profile"
+const directory = "/Users/kit/code/open-source/nytrix-workerd-profile"
 
 function SessionLocationMissingStory(props: { context: Plugin.Context }) {
   const dimensions = useTerminalDimensions()
@@ -18,9 +18,9 @@ function SessionLocationMissingStory(props: { context: Plugin.Context }) {
       <DialogWorkspaces
         projectID="fixture-project"
         initialDirectories={[
-          { directory: "/Users/kit/code/open-source/opencode" },
+          { directory: "/Users/kit/code/open-source/nytrix" },
           {
-            directory: "/Users/kit/code/open-source/opencode-instruction-rename",
+            directory: "/Users/kit/code/open-source/nytrix-instruction-rename",
             strategy: "git_worktree",
           },
         ]}

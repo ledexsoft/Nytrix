@@ -4,7 +4,7 @@ import solidPlugin from "vite-plugin-solid"
 import tailwindcss from "@tailwindcss/vite"
 import { fileURLToPath } from "url"
 
-const theme = fileURLToPath(new URL("./public/oc-theme-preload.js", import.meta.url))
+const theme = fileURLToPath(new URL("./public/nytrix-theme-preload.js", import.meta.url))
 
 const themeScript = readFileSync(theme, "utf8")
 
@@ -37,7 +37,7 @@ const officeEmitted = /^(?:docx_\w+_bg|ooxml_opc_bg|pptx_wasm_bg|xlsx_wasm_bg|re
 
 /** @type {import("vite").Plugin} */
 const dropUnloadedOfficeFiles = {
-  name: "opencode-desktop:drop-unloaded-office-files",
+  name: "nytrix-desktop:drop-unloaded-office-files",
   apply: "build",
   generateBundle: {
     order: "post",
@@ -59,7 +59,7 @@ const dropUnloadedOfficeFiles = {
 
 /** @type {import("rolldown").Plugin} */
 const bundleNestedWorkerDeps = {
-  name: "opencode-desktop:bundle-nested-worker-deps",
+  name: "nytrix-desktop:bundle-nested-worker-deps",
   resolveId(id, importer) {
     if (!importer || !importer.includes("node_modules")) return
     if (!workerDeps.some((dep) => id === dep || id.startsWith(`${dep}/`))) return
@@ -124,7 +124,7 @@ export default [
   },
   dropUnloadedOfficeFiles,
   {
-    name: "opencode-desktop:theme-preload",
+    name: "nytrix-desktop:theme-preload",
     transformIndexHtml: {
       order: "pre",
       handler: inlineThemePreload,
@@ -136,7 +136,7 @@ export default [
 
 export function inlineThemePreload(html) {
   return html.replace(
-    /<script id="oc-theme-preload-script" src="(?:\.\/|\/)oc-theme-preload\.js"><\/script>/,
-    `<script id="oc-theme-preload-script">${themeScript}</script>`,
+    /<script id="nytrix-theme-preload-script" src="(?:\.\/|\/)nytrix-theme-preload\.js"><\/script>/,
+    `<script id="nytrix-theme-preload-script">${themeScript}</script>`,
   )
 }

@@ -754,8 +754,8 @@ export const dict = {
   "server.connect.address.invalid": "Wprowadź prawidłowy adres serwera HTTP lub HTTPS.",
   "server.connect.failed": "Nie można się połączyć. Sprawdź adres serwera i hasło, a następnie spróbuj ponownie.",
   "server.connect.scan": "Zeskanuj kod QR",
-  "server.connect.scan.description": "Skieruj kamerę na kod QR pokazany przez sparowanie opencode.",
-  "server.connect.scan.invalid": "To nie jest kod parowania Nytrix. Zeskanuj kod pokazany przez sparowanie opencode.",
+  "server.connect.scan.description": "Skieruj kamerę na kod QR pokazany przez sparowanie Nytrix.",
+  "server.connect.scan.invalid": "To nie jest kod parowania Nytrix. Zeskanuj kod pokazany przez sparowanie Nytrix.",
   "server.connect.camera": "Łączenie aparatu",
   "server.connect.camera.starting": "Otwieranie kamery…",
   "server.connect.mixedContent":

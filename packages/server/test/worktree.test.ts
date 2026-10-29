@@ -193,7 +193,7 @@ it.live(
       const server = yield* startServer(config)
       const api = Nytrix.make({
         baseUrl: server.base,
-        headers: { ...server.headers, "x-opencode-directory": encodeURIComponent("/unrelated-missing-directory") },
+        headers: { ...server.headers, "x-nytrix-directory": encodeURIComponent("/unrelated-missing-directory") },
       })
       yield* Effect.promise(async () => {
         const session = await api.session.create({ location: { directory: project } })

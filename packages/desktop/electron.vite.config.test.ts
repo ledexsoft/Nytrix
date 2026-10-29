@@ -59,7 +59,7 @@ test("minifies only builds, previews onboarding only in development, and ships s
   // Vite resolves publicDir from the renderer root, not from the config file.
   const root = renderer?.root ?? ""
   const publicDir = renderer?.publicDir || ""
-  expect(existsSync(path.resolve(import.meta.dirname, root, publicDir, "oc-theme-preload.js"))).toBe(true)
+  expect(existsSync(path.resolve(import.meta.dirname, root, publicDir, "nytrix-theme-preload.js"))).toBe(true)
 })
 
 test("bundles one Effect runtime and Drizzle while keeping native dependencies external", async () => {

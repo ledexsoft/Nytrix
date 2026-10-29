@@ -6,7 +6,7 @@ import { allThemes, hasTheme, getNytrixTheme, parseTheme, resolveTheme } from ".
 import { discoverThemes } from "../src/theme/discovery"
 import { configDirectories } from "../src/util/config-directories"
 import { terminalMode } from "../src/theme/system"
-import nytrixSource from "../src/theme/assets/opencode.json" with { type: "json" }
+import nytrixSource from "../src/theme/assets/nytrix.json" with { type: "json" }
 import type { ThemeV1Json } from "@nytrix/theme/tui/v1"
 import { tmpdir } from "./fixture/fixture"
 

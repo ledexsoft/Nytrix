@@ -59,7 +59,7 @@ test("creates a session in a new project and selects its model", async ({ page }
   })
   await page.addInitScript(() => {
     localStorage.setItem(
-      "opencode.global.dat:model",
+      "nytrix.global.dat:model",
       JSON.stringify({
         user: [
           { providerID: "opencode", modelID: "free-model", visibility: "show" },

@@ -11,7 +11,7 @@ import {
   type ResolvedTheme,
 } from "@nytrix/theme/tui"
 import { DEFAULT_THEMES, getNytrixTheme, resolveTheme as resolveV1 } from "../../../src/theme"
-import nytrixSource from "../../../src/theme/assets/opencode.json" with { type: "json" }
+import nytrixSource from "../../../src/theme/assets/nytrix.json" with { type: "json" }
 import type { ThemeV1Json } from "@nytrix/theme/tui/v1"
 
 const nytrixV1 = nytrixSource as ThemeV1Json

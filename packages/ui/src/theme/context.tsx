@@ -4,7 +4,7 @@ import { createEffect, onMount } from "solid-js"
 import { createStore } from "solid-js/store"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { createSimpleContext } from "../context/helper"
-import oc2ThemeJson from "./themes/oc-2.json"
+import nytrixThemeJson from "./themes/nytrix.json"
 import { resolveThemeVariant, themeToCss } from "./resolve"
 import { resolveThemeVariantV2, themeV2ToCss } from "./v2/resolve"
 import type { DesktopTheme } from "./types"
@@ -12,13 +12,20 @@ import type { DesktopTheme } from "./types"
 export type ColorScheme = "light" | "dark" | "system"
 
 const STORAGE_KEYS = {
-  THEME_ID: "opencode-theme-id",
-  COLOR_SCHEME: "opencode-color-scheme",
-  THEME_CSS_LIGHT: "opencode-theme-css-light",
-  THEME_CSS_DARK: "opencode-theme-css-dark",
+  THEME_ID: "nytrix-theme-id",
+  COLOR_SCHEME: "nytrix-color-scheme",
+  THEME_CSS_LIGHT: "nytrix-theme-css-light",
+  THEME_CSS_DARK: "nytrix-theme-css-dark",
 } as const
 
-const THEME_STYLE_ID = "oc-theme"
+const LEGACY_STORAGE_KEYS: Record<(typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS], string> = {
+  [STORAGE_KEYS.THEME_ID]: "opencode-theme-id",
+  [STORAGE_KEYS.COLOR_SCHEME]: "opencode-color-scheme",
+  [STORAGE_KEYS.THEME_CSS_LIGHT]: "opencode-theme-css-light",
+  [STORAGE_KEYS.THEME_CSS_DARK]: "opencode-theme-css-dark",
+}
+
+const THEME_STYLE_ID = "nytrix-theme"
 
 let files: Record<string, () => Promise<{ default: DesktopTheme }>> | undefined
 
@@ -50,7 +57,7 @@ function knownThemes() {
 }
 
 const names: Record<string, string> = {
-  "oc-2": "OpenCode",
+  "nytrix": "Nytrix",
   amoled: "AMOLED",
   aura: "Aura",
   ayu: "Ayu",
@@ -88,19 +95,21 @@ const names: Record<string, string> = {
   zenburn: "Zenburn",
 }
 
-const oc2Theme = oc2ThemeJson as DesktopTheme
+const nytrixTheme = nytrixThemeJson as DesktopTheme
 
 function resolveStoredTheme(id: string | null | undefined, registered?: Record<string, DesktopTheme>) {
-  if (id === "oc-2" || (id && (knownThemes().has(id) || registered?.[id]))) return id
+  if (id === "oc-2" || id === "opencode") return "nytrix"
+  if (id === "nytrix" || (id && (knownThemes().has(id) || registered?.[id]))) return id
 
-  return "oc-2"
+  return "nytrix"
 }
 
 function read(key: string) {
   if (typeof localStorage !== "object") return null
 
   try {
-    return localStorage.getItem(key)
+    const legacy = LEGACY_STORAGE_KEYS[key as keyof typeof LEGACY_STORAGE_KEYS]
+    return localStorage.getItem(key) ?? (legacy ? localStorage.getItem(legacy) : null)
   } catch {
     return null
   }
@@ -125,6 +134,8 @@ function drop(key: string) {
 function clear() {
   drop(STORAGE_KEYS.THEME_CSS_LIGHT)
   drop(STORAGE_KEYS.THEME_CSS_DARK)
+  drop(LEGACY_STORAGE_KEYS[STORAGE_KEYS.THEME_CSS_LIGHT])
+  drop(LEGACY_STORAGE_KEYS[STORAGE_KEYS.THEME_CSS_DARK])
 }
 
 function ensureThemeStyleElement(): HTMLStyleElement {
@@ -151,7 +162,7 @@ function applyThemeCss(theme: DesktopTheme, themeId: string, mode: "light" | "da
   const css = themeToCss(tokens)
   const v2 = themeV2ToCss(resolveThemeVariantV2(variant, isDark))
 
-  if (themeId !== "oc-2") {
+  if (themeId !== "nytrix") {
     write(isDark ? STORAGE_KEYS.THEME_CSS_DARK : STORAGE_KEYS.THEME_CSS_LIGHT, `${css}\n  ${v2}`)
   }
 
@@ -162,7 +173,9 @@ function applyThemeCss(theme: DesktopTheme, themeId: string, mode: "light" | "da
   ${v2}
 }`
 
+  document.getElementById("oc-theme")?.remove()
   document.getElementById("oc-theme-preload")?.remove()
+  document.getElementById("nytrix-theme-preload")?.remove()
   ensureThemeStyleElement().textContent = fullCss
   document.documentElement.dataset.theme = themeId
   document.documentElement.dataset.colorScheme = mode
@@ -175,7 +188,7 @@ function applyThemeCss(theme: DesktopTheme, themeId: string, mode: "light" | "da
 }
 
 function cacheThemeVariants(theme: DesktopTheme, themeId: string) {
-  if (themeId === "oc-2") return
+  if (themeId === "nytrix") return
 
   for (const mode of ["light", "dark"] as const) {
     const isDark = mode === "dark"
@@ -206,7 +219,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
 
     const [store, setStore] = createStore({
       themes: {
-        "oc-2": oc2Theme,
+        "nytrix": nytrixTheme,
       } as Record<string, DesktopTheme>,
       themeId,
       colorScheme,
@@ -277,7 +290,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
 
         setStore("themeId", next)
 
-        if (next === "oc-2") {
+        if (next === "nytrix") {
           clear()
 
           return
@@ -342,7 +355,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
         return
       }
 
-      if (next !== "oc-2" && !knownThemes().has(next) && !store.themes[next]) {
+      if (next !== "nytrix" && !knownThemes().has(next) && !store.themes[next]) {
         console.warn(`Theme "${id}" not found`)
 
         return
@@ -350,7 +363,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
 
       setStore("themeId", next)
 
-      if (next === "oc-2") {
+      if (next === "nytrix") {
         write(STORAGE_KEYS.THEME_ID, next)
         clear()
 
@@ -386,7 +399,7 @@ export const { use: useTheme, provider: ThemeProvider } = createSimpleContext({
 
         if (!next) return
 
-        if (next !== "oc-2" && !knownThemes().has(next) && !store.themes[next]) return
+        if (next !== "nytrix" && !knownThemes().has(next) && !store.themes[next]) return
         setStore("previewThemeId", next)
         void load(next).then((theme) => {
           if (!theme || store.previewThemeId !== next) return

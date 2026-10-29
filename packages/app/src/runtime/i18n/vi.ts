@@ -736,8 +736,8 @@ export const dict = {
   "server.connect.address.invalid": "Nhập địa chỉ máy chủ HTTP hoặc HTTPS hợp lệ.",
   "server.connect.failed": "Không thể kết nối. Kiểm tra địa chỉ máy chủ và mật khẩu, sau đó thử lại.",
   "server.connect.scan": "Quét mã QR",
-  "server.connect.scan.description": "Chĩa camera của bạn vào mã QR được hiển thị bởi cặp opencode.",
-  "server.connect.scan.invalid": "Đây không phải mã ghép cặp Nytrix. Quét mã được hiển thị bởi ghép cặp opencode.",
+  "server.connect.scan.description": "Chĩa camera của bạn vào mã QR được hiển thị bởi cặp Nytrix.",
+  "server.connect.scan.invalid": "Đây không phải mã ghép cặp Nytrix. Quét mã được hiển thị bởi ghép cặp Nytrix.",
   "server.connect.camera": "Ghép cặp camera",
   "server.connect.camera.starting": "Đang mở camera…",
   "server.connect.mixedContent":

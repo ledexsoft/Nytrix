@@ -40,11 +40,11 @@ type PickPart = (value: unknown) => unknown
 
 type CopyFrom = { key: string; storage?: string; pick?: PickPart }
 
-const GLOBAL_STORAGE = "opencode.global.dat"
+const GLOBAL_STORAGE = "nytrix.global.dat"
 
-const WINDOW_STORAGE = "opencode.window"
+const WINDOW_STORAGE = "nytrix.window"
 
-const LOCAL_PREFIX = "opencode."
+const LOCAL_PREFIX = "nytrix."
 
 const fallback = new Map<string, boolean>()
 
@@ -338,14 +338,14 @@ function workspaceStorage(dir: string) {
   const head = (dir.slice(0, 12) || "workspace").replace(/[^a-zA-Z0-9._-]/g, "-")
   const sum = checksum(dir) ?? "0"
 
-  return `opencode.workspace.${head}.${sum}.dat`
+  return `nytrix.workspace.${head}.${sum}.dat`
 }
 
 function draftStorage(draftID: string) {
   const head = (draftID.slice(0, 12) || "draft").replace(/[^a-zA-Z0-9._-]/g, "-")
   const sum = checksum(draftID) ?? "0"
 
-  return `opencode.draft.${head}.${sum}.dat`
+  return `nytrix.draft.${head}.${sum}.dat`
 }
 
 function windowStorage(windowID: string) {
@@ -356,7 +356,7 @@ function windowStorage(windowID: string) {
 
 function workspaceStorageAliases(dir: string) {
   const storage = workspaceStorage(pathKey(dir))
-  const result = new Set<string>()
+  const result = new Set<string>([legacyWorkspaceStorage(pathKey(dir))])
   const raw = workspaceStorage(dir)
 
   if (raw !== storage) result.add(raw)
@@ -368,6 +368,8 @@ function workspaceStorageAliases(dir: string) {
     const backslash = workspaceStorage(key.replaceAll("/", "\\"))
 
     if (backslash !== storage) result.add(backslash)
+    const legacyBackslash = legacyWorkspaceStorage(key.replaceAll("/", "\\"))
+    if (legacyBackslash !== legacyWorkspaceStorage(key)) result.add(legacyBackslash)
   }
 
   if (result.size === 0) return
@@ -375,10 +377,17 @@ function workspaceStorageAliases(dir: string) {
   return [...result]
 }
 
-function serverWorkspaceTarget(scope: ServerScope, dir: string, key: string): PersistTarget {
-  if (scope !== ServerScope.local) return { storage: workspaceStorage(ScopedKey.from(scope, pathKey(dir))), key }
+function legacyWorkspaceStorage(dir: string) {
+  const head = (dir.slice(0, 12) || "workspace").replace(/[^a-zA-Z0-9._-]/g, "-")
+  const sum = checksum(dir) ?? "0"
 
-  return { storage: workspaceStorage(pathKey(dir)), workspaceStorageAliases: workspaceStorageAliases(dir), key }
+  return `opencode.workspace.${head}.${sum}.dat`
+}
+
+function serverWorkspaceTarget(scope: ServerScope, dir: string, key: string): PersistTarget {
+  const workspace = ScopedKey.from(scope, pathKey(dir))
+
+  return { storage: workspaceStorage(workspace), workspaceStorageAliases: workspaceStorageAliases(workspace), key }
 }
 
 function localStorageWithPrefix(prefix: string): SyncStorage {
@@ -497,7 +506,7 @@ export function draftPersistedKeys() {
 
 export const Persist = {
   global(key: string): PersistTarget {
-    return { storage: GLOBAL_STORAGE, key }
+    return { storage: GLOBAL_STORAGE, copyFrom: [{ storage: "opencode.global.dat", key }], key }
   },
   window(key: string): PersistTarget {
     return { scope: "window", key }
@@ -508,7 +517,9 @@ export const Persist = {
   serverGlobal(scope: ServerScope, key: string): PersistTarget {
     if (scope === ServerScope.local) return Persist.global(key)
 
-    return { storage: GLOBAL_STORAGE, key: ScopedKey.from(scope, key) }
+    const scopedKey = ScopedKey.from(scope, key)
+
+    return { storage: GLOBAL_STORAGE, copyFrom: [{ storage: "opencode.global.dat", key: scopedKey }], key: scopedKey }
   },
   workspace(dir: string, key: string): PersistTarget {
     return serverWorkspaceTarget(ServerScope.local, dir, `workspace:${key}`)
@@ -546,6 +557,7 @@ function resolveTarget(target: PersistTarget, platform: Platform): PersistTarget
   return {
     ...target,
     storage: windowStorage(windowID),
+    copyFrom: [{ storage: `opencode.window.${(windowID || "browser").replace(/[^a-zA-Z0-9._-]/g, "-")}.dat`, key: target.key }],
   }
 }
 
@@ -614,9 +626,20 @@ export function persisted<S extends Schema.ConstraintCodec<object, unknown>>(
   const currentStorage = (() => {
     if (draft) {
       return {
-        getItem: (key: string) => draft.getItem(prefix + key),
+        getItem: async (key: string) => {
+          const value = await draft.getItem(prefix + key)
+          if (value !== null) return value
+          const legacy = await draft.getItem(prefix.replace(/^nytrix\./, "opencode.") + key)
+          if (legacy === null) return null
+          await draft.setItem(prefix + key, legacy)
+          await draft.removeItem(prefix.replace(/^nytrix\./, "opencode.") + key)
+          return legacy
+        },
         setItem: (key: string, value: string) => draft.setItem(prefix + key, value),
-        removeItem: (key: string) => draft.removeItem(prefix + key),
+        removeItem: async (key: string) => {
+          await draft.removeItem(prefix + key)
+          await draft.removeItem(prefix.replace(/^nytrix\./, "opencode.") + key)
+        },
       } satisfies AsyncStorage
     }
 
@@ -741,7 +764,7 @@ export function persisted<S extends Schema.ConstraintCodec<object, unknown>>(
 
   const channel =
     config.sync && typeof BroadcastChannel !== "undefined"
-      ? new BroadcastChannel(`opencode.persist:${config.storage ?? "default"}:${config.key}`)
+      ? new BroadcastChannel(`nytrix.persist:${config.storage ?? "default"}:${config.key}`)
       : undefined
 
   if (channel) onCleanup(() => channel.close())

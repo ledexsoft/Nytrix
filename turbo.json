@@ -8,8 +8,8 @@
     ".github/workflows/check-test.yml",
     "package.json"
   ],
-  "globalEnv": ["CI", "OPENCODE_DISABLE_SHARE"],
-  "globalPassThroughEnv": ["CI", "OPENCODE_DISABLE_SHARE"],
+  "globalEnv": ["CI", "NYTRIX_DISABLE_SHARE"],
+  "globalPassThroughEnv": ["CI", "NYTRIX_DISABLE_SHARE"],
   "tasks": {
     // `transit` folds every workspace dependency into the hash, so a change in a dependency re-checks its dependents
     // instead of replaying their cached result. Local `typecheck` runs `bun check`, which reads dependency sources

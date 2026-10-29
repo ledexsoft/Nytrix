@@ -694,7 +694,7 @@ export function CurrentContextToolGroup(props: {
                       }),
                     )
 
-                    const marker = "__OPENCODE_LOADED_SKILL__"
+                    const marker = "__NYTRIX_LOADED_SKILL__"
 
                     const loaded = createMemo(() =>
                       i18n.plural("ui.tool.loadedSkills", skills().length, { name: marker }),
@@ -1490,7 +1490,7 @@ ToolRegistry.register({
       }),
     )
 
-    const marker = "__OPENCODE_LOADED_PATH__"
+    const marker = "__NYTRIX_LOADED_PATH__"
     const parts = createMemo(() => i18n.t("ui.tool.loadedFile", { path: marker }).split(marker))
 
     return (
@@ -2696,7 +2696,7 @@ ToolRegistry.register({
     const i18n = useI18n()
     const name = createMemo(() => skillToolName(toolInput(props.input), toolMetadata(props.metadata)))
     const running = createMemo(() => props.status === "streaming" || props.status === "running")
-    const marker = "__OPENCODE_LOADED_SKILL__"
+    const marker = "__NYTRIX_LOADED_SKILL__"
     const parts = createMemo(() => i18n.t("ui.tool.loadedSkill", { name: marker }).split(marker))
 
     return (

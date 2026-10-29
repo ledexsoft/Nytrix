@@ -380,7 +380,7 @@ export async function mockOpenCodeServer(page: Page, config: MockServerConfig) {
 
     if (
       password !== undefined &&
-      (await route.request().headerValue("authorization")) !== `Basic ${btoa(`opencode:${password}`)}`
+      (await route.request().headerValue("authorization")) !== `Basic ${btoa(`nytrix:${password}`)}`
     ) {
       return route.fulfill({
         status: 401,
@@ -879,7 +879,7 @@ function mockHandlers(
             pid: 1,
             hostname: config.hostname,
             urls: config.server ? [config.server] : [],
-            paths: { tmp: "/tmp/opencode" },
+            paths: { tmp: "/tmp/nytrix" },
           }),
         config: () => Effect.succeed(configEntries),
         reference: () => Effect.succeed({ location: location(config), data: [] }),

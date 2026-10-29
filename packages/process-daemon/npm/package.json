@@ -1,12 +1,12 @@
 {
   "name": "@nytrix/pty",
   "version": "0.3.2",
-  "description": "Persistent PTY service for OpenCode",
+  "description": "Persistent PTY service for Nytrix",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anomalyco/opencode.git",
+    "url": "git+https://github.com/ledexsoft/Nytrix.git",
     "directory": "packages/process-daemon/npm"
   },
   "exports": {
@@ -17,7 +17,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "opencode-pty": "./bin/opencode-pty.js"
+    "nytrix-pty": "./bin/nytrix-pty.js"
   },
   "files": [
     "bin",

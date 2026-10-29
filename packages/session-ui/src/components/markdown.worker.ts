@@ -2,7 +2,7 @@
 
 import { codeToTokens, isSupportedLanguage, LiveTokenizer, type ThemedToken } from "@pierre/highlights"
 import { createMarkdownParser } from "@nytrix/ui/context/marked-parser"
-import { OpenCodeTheme } from "@nytrix/ui/context/highlight-theme"
+import { NytrixTheme } from "@nytrix/ui/context/highlight-theme"
 import type { MarkdownToken, MarkdownWorkerRequest, MarkdownWorkerResponse } from "./markdown-worker-protocol"
 import { createLatestWorkerQueue } from "./markdown-worker-queue"
 import { project, type Projection } from "./markdown-stream"
@@ -84,7 +84,7 @@ async function highlight(request: Extract<MarkdownWorkerRequest, { type: "highli
     const lang = isSupportedLanguage(language) ? language : "text"
 
     if (request.complete) {
-      const result = codeToTokens(request.text, { lang, theme: OpenCodeTheme })
+      const result = codeToTokens(request.text, { lang, theme: NytrixTheme })
       closeStream(request.key)
       post({
         type: "highlight",
@@ -110,7 +110,7 @@ async function highlight(request: Extract<MarkdownWorkerRequest, { type: "highli
 
     const stream =
       reset || !previous
-        ? { language, source: "", tokenizer: new LiveTokenizer({ lang, theme: OpenCodeTheme }) }
+        ? { language, source: "", tokenizer: new LiveTokenizer({ lang, theme: NytrixTheme }) }
         : previous
 
     // Lines before the last are final because a lexer only carries state forward; the last line can still grow.

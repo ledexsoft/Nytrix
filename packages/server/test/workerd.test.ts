@@ -21,7 +21,7 @@ it.live("boots the workerd profile over durable object storage", () =>
     const status = yield* Effect.promise(() =>
       handler(
         new Request("http://opencode.local/api/info", {
-          headers: { authorization: `Basic ${btoa("opencode:secret")}` },
+          headers: { authorization: `Basic ${btoa("nytrix:secret")}` },
         }),
       ),
     )

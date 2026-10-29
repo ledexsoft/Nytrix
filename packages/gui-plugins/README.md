@@ -280,7 +280,7 @@ to the displayed repository or worktree instead of adding a second menu item.
 | `ctx.serverEndpoints` (main) | `ServerEndpoints`                                                                  | URL and credentials of a server the windows use                  |
 | `ctx.windows` (main)         | `Windows`                                                                          | The app's main windows                                           |
 | `ctx.embeds` (main)          | `Embeds`                                                                           | `create(view, window)` places a web page                         |
-| `ctx.cli` (main)             | `Cli`                                                                              | The opencode CLI the app runs                                    |
+| `ctx.cli` (main)             | `Cli`                                                                              | The Nytrix CLI the app runs                                    |
 
 ### Built-in only
 
@@ -512,7 +512,7 @@ import { Pairing } from "./contract"
 /** The display sleep blocker this instance holds, if any. */
 type Blocker = { id?: number }
 
-/** The last `opencode service` command; the next one starts after it settles. */
+/** The last `nytrix service` command; the next one starts after it settles. */
 type Queue = { tail: Promise<unknown> }
 
 const setup: Plugin.MainSetup = (ctx) => {
@@ -520,7 +520,7 @@ const setup: Plugin.MainSetup = (ctx) => {
   const stored = builtinMainContext(ctx).storage.store("keepScreenActive", {
     schema: Schema.Boolean,
     initial: false,
-    from: { state: ["opencode.settings", "keepScreenActive"] },
+    from: { state: ["nytrix.settings", "keepScreenActive"] },
   })
 
   const cli = ctx.cli

@@ -18,7 +18,7 @@ const provided = new Set<string>([...pluginSharedModules, ...pluginWindowModules
 /**
  * Builds a plugin's `./gui-experimental` bundle with Vite: compiles Solid JSX, writes one CommonJS file with every
  * dynamic `import()` inlined, since the app loads no second chunk, and keeps the modules the app provides external,
- * with Electron and Node built-ins. Another module of Effect, Solid or OpenCode fails the build: the app does not
+ * with Electron and Node built-ins. Another module of Effect, Solid or Nytrix fails the build: the app does not
  * provide it, and a bundled copy would not share the app's instance.
  *
  * @param options - The entry and the bundle to write.
@@ -36,7 +36,7 @@ export function gui(options: GuiOptions = {}): Plugin[] {
   return [
     solid(),
     {
-      name: "opencode-gui",
+      name: "nytrix-gui",
       enforce: "pre",
       config: () => ({
         build: {
@@ -54,7 +54,7 @@ export function gui(options: GuiOptions = {}): Plugin[] {
         if (provided.has(source) || source === "electron" || isBuiltin(source)) return { id: source, external: true }
 
         if (/^(effect|solid-js|@nytrix)\//.test(source))
-          this.error(`${source} is not a module the OpenCode app provides to plugin GUIs: ${[...provided].join(", ")}`)
+          this.error(`${source} is not a module the Nytrix app provides to plugin GUIs: ${[...provided].join(", ")}`)
       },
     },
   ]

@@ -18,7 +18,7 @@ import { timelinePresets } from "./detail"
 import { SessionTimeline } from "./session-timeline"
 
 export default {
-  title: "OpenCode/Work/Research and agents",
+  title: "Nytrix/Work/Research and agents",
   id: "current-session-research-agents",
   component: SessionTimeline,
   parameters: {

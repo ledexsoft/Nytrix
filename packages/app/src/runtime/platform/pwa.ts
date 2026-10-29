@@ -1,7 +1,7 @@
 import { useLocation } from "@solidjs/router"
 import { createEffect } from "solid-js"
 
-const LAST_ROUTE_KEY = "opencode.pwa.last-route"
+const LAST_ROUTE_KEY = "nytrix.pwa.last-route"
 
 export function isStandalone() {
   return (
@@ -14,7 +14,7 @@ export function restorePwaRoute() {
   if (location.pathname !== "/" || location.search || location.hash) return
 
   try {
-    const value = localStorage.getItem(LAST_ROUTE_KEY)
+    const value = localStorage.getItem(LAST_ROUTE_KEY) ?? localStorage.getItem("opencode.pwa.last-route")
 
     if (!value) return
     const url = new URL(value, location.origin)
