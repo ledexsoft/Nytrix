@@ -77,7 +77,7 @@ function Preview(props: PreviewArgs) {
   return (
     <SessionPreview
       title="Run background work"
-      description="opencode · activity chips"
+      description="nytrix · activity chips"
       document={value()}
       timelineDetail={timelineDetail}
       activity={activity()}
@@ -195,7 +195,7 @@ function LiveActivity() {
   return (
     <SessionPreview
       title="Audit the activity chips"
-      description="opencode · activity chips"
+      description="nytrix · activity chips"
       document={value()}
       timelineDetail={timelineDetail}
       activity={{
@@ -222,7 +222,7 @@ function LiveActivity() {
 }
 
 export default {
-  title: "OpenCode/Session/Activity chips",
+  title: "Nytrix/Session/Activity chips",
   id: "session-activity-chips",
   render: (args: PreviewArgs) => <Preview {...args} />,
   args: { stage: 0, subagents: 0, shells: 0 },

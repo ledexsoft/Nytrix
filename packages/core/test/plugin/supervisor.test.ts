@@ -111,7 +111,7 @@ describe("PluginSupervisor", () => {
       expect(state.instance).toBeUndefined()
       // Builtins stay active: the duplicate is a plugin failure, not a generation defect.
       expect(
-        state.inventory.some((plugin) => plugin.id?.startsWith("opencode.") && plugin.state.status === "active"),
+        state.inventory.some((plugin) => plugin.id?.startsWith("nytrix.") && plugin.state.status === "active"),
       ).toBe(true)
     }),
   )

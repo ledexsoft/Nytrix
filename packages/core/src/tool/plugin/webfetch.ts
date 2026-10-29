@@ -57,7 +57,7 @@ const headers = (format: Format, userAgent: string) => ({
 })
 
 const openCodeUserAgent =
-  "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; OpenCode-User/1.0; +https://opencode.ai"
+  "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; Nytrix-User/1.0; +https://github.com/ledexsoft/Nytrix"
 
 const isCloudflareChallenge = (error: unknown) => {
   if (!HttpClientError.isHttpClientError(error) || error.reason._tag !== "StatusCodeError") return false
@@ -123,7 +123,7 @@ const convert = (content: string, contentType: string, format: Format) => {
 }
 
 export const Plugin = {
-  id: "opencode.tool.webfetch",
+  id: "nytrix.tool.webfetch",
   effect: Effect.fn("WebFetchTool.Plugin")(function* (ctx: Context) {
     const http = yield* HttpClient.HttpClient
     const permission = yield* Permission.Service
@@ -165,7 +165,7 @@ export const Plugin = {
                   })
                 const response = yield* execute(http, check, input.url, input.format).pipe(
                   Effect.catchIf(isCloudflareChallenge, () =>
-                    execute(http, check, input.url, input.format, "opencode"),
+                    execute(http, check, input.url, input.format, "nytrix"),
                   ),
                 )
                 const contentType = response.headers["content-type"] || ""

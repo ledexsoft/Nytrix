@@ -31,7 +31,6 @@ To configure a server by hand, give it a unique name under `mcp.servers`. V2 doe
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
       "my-server": {
@@ -92,7 +91,6 @@ Use configuration for other process options such as a working directory:
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
       "everything": {
@@ -148,7 +146,6 @@ Use configuration for other options. Store secrets in environment variables rath
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
       "context7": {
@@ -194,7 +191,6 @@ Most servers need only the URL:
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
       "sentry": {
@@ -254,7 +250,6 @@ When a provider gives you client credentials, use V2's snake_case OAuth fields:
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
       "company-tools": {
@@ -294,7 +289,6 @@ Timeouts are positive integer milliseconds. Set defaults under `mcp.timeout`; a 
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "timeout": {
       "startup": 45000,
@@ -326,7 +320,6 @@ Nytrix opens every server with the classic MCP `initialize` handshake by default
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
       "modern": {

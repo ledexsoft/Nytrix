@@ -1,7 +1,6 @@
 const token = "dummy-wellknown-token"
 const port = Number(process.env.PORT ?? 8787)
 const config = {
-  $schema: "https://opencode.ai/config.json",
   share: "manual",
   model: "example-primary/example-chat",
   enabled_providers: ["example-primary", "example-secondary"],

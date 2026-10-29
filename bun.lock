@@ -107,8 +107,8 @@
       "name": "@nytrix/cli",
       "version": "2.2.0",
       "bin": {
-        "opencode": "./bin/opencode.cjs",
-        "opencode2": "./bin/opencode2.cjs",
+        "nytrix": "./bin/nytrix.cjs",
+        "nytrix2": "./bin/nytrix2.cjs",
       },
       "dependencies": {
         "@agentclientprotocol/sdk": "1.6.0",

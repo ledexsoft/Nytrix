@@ -3,9 +3,9 @@ title: テーマ
 description: 組み込みのテーマを選択するか、独自のテーマを定義します。
 ---
 
-OpenCode を使用すると、いくつかの組み込みテーマから 1 つを選択したり、ターミナルのテーマに適合するテーマを使用したり、独自のカスタムテーマを定義したりできます。
+Nytrix を使用すると、いくつかの組み込みテーマから 1 つを選択したり、ターミナルのテーマに適合するテーマを使用したり、独自のカスタムテーマを定義したりできます。
 
-デフォルトでは、OpenCode は独自の `opencode` テーマを使用します。
+デフォルトでは、Nytrix は独自の `nytrix` テーマを使用します。
 
 ---
 
@@ -23,7 +23,7 @@ Truecolor のサポートがないと、テーマの色の精度が低下した�
 
 ## 組み込みのテーマ
 
-OpenCode にはいくつかの組み込みテーマが付属しています。
+Nytrix にはいくつかの組み込みテーマが付属しています。
 
 | Name                   | Description                                                                  |
 | ---------------------- | ---------------------------------------------------------------------------- |
@@ -53,7 +53,7 @@ OpenCode にはいくつかの組み込みテーマが付属しています。
 
 システムテーマは、次のようなユーザーを対象としています。
 
-- OpenCode をターミナルの外観と一致させたい
+- Nytrix をターミナルの外観と一致させたい
 - カスタムターミナルのカラースキームを使用する
 - すべてのターミナルアプリケーションにわたって一貫した外観を好む
 
@@ -65,7 +65,6 @@ OpenCode にはいくつかの組み込みテーマが付属しています。
 
 ```json title="tui.json" {3}
 {
-  "$schema": "https://opencode.ai/tui.json",
   "theme": "tokyonight"
 }
 ```
@@ -74,7 +73,7 @@ OpenCode にはいくつかの組み込みテーマが付属しています。
 
 ## カスタムテーマ
 
-OpenCode は、ユーザーがテーマを簡単に作成およびカスタマイズできる柔軟な JSON ベースのテーマシステムをサポートしています。
+Nytrix は、ユーザーがテーマを簡単に作成およびカスタマイズできる柔軟な JSON ベースのテーマシステムをサポートしています。
 
 ---
 
@@ -83,9 +82,9 @@ OpenCode は、ユーザーがテーマを簡単に作成およびカスタマ�
 テーマは複数のディレクトリから次の順序でロードされ、後のディレクトリが前のディレクトリをオーバーライドします。
 
 1. **組み込みテーマ** - これらはバイナリに埋め込まれています
-2. **ユーザー設定ディレクトリ** - `~/.config/opencode/themes/*.json` または `$XDG_CONFIG_HOME/opencode/themes/*.json` で定義されます
-3. **プロジェクトのルートディレクトリ** - `<project-root>/.opencode/themes/*.json` で定義されます。
-4. **現在の作業ディレクトリ** - `./.opencode/themes/*.json` で定義
+2. **ユーザー設定ディレクトリ** - `~/.config/nytrix/themes/*.json` または `$XDG_CONFIG_HOME/nytrix/themes/*.json` で定義されます
+3. **プロジェクトのルートディレクトリ** - `<project-root>/.nytrix/themes/*.json` で定義されます。
+4. **現在の作業ディレクトリ** - `./.nytrix/themes/*.json` で定義
 
 複数のディレクトリに同じ名前のテーマが含まれている場合は、優先度の高いディレクトリのテーマが使用されます。
 
@@ -98,15 +97,15 @@ OpenCode は、ユーザーがテーマを簡単に作成およびカスタマ�
 ユーザー全体のテーマの場合:
 
 ```bash no-frame
-mkdir -p ~/.config/opencode/themes
-vim ~/.config/opencode/themes/my-theme.json
+mkdir -p ~/.config/nytrix/themes
+vim ~/.config/nytrix/themes/my-theme.json
 ```
 
 そしてプロジェクト固有のテーマについても。
 
 ```bash no-frame
-mkdir -p .opencode/themes
-vim .opencode/themes/my-theme.json
+mkdir -p .nytrix/themes
+vim .nytrix/themes/my-theme.json
 ```
 
 ---
@@ -144,8 +143,7 @@ vim .opencode/themes/my-theme.json
 
 ```json title="my-theme.json"
 {
-  "$schema": "https://opencode.ai/theme.json",
-  "defs": {
+    "defs": {
     "nord0": "#2E3440",
     "nord1": "#3B4252",
     "nord2": "#434C5E",

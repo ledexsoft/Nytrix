@@ -30,7 +30,7 @@ const Output = Schema.Struct({
   results: Schema.Array(WebSearch.Result),
 })
 export const Plugin = {
-  id: "opencode.tool.websearch",
+  id: "nytrix.tool.websearch",
   effect: Effect.fn("WebSearchTool.Plugin")(function* (ctx: Context) {
     const permission = yield* Permission.Service
     const forms = yield* Form.Service
@@ -79,7 +79,7 @@ export const Plugin = {
                           fields: [
                             {
                               key: "choice",
-                              description: "Allow OpenCode to search the web for up-to-date information?",
+                              description: "Allow Nytrix to search the web for up-to-date information?",
                               type: "string",
                               required: true,
                               custom: false,

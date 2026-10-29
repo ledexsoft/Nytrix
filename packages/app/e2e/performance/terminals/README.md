@@ -33,7 +33,7 @@ snapshot. Input, focus, resizing, and native process survival are checked.
 `probe.ts` is included only by this benchmark build. It observes actual writes,
 renderer calls, and serialization. Chrome `TaskDuration` measures renderer task
 time, not total process CPU or RAM. For attribution, set
-`OPENCODE_PERFORMANCE_TRACE_DIR`; keep traced runs separate from clean timing.
+`NYTRIX_PERFORMANCE_TRACE_DIR`; keep traced runs separate from clean timing.
 `TERMINAL_DRAW_PROBE=1` separately counts actual canvas draws to verify hidden
 rendering; do not mix these instrumented samples with clean timing.
 Use `TERMINAL_REVISION` and `TERMINAL_BUNDLE` to identify frozen artifacts.

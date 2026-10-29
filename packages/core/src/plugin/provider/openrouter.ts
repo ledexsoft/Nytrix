@@ -3,7 +3,7 @@ import { Model } from "../../model.js"
 import { define } from "@nytrix/plugin/effect/plugin"
 
 export const OpenRouterPlugin = define({
-  id: "opencode.provider.openrouter",
+  id: "nytrix.provider.openrouter",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {

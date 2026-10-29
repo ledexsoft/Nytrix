@@ -48,7 +48,7 @@ export function SidebarTodo(props: { context: Plugin.Context; sessionID: string 
 }
 
 export default Plugin.define({
-  id: "opencode.sidebar.todo",
+  id: "nytrix.sidebar.todo",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

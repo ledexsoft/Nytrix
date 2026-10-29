@@ -37,7 +37,7 @@ export function SidebarLimit(props: { context: Plugin.Context }) {
 }
 
 export default Plugin.define({
-  id: "opencode.sidebar.limit",
+  id: "nytrix.sidebar.limit",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

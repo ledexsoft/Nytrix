@@ -42,7 +42,7 @@ function database() {
 }
 
 function lookup(env: Env, pathname: string, headers?: HeadersInit) {
-  return worker.fetch(new Request(`https://nytrix.ai/update/api/${pathname}`, { headers }), env, {
+  return worker.fetch(new Request(`https://nytrix.invalid/update/api/${pathname}`, { headers }), env, {
     waitUntil: () => {},
   })
 }
@@ -60,7 +60,7 @@ test("returns a retryable 503 when D1 rejects a lookup", async () => {
     EVENTS: { send: () => Promise.resolve() },
   } as unknown as Env
   const response = await worker.fetch(
-    new Request("https://nytrix.ai/update/api/latest/desktop/nytrix/nytrix-desktop-win-x64.exe"),
+    new Request("https://nytrix.invalid/update/api/latest/desktop/nytrix/nytrix-desktop-win-x64.exe"),
     env,
     { waitUntil: () => {} },
   )
@@ -158,7 +158,7 @@ test("ignores minimum artifacts outside the latest channel", async () => {
 test("rejects setting a minimum outside the latest channel", async () => {
   const db = database()
   const response = await worker.fetch(
-    new Request("https://nytrix.ai/update/admin/minimum", {
+    new Request("https://nytrix.invalid/update/admin/minimum", {
       method: "POST",
       body: new URLSearchParams({ channel: "dev", name: "cli", distribution: "nytrix", version: "0.0.0-dev-18952" }),
     }),

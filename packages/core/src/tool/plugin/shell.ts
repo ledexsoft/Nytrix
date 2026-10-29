@@ -101,7 +101,7 @@ const backgroundResult = (shellID: string, file: string) => ({
 })
 
 export const Plugin = {
-  id: "opencode.tool.shell",
+  id: "nytrix.tool.shell",
   effect: Effect.fn("ShellTool.Plugin")(function* (ctx: Context) {
     const sessions = yield* Session.Service
     const jobs = yield* Job.Service
@@ -211,8 +211,8 @@ export const Plugin = {
                 (invocation) =>
                   Effect.gen(function* () {
                     invocation.env.AGENT = "1"
-                    invocation.env.OPENCODE = "1"
-                    invocation.env.AI_AGENT ||= "opencode"
+                    invocation.env.NYTRIX = "1"
+                    invocation.env.AI_AGENT ||= "nytrix"
                     invocation.env.NYTRIX_SESSION_ID = context.sessionID
                     finalTimeout = yield* prepare(invocation, context)
                   }),

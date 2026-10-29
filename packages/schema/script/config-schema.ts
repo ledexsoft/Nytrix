@@ -6,9 +6,8 @@ interface JsonSchema {
   readonly properties?: Readonly<Record<string, JsonSchema>>
 }
 
-// V1 and V2 read the same opencode.json, and V2 normalizes V1 fields at load time, so the published schema accepts
-// both. The V2 shape is generated from Config.Info; V1 is frozen in config-v1.json, the last schema the V1 runtime
-// published. Fields only V1 understands are marked deprecated.
+// Nytrix accepts the legacy OpenCode config shape and normalizes its fields at load time. The current shape is
+// generated from Config.Info; legacy fields are frozen in config-v1.json and marked deprecated where applicable.
 export async function generate() {
   const legacy: { $defs: Record<string, JsonSchema> } = await Bun.file(
     new URL("./config-v1.json", import.meta.url),
@@ -20,7 +19,6 @@ export async function generate() {
 
   return {
     $schema: "https://json-schema.org/draft/2020-12/schema",
-    $id: "https://opencode.ai/config.json",
     type: "object",
     properties: merge(describe(current.properties ?? {}), previous.properties ?? {}),
     additionalProperties: false,

@@ -2,7 +2,7 @@ import { Effect } from "effect"
 import { define } from "@nytrix/plugin/effect/plugin"
 
 export const DatabricksPlugin = define({
-  id: "opencode.provider.databricks",
+  id: "nytrix.provider.databricks",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.integration.transform((editor) => {
       // models.dev also lists DATABRICKS_HOST, which only fills the base URL template.

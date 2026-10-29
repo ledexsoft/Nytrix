@@ -370,7 +370,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
                                   initialRoute: process.env.NYTRIX_STORY
                                     ? {
                                         type: "plugin",
-                                        id: "opencode.storybook",
+                                        id: "nytrix.storybook",
                                         name: "storybook",
                                         // NYTRIX_STORY=1 opens the index; any other value opens that story.
                                         data:
@@ -1032,7 +1032,7 @@ function App() {
       ...(app.highlights?.length
         ? [
             {
-              name: "opencode.highlights",
+              name: "nytrix.highlights",
               title: "Show release highlights",
               slash: { name: "highlights" },
               run: () => dialog.replace(() => <DialogHighlights version={app.version} items={app.highlights ?? []} />),
@@ -1041,7 +1041,7 @@ function App() {
           ]
         : []),
       {
-        name: "opencode.settings",
+        name: "nytrix.settings",
         title: "Open settings",
         suggested: true,
         slash: { name: "settings" },
@@ -1051,7 +1051,7 @@ function App() {
         category: "System",
       },
       {
-        name: "opencode.status",
+        name: "nytrix.status",
         title: "View status",
         slash: { name: "status" },
         run: () => {
@@ -1062,7 +1062,7 @@ function App() {
       ...(updater.open
         ? [
             {
-              name: "opencode.update",
+              name: "nytrix.update",
               title: "Update Nytrix",
               slash: { name: "update" },
               run: () => updater.open?.("manual"),
@@ -1117,7 +1117,7 @@ function App() {
         category: "System",
       },
       {
-        name: "opencode.debug",
+        name: "nytrix.debug",
         title: "View debug info",
         slash: { name: "debug" },
         run: () => {
@@ -1469,7 +1469,7 @@ function App() {
           <PaneResizeHandle resize={tabsResize} left={tabsResize.size() - 1} />
         </Show>
       </box>
-      <Show when={devtools() && !(route.data.type === "plugin" && route.data.id === "opencode.stats")}>
+      <Show when={devtools() && !(route.data.type === "plugin" && route.data.id === "nytrix.stats")}>
         <DevToolsBar />
       </Show>
       <Show when={!startup.skipInitialLoading}>

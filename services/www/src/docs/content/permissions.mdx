@@ -11,7 +11,6 @@ inspection, and always block pushes. Add these ordered rules to `nytrix.jsonc`:
 
 ```jsonc
 {
-  "$schema": "https://opencode.ai/config.json",
   "permissions": [
     { "action": "shell", "resource": "*", "effect": "ask" },
     { "action": "shell", "resource": "git status *", "effect": "allow" },
@@ -146,7 +145,6 @@ unless you add a rule. To be asked before any access outside the project:
 
 ```jsonc
 {
-  "$schema": "https://opencode.ai/config.json",
   "permissions": [
     { "action": "external_directory", "resource": "*", "effect": "ask" },
   ],
@@ -157,7 +155,6 @@ Narrower rules after it can allow or deny specific directories:
 
 ```jsonc
 {
-  "$schema": "https://opencode.ai/config.json",
   "permissions": [
     { "action": "external_directory", "resource": "~/projects/reference/*", "effect": "allow" },
     { "action": "read", "resource": "~/projects/reference/*", "effect": "allow" },
@@ -195,7 +192,6 @@ Enable the experimental portable shell scanner with the following setting. Like 
 
 ```jsonc
 {
-  "$schema": "https://opencode.ai/config.json",
   "experimental": {
     "portable_shell_scanner": true,
   },
@@ -248,7 +244,6 @@ Put shared rules at the top level and narrower rules under
 
 ```jsonc
 {
-  "$schema": "https://opencode.ai/config.json",
   "permissions": [
     { "action": "shell", "resource": "*", "effect": "ask" },
     { "action": "shell", "resource": "git status *", "effect": "allow" },

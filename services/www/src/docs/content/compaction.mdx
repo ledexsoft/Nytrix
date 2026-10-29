@@ -28,7 +28,6 @@ Automatic compaction is on by default:
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "compaction": {
     "auto": true,
     "keep": { "tokens": 15000 },
@@ -71,7 +70,6 @@ Add `compaction` to any [Nytrix configuration file](/config):
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "compaction": {
     "auto": false,
     "keep": { "tokens": 24000 },
@@ -95,7 +93,6 @@ By default Nytrix writes the summary itself, using the session's model. Set
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "agents": {
     "compaction": { "model": "anthropic/claude-sonnet-5-5" },
   },
@@ -115,7 +112,6 @@ writes the summary ahead of time and swaps it in when compaction is due:
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "experimental": {
     "background_compaction": true,
   },
@@ -142,7 +138,6 @@ provider or model with `settings.compaction`:
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "openai": {
       "settings": { "compaction": { "type": "native" } },

@@ -17,7 +17,7 @@ const churnSize = Number(process.env.HOME_INDEX_CHURN_SIZE ?? 10_000)
 const updates = Number(process.env.HOME_INDEX_UPDATES ?? 20)
 
 // Forced GC changes timing; retention runs stay separate from clean timing runs.
-const memory = process.env.OPENCODE_PERFORMANCE_MEMORY === "1"
+const memory = process.env.NYTRIX_PERFORMANCE_MEMORY === "1"
 
 const rowContainer = '[data-component="home-session-row-container"]'
 

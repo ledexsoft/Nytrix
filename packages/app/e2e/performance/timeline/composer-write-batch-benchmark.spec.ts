@@ -104,7 +104,7 @@ for (const scenario of ["typing", "cursor-movement", "cursor-noop", "submit-clea
       {
         key: `${base64Encode(fixture.directory)}/prompt/${sessionID}.v2`,
         value: document,
-        counts: process.env.OPENCODE_PERSISTENCE_COUNTS === "1",
+        counts: process.env.NYTRIX_PERSISTENCE_COUNTS === "1",
       },
     )
     const server = `http://${process.env.PLAYWRIGHT_SERVER_HOST ?? "127.0.0.1"}:${process.env.PLAYWRIGHT_SERVER_PORT ?? "4096"}`
@@ -212,9 +212,9 @@ for (const scenario of ["typing", "cursor-movement", "cursor-noop", "submit-clea
         contextItems: items.length,
         persistedBytes: Buffer.byteLength(JSON.stringify(document)),
         typedCharacters: scenario === "typing" ? addition.length : 0,
-        counts: process.env.OPENCODE_PERSISTENCE_COUNTS === "1",
+        counts: process.env.NYTRIX_PERSISTENCE_COUNTS === "1",
         browser: page.context().browser()!.version(),
-        build: process.env.OPENCODE_PERSISTENCE_BUILD,
+        build: process.env.NYTRIX_PERSISTENCE_BUILD,
         transport: "playwright-route",
         completion: "editor text and committed IDB cursor",
       },

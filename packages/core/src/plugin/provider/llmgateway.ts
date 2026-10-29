@@ -3,7 +3,7 @@ import { define } from "@nytrix/plugin/effect/plugin"
 import { Integration } from "../../integration.js"
 
 export const LLMGatewayPlugin = define({
-  id: "opencode.provider.llmgateway",
+  id: "nytrix.provider.llmgateway",
   effect: Effect.fn(function* (ctx) {
     const integrations = yield* Integration.Service
     const configured = new Set((yield* integrations.list()).map((integration) => integration.id))

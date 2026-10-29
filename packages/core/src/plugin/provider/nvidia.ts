@@ -2,7 +2,7 @@ import { Effect } from "effect"
 import { define } from "@nytrix/plugin/effect/plugin"
 
 export const NvidiaPlugin = define({
-  id: "opencode.provider.nvidia",
+  id: "nytrix.provider.nvidia",
   effect: Effect.fn(function* (ctx) {
     yield* ctx.provider.transform((evt) => {
       for (const item of evt.list()) {

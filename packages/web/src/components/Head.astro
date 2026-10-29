@@ -19,7 +19,7 @@ const isShare = slug === shareSlug || slug.startsWith(`${shareSlug}/`)
 const isHome = slug === "" || slug === base
 
 let encodedTitle = '';
-let ogImage = `${config.url}/social-share.png`;
+let ogImage = config.url ? `${config.url}/social-share.png` : "/social-share.png";
 let truncatedDesc = '';
 
 if (isDocs) {

@@ -17,7 +17,7 @@ export default Plugin.define({
 })
 ```
 
-Migrating an existing Nytrix 1 plugin? Follow the [V1 plugin migration guide](/build/plugins/migrate-v1).
+Migrating an existing OpenCode V1 plugin? Follow the [V1 plugin migration guide](/build/plugins/migrate-v1).
 
 ## Parts
 
@@ -25,7 +25,7 @@ Each part is an export of the package. Every part's SDK comes from the one `@nyt
 
 ```json title="package.json"
 {
-  "name": "opencode-acme-plugin",
+  "name": "nytrix-acme-plugin",
   "version": "1.0.0",
   "type": "module",
   "exports": {
@@ -61,7 +61,6 @@ plugin directories from other locations, add them to `plugins` in `nytrix.json(c
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "plugins": [
     "opencode-acme-plugin",
     "opencode-acme-plugin@1.2.0",

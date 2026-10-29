@@ -101,7 +101,7 @@ function Preview(props: PreviewArgs) {
   return (
     <SessionPreview
       title="Bring back the todo dock"
-      description="opencode · todo pill"
+      description="nytrix · todo pill"
       document={value()}
       timelineDetail={timelineDetail}
       activity={props.activity ? activity : undefined}
@@ -111,7 +111,7 @@ function Preview(props: PreviewArgs) {
 }
 
 export default {
-  title: "OpenCode/Session/Todo pill",
+  title: "Nytrix/Session/Todo pill",
   id: "session-todo-pill",
   render: (args: PreviewArgs) => <Preview {...args} />,
   args: { progress: 3, open: false, activity: true },

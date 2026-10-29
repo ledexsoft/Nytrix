@@ -54,7 +54,7 @@
 - Task 4: complete (desktop typecheck passed; all three channel packaging identities and GitHub updater metadata verified; no tests run per instruction).
 - Task 5: complete (commit `c0fe3c45b5`; app/TUI/GUI/Console typechecks passed; app, Console app, stats app, packages/web, and services/www builds passed; no tests run per instruction).
 - Task 6: complete (committed; root/docs, VS Code, Salesforce, `.nytrix` tooling, release automation, updater, and deployment identity updated; static YAML/shell checks and relevant typechecks passed; no tests run).
-- Task 7: pending.
+- Task 7: complete in this worktree; final client generation and lockfile refresh completed, root `bun run check` passed, source-marked SDK docs are synchronized, current theme/tool/plugin identity was updated, and remaining OpenCode occurrences are classified in `docs/superpowers/specs/nytrix-rename-exceptions.md`. No test commands were run per user instruction.
 
 ## Cross-task source notes
 

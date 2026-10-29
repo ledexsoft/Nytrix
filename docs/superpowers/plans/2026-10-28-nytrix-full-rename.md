@@ -260,31 +260,31 @@ Expected: active repository-owned configuration uses Nytrix, with only legal, hi
 - Consumes: completed Tasks 1–6.
 - Produces: consistent generated outputs and an auditable final occurrence classification.
 
-- [ ] **Step 1: Regenerate client/API artifacts from source**
+- [x] **Step 1: Regenerate client/API artifacts from source**
 
 Run: `bun run generate` from `packages/client`.
 
 Expected: generated client package names and first-party product identifiers match Nytrix source definitions.
 
-- [ ] **Step 2: Regenerate lockfile after all manifest changes**
+- [x] **Step 2: Regenerate lockfile after all manifest changes**
 
 Run: `bun install --lockfile-only`
 
 Expected: all first-party workspace references resolve under `@nytrix/*`.
 
-- [ ] **Step 3: Run full static project checks**
+- [x] **Step 3: Run full static project checks**
 
 Run: `bun run check`
 
 Expected: lint and typecheck complete successfully.
 
-- [ ] **Step 4: Audit the working tree for every text match, filename, and binary asset**
+- [x] **Step 4: Audit the working tree for every text match, filename, and binary asset**
 
 Run: `rg -n -I -i --hidden --glob '!.git/**' --glob '!node_modules/**' '(opencode|open code)' .` and `git ls-files --cached --others --exclude-standard | rg -i opencode`.
 
 Expected: every remaining text match and filename appears in the exception inventory with a legal, historical, or external-interoperability reason; embedded current first-party wordmarks say Nytrix.
 
-- [ ] **Step 5: Inspect final diff and workspace state**
+- [x] **Step 5: Inspect final diff and workspace state**
 
 Run: `git status --short` and `git diff --stat`.
 

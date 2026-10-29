@@ -42,7 +42,7 @@ export function SidebarContext(props: { context: Plugin.Context; sessionID: stri
 }
 
 export default Plugin.define({
-  id: "opencode.sidebar.context",
+  id: "nytrix.sidebar.context",
   setup(context) {
     context.ui.slot({
       append: "sidebar.content",

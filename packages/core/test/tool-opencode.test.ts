@@ -11,7 +11,7 @@ import { Provider } from "@nytrix/core/provider"
 import { AbsolutePath } from "@nytrix/core/schema"
 import { Session } from "@nytrix/core/session"
 import { Tool } from "@nytrix/core/tool"
-import { OpenCodeTools } from "@nytrix/core/tool/plugin/opencode"
+import { NytrixTools } from "@nytrix/core/tool/plugin/nytrix"
 import { WorktreeTable } from "@nytrix/core/worktree/sql"
 import { WorktreeStrategies } from "@nytrix/core/worktree/strategies"
 import { Model } from "@nytrix/schema/model"
@@ -73,7 +73,7 @@ it.effect("groups available models by provider with paging", () =>
         model.enabled = false
       })
     })
-    yield* OpenCodeTools.Plugin.effect(pluginHost)
+    yield* NytrixTools.Plugin.effect(pluginHost)
     // The caller runs on `test`, which sorts first despite `other` coming earlier alphabetically.
     const session = yield* sessions.create({
       location: Location.Ref.make({ directory: location.directory }),
@@ -88,7 +88,7 @@ it.effect("groups available models by provider with paging", () =>
           type: "tool-call",
           id: `call-${JSON.stringify(input)}`,
           name: "execute",
-          input: { code: `return await tools.opencode.models(${JSON.stringify(input)})` },
+          input: { code: `return await tools.nytrix.models(${JSON.stringify(input)})` },
         },
       }).pipe(Effect.map((result) => JSON.parse(result.content?.[0]?.type === "text" ? result.content[0].text : "")))
 
@@ -190,7 +190,7 @@ worktreeIt.live("creates, lists, and removes worktrees for the plugin's project"
       .run()
       .pipe(Effect.orDie)
     yield* strategies.transform((editor) => editor.configure({ directory: AbsolutePath.make(parent.path) }))
-    yield* OpenCodeTools.Plugin.effect(yield* PluginHost.make(plugins))
+    yield* NytrixTools.Plugin.effect(yield* PluginHost.make(plugins))
     const session = yield* sessions.create({ location: Location.Ref.make({ directory: location.directory }) })
     const registry = yield* Tool.Service
     const call = (name: string, input: Record<string, unknown>) =>
@@ -201,7 +201,7 @@ worktreeIt.live("creates, lists, and removes worktrees for the plugin's project"
           type: "tool-call",
           id: `call-${name}-${JSON.stringify(input)}`,
           name: "execute",
-          input: { code: `return await tools.opencode.${name}(${JSON.stringify(input)})` },
+          input: { code: `return await tools.nytrix.${name}(${JSON.stringify(input)})` },
         },
       })
     const run = (name: string, input: Record<string, unknown>) =>

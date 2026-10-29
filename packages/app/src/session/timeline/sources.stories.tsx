@@ -247,7 +247,7 @@ function Sources(props: SourcesArgs) {
     <SourcesProvider enabled icons={props.icons} onOpen={() => setState("panel", true)}>
       <SessionPreview
         title="Who makes the 10,000 checkboxes thing?"
-        description="opencode · sources"
+        description="nytrix · sources"
         document={value()}
         timelineDetail={timelineDetail}
         side={
@@ -306,7 +306,7 @@ function Side(props: ParentProps<{ expand: boolean; count: number; onClose: () =
 }
 
 export default {
-  title: "OpenCode/Session/Sources",
+  title: "Nytrix/Session/Sources",
   id: "session-sources",
   render: (args: SourcesArgs) => <Sources {...args} />,
   args: { turn: "three", icons: "letters", panel: false, expand: false },

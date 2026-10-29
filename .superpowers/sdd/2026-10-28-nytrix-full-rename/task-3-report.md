@@ -22,4 +22,4 @@
 - Passed typechecks: `packages/protocol`, `packages/client`, `packages/server`, `packages/cli`, `packages/plugin`, `packages/tui`, `packages/sdk`, and `packages/app`.
 - Passed client build: `bun run build` from `packages/client`.
 - Passed client generation and Protocol OpenAPI generation.
-- CLI build was started but did not complete: the build script entered `bun add` dependency resolution and emitted no further output for three minutes, so it was interrupted. No tests were added or run.
+- The full multi-platform CLI build entered optional dependency resolution for all OS targets and remained active while downloading cross-platform binaries; it was stopped after several minutes. A host-only CLI build succeeded with `bun run script/build.ts --single --skip-install`, producing `packages/cli/dist/cli-darwin-arm64/bin/nytrix`. No tests were added or run.

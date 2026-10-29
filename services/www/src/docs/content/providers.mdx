@@ -63,7 +63,6 @@ runtime package, endpoint, and first model together.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "acme": {
       "name": "Acme",
@@ -103,7 +102,6 @@ models, and connection still apply.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "anthropic": {
       "settings": {
@@ -122,7 +120,6 @@ Use `headers` for additional HTTP headers and `body` for JSON fields that should
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "openai": {
       "headers": {
@@ -142,7 +139,6 @@ Both fields can also be set on a model or variant when only part of a provider's
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "openai": {
       "models": {
@@ -171,7 +167,6 @@ WebSocket transport, `chunkTimeout` bounds the gap between frames instead and de
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "anthropic": {
       "settings": {
@@ -195,7 +190,6 @@ providers and gateways reject compressed bodies. OpenAI defaults to `"zstd"` whe
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "openai": {
       "settings": { "encoding": "none" },
@@ -211,7 +205,6 @@ implement the OpenAI request format.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "acme": {
       "package": "@nytrix/ai/providers/openai-compatible",
@@ -256,7 +249,6 @@ You can also use an npm package such as `@acme/nytrix-provider` or an absolute `
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "acme": {
       "package": "@acme/nytrix-provider",
@@ -273,7 +265,6 @@ ID sent to the provider.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "model": "openai/coding",
   "providers": {
     "openai": {
@@ -316,7 +307,6 @@ once, then connect an API key or use the Microsoft Entra ID session from the Azu
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "azure": {
       "settings": {
@@ -387,7 +377,6 @@ kept.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "azure": {
       "models": {
@@ -426,7 +415,6 @@ identity token file, or container credential URI activates the provider; a regio
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "amazon-bedrock": {
       "settings": {
@@ -443,7 +431,6 @@ VPC endpoint, set `baseURL` while keeping the same profile and region.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "amazon-bedrock": {
       "settings": {
@@ -470,7 +457,6 @@ gcloud auth application-default login
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "google-vertex": {
       "settings": {
@@ -540,7 +526,6 @@ model requests.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "ollama": {
       "settings": {
@@ -562,7 +547,6 @@ LM Studio and vLLM also have built-in local discovery. Their default endpoints a
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "lmstudio": {
       "settings": { "baseURL": "http://gpu-host:1234/v1" },
@@ -585,7 +569,6 @@ OpenRouter account, then refer to models with the full OpenRouter model ID after
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "model": "openrouter/anthropic/claude-sonnet-5.5",
 }
 ```
@@ -595,7 +578,6 @@ This preserves OpenRouter request and reasoning behavior.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "openrouter": {
       "settings": {
@@ -614,7 +596,6 @@ The configuration key becomes the provider prefix and each `models` key becomes 
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "model": "company/coder",
   "providers": {
     "company": {
@@ -658,7 +639,6 @@ sessions.
 
 ```jsonc title="nytrix.jsonc"
 {
-  "$schema": "https://opencode.ai/config.json",
   "providers": {
     "openai": {
       "settings": { "transport": "http" },
