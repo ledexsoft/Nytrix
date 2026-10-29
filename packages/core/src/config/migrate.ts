@@ -41,6 +41,7 @@ export const directory = Effect.fn("ConfigMigration.directory")(function* (direc
           }),
         )
       }
+      yield* fs.writeFileString(path.join(temporary, "targets"), sources.map(([, destination]) => destination).join("\n"))
       yield* fs.writeFileString(path.join(temporary, "ready"), marker)
       if (yield* fs.exists(staging)) return
       yield* fs.rename(temporary, staging)
@@ -55,10 +56,25 @@ export const directory = Effect.fn("ConfigMigration.directory")(function* (direc
       }),
     )
 
+  const stagedTargets = (yield* fs.readFileStringSafe(path.join(staging, "targets")))?.split("\n") ?? []
+  if (!stagedTargets.length || stagedTargets.some((name) => !entries.some(([, target]) => target === name)))
+    return yield* Effect.fail(
+      new FSUtil.FileSystemError({
+        method: "config.migrate",
+        cause: new Error(`Invalid migration targets in reserved directory: ${staging}`),
+      }),
+    )
+
   // If a Nytrix source appeared while an interrupted copy was staged, the new
   // source wins for the whole group. Keep moved files and the legacy sources;
   // discard only the uncommitted remainder so it cannot fill future gaps.
-  if ((yield* Effect.filter(entries, ([, name]) => fs.exists(path.join(directory, name)))).length) {
+  const conflicts = yield* Effect.filter(entries, ([, name]) =>
+    Effect.gen(function* () {
+      if (!(yield* fs.exists(path.join(directory, name)))) return false
+      return !stagedTargets.includes(name) || (yield* fs.exists(path.join(staging, name)))
+    }),
+  )
+  if (conflicts.length) {
     yield* fs.remove(staging, { recursive: true, force: true })
     yield* fs.writeFileString(receipt, marker)
     return
