@@ -27,8 +27,8 @@ const other = Provider.ID.make("other")
 
 for (const flag of [undefined, "0", "1", "true"]) {
   for (const providerID of [Provider.ID.opencode, Provider.ID.make("opencode-go")])
-    it.effect(`${providerID} catalog with OPENCODE_DISABLE_FREE_MODELS=${flag}`, () =>
-      withEnv({ OPENCODE_DISABLE_FREE_MODELS: flag }, () =>
+    it.effect(`${providerID} catalog with NYTRIX_DISABLE_FREE_MODELS=${flag}`, () =>
+      withEnv({ NYTRIX_DISABLE_FREE_MODELS: flag }, () =>
         Effect.gen(function* () {
           const providers = yield* Provider.Service
           const models = yield* Model.Service

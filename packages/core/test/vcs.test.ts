@@ -1039,7 +1039,7 @@ describe("Vcs", () => {
           await fs.writeFile(path.join(directory, "feature.txt"), "feature\n")
           await commitAll(directory, "feature")
           await $`git branch --set-upstream-to=release feature`.cwd(directory).quiet()
-          await $`git config branch.feature.opencode-merge-base refs/heads/release`.cwd(directory).quiet()
+          await $`git config branch.feature.nytrix-merge-base refs/heads/release`.cwd(directory).quiet()
         })
         const vcs = yield* Vcs.Service
         expect(yield* vcs.base().pipe(Effect.flip)).toMatchObject({ message: "Choose a review base" })
@@ -1173,7 +1173,7 @@ describe("Vcs", () => {
           await commitAll(directory, "v2")
           await $`git update-ref refs/remotes/origin/v2 HEAD`.cwd(directory).quiet()
           await $`git checkout -b feature origin/v2`.cwd(directory).quiet()
-          await $`git config branch.feature.opencode-merge-base refs/remotes/origin/dev`.cwd(directory).quiet()
+          await $`git config branch.feature.nytrix-merge-base refs/remotes/origin/dev`.cwd(directory).quiet()
           await fs.writeFile(path.join(directory, "feature.txt"), "feature\n")
           await commitAll(directory, "feature")
           await fs.writeFile(path.join(directory, "second.txt"), "second\n")
@@ -1207,7 +1207,7 @@ describe("Vcs", () => {
         expect(
           yield* Effect.promise(() => Bun.file(path.join(directory, ".git/opencode-review.json")).exists()),
         ).toBeFalse()
-        yield* Effect.promise(() => $`git config branch.feature.opencode-merge-base missing`.cwd(directory).quiet())
+        yield* Effect.promise(() => $`git config branch.feature.nytrix-merge-base missing`.cwd(directory).quiet())
         expect(yield* vcs.base()).toEqual({ name: "v2", ref: "refs/remotes/origin/v2", source: "reflog" })
         yield* Effect.promise(() => $`git checkout -b uncertain HEAD`.cwd(directory).quiet())
         expect(yield* vcs.base().pipe(Effect.flip)).toMatchObject({ message: "Choose a review base" })

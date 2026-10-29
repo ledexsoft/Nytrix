@@ -202,7 +202,7 @@ describe("PluginSupervisor", () => {
     }),
   )
 
-  for (const targets of [["opencode.config.policy", "opencode.provider.opencode", "opencode.config.agent"], ["*"]]) {
+  for (const targets of [["opencode.config.policy", "nytrix.provider.opencode", "opencode.config.agent"], ["*"]]) {
     it.effect(`keeps policy enforcement and the Console connection through plugin removals: ${targets}`, () =>
       Effect.gen(function* () {
         source.operations = targets.map((target) => ({ type: "remove", target }))
@@ -218,7 +218,7 @@ describe("PluginSupervisor", () => {
         )
         const status = (id: string) => inventory.find((plugin) => plugin.id === id)?.state.status
         expect(status("opencode.config.policy")).toBe("active")
-        expect(status("opencode.provider.opencode")).toBe("active")
+        expect(status("nytrix.provider.opencode")).toBe("active")
         // Removals still apply to everything else, including instance and builtin plugins.
         expect(status("opencode.config.agent")).toBeUndefined()
         expect(inventory.some((plugin) => plugin.id === id)).toBe(targets[0] !== "*")
@@ -281,9 +281,7 @@ describe("PluginSupervisor", () => {
 
       expect(source.activations).toBe(2)
 
-      yield* sdk
-        .register(greeter("greet-cross-location", "cross-location"))
-        .pipe(Effect.provide(locations.get(refA)))
+      yield* sdk.register(greeter("greet-cross-location", "cross-location")).pipe(Effect.provide(locations.get(refA)))
 
       yield* advance(() => source.activations === 4)
 

@@ -358,9 +358,7 @@ describe("Session.create", () => {
       const created = yield* session.create({ location: { directory: AbsolutePath.make("/project/") } })
 
       expect(created.location.directory).toBe(location.directory)
-      expect((yield* session.list({ directory: location.directory })).data.map((item) => item.id)).toEqual([
-        created.id,
-      ])
+      expect((yield* session.list({ directory: location.directory })).data.map((item) => item.id)).toEqual([created.id])
     }),
   )
 
@@ -852,9 +850,10 @@ describe("Session.create", () => {
       const session = yield* Session.Service
       const parent = yield* session.create({ location })
 
-      expect(
-        yield* session.fork({ sessionID: parent.id }).pipe(Effect.flip),
-      ).toMatchObject({ _tag: "Session.ForkEmptyError", sessionID: parent.id })
+      expect(yield* session.fork({ sessionID: parent.id }).pipe(Effect.flip)).toMatchObject({
+        _tag: "Session.ForkEmptyError",
+        sessionID: parent.id,
+      })
     }),
   )
 
@@ -969,7 +968,12 @@ describe("Session.create", () => {
       const input = { id, location }
       const created = yield* session.create(input)
 
-      yield* db.update(SessionTable).set({ agent: Agent.defaultID }).where(eq(SessionTable.id, id)).run().pipe(Effect.orDie)
+      yield* db
+        .update(SessionTable)
+        .set({ agent: Agent.defaultID })
+        .where(eq(SessionTable.id, id))
+        .run()
+        .pipe(Effect.orDie)
 
       expect(yield* session.create(input)).toMatchObject({ id: created.id, agent: "build" })
     }),
@@ -1128,12 +1132,12 @@ describe("Session.create", () => {
         const created = yield* session.create({
           location: Location.Ref.make({ directory: AbsolutePath.make(directory) }),
         })
-        yield* session.environment({ sessionID: created.id, variables: { OPENCODE_SESSION_ENV_TEST: "attached" } })
+        yield* session.environment({ sessionID: created.id, variables: { NYTRIX_SESSION_ENV_TEST: "attached" } })
 
         const command =
           process.platform === "win32"
-            ? "[Console]::Out.Write($env:OPENCODE_SESSION_ENV_TEST)"
-            : 'printf %s "$OPENCODE_SESSION_ENV_TEST"'
+            ? "[Console]::Out.Write($env:NYTRIX_SESSION_ENV_TEST)"
+            : 'printf %s "$NYTRIX_SESSION_ENV_TEST"'
         yield* session.shell({ sessionID: created.id, command })
 
         const messages = yield* session.messages({ sessionID: created.id, order: "asc" })

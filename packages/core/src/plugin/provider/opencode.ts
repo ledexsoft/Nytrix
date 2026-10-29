@@ -143,9 +143,9 @@ function oauth(http: HttpClient.HttpClient) {
 }
 
 export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Config.Service | Scope.Scope>({
-  id: "opencode.provider.opencode",
+  id: "nytrix.provider.opencode",
   effect: Effect.fn(function* (ctx) {
-    const disableFree = ["1", "true"].includes(process.env.OPENCODE_DISABLE_FREE_MODELS?.toLowerCase() ?? "")
+    const disableFree = ["1", "true"].includes(process.env.NYTRIX_DISABLE_FREE_MODELS?.toLowerCase() ?? "")
     const bus = yield* Bus.Service
     const client = yield* HttpClient.HttpClient
     // Every request here goes to the Console, which reads the User-Agent to tell which OpenCode a member runs
@@ -378,12 +378,7 @@ export const OpencodePlugin = define<HttpClient.HttpClient | Bus.Service | Confi
     const guard = Effect.fn("OpencodePlugin.guard")(function* (next: typeof snapshot) {
       yield* Effect.forEach(explainers, (registration) => registration.dispose, { discard: true })
       explainers = yield* Effect.forEach(
-        next.connection
-          ? new Set([
-              Provider.ID.opencode,
-              ...Object.keys(next.remote?.providers ?? {}),
-            ])
-          : [],
+        next.connection ? new Set([Provider.ID.opencode, ...Object.keys(next.remote?.providers ?? {})]) : [],
         (providerID) => ctx.session.hook("http.response", explain, { providerID }).pipe(Scope.provide(scope)),
       )
     })

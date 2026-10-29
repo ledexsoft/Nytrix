@@ -230,7 +230,7 @@ if (jsonPath) {
     jsonPath,
     JSON.stringify(
       {
-        revision: process.env.OPENCODE_BENCH_REVISION,
+        revision: process.env.NYTRIX_BENCH_REVISION,
         bun: Bun.version,
         bunRevision: Bun.revision,
         locationCount,

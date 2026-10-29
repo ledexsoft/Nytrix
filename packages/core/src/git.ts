@@ -43,7 +43,7 @@ const snapshotConfig = `[core]
 export const TreeID = Schema.String.pipe(Schema.brand("Git.TreeID"))
 export type TreeID = typeof TreeID.Type
 
-const temporaryIndexPrefix = "index.opencode-"
+const temporaryIndexPrefix = "index.nytrix-"
 // Like `git gc --auto`, pack once loose objects accumulate, and combine packs before lookups slow down.
 // Room for paths on one Git command line after the Git path, repository flags, and quoting. Windows caps a command
 // line at 32,767 characters. macOS caps arguments plus environment at 1 MiB, and Linux caps them at 2 MiB by default.
@@ -935,7 +935,7 @@ const layer = Layer.effect(
         "ls-files",
         "-z",
         "--",
-        literalPathspec(".opencode-probe"),
+        literalPathspec(".nytrix-probe"),
       ]).pipe(Effect.match({ onSuccess: () => false, onFailure: (error) => error.cause === undefined }))
     })
 

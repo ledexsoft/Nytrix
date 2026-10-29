@@ -382,7 +382,7 @@ const optionalRequest = (daemon: DaemonTransport, value: object) =>
   daemon.requestIfRunning(value).pipe(Effect.mapError(unavailable))
 
 const unexpected = (response: WireResponse) =>
-  Effect.fail(new UnavailableError({ message: `unexpected opencode-pty response: ${response.type}` }))
+  Effect.fail(new UnavailableError({ message: `unexpected nytrix-pty response: ${response.type}` }))
 
 const unavailable = (error: unknown) =>
   new UnavailableError({ message: error instanceof Error ? error.message : String(error) })

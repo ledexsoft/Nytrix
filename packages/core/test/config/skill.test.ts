@@ -66,9 +66,7 @@ const startEntries = Effect.fnUntraced(function* (
   yield* ConfigCompatibilityPlugin.Plugin.effect(pluginHost).pipe(
     Effect.provide(Config.testLayer(entries, compatibility)),
   )
-  yield* ConfigSkillPlugin.Plugin.effect(
-    pluginHost,
-  ).pipe(
+  yield* ConfigSkillPlugin.Plugin.effect(pluginHost).pipe(
     Effect.provide(Config.testLayer(entries, compatibility)),
     Effect.provideService(SkillDiscovery.Service, discovery),
     Effect.provideService(Global.Service, Global.Service.of({ ...Global.make(), home })),
@@ -132,9 +130,9 @@ describe("SkillFile.parse", () => {
     expect(parse("disable-model-invocation: yes")).toMatchObject({ skill: { autoinvoke: false } })
     expect(parse("disable-model-invocation: false")).not.toMatchObject({ skill: { autoinvoke: expect.anything() } })
     expect(parse("disable-model-invocation: maybe")).not.toMatchObject({ skill: { autoinvoke: expect.anything() } })
-    expect(
-      parse("disable-model-invocation: true\nmetadata:\n  opencode/autoinvoke: true"),
-    ).toMatchObject({ skill: { autoinvoke: true } })
+    expect(parse("disable-model-invocation: true\nmetadata:\n  opencode/autoinvoke: true")).toMatchObject({
+      skill: { autoinvoke: true },
+    })
   })
 
   test("parses root and nested skill ids and metadata flags", () => {
@@ -207,7 +205,9 @@ describe("ConfigSkillPlugin.Plugin", () => {
             { claude: [AbsolutePath.make(claude)], agents: [AbsolutePath.make(agents)] },
           )
           const watcher = yield* Watcher.Test
-          expect(yield* watcher.subscriptions()).toEqual(expected.map((item) => ({ path: item, type: "directory", ignore: SkillScan.ignore.toSorted() })))
+          expect(yield* watcher.subscriptions()).toEqual(
+            expected.map((item) => ({ path: item, type: "directory", ignore: SkillScan.ignore.toSorted() })),
+          )
         }),
       ),
     ),
@@ -449,7 +449,7 @@ describe("ConfigSkillPlugin.Plugin", () => {
           )
           yield* Effect.yieldNow
 
-          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "opencode.json") })
+          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "nytrix.json") })
           yield* configTest.emitChange({ type: "create", path: path.join(tmp.path, "commands", "review.md") })
           yield* configTest.emitChange({ type: "create", path: path.join(tmp.path, "agents", "reviewer.md") })
           yield* drain
@@ -468,10 +468,10 @@ describe("ConfigSkillPlugin.Plugin", () => {
           expect((yield* service.list()).find((item) => item.id === "review")?.description).toBe("Review once")
         }).pipe(
           Effect.provide(
-            Config.testLayer(
-              [new Directory({ type: "directory", path: AbsolutePath.make(tmp.path) })],
-              { claude: [AbsolutePath.make(path.join(tmp.path, ".claude"))], agents: [] },
-            ),
+            Config.testLayer([new Directory({ type: "directory", path: AbsolutePath.make(tmp.path) })], {
+              claude: [AbsolutePath.make(path.join(tmp.path, ".claude"))],
+              agents: [],
+            }),
           ),
         ),
       ),

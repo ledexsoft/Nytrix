@@ -39,9 +39,9 @@ For questions about the terminal interface, command-line invocation, `run`,
 that section.
 
 CLI and TUI preferences are separate from OpenCode's server and project
-configuration. They live in the global `~/.config/opencode/cli.json`, or
-`$XDG_CONFIG_HOME/opencode/cli.json` when `XDG_CONFIG_HOME` is set. There is no
-project-local CLI configuration. Set `OPENCODE_CLI_CONFIG_CONTENT` to merge
+configuration. They live in the global `~/.config/nytrix/cli.json`, or
+`$XDG_CONFIG_HOME/nytrix/cli.json` when `XDG_CONFIG_HOME` is set. There is no
+project-local CLI configuration. Set `NYTRIX_CLI_CONFIG_CONTENT` to merge
 inline JSON over the global settings. Most preferences can also be changed from
 the TUI by pressing `Ctrl+P` and selecting **Open settings**.
 
@@ -51,7 +51,7 @@ Fetch the full [CLI settings reference](https://opencode.ai/v2/docs/cli/config)
 before editing `cli.json`. It documents every terminal-only setting, accepted
 values, and examples, including themes, input, sessions, tabs, diffs, alerts,
 Mini, keybindings, terminal plugins, and debugging. Do not put these settings
-in `opencode.json(c)`.
+in `nytrix.json(c)`.
 
 ### [Keybinds](https://opencode.ai/v2/docs/cli/keybinds)
 
@@ -77,18 +77,40 @@ autocomplete:
 }
 ```
 
-Global configuration lives at `~/.config/opencode/opencode.json(c)` and applies
+Global configuration lives at `~/.config/nytrix/nytrix.json(c)` and applies
 to every project for that user. Project configuration can live in any directory
-as `opencode.json(c)` or `.opencode/opencode.json(c)`, including nested packages
+as `nytrix.json(c)` or `.nytrix/nytrix.json(c)`, including nested packages
 in a monorepo.
 
 During ordinary project discovery, OpenCode searches the current Location
 directory and every ancestor through the filesystem root, including directories
 above the detected project or repository root. It merges direct
-`opencode.json(c)` files from the farthest ancestor to the current directory,
-then does the same for `.opencode/opencode.json(c)` files. This means every
-discovered `.opencode` config overrides every discovered direct config. Global
+`nytrix.json(c)` files from the farthest ancestor to the current directory,
+then does the same for `.nytrix/nytrix.json(c)` files. This means every
+discovered `.nytrix` config overrides every discovered direct config. Global
 filesystem configuration has lower precedence than these discovered documents.
+
+### Nytrix migration and managed configuration
+
+Nytrix uses `NYTRIX_*` environment variables and does not read the retired
+OpenCode variable names. On first use it copies durable global data and
+configuration to Nytrix locations, preserving the old sources. Existing
+Nytrix locations take precedence. Stop the OpenCode background service with
+`opencode service stop` before starting this migration; active databases are
+never copied while that service is running. Caches, service registrations,
+locks, persistent-terminal runtime state, and installed binaries are not copied.
+
+For a project ancestor with no Nytrix config source, Nytrix stage-copies
+`opencode.json(c)` and `.opencode/` to their Nytrix names. If any
+`nytrix.json(c)` or `.nytrix/` source already exists there, it uses the Nytrix
+sources and leaves all legacy project sources untouched. Interrupted staged
+copies resume without overwriting existing destinations.
+
+Administrators must deploy managed configuration to
+`/Library/Application Support/nytrix`, `/etc/nytrix`, or
+`%ProgramData%\nytrix` for the corresponding platform. macOS managed
+preferences use `ai.nytrix.managed.plist`. Nytrix leaves the old managed files
+intact and does not copy administrator-owned configuration automatically.
 
 Common configuration fields include `model`, `default_agent`, `permissions`,
 `agents`, `commands`, `plugins`, `providers`, `mcp`, `skills`, `instructions`,
@@ -145,7 +167,7 @@ plugins, integrations, or other behavior from V1 to V2, read the full
 [migration guide](https://opencode.ai/v2/docs/migrate-v1) before acting. In
 the repository, its source is `services/www/src/docs/content/migrate-v1.mdx`.
 
-V1 config files and `.opencode/` definitions are intended to remain compatible.
+V1 config files and `.nytrix/` definitions are intended to remain compatible.
 The only intentional breaking changes are the server API and plugin API. Native
 V2 config uses more ergonomic shapes, but conversion is optional. When the user
 requests conversion, inspect the complete configuration, preserve behavior and
@@ -256,7 +278,7 @@ problem belongs to the client, the shared server, or one project.
 - Inspect `~/.local/share/opencode/log/opencode.log`. Filter `role=cli` for
   client startup and `role=server` for sessions, providers, plugins,
   permissions, and tools.
-- Run one reproduction with `OPENCODE_LOG_LEVEL=DEBUG` when normal logs are not
+- Run one reproduction with `NYTRIX_LOG_LEVEL=DEBUG` when normal logs are not
   sufficient.
 - Do not delete or edit the database, service registration, or service config
   while diagnosing a problem. Back up persistent data before inspecting it

@@ -16,11 +16,11 @@ describe("global roots", () => {
     }
 
     expect(run(env)).toEqual({
-      data: path.join(env.XDG_DATA_HOME, "opencode"),
-      cache: path.join(env.XDG_CACHE_HOME, "opencode"),
-      config: path.join(env.XDG_CONFIG_HOME, "opencode"),
-      state: path.join(env.XDG_STATE_HOME, "opencode"),
-      tmp: path.join(os.tmpdir(), "opencode"),
+      data: path.join(env.XDG_DATA_HOME, "nytrix"),
+      cache: path.join(env.XDG_CACHE_HOME, "nytrix"),
+      config: path.join(env.XDG_CONFIG_HOME, "nytrix"),
+      state: path.join(env.XDG_STATE_HOME, "nytrix"),
+      tmp: path.join(os.tmpdir(), "nytrix"),
     })
   })
 
@@ -36,11 +36,11 @@ describe("global roots", () => {
         ...(process.platform === "win32" ? { USERPROFILE: home } : { HOME: home }),
       }),
     ).toEqual({
-      data: path.join(home, ".local", "share", "opencode"),
-      cache: path.join(home, ".cache", "opencode"),
-      config: path.join(home, ".config", "opencode"),
-      state: path.join(home, ".local", "state", "opencode"),
-      tmp: path.join(os.tmpdir(), "opencode"),
+      data: path.join(home, ".local", "share", "nytrix"),
+      cache: path.join(home, ".cache", "nytrix"),
+      config: path.join(home, ".config", "nytrix"),
+      state: path.join(home, ".local", "state", "nytrix"),
+      tmp: path.join(os.tmpdir(), "nytrix"),
     })
   })
 })
@@ -50,7 +50,7 @@ function run(env: Record<string, string>) {
     cmd: [
       process.execPath,
       "-e",
-      `const { roots } = await import(${JSON.stringify(module)}); console.log(JSON.stringify(roots("opencode")))`,
+      `const { roots } = await import(${JSON.stringify(module)}); console.log(JSON.stringify(roots("nytrix")))`,
     ],
     env: { ...process.env, ...env },
     stdout: "pipe",

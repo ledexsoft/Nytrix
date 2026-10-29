@@ -585,9 +585,9 @@ describe("Git capture", () => {
 
       yield* Effect.promise(() => Bun.write(path.join(storage, "index"), "not an index"))
       expect(yield* capture()).toBe(before)
-      expect((yield* Effect.promise(() => fs.readdir(storage))).filter((entry) => entry.startsWith("sharedindex."))).toEqual(
-        [],
-      )
+      expect(
+        (yield* Effect.promise(() => fs.readdir(storage))).filter((entry) => entry.startsWith("sharedindex.")),
+      ).toEqual([])
     }),
   )
 })
@@ -653,8 +653,8 @@ describe("Git capture recovery", () => {
     Effect.gen(function* () {
       const { repository, capture } = yield* setup
       const twoHoursAgo = Date.now() - 2 * 60 * 60 * 1000
-      const live = path.join(repository.gitDirectory, `index.opencode-${Date.now()}-1-live`)
-      const abandoned = path.join(repository.gitDirectory, `index.opencode-${twoHoursAgo}-1-abandoned`)
+      const live = path.join(repository.gitDirectory, `index.nytrix-${Date.now()}-1-live`)
+      const abandoned = path.join(repository.gitDirectory, `index.nytrix-${twoHoursAgo}-1-abandoned`)
       yield* Effect.promise(async () => {
         await Bun.write(live, "")
         await Bun.write(abandoned, "")

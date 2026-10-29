@@ -231,8 +231,8 @@ permissions:
 
       const build = yield* agents.get(Agent.defaultID)
       if (!build) throw new Error("expected configured build agent")
-      const opencodeData = path.join(global.home, ".local", "share", "opencode", "*")
-      const mcpAuth = path.join(global.home, ".local", "share", "opencode", "mcp-auth.json")
+      const nytrixData = path.join(global.home, ".local", "share", "nytrix", "*")
+      const mcpAuth = path.join(global.home, ".local", "share", "nytrix", "mcp-auth.json")
       expect(build.permissions).toEqual([
         ...defaultPermissions,
         { action: "question", resource: "*", effect: "allow" },
@@ -247,17 +247,17 @@ permissions:
         { action: "read", resource: mcpAuth, effect: "deny" },
         { action: "read", resource: mcpAuth, effect: "deny" },
         { action: "external_directory", resource: "*", effect: "ask" },
-        { action: "external_directory", resource: opencodeData, effect: "deny" },
+        { action: "external_directory", resource: nytrixData, effect: "deny" },
         { action: "*", resource: "*", effect: "allow" },
         { action: "external_directory", resource: "*", effect: "allow" },
-        { action: "external_directory", resource: opencodeData, effect: "deny" },
+        { action: "external_directory", resource: nytrixData, effect: "deny" },
         { action: "read", resource: "*.env", effect: "deny" },
       ])
       expect(Permission.evaluate("shell", "bun test", build.permissions).effect).toBe("allow")
       expect(Permission.evaluate("edit", "src/index.ts", build.permissions).effect).toBe("allow")
       expect(Permission.evaluate("webfetch", "https://example.com", build.permissions).effect).toBe("allow")
       expect(Permission.evaluate("read", ".env", build.permissions).effect).toBe("deny")
-      expect(Permission.evaluate("external_directory", opencodeData, build.permissions).effect).toBe("deny")
+      expect(Permission.evaluate("external_directory", nytrixData, build.permissions).effect).toBe("deny")
       expect(Permission.evaluate("external_directory", "/outside/*", build.permissions).effect).toBe("allow")
     }),
   )
@@ -685,7 +685,7 @@ Mixed fields.`,
           )
 
           yield* configTest.emitChange({ type: "create", path: path.join(tmp.path, "commands", "review.md") })
-          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "opencode.json") })
+          yield* configTest.emitChange({ type: "update", path: path.join(tmp.path, "nytrix.json") })
           yield* drain
           expect(reloads).toBe(0)
 
