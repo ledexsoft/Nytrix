@@ -2,7 +2,7 @@ import type { FormInfo, FormOption, SessionFormReplyInput, FormStringField } fro
 import { createEffect, createMemo, createResource, on, onCleanup } from "solid-js"
 import { createStore } from "solid-js/store"
 import { abort } from "@nytrix/util/abort"
-import type { OpenCodeEventStream } from "@/runtime/server/client"
+import type { NytrixEventStream } from "@/runtime/server/client"
 
 function webSearchProviderField(form: FormInfo) {
   return form.fields.find(
@@ -16,7 +16,7 @@ export function createWebSearchRequest(input: {
   request: () => FormInfo | undefined
   providers: (sessionID: string) => Promise<FormOption[]>
   reply: (input: SessionFormReplyInput) => Promise<unknown>
-  events: Pick<OpenCodeEventStream, "listen">
+  events: Pick<NytrixEventStream, "listen">
 }) {
   const [store, setStore] = createStore({
     selected: "random",
@@ -107,7 +107,7 @@ export async function replyWebSearch(input: {
   selection: string | false
   signal: AbortSignal
   reply: (input: SessionFormReplyInput) => Promise<unknown>
-  events: Pick<OpenCodeEventStream, "listen">
+  events: Pick<NytrixEventStream, "listen">
 }) {
   if (input.signal.aborted) return
 

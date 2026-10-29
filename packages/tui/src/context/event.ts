@@ -4,7 +4,7 @@ import { useClient } from "./client"
 type EventMetadata = {
   directory: string | undefined
 }
-type OpenCodeEventMap = { [Type in NytrixEvent["type"]]: Extract<NytrixEvent, { type: Type }> }
+type NytrixEventMap = { [Type in NytrixEvent["type"]]: Extract<NytrixEvent, { type: Type }> }
 
 export function useEvent() {
   const client = useClient()
@@ -18,7 +18,7 @@ export function useEvent() {
 
   function on<T extends NytrixEvent["type"]>(
     type: T,
-    handler: (event: OpenCodeEventMap[T], metadata: EventMetadata) => void,
+    handler: (event: NytrixEventMap[T], metadata: EventMetadata) => void,
   ) {
     return client.event.on(type, (event) => {
       handler(event, { directory: event.location?.directory })

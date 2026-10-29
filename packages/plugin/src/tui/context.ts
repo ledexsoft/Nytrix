@@ -58,12 +58,12 @@ interface LocationCollection<Value> {
   invalidate(location?: LocationRef): void
 }
 
-type OpenCodeEventMap = { [Type in NytrixEvent["type"]]: Extract<NytrixEvent, { type: Type }> }
+type NytrixEventMap = { [Type in NytrixEvent["type"]]: Extract<NytrixEvent, { type: Type }> }
 
 export interface Data {
   readonly on: <Type extends NytrixEvent["type"]>(
     type: Type,
-    handler: (event: OpenCodeEventMap[Type]) => void,
+    handler: (event: NytrixEventMap[Type]) => void,
   ) => () => void
   readonly listen: (handler: (event: { details: NytrixEvent }) => void) => () => void
   readonly session: {

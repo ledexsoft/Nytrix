@@ -219,7 +219,7 @@ export default { path: file, version: ${JSON.stringify(nytrixPty.version)}, sha2
         name: `@nytrix/${name}`,
         version: Script.version,
         license: "MIT",
-        repository: { type: "git", url: "git+https://github.com/anomalyco/nytrix.git" },
+        repository: { type: "git", url: "git+https://github.com/ledexsoft/Nytrix.git" },
         os: [item.os],
         cpu: [item.arch],
       },

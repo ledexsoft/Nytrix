@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test"
 import type { NytrixEvent } from "@nytrix/client/promise"
 import { createRoot } from "solid-js"
-import { createOpenCodeEventSource, createServerTransport } from "./client"
+import { createNytrixEventSource, createServerTransport } from "./client"
 
 const permission = {
   id: "evt_permission",
@@ -18,7 +18,7 @@ const permission = {
 } satisfies Extract<NytrixEvent, { type: "permission.asked" }>
 
 function setup() {
-  return createRoot((dispose) => ({ ...createOpenCodeEventSource(), dispose }))
+  return createRoot((dispose) => ({ ...createNytrixEventSource(), dispose }))
 }
 
 describe("server event stream", () => {

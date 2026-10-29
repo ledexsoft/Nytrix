@@ -4,7 +4,7 @@ import { render, useRenderer, useTerminalDimensions } from "@opentui/solid"
 import "./component/spinner-renderable"
 import { Effect, Latch } from "effect"
 import { Service, type Endpoint } from "@nytrix/client/effect/service"
-import { OpenCode, type SessionInfo } from "@nytrix/client"
+import { Nytrix, type SessionInfo } from "@nytrix/client"
 import { Global } from "@nytrix/util/global"
 import { noTimeoutFetch } from "@nytrix/util/no-timeout-fetch"
 import { ClipboardProvider, useClipboard } from "./context/clipboard"
@@ -223,7 +223,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
     headers,
     fetch: noTimeoutFetch,
   }
-  const api = OpenCode.make(options)
+  const api = Nytrix.make(options)
   const location = yield* Effect.tryPromise(() => api.file.list({ location: { directory: process.cwd() } })).pipe(
     Effect.map((response) => response.location),
     Effect.catch(() => Effect.tryPromise(() => api.location.get())),
@@ -237,7 +237,7 @@ export const run = Effect.fn("Tui.run")(function* (input: TuiInput) {
         reconnect: async (signal: AbortSignal) => {
           const endpoint = await managed.reconnect(signal)
           const next = { baseUrl: endpoint.url, headers: Service.headers(endpoint), fetch: noTimeoutFetch }
-          return { api: OpenCode.make(next), url: endpoint.url, headers: next.headers }
+          return { api: Nytrix.make(next), url: endpoint.url, headers: next.headers }
         },
         restart: managed.restart,
       }

@@ -1,4 +1,4 @@
-import { OpenCode, type MigrationV1StatusOutput } from "@nytrix/client/promise"
+import { Nytrix, type MigrationV1StatusOutput } from "@nytrix/client/promise"
 import { useLanguage } from "@nytrix/app/desktop"
 import { Loader } from "@nytrix/ui/loader"
 import { showToast, toaster, Toast } from "@nytrix/ui/toast"
@@ -83,7 +83,7 @@ export function MigrationStatus(props: { server: ServerReadyData }) {
     if (abort.signal.aborted) return
 
     // The main process credentials sidecar requests; see `wireRendererHeaders`.
-    const client = OpenCode.make({ baseUrl: props.server.url })
+    const client = Nytrix.make({ baseUrl: props.server.url })
 
     void (async () => {
       while (true) {

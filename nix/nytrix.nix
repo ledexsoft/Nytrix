@@ -125,7 +125,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "The open source coding agent";
-    homepage = "https://https://github.com/ledexsoft/Nytrix";
+    homepage = "https://github.com/ledexsoft/Nytrix";
     license = lib.licenses.mit;
     mainProgram = "nytrix";
     inherit (node_modules.meta) platforms;

@@ -10,7 +10,7 @@ test("matches literal screen text", () => {
 
   expect(matches(harness, "OpenCode")).toBe(true)
   expect(matches(harness, "[ready].*")).toBe(true)
-  expect(matches(harness, "OpenCode.*ready")).toBe(false)
+  expect(matches(harness, "Nytrix.*ready")).toBe(false)
   expect(matches(harness, "opencode")).toBe(false)
 })
 

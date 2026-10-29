@@ -149,7 +149,7 @@ for (const target of targets) {
         name: `@nytrix/${name}`,
         version: Script.version,
         license: pkg.license,
-        repository: { type: "git", url: "git+https://github.com/anomalyco/nytrix.git" },
+        repository: { type: "git", url: "git+https://github.com/ledexsoft/Nytrix.git" },
         os: [target.platform],
         cpu: [target.arch],
       },

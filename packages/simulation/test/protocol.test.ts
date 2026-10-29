@@ -74,7 +74,7 @@ test("decodes ui.matches text params", () => {
       jsonrpc: "2.0",
       id: 1,
       method: "ui.matches",
-      params: { pattern: "OpenCode.*" },
+      params: { pattern: "Nytrix.*" },
     }),
   ).toThrow()
 })

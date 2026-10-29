@@ -223,7 +223,7 @@ export function fromPromise(plugin: Plugin) {
         const [{ ClientApi }, { NytrixEvent }] = yield* Effect.promise(() =>
           Promise.all([import("@nytrix/protocol/client"), import("@nytrix/protocol/groups/event")]),
         )
-        const encodeOpenCodeEvent = Schema.encodeUnknownEffect(NytrixEvent)
+        const encodeNytrixEvent = Schema.encodeUnknownEffect(NytrixEvent)
         const AgentEndpoints = ClientApi.groups["server.agent"].endpoints
         const CommandEndpoints = ClientApi.groups["server.command"].endpoints
         const CredentialEndpoints = ClientApi.groups["server.credential"].endpoints
@@ -334,7 +334,7 @@ export function fromPromise(plugin: Plugin) {
             ) =>
               streams(
                 host.event.subscribe({ types: options?.types }).pipe(
-                  Stream.mapEffect((event) => encodeOpenCodeEvent(event)),
+                  Stream.mapEffect((event) => encodeNytrixEvent(event)),
                   Stream.map((event) => event as SelectedEvent<NytrixEvent, Type>),
                 ),
                 options,
