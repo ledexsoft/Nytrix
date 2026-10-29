@@ -52,7 +52,7 @@
 - Task 2: complete (commit `a638d03b3e` plus review fix `6e162e9b92`; global and project migrations preserve old sources, Nytrix wins conflicts, receipts prevent legacy data from reappearing after later deletion; `packages/util` and `packages/core` typechecks passed). Fresh reviewer approved after confirming staged retry and external GitLab variable preservation.
 - Task 3: implementation committed; package typechecks and client/protocol generators passed. CLI build did not complete during the attempt and remains pending a retry (see `task-3-report.md`).
 - Task 4: complete (desktop typecheck passed; all three channel packaging identities and GitHub updater metadata verified; no tests run per instruction).
-- Task 5: pending.
+- Task 5: complete (commit `c0fe3c45b5`; app/TUI/GUI/Console typechecks passed; app, Console app, stats app, packages/web, and services/www builds passed; no tests run per instruction).
 - Task 6: pending.
 - Task 7: pending.
 
