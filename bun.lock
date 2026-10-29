@@ -323,6 +323,7 @@
       "devDependencies": {
         "@brendonovich/vite-plugin-opencode": "0.1.3",
         "@effect/platform-node": "catalog:",
+        "@jridgewell/trace-mapping": "0.3.31",
         "@lydell/node-pty": "catalog:",
         "@nytrix/app": "workspace:*",
         "@nytrix/client": "workspace:*",

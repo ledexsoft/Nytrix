@@ -1,6 +1,6 @@
 interface ImportMetaEnv {
-  readonly OPENCODE_CHANNEL: string
-  readonly OPENCODE_VERSION?: string
+  readonly NYTRIX_CHANNEL: string
+  readonly NYTRIX_VERSION?: string
 }
 
 interface ImportMeta {

@@ -163,21 +163,21 @@ Expected: build succeeds and emitted executable/artifacts use Nytrix names; `ope
 - Consumes: Tasks 1–3.
 - Produces: Nytrix desktop display name, app/bundle identifiers, storage paths, and bundled CLI integration.
 
-- [ ] **Step 1: Inventory desktop IDs, filenames, launch paths, and branding**
+- [x] **Step 1: Inventory desktop IDs, filenames, launch paths, and branding**
 
 Run: `rg -n -i --hidden --glob '!.git/**' '(opencode|OPENCODE_)' packages/desktop`
 
 Expected: app IDs, bundle/product names, data stores, update channel identifiers, and renderer strings are classified.
 
-- [ ] **Step 2: Rename desktop product and bundle identity**
+- [x] **Step 2: Rename desktop product and bundle identity**
 
 Use Nytrix display names and identifiers across macOS, Windows, and Linux packaging. Update bundled CLI paths and service metadata consistently.
 
-- [ ] **Step 3: Migrate desktop state and preferences**
+- [x] **Step 3: Migrate desktop state and preferences**
 
 Before opening Nytrix storage, copy existing OpenCode settings/state into Nytrix storage if the destination does not exist. Keep old storage intact; if both exist, Nytrix wins.
 
-- [ ] **Step 4: Verify desktop packaging metadata and references**
+- [x] **Step 4: Verify desktop packaging metadata and references**
 
 Run: `rg -n -i --hidden --glob '!.git/**' '(opencode|OPENCODE_)' packages/desktop`
 

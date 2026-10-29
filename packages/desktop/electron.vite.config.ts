@@ -5,7 +5,7 @@ import { pickerPlugin } from "./script/picker"
 import { nodePtyPackage } from "./script/utils"
 
 function resolveChannel() {
-  const raw = process.env.OPENCODE_CHANNEL
+  const raw = process.env.NYTRIX_CHANNEL
 
   if (raw === "local" || raw === "dev" || raw === "beta" || raw === "prod") return raw
 
@@ -23,7 +23,7 @@ const appPlugin = (await import("@nytrix/app/vite")).default
 const initialGraph = new Set<string>()
 
 const initialChunk: Plugin = {
-  name: "opencode-desktop:initial-chunk",
+  name: "nytrix-desktop:initial-chunk",
   renderStart() {
     const entries = [...this.getModuleIds()].filter((id) => this.getModuleInfo(id)?.isEntry)
     initialGraph.clear()
@@ -54,7 +54,7 @@ export default defineConfig(async ({ command }) => {
       },
       define: {
         // Local renderer/server mode still uses the dev application identity and updater policy.
-        "import.meta.env.OPENCODE_CHANNEL": JSON.stringify(channel === "local" ? "dev" : channel),
+        "import.meta.env.NYTRIX_CHANNEL": JSON.stringify(channel === "local" ? "dev" : channel),
       },
       build: {
         minify: command === "build",
@@ -84,7 +84,7 @@ const require = __cjs_mod__.createRequire(import.meta.url);
       },
       plugins: [
         {
-          name: "opencode:node-pty-narrower",
+          name: "nytrix:node-pty-narrower",
           enforce: "pre",
           resolveId(s) {
             if (s === "@lydell/node-pty") return nodePtyPkg
@@ -114,12 +114,12 @@ const require = __cjs_mod__.createRequire(import.meta.url);
         bundledDev: true,
       },
       define: {
-        "import.meta.env.OPENCODE_VERSION": JSON.stringify(process.env.OPENCODE_VERSION),
-        "import.meta.env.VITE_OPENCODE_CHANNEL": JSON.stringify(channel),
-        "import.meta.env.OPENCODE_COMMIT": betaNotes ? JSON.stringify(betaNotes.sha) : "undefined",
-        "import.meta.env.OPENCODE_BETA_NOTES": betaNotes ? JSON.stringify(JSON.stringify(betaNotes)) : "undefined",
-        "import.meta.env.OPENCODE_TEST_ONBOARDING": JSON.stringify(
-          command === "serve" && process.env.OPENCODE_TEST_ONBOARDING === "1",
+        "import.meta.env.NYTRIX_VERSION": JSON.stringify(process.env.NYTRIX_VERSION),
+        "import.meta.env.VITE_NYTRIX_CHANNEL": JSON.stringify(channel),
+        "import.meta.env.NYTRIX_COMMIT": betaNotes ? JSON.stringify(betaNotes.sha) : "undefined",
+        "import.meta.env.NYTRIX_BETA_NOTES": betaNotes ? JSON.stringify(JSON.stringify(betaNotes)) : "undefined",
+        "import.meta.env.NYTRIX_TEST_ONBOARDING": JSON.stringify(
+          command === "serve" && process.env.NYTRIX_TEST_ONBOARDING === "1",
         ),
       },
       plugins: [pickerPlugin(), appPlugin, initialChunk],

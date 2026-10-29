@@ -5,8 +5,8 @@ import path from "node:path"
 import { getConfig } from "../electron-builder.config"
 import { getCurrentCli, resolveChannel } from "./utils"
 
-// Packages the built app (out/) for OPENCODE_TARGET into dist/desktop at the repository root, unsigned:
-// macOS: the .app as a tarball. Windows: the unpacked app in app/, or with OPENCODE_DESKTOP_APP, the NSIS
+// Packages the built app (out/) for NYTRIX_TARGET into dist/desktop at the repository root, unsigned:
+// macOS: the .app as a tarball. Windows: the unpacked app in app/, or with NYTRIX_DESKTOP_APP, the NSIS
 // installer around that (signed) app. Linux: AppImage, deb and rpm. The release workflow signs afterwards.
 const dir = path.resolve(import.meta.dir, "..")
 
@@ -20,7 +20,7 @@ const os =
     ["win32", "win"],
   ]).get(cli.os) ?? "linux"
 
-const app = process.env.OPENCODE_DESKTOP_APP
+const app = process.env.NYTRIX_DESKTOP_APP
 
 const flags = [`--${os}`, `--${cli.cpu}`, "--publish", "never", "--config", "electron-builder.config.ts"]
 
@@ -36,7 +36,7 @@ if (app) {
   // The installer uses the channel's icons; the rest of the app is already built and signed.
   await $`bun ./script/copy-icons.ts ${resolveChannel()}`
   await $`bunx electron-builder ${flags} --prepackaged ${app}`
-  await cp(`dist/opencode-desktop-win-${cli.cpu}.exe`, path.join(out, `opencode-desktop-win-${cli.cpu}.exe`))
+  await cp(`dist/nytrix-desktop-win-${cli.cpu}.exe`, path.join(out, `nytrix-desktop-win-${cli.cpu}.exe`))
 }
 
 if (!app && os === "linux") {
@@ -52,7 +52,7 @@ if (!app && os === "mac") {
 
   if (bundles.length !== 1) throw new Error(`Expected one .app bundle in ${parent}, found ${bundles.join(", ")}`)
   await writeUpdateConfig(path.join(parent, bundles[0], "Contents", "Resources"))
-  await $`tar -cf ${path.join(out, `opencode-desktop-mac-${cli.cpu}.app.tar`)} -C ${parent} ${bundles[0]}`
+  await $`tar -cf ${path.join(out, `nytrix-desktop-mac-${cli.cpu}.app.tar`)} -C ${parent} ${bundles[0]}`
 }
 
 if (!app && os === "win") {
@@ -67,12 +67,13 @@ if (!app && os === "win") {
 async function writeUpdateConfig(resources: string) {
   const publish = getConfig().publish
   const name: string = (await Bun.file("package.json").json()).name
+  const provider = publish.provider === "github"
+    ? [`provider: ${publish.provider}`, `owner: ${publish.owner}`, `repo: ${publish.repo}`, `releaseType: ${publish.releaseType}`]
+    : [`provider: ${publish.provider}`, `url: ${publish.url}`, `channel: ${publish.channel}`]
   await Bun.write(
     path.join(resources, "app-update.yml"),
     [
-      `provider: ${publish.provider}`,
-      `url: ${publish.url}`,
-      `channel: ${publish.channel}`,
+      ...provider,
       `updaterCacheDirName: '${name.replace(/[/\\:*?"<>|]/g, "").toLowerCase()}-updater'`,
     ].join("\n") + "\n",
   )

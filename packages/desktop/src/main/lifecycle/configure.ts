@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto"
-import { mkdirSync, rmSync } from "node:fs"
+import { cpSync, existsSync, mkdirSync, readdirSync, renameSync, rmSync } from "node:fs"
 import { enableCompileCache } from "node:module"
 import { homedir, tmpdir } from "node:os"
 import path from "node:path"
@@ -8,7 +8,7 @@ import { debugBuild, memoryLogInterval } from "@nytrix/gui-plugins/debug/options
 import { APP_ID, APP_NAME, CHANNEL } from "../constants"
 import { remoteDebuggingPort } from "../diagnostics/options"
 
-const testOnboarding = process.env.OPENCODE_TEST_ONBOARDING === "1"
+const testOnboarding = process.env.NYTRIX_TEST_ONBOARDING === "1"
 
 const jsCallStackFeature = "DocumentPolicyIncludeJSCallStacksInCrashReports"
 
@@ -20,7 +20,7 @@ export function configureApplication() {
     process.chdir(homedir())
   } catch {}
 
-  process.env.OPENCODE_DISABLE_EMBEDDED_WEB_UI = "true"
+  process.env.NYTRIX_DISABLE_EMBEDDED_WEB_UI = "true"
 
   app.setName(APP_NAME)
   app.setAppUserModelId(APP_ID)
@@ -32,7 +32,7 @@ export function configureApplication() {
   if (process.platform === "linux") app.commandLine.appendSwitch("disable-smooth-scrolling")
 
   const build = { packaged: app.isPackaged, channel: CHANNEL }
-  const debugPort = remoteDebuggingPort(build, process.env.OPENCODE_DESKTOP_REMOTE_DEBUGGING_PORT)
+  const debugPort = remoteDebuggingPort(build, process.env.NYTRIX_DESKTOP_REMOTE_DEBUGGING_PORT)
 
   if (debugPort) app.commandLine.appendSwitch("remote-debugging-port", debugPort)
 
@@ -40,11 +40,12 @@ export function configureApplication() {
     app.commandLine.appendSwitch("remote-debugging-address", "127.0.0.1")
 
   // Precise heap sizes need a launch switch. The debug bar's toggle starts the log without one.
-  if (debugBuild(build) && memoryLogInterval(process.env.OPENCODE_DESKTOP_MEMORY_LOG) !== undefined)
+  if (debugBuild(build) && memoryLogInterval(process.env.NYTRIX_DESKTOP_MEMORY_LOG) !== undefined)
     app.commandLine.appendSwitch("enable-precise-memory-info")
 
   const testRoot = createTestRoot()
-  app.setPath("userData", testRoot ? path.join(testRoot, "desktop") : path.join(app.getPath("appData"), APP_ID))
+  const userData = testRoot ? path.join(testRoot, "desktop") : migrateUserData(app.getPath("appData"))
+  app.setPath("userData", userData)
 
   if (testRoot) {
     app.setPath("sessionData", path.join(testRoot, "session"))
@@ -65,8 +66,8 @@ export function acquireApplicationLock() {
 
 function createTestRoot() {
   const root = testOnboarding
-    ? path.join(tmpdir(), `opencode-onboarding-${randomUUID()}`)
-    : process.env.OPENCODE_DESKTOP_TEST_ROOT
+    ? path.join(tmpdir(), `nytrix-onboarding-${randomUUID()}`)
+    : process.env.NYTRIX_DESKTOP_TEST_ROOT
 
   if (!root) return undefined
 
@@ -75,7 +76,7 @@ function createTestRoot() {
   for (const dir of ["data", "config", "cache", "state", "desktop", "session", "documents"])
     mkdirSync(path.join(root, dir), { recursive: true })
 
-  if (testOnboarding) process.env.OPENCODE_DB = ":memory:"
+  if (testOnboarding) process.env.NYTRIX_DB = ":memory:"
 
   process.env.XDG_DATA_HOME = path.join(root, "data")
   process.env.XDG_CONFIG_HOME = path.join(root, "config")
@@ -83,4 +84,32 @@ function createTestRoot() {
   process.env.XDG_STATE_HOME = path.join(root, "state")
 
   return root
+}
+
+
+function migrateUserData(appData: string) {
+  const previousID = {
+    dev: "ai.opencode.desktop.dev",
+    beta: "ai.opencode.desktop.beta",
+    prod: "ai.opencode.desktop",
+  }[CHANNEL === "local" ? "dev" : CHANNEL]
+  const source = path.join(appData, previousID)
+  const destination = path.join(appData, APP_ID)
+
+  if (source === destination || existsSync(destination) || !existsSync(source)) return destination
+
+  cpSync(source, destination, { recursive: true, errorOnExist: true, force: false })
+
+  for (const name of readdirSync(destination)) {
+    if (name === "opencode.settings" || /^opencode\..+\.dat$/.test(name)) {
+      const migrated = name.replace(/^opencode(?=\.)/, "nytrix")
+      const oldFile = path.join(destination, name)
+      const newFile = path.join(destination, migrated)
+
+      if (existsSync(newFile)) rmSync(oldFile)
+      else renameSync(oldFile, newFile)
+    }
+  }
+
+  return destination
 }

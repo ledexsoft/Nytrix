@@ -72,7 +72,7 @@ export type PluginHost = ReturnType<typeof createHost>
 type Loaded = {
   readonly setup: Plugin.MainSetup
   readonly i18n?: BuiltinCatalog
-  /** A plugin's options from `opencode.json`; built-ins have none. */
+  /** A plugin's options from `nytrix.json`; built-ins have none. */
   readonly options?: PluginOptions
   /** The client of the server that runs a plugin, read each time; built-ins have none. */
   readonly client?: () => NytrixClient | undefined
@@ -310,7 +310,7 @@ export function createHost(input: {
     if (!endpoint) return undefined
 
     const authorization = endpoint.password
-      ? `Basic ${Buffer.from(`opencode:${endpoint.password}`).toString("base64")}`
+      ? `Basic ${Buffer.from(`nytrix:${endpoint.password}`).toString("base64")}`
       : SidecarCredentials.authorization(sidecar, endpoint.url)
 
     return {
@@ -323,7 +323,7 @@ export function createHost(input: {
   }
 
   const about = {
-    name: "opencode",
+    name: "nytrix",
     version: VERSION,
     channel: CHANNEL,
     platform: "desktop",
