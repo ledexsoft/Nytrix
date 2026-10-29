@@ -19,6 +19,10 @@
 - No tests were added or run, per instruction.
 - No live cloud deployment was attempted. Cloudflare/AWS/PlanetScale/Sentry/Stripe/signing credentials, GitHub environment configuration, R2 buckets, domains, and the optional update Worker D1 database must be provisioned by the repository owner before enabling deployments.
 
+### Follow-up correction
+
+The release publisher now writes separate `${channel}-linux.yml` and `${channel}-linux-arm64.yml` feeds from `nytrix-desktop-linux-x64.AppImage` and `nytrix-desktop-linux-arm64.AppImage`. `bash -n` and `git diff --check` pass for this correction; no tests were run.
+
 ## Preserved identity and follow-up
 
 - The upstream OpenCode background service commands in `AGENTS.md` and `CONTRIBUTING.md` remain because the live TUI workflow explicitly connects to that installed service.

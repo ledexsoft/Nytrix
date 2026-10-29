@@ -27,11 +27,13 @@ write_feed() {
 if [[ "$NYTRIX_CHANNEL" == dev || "$NYTRIX_CHANNEL" == beta || "$NYTRIX_CHANNEL" == latest ]]; then
   mac=($(find "$assets" -maxdepth 1 -type f -name 'nytrix-desktop-mac-*.zip' -print | sort))
   windows=($(find "$assets" -maxdepth 1 -type f -name 'nytrix-desktop-win-*.exe' -print | sort))
-  linux=($(find "$assets" -maxdepth 1 -type f -name 'nytrix-desktop-linux-*.AppImage' -print | sort))
+  linux_x64=($(find "$assets" -maxdepth 1 -type f -name 'nytrix-desktop-linux-x64.AppImage' -print | sort))
+  linux_arm64=($(find "$assets" -maxdepth 1 -type f -name 'nytrix-desktop-linux-arm64.AppImage' -print | sort))
   prefix="$NYTRIX_CHANNEL"
   ((${#mac[@]} == 0)) || write_feed "$prefix-mac.yml" "${mac[0]}" "${mac[@]}"
   ((${#windows[@]} == 0)) || write_feed "$prefix.yml" "${windows[0]}" "${windows[@]}"
-  ((${#linux[@]} == 0)) || write_feed "$prefix-linux.yml" "${linux[0]}" "${linux[@]}"
+  ((${#linux_x64[@]} == 0)) || write_feed "$prefix-linux.yml" "${linux_x64[0]}" "${linux_x64[@]}"
+  ((${#linux_arm64[@]} == 0)) || write_feed "$prefix-linux-arm64.yml" "${linux_arm64[0]}" "${linux_arm64[@]}"
 fi
 files=("$assets"/*)
 (cd "$assets" && sha256 -- * > SHA256SUMS && cat SHA256SUMS)
