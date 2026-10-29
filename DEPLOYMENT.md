@@ -7,8 +7,7 @@ Repository deployment workflows are disabled until the repository variable `NYTR
 The SST app requires these environment variables and resources:
 
 - `NYTRIX_DOMAIN`: base domain provisioned for Nytrix.
-- `NYTRIX_SHARE_DOMAIN`: share hostname provisioned for Nytrix.
-- `NYTRIX_CLOUDFLARE_ZONE_ID`: Cloudflare zone containing those domains.
+- `NYTRIX_CLOUDFLARE_ZONE_ID`: Cloudflare zone containing the base domain. The share Worker uses `share.<base-domain>` in production and `share.<stage>.<base-domain>` in other SST stages; provision these hostnames in that zone.
 - `CLOUDFLARE_API_TOKEN`: token scoped to the Nytrix zone and Workers resources.
 - `AWS_DEPLOY_ROLE_ARN`: IAM role in the AWS account that owns deployment resources.
 - `PLANETSCALE_SERVICE_TOKEN_NAME` and `PLANETSCALE_SERVICE_TOKEN`: PlanetScale credentials for the Nytrix database.

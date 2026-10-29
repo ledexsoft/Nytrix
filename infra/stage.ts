@@ -1,13 +1,15 @@
 const baseDomain = process.env.NYTRIX_DOMAIN
 if (!baseDomain) throw new Error("NYTRIX_DOMAIN must name a domain provisioned for this Nytrix deployment")
 
-const shareDomain = process.env.NYTRIX_SHARE_DOMAIN
-if (!shareDomain) throw new Error("NYTRIX_SHARE_DOMAIN must name a share domain provisioned for this Nytrix deployment")
-
 export const domain = (() => {
   if ($app.stage === "production") return baseDomain
   if ($app.stage === "dev") return `dev.${baseDomain}`
   return `${$app.stage}.dev.${baseDomain}`
+})()
+
+export const shortDomain = (() => {
+  if ($app.stage === "production") return `share.${baseDomain}`
+  return `share.${$app.stage}.${baseDomain}`
 })()
 
 export const zoneID = process.env.NYTRIX_CLOUDFLARE_ZONE_ID
@@ -20,5 +22,3 @@ new cloudflare.RegionalHostname("RegionalHostname", {
   regionKey: "us",
   zoneId: zoneID,
 })
-
-export const shortDomain = shareDomain

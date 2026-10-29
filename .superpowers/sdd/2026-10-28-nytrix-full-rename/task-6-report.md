@@ -19,6 +19,11 @@
 - No tests were added or run, per instruction.
 - No live cloud deployment was attempted. Cloudflare/AWS/PlanetScale/Sentry/Stripe/signing credentials, GitHub environment configuration, R2 buckets, domains, and the optional update Worker D1 database must be provisioned by the repository owner before enabling deployments.
 
+## Review follow-up
+
+- Added a Linux ARM64 updater feed (`<channel>-linux-arm64.yml`) built from the signed ARM64 AppImage; x64 retains `<channel>-linux.yml`.
+- Derived share Worker hosts from the configured base domain so production uses `share.<base-domain>` and other SST stages use `share.<stage>.<base-domain>`. Removed the shared `NYTRIX_SHARE_DOMAIN` input to prevent stages from claiming the same hostname. Provision both names in the configured Cloudflare zone before deployment.
+
 ### Follow-up correction
 
 The release publisher now writes separate `${channel}-linux.yml` and `${channel}-linux-arm64.yml` feeds from `nytrix-desktop-linux-x64.AppImage` and `nytrix-desktop-linux-arm64.AppImage`. `bash -n` and `git diff --check` pass for this correction; no tests were run.
