@@ -1,24 +1,13 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "opencode-changelog",
+  "name": "nytrix-changelog",
   "main": "src/index.ts",
   "compatibility_date": "2026-07-15",
-  "workers_dev": false,
+  "workers_dev": true,
   "preview_urls": false,
   "assets": {
     "directory": "./public",
   },
-  // Exact path plus subpaths, so the Console keeps /changelog.json and the localized /<locale>/changelog pages.
-  "routes": [
-    {
-      "pattern": "opencode.ai/changelog",
-      "zone_name": "opencode.ai",
-    },
-    {
-      "pattern": "opencode.ai/changelog/*",
-      "zone_name": "opencode.ai",
-    },
-  ],
   "observability": {
     "enabled": true,
   },

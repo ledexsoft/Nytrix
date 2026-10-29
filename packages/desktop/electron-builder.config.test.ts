@@ -13,9 +13,9 @@ import { CLI_BINARIES, nodePtyPackage } from "./script/utils"
 const { FileMatcher } = createRequire(import.meta.resolve("electron-builder"))("app-builder-lib/out/fileMatcher")
 
 const channels = [
-  { channel: "dev", appId: "ai.nytrix.desktop.dev", releaseType: "prerelease" },
-  { channel: "beta", appId: "ai.nytrix.desktop.beta", releaseType: "prerelease" },
-  { channel: "prod", appId: "ai.nytrix.desktop", releaseType: "release" },
+  { channel: "dev", appId: "ai.nytrix.desktop.dev", releaseType: "prerelease", updateChannel: "dev" },
+  { channel: "beta", appId: "ai.nytrix.desktop.beta", releaseType: "prerelease", updateChannel: "beta" },
+  { channel: "prod", appId: "ai.nytrix.desktop", releaseType: "release", updateChannel: "latest" },
 ] as const
 
 function load(channel: string, target?: string): Configuration {
@@ -47,7 +47,7 @@ function trimFilter(dir: string, config: Configuration) {
   ]).createFilter()
 }
 
-test.each(channels)("channel identity for $channel", ({ channel, appId, releaseType }) => {
+test.each(channels)("channel identity for $channel", ({ channel, appId, releaseType, updateChannel }) => {
   const config = load(channel)
   expect(config.appId).toBe(appId)
   // Every channel uses the supported GitHub release updater.
@@ -56,6 +56,7 @@ test.each(channels)("channel identity for $channel", ({ channel, appId, releaseT
     owner: "ledexsoft",
     repo: "Nytrix",
     releaseType,
+    channel: updateChannel,
   })
   expect(config.extraMetadata?.desktopName).toBe(`${appId}.desktop`)
   // The executable must never end in `.desktop`: libappimage resolves the

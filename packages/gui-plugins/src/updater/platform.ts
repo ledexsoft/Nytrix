@@ -22,9 +22,9 @@ export const make = Effect.fn("Updater.platform")(function* (channel: string) {
     error: (...args) => runFork(Effect.logError(...args)),
     debug: (...args) => runFork(Effect.logDebug(...args)),
   }
-  updateClient.channel = "latest"
+  updateClient.channel = channel === "prod" ? "latest" : channel
   updateClient.requestHeaders = { "User-Agent": userAgent }
-  updateClient.allowPrerelease = false
+  updateClient.allowPrerelease = channel !== "prod"
   updateClient.allowDowngrade = true
   updateClient.autoDownload = false
   updateClient.autoInstallOnAppQuit = process.platform === "darwin"

@@ -1,34 +1,9 @@
-# OpenCode Changelog
+# Nytrix changelog Worker
 
-The changelog Worker renders the root `CHANGELOG.md` at `https://opencode.ai/changelog`.
+The Worker renders the repository's `CHANGELOG.md` at `/changelog`. It fetches the current file from the `dev` branch on GitHub and caches the response at the Cloudflare edge.
 
-It owns two routes, `opencode.ai/changelog` and `opencode.ai/changelog/*`. Requests for
-`/changelog.json` and localized pages such as `/de/changelog` still reach the Console.
+The repository does not include a provisioned Cloudflare account or public domain. Configure `CLOUDFLARE_API_TOKEN` in the GitHub deployment environment. Deployments use the generated `workers.dev` URL until a Nytrix-owned domain and route are provisioned.
 
-## Content
+The Worker exposes `GET /changelog`, redirects `/changelog/` to `/changelog`, and redirects `/changelog/<version>` to that release's heading. The root path redirects to `/changelog`.
 
-Each request reads `CHANGELOG.md` from the `dev` branch on raw GitHub through the Workers
-cache. A copy stays fresh for five minutes. After that, the Worker serves the stale copy for up
-to a day and refreshes it in the background. If GitHub fails, the stale copy is kept. Releases
-appear without a deploy once the version-sync commit lands on `dev`.
-
-Entries split on lines matching `^## v\d`. `### Highlights` items render first, and the
-remaining `###` sections render as collapsible details. Raw HTML in the notes is escaped.
-
-`/changelog/<version>` redirects to that release's anchor.
-
-## Fonts
-
-`public/changelog/fonts` holds the Latin-1 subsets of IBM Plex Serif and IBM Plex Mono from
-`@ibm/plex`, licensed under the SIL Open Font License (`LICENSE.txt`).
-
-## Development
-
-```sh
-bun dev
-bun test
-bun typecheck
-bun run build
-```
-
-`deploy-changelog.yml` deploys with Wrangler on pushes to `dev` that touch this directory.
+Enable repository deployment workflows by setting `NYTRIX_DEPLOYMENTS_ENABLED=true` after configuring credentials and resources.

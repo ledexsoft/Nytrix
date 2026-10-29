@@ -68,7 +68,13 @@ async function writeUpdateConfig(resources: string) {
   const publish = getConfig().publish
   const name: string = (await Bun.file("package.json").json()).name
   const provider = publish.provider === "github"
-    ? [`provider: ${publish.provider}`, `owner: ${publish.owner}`, `repo: ${publish.repo}`, `releaseType: ${publish.releaseType}`]
+    ? [
+        `provider: ${publish.provider}`,
+        `owner: ${publish.owner}`,
+        `repo: ${publish.repo}`,
+        `releaseType: ${publish.releaseType}`,
+        `channel: ${publish.channel}`,
+      ]
     : [`provider: ${publish.provider}`, `url: ${publish.url}`, `channel: ${publish.channel}`]
   await Bun.write(
     path.join(resources, "app-update.yml"),

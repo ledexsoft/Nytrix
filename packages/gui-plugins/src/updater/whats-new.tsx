@@ -5,7 +5,7 @@ import { Dialog } from "@nytrix/ui/dialog"
 import { usePlugin, type DialogHandle, type SetupContext } from "@nytrix/plugin/gui"
 import type definition from "./index"
 
-const CHANGELOG_URL = "https://opencode.ai/changelog.json"
+const CHANGELOG_URL = "https://api.github.com/repos/ledexsoft/Nytrix/releases?per_page=20"
 
 type Highlight = {
   title: string
@@ -61,12 +61,15 @@ export function showWhatsNew(
 
   ctx.signal.addEventListener("abort", () => timers.forEach(clearTimeout))
 
-  fetch(CHANGELOG_URL, { signal: ctx.signal, headers: { Accept: "application/json" } })
+  fetch(CHANGELOG_URL, {
+    signal: ctx.signal,
+    headers: { Accept: "application/vnd.github+json", "User-Agent": "Nytrix-Desktop" },
+  })
     .then((response) => (response.ok ? response.json() : undefined))
     .then((json) => {
       if (!json) return
 
-      const highlights = Option.match(decodeChangelog(json), {
+      const highlights = Option.match(decodeChangelog(githubReleases(json)), {
         onNone: () => [],
         onSome: (changelog) => sliceHighlights(releases(changelog), input.current, input.previous),
       })
@@ -85,6 +88,32 @@ export function showWhatsNew(
       )
     })
     .catch(() => undefined)
+}
+
+function githubReleases(input: unknown) {
+  if (!Array.isArray(input)) return input
+
+  return input.flatMap((release) => {
+    if (!release || typeof release !== "object") return []
+    const body = "body" in release && typeof release.body === "string" ? release.body : ""
+    const groups = [...body.matchAll(/<highlight\s+source="([^"]+)">([\s\S]*?)<\/highlight>/g)].map((match) => {
+      const content = match[2]
+      const title = content.match(/<h2>([^<]+)<\/h2>/)?.[1]
+      const description = content.match(/<p(?:\s+short="[^"]*")?>([^<]*)<\/p>/)?.[1]
+      const image = content.match(/<img\s+[^>]*src="([^"]+)"/)
+      const video = content.match(/(https:\/\/github\.com\/user-attachments\/assets\/[a-f0-9-]+)/)
+      const media = image ? { type: "image", src: image[1] } : video ? { type: "video", src: video[1] } : undefined
+
+      if (!title || !description || !media) return { source: match[1], items: [] }
+      return { source: match[1], items: [{ title, description, media }] }
+    })
+
+    return [{
+      tag_name: "tag_name" in release ? release.tag_name : undefined,
+      name: "name" in release ? release.name : undefined,
+      highlights: groups,
+    }]
+  })
 }
 
 function releases(changelog: typeof Changelog.Type) {

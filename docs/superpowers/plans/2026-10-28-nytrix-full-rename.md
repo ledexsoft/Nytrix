@@ -144,11 +144,11 @@ Publish `nytrix` as the primary executable. Remove the old product command names
 
 Update package metadata, launcher names, archive names, Docker/Nix/install scripts, updater product text, first-party `NYTRIX_*` runtime variables, and first-party API namespace headers/identifiers to Nytrix. Regenerate generated client outputs after protocol/server identity changes. Keep the OpenCode provider ID/credential integration and external protocol names required for interoperability unchanged. Use the known GitHub fork URL where repository URLs are required.
 
-- [ ] **Step 4: Verify CLI build and command surface**
+- [x] **Step 4: Verify CLI build and command surface**
 
-The CLI build was started, but its build script remained in `bun add` dependency resolution without output for three minutes and was interrupted. Typechecks and generators passed; the CLI build still needs a retry.
+All affected package typechecks and client generation passed. The full multi-platform CLI build spent several minutes resolving/downloading optional binaries for every OS target, so a host-only build was used: `bun run script/build.ts --single --skip-install` produced `packages/cli/dist/cli-darwin-arm64/bin/nytrix`.
 
-Run: `bun run --cwd packages/cli build`
+Run: `bun run --cwd packages/cli build` (or the host-only build above when optional cross-platform dependency resolution stalls).
 
 Expected: build succeeds and emitted executable/artifacts use Nytrix names; `opencode` is not exposed as an alias.
 
@@ -229,21 +229,21 @@ Expected: no current Nytrix product copy uses OpenCode; remaining matches are ex
 - Consumes: all prior tasks.
 - Produces: Nytrix developer onboarding, repository automation, deployment, and project configuration.
 
-- [ ] **Step 1: Inventory tracked text and filenames with OpenCode identity**
+- [x] **Step 1: Inventory tracked text and filenames with OpenCode identity**
 
 Run: `git grep -n -I -i -e opencode -e 'open code' HEAD -- ':!LICENSE'`
 
 Expected: a list of docs, workflows, scripts, infrastructure identifiers, and exceptions for legal/history/external integrations.
 
-- [ ] **Step 2: Update current docs and project-owned tooling**
+- [x] **Step 2: Update current docs and project-owned tooling**
 
 Use Nytrix in current onboarding, command snippets, release notes authored for Nytrix, repository config, service names, and current CI/deployment identifiers. Keep accurate historical upstream references.
 
-- [ ] **Step 3: Update filenames and internal links**
+- [x] **Step 3: Update filenames and internal links**
 
 Rename first-party files/directories whose names encode the product; update all references and ensure docs links resolve.
 
-- [ ] **Step 4: Verify repo links and tooling paths**
+- [x] **Step 4: Verify repo links and tooling paths**
 
 Run: `rg -n -i --hidden --glob '!.git/**' '(opencode|OpenCode)' .github infra script nix services README.md CONTRIBUTING.md SECURITY.md`
 

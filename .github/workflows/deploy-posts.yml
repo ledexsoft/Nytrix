@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   deploy:
-    if: github.repository == 'anomalyco/opencode' && github.ref_name == 'production'
+    if: github.repository == 'ledexsoft/Nytrix' && vars.NYTRIX_DEPLOYMENTS_ENABLED == 'true' && github.ref_name == 'production'
     runs-on: blacksmith-4vcpu-ubuntu-2404
     environment: production
     steps:

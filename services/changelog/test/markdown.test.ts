@@ -91,7 +91,7 @@ describe("renderMarkdown", () => {
 
   test("links issue references and opens GitHub in a new tab", () => {
     expect(renderInline("Fixed it. (#53981)")).toBe(
-      'Fixed it. (<a href="https://github.com/anomalyco/opencode/issues/53981" target="_blank" rel="noopener noreferrer">#53981</a>)',
+      'Fixed it. (<a href="https://github.com/ledexsoft/Nytrix/issues/53981" target="_blank" rel="noopener noreferrer">#53981</a>)',
     )
     expect(renderInline("C#1 and &#35;2 stay text")).toBe("C#1 and &#35;2 stay text")
   })

@@ -17,8 +17,7 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ (inputs.bump || inputs.version) && 'release' || 'build' }}
-  # Beta ships only the newest commit to the team. A cancelled beta run can leave unreferenced files in R2, but only
-  # publish-desktop records a release, in one request.
+  # Beta ships only the newest commit to the team. A pull request never publishes release assets or package updates.
   cancel-in-progress: ${{ github.event_name == 'pull_request' || github.ref_name == 'beta' }}
 
 permissions:
@@ -30,7 +29,7 @@ defaults:
 
 jobs:
   plan:
-    if: github.repository == 'anomalyco/opencode'
+    if: github.repository == 'ledexsoft/Nytrix'
     runs-on: ubuntu-24.04
     permissions: {}
     outputs:
@@ -66,10 +65,10 @@ jobs:
     permissions:
       contents: write
     env: &env
-      OPENCODE_VERSION: ${{ needs.plan.outputs.version }}
-      OPENCODE_CHANNEL: ${{ needs.plan.outputs.channel }}
-      OPENCODE_NPM_TAG: ${{ needs.plan.outputs.npm_tag }}
-      OPENCODE_DRY_RUN: ${{ needs.plan.outputs.dry_run }}
+      NYTRIX_VERSION: ${{ needs.plan.outputs.version }}
+      NYTRIX_CHANNEL: ${{ needs.plan.outputs.channel }}
+      NYTRIX_NPM_TAG: ${{ needs.plan.outputs.npm_tag }}
+      NYTRIX_DRY_RUN: ${{ needs.plan.outputs.dry_run }}
     outputs:
       sha: ${{ steps.tag.outputs.sha || github.sha }}
     steps:
@@ -81,7 +80,7 @@ jobs:
         if: needs.plan.outputs.channel == 'latest'
         run: bash .github/release/tag-release.sh
         env:
-          OPENCODE_RELEASE_NOTES: ${{ inputs.release_notes }}
+          NYTRIX_RELEASE_NOTES: ${{ inputs.release_notes }}
 
   # ---- Build: repository code; no environment, secrets or id-token --------------------------------------------
 
@@ -131,13 +130,13 @@ jobs:
         run: bun run build && rm -rf dist/.bun
         env:
           BUN_COMPILE_RELEASE: bun-v1.4.4
-          OPENCODE_MODELS_SNAPSHOT: ${{ github.workspace }}/.cache/models-catalog/api.json
-          OPENCODE_RELEASE_NOTES: ${{ needs.plan.outputs.channel == 'latest' && inputs.release_notes || '' }}
+          NYTRIX_MODELS_SNAPSHOT: ${{ github.workspace }}/.cache/models-catalog/api.json
+          NYTRIX_RELEASE_NOTES: ${{ needs.plan.outputs.channel == 'latest' && inputs.release_notes || '' }}
           GH_TOKEN: ${{ github.token }} # read-only; raises the rate limit for Bun release downloads
       - name: Verify bundled models catalog
-        run: bun packages/cli/script/catalog-smoke.ts packages/cli/dist/cli-linux-x64/bin/opencode
+        run: bun packages/cli/script/catalog-smoke.ts packages/cli/dist/cli-linux-x64/bin/nytrix
         env:
-          OPENCODE_MODELS_SNAPSHOT: ${{ github.workspace }}/.cache/models-catalog/api.json
+          NYTRIX_MODELS_SNAPSHOT: ${{ github.workspace }}/.cache/models-catalog/api.json
       - name: Upload
         uses: ./.github/release/upload
         with:
@@ -171,19 +170,19 @@ jobs:
         working-directory: packages/cli
         run: bun run build:node
         env:
-          OPENCODE_TARGET: ${{ matrix.target }}
-          OPENCODE_MODELS_SNAPSHOT: ${{ github.workspace }}/.cache/models-catalog/api.json
+          NYTRIX_TARGET: ${{ matrix.target }}
+          NYTRIX_MODELS_SNAPSHOT: ${{ github.workspace }}/.cache/models-catalog/api.json
       - name: Test
         if: matrix.target != 'windows-arm64'
         working-directory: packages/cli
         run: bun run script/service-smoke.ts --node
       - name: Verify bundled models catalog
         if: matrix.target != 'windows-arm64'
-        run: bun packages/cli/script/catalog-smoke.ts "packages/cli/dist/node/cli-node-$OPENCODE_TARGET/bin/opencode2-node$EXE"
+        run: bun packages/cli/script/catalog-smoke.ts "packages/cli/dist/node/cli-node-$NYTRIX_TARGET/bin/nytrix2-node$EXE"
         env:
-          OPENCODE_TARGET: ${{ matrix.target }}
+          NYTRIX_TARGET: ${{ matrix.target }}
           EXE: ${{ startsWith(matrix.target, 'windows') && '.exe' || '' }}
-          OPENCODE_MODELS_SNAPSHOT: ${{ github.workspace }}/.cache/models-catalog/api.json
+          NYTRIX_MODELS_SNAPSHOT: ${{ github.workspace }}/.cache/models-catalog/api.json
       - name: Upload
         uses: ./.github/release/upload
         with:
@@ -303,7 +302,7 @@ jobs:
         working-directory: packages/desktop
         run: bun run build
         env:
-          OPENCODE_TARGET: ${{ matrix.target }}
+          NYTRIX_TARGET: ${{ matrix.target }}
           NODE_OPTIONS: --max-old-space-size=4096
           VITE_SENTRY_DSN: ${{ vars.WEB_SENTRY_DSN }}
           VITE_SENTRY_ENVIRONMENT: ${{ needs.plan.outputs.channel == 'latest' && 'production' || needs.plan.outputs.channel }}
@@ -314,7 +313,7 @@ jobs:
         timeout-minutes: 60
         run: bun run pack
         env:
-          OPENCODE_TARGET: ${{ matrix.target }}
+          NYTRIX_TARGET: ${{ matrix.target }}
       - name: Upload
         uses: ./.github/release/upload
         with:
@@ -352,8 +351,8 @@ jobs:
         timeout-minutes: 30
         run: bun run pack
         env:
-          OPENCODE_TARGET: ${{ matrix.target }}
-          OPENCODE_DESKTOP_APP: ${{ runner.temp }}/app/app
+          NYTRIX_TARGET: ${{ matrix.target }}
+          NYTRIX_DESKTOP_APP: ${{ runner.temp }}/app/app
       - name: Upload
         uses: ./.github/release/upload
         with:
@@ -404,7 +403,7 @@ jobs:
         if: needs.plan.outputs.desktop == 'true'
         run: |
           bash .github/release/sign-desktop-macos.sh "$RUNNER_TEMP/out" \
-            "$RUNNER_TEMP"/in/build-desktop-darwin-*/opencode-desktop-mac-*.app.tar
+            "$RUNNER_TEMP"/in/build-desktop-darwin-*/nytrix-desktop-mac-*.app.tar
         env:
           APPLE_NOTARY_KEY: ${{ secrets.APPLE_NOTARY_KEY }}
           APPLE_NOTARY_KEY_ID: ${{ vars.APPLE_NOTARY_KEY_ID }}
@@ -545,7 +544,7 @@ jobs:
         with:
           subject-path: |
             ${{ runner.temp }}/in/build-npm/*.tgz
-            ${{ runner.temp }}/in/build-archives/opencode*
+            ${{ runner.temp }}/in/build-archives/nytrix*
 
   publish-npm:
     needs: [plan, sign-macos, sign-windows, publish-attestations]
@@ -574,46 +573,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-  publish-cli:
-    needs: [plan, sign-macos, sign-windows, publish-npm]
-    if: ${{ !cancelled() && !failure() && needs.plan.outputs.cli == 'true' }}
-    runs-on: ubuntu-24.04
-    environment: ${{ needs.plan.outputs.dry_run != 'true' && 'release' || '' }}
-    permissions:
-      contents: read
-      id-token: write
-    env: *env
-    steps:
-      - *checkout-release
-      - *download-signed-cli
-      - name: Publish
-        run: bash .github/release/publish-cli.sh "$RUNNER_TEMP/in/build-archives" "$RUNNER_TEMP/in/sign-macos" "$RUNNER_TEMP/in/sign-windows"
-        env: &cloudflare
-          CLOUDFLARE_ACCOUNT_ID: 15d29c8639fd3733b1b5486a2acfd968
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-  publish-desktop:
-    needs: [plan, sign-macos, sign-desktop-windows-installer]
-    if: ${{ !cancelled() && !failure() && needs.plan.outputs.desktop == 'true' }}
-    runs-on: ubuntu-24.04
-    environment: ${{ needs.plan.outputs.dry_run != 'true' && 'release' || '' }}
-    permissions:
-      contents: read
-      id-token: write
-    env: *env
-    steps:
-      - *checkout-release
-      - name: Download
-        uses: ./.github/release/download
-        with:
-          pattern: "{sign-macos,sign-desktop-windows-installer,build-desktop-linux-*}"
-          digests: sign-macos=${{ needs.sign-macos.outputs.digest }} sign-desktop-windows-installer=${{ needs.sign-desktop-windows-installer.outputs.digest }}
-      - name: Publish
-        run: |
-          bash .github/release/publish-desktop.sh "$RUNNER_TEMP/in/sign-macos" "$RUNNER_TEMP/in/sign-desktop-windows-installer" \
-            "$RUNNER_TEMP/in/build-desktop-linux-x64" "$RUNNER_TEMP/in/build-desktop-linux-arm64"
-        env: *cloudflare
-
   publish-docker:
     needs: [plan, build-docker]
     if: ${{ !cancelled() && !failure() && needs.plan.outputs.release == 'true' }}
@@ -634,65 +593,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
-  publish-homebrew:
-    needs: [plan, sign-macos, sign-windows, publish-cli]
-    if: ${{ !cancelled() && !failure() && needs.plan.outputs.release == 'true' }}
-    runs-on: ubuntu-24.04
-    environment: ${{ needs.plan.outputs.dry_run != 'true' && 'release' || '' }}
-    permissions:
-      contents: read
-      id-token: write
-    env: *env
-    steps:
-      - *checkout-release
-      - *download-signed-cli
-      - name: Publish
-        run: bash .github/release/publish-homebrew.sh "$RUNNER_TEMP/in/sign-macos" "$RUNNER_TEMP/in/build-archives"
-        env:
-          HOMEBREW_TAP_DEPLOY_KEY: ${{ secrets.HOMEBREW_TAP_DEPLOY_KEY }}
-
-  # The AUR package installs the published npm tarballs, so it follows the npm publish.
-  publish-aur:
-    needs: [plan, sign-macos, sign-windows, publish-npm]
-    if: ${{ !cancelled() && !failure() && needs.plan.outputs.release == 'true' }}
-    runs-on: ubuntu-24.04
-    environment: ${{ needs.plan.outputs.dry_run != 'true' && 'release' || '' }}
-    permissions:
-      contents: read
-      id-token: write
-    env: *env
-    steps:
-      - *checkout-release
-      - *download-signed-cli
-      - name: Publish
-        run: bash .github/release/publish-aur.sh "$RUNNER_TEMP/in/build-npm"
-        env:
-          AUR_KEY: ${{ secrets.AUR_KEY }}
-
-  # WinGet manifests as data. Submission to microsoft/winget-pkgs stays paused until the packages are accepted.
-  publish-winget:
-    needs: [plan, sign-windows, sign-desktop-windows-installer]
-    if: ${{ !cancelled() && !failure() && needs.plan.outputs.release == 'true' }}
-    runs-on: ubuntu-24.04
-    env: *env
-    steps:
-      - *checkout-release
-      - name: Download
-        uses: ./.github/release/download
-        with:
-          pattern: "{sign-windows,sign-desktop-windows-installer}"
-          digests: sign-windows=${{ needs.sign-windows.outputs.digest }} sign-desktop-windows-installer=${{ needs.sign-desktop-windows-installer.outputs.digest }}
-      - name: Render
-        run: bash .github/release/render-winget.sh "$RUNNER_TEMP/in/sign-windows" "$RUNNER_TEMP/in/sign-desktop-windows-installer" "$RUNNER_TEMP/out"
-      - name: Upload
-        uses: ./.github/release/upload
-        with:
-          name: publish-winget
-          path: ${{ runner.temp }}/out
-
   publish-github-release:
-    needs: [plan, sign-macos, sign-windows, sign-desktop-windows-installer, publish-cli, publish-desktop]
-    if: ${{ !cancelled() && !failure() && needs.plan.outputs.release == 'true' }}
+    needs: [plan, sign-macos, sign-windows, sign-desktop-windows-installer]
+    if: ${{ !cancelled() && !failure() && needs.plan.outputs.channel != 'pr' }}
     runs-on: ubuntu-24.04
     environment: ${{ needs.plan.outputs.dry_run != 'true' && 'release' || '' }}
     permissions:
@@ -712,11 +615,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          OPENCODE_RELEASE_NOTES: ${{ inputs.release_notes }}
+          NYTRIX_RELEASE_NOTES: ${{ inputs.release_notes }}
 
   # Brings the release commit back to dev. Pushing to dev is blocked by rulesets, so it opens a PR.
   publish-version-pr:
-    needs: [plan, tag, publish-npm, publish-cli, publish-desktop, publish-github-release]
+    needs: [plan, tag, publish-npm, publish-github-release]
     if: ${{ !cancelled() && !failure() && needs.plan.outputs.channel == 'latest' }}
     runs-on: ubuntu-24.04
     permissions:

@@ -3,7 +3,7 @@
 export default $config({
   app(input) {
     return {
-      name: "opencode",
+      name: "nytrix",
       removal: input?.stage === "production" ? "retain" : "remove",
       protect: ["production"].includes(input?.stage),
       home: "cloudflare",
@@ -33,7 +33,9 @@ export default $config({
   async run() {
     if ($app.stage === "beta") {
       const { createWebApp } = await import("./infra/webapp.js")
-      return { WebAppUrl: createWebApp("beta.opencode.ai").url }
+      const domain = process.env.NYTRIX_DOMAIN
+      if (!domain) throw new Error("NYTRIX_DOMAIN must name a domain provisioned for this Nytrix deployment")
+      return { WebAppUrl: createWebApp(`beta.${domain}`).url }
     }
 
     const stage = await import("./infra/stage.js")

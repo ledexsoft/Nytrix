@@ -10,10 +10,13 @@ const lakeCluster = new sst.aws.Cluster("LakeCluster", { vpc: lakeVpc })
 // DATABASE
 ////////////////
 
-const cluster = planetscale.getDatabaseOutput({
-  name: "opencode-stats",
-  organization: "anomalyco",
-})
+const databaseName = process.env.NYTRIX_STATS_DATABASE_NAME
+if (!databaseName) throw new Error("NYTRIX_STATS_DATABASE_NAME must name the Nytrix stats database")
+
+const organization = process.env.NYTRIX_PLANETSCALE_ORGANIZATION
+if (!organization) throw new Error("NYTRIX_PLANETSCALE_ORGANIZATION must identify the PlanetScale organization")
+
+const cluster = planetscale.getDatabaseOutput({ name: databaseName, organization })
 
 const branch =
   $app.stage === "production"

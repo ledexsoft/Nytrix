@@ -1,20 +1,18 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "opencode-files",
+  "name": "nytrix-files",
   "main": "src/index.ts",
   "compatibility_date": "2026-08-01",
-  "workers_dev": false,
+  "workers_dev": true,
   "preview_urls": false,
   "env": {
     "dev": {
-      "name": "opencode-dev-files",
-      "routes": [{ "pattern": "dev.opencode.ai/files/*", "zone_name": "opencode.ai" }],
-      "r2_buckets": [{ "binding": "FILES", "bucket_name": "opencode-dev-files" }],
+      "name": "nytrix-dev-files",
+      "r2_buckets": [{ "binding": "FILES", "bucket_name": "nytrix-dev-files" }],
     },
     "production": {
-      "name": "opencode-production-files",
-      "routes": [{ "pattern": "opencode.ai/files/*", "zone_name": "opencode.ai" }],
-      "r2_buckets": [{ "binding": "FILES", "bucket_name": "opencode-production-files" }],
+      "name": "nytrix-production-files",
+      "r2_buckets": [{ "binding": "FILES", "bucket_name": "nytrix-production-files" }],
     },
   },
 }

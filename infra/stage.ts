@@ -1,31 +1,19 @@
+const baseDomain = process.env.NYTRIX_DOMAIN
+if (!baseDomain) throw new Error("NYTRIX_DOMAIN must name a domain provisioned for this Nytrix deployment")
+
+const shareDomain = process.env.NYTRIX_SHARE_DOMAIN
+if (!shareDomain) throw new Error("NYTRIX_SHARE_DOMAIN must name a share domain provisioned for this Nytrix deployment")
+
 export const domain = (() => {
-  if ($app.stage === "production") return "opencode.ai"
-  if ($app.stage === "dev") return "dev.opencode.ai"
-  return `${$app.stage}.dev.opencode.ai`
+  if ($app.stage === "production") return baseDomain
+  if ($app.stage === "dev") return `dev.${baseDomain}`
+  return `${$app.stage}.dev.${baseDomain}`
 })()
 
-export const zoneID = "430ba34c138cfb5360826c4909f99be8"
+export const zoneID = process.env.NYTRIX_CLOUDFLARE_ZONE_ID
+if (!zoneID) throw new Error("NYTRIX_CLOUDFLARE_ZONE_ID must identify the Nytrix Cloudflare zone")
 export const awsStage = $app.stage === "production" ? "production" : "dev"
 export const deployAws = $app.stage === awsStage
-
-if ($app.stage === "production") {
-  new cloudflare.DnsRecord("TrustCenter", {
-    zoneId: zoneID,
-    name: "trust.opencode.ai",
-    type: "CNAME",
-    content: "3a69a5bb27875189.vercel-dns-016.com",
-    proxied: false,
-    ttl: 60,
-  })
-
-  new cloudflare.DnsRecord("TrustCenterVerification", {
-    zoneId: zoneID,
-    name: "opencode.ai",
-    type: "TXT",
-    content: "compai-domain-verification=org_6993a99c6200a2d642bb115d",
-    ttl: 60,
-  })
-}
 
 new cloudflare.RegionalHostname("RegionalHostname", {
   hostname: domain,
@@ -33,8 +21,4 @@ new cloudflare.RegionalHostname("RegionalHostname", {
   zoneId: zoneID,
 })
 
-export const shortDomain = (() => {
-  if ($app.stage === "production") return "opncd.ai"
-  if ($app.stage === "dev") return "dev.opncd.ai"
-  return `${$app.stage}.dev.opncd.ai`
-})()
+export const shortDomain = shareDomain
